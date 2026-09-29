@@ -1,0 +1,236 @@
+{
+ "cohort_seam": {
+  "description": "E128 matched control minus the published E78 Dr.GRPO control, terminal PCMD, paired by domain and seed",
+  "max": 0.034100341273516147,
+  "mean": 0.0028332978948202073,
+  "min": -0.01352174589488193,
+  "paired_cells": 20
+ },
+ "decomposition": {
+  "shares": {
+   "balance_uniformly": 0.5754378121880741,
+   "retain_many_frequency_weighted": -0.15522868671012394,
+   "retain_one": 0.5797908745220498
+  },
+  "steps": {
+   "balance_uniformly": 0.2119998431138017,
+   "retain_many_frequency_weighted": -0.057188555448198564,
+   "retain_one": 0.21360357598001423
+  },
+  "total_redr_effect": 0.3684148636456174
+ },
+ "domains": [
+  {
+   "capacity_one": 0.38034433824351777,
+   "capacity_one_effect": 0.37711624463474974,
+   "control": 0.0032280936087680455,
+   "domain": "graph_coloring",
+   "frequency": 0.3830986335990279,
+   "frequency_reportable": 5,
+   "keying_effect": {
+    "by_seed": [
+     0.298907835532777,
+     0.30380717030572013,
+     0.3406953123795897,
+     0.37929472396178887,
+     0.3297200868720294
+    ],
+    "ci95": [
+     0.2902758917095571,
+     0.37069415991120497
+    ],
+    "mean": 0.33048502581038103,
+    "separates": true,
+    "stderr": 0.01448455839366857
+   },
+   "level3_reference": null,
+   "recovered_fraction": 0.532950208522827,
+   "redr_effect": 0.7076012704451308,
+   "uniform": 0.7108293640538988
+  },
+  {
+   "capacity_one": 0.15465324158039118,
+   "capacity_one_effect": 0.1375101106238377,
+   "control": 0.01714313095655349,
+   "domain": "countdown",
+   "frequency": 0.16859430830546204,
+   "frequency_reportable": 5,
+   "keying_effect": {
+    "by_seed": [
+     0.2567046005584237,
+     0.3607930614109832,
+     0.3237186726363422,
+     0.4965127776388435,
+     0.480945051970528
+    ],
+    "ci95": [
+     0.25586750592052704,
+     0.5116021597655211
+    ],
+    "mean": 0.3837348328430241,
+    "separates": true,
+    "stderr": 0.046061717191101255
+   },
+   "level3_reference": null,
+   "recovered_fraction": 0.2638109248777392,
+   "redr_effect": 0.5212449434668618,
+   "uniform": 0.5383880744234153
+  },
+  {
+   "capacity_one": 0.001443979822116023,
+   "capacity_one_effect": 0.001443979822116023,
+   "control": 0.0,
+   "domain": "python_factors",
+   "frequency": 0.002399273589885132,
+   "frequency_reportable": 3,
+   "keying_effect": {
+    "by_seed": [
+     0.0009765625,
+     -0.0018982832398080638,
+     0.05071148001747974,
+     0.0,
+     0.4977678106783034
+    ],
+    "ci95": [
+     -0.1613335934579876,
+     0.38035662144037763
+    ],
+    "mean": 0.109511513991195,
+    "separates": false,
+    "stderr": 0.09756668135777473
+   },
+   "level3_reference": {
+    "control": 0.0,
+    "note": "largest Level-3 gain of any domain, and also the one that does not survive key coarsening (App. coarser keys)",
+    "replay": 0.41763,
+    "seeds": 5
+   },
+   "recovered_fraction": 0.01301404529410325,
+   "redr_effect": 0.11095549381331105,
+   "uniform": 0.11095549381331105
+  },
+  {
+   "capacity_one": 0.004665467029725929,
+   "capacity_one_effect": 0.004665467029725929,
+   "control": 0.0,
+   "domain": "mathir",
+   "frequency": 0.004857092988427092,
+   "frequency_reportable": 5,
+   "keying_effect": {
+    "by_seed": [
+     0.0045718763551995415,
+     0.016687380440307386,
+     0.03228189604173801,
+     0.008231037752805061,
+     0.005313292071912761
+    ],
+    "ci95": [
+     -0.0009723897703097888,
+     0.027806582835094896
+    ],
+    "mean": 0.013417096532392554,
+    "separates": false,
+    "stderr": 0.00518353252979191
+   },
+   "level3_reference": {
+    "control": 0.0,
+    "note": null,
+    "replay": 0.05272,
+    "seeds": 5
+   },
+   "recovered_fraction": 0.2580091596912568,
+   "redr_effect": 0.01808256356211848,
+   "uniform": 0.01808256356211848
+  },
+  {
+   "capacity_one": 0.5472820777896418,
+   "capacity_one_effect": 0.5472820777896418,
+   "control": 0.0,
+   "domain": "pantry_plan",
+   "frequency": 0.2434970187415976,
+   "frequency_reportable": 5,
+   "keying_effect": {
+    "by_seed": [
+     -0.04603975878614375,
+     -0.21604222092685998,
+     0.15647066204246834,
+     -0.011698154179972331,
+     -0.1981506823943785
+    ],
+    "ci95": [
+     -0.2521603415809791,
+     0.12597627988302465
+    ],
+    "mean": -0.06309203084897724,
+    "separates": false,
+    "stderr": 0.06810818109942432
+   },
+   "level3_reference": null,
+   "recovered_fraction": 1.1303042704979618,
+   "redr_effect": 0.4841900469406646,
+   "uniform": 0.4841900469406646
+  }
+ ],
+ "estimator": "pooled per-prompt PCMD over verified responses, ops/mode_diversity.py, via extract_diversity_comparator_mode_diversity.cell_pcmd",
+ "frequency_terminal_steps": [
+  3072
+ ],
+ "generated_at": "2026-09-24T17:03:23.456823+00:00",
+ "keying_effect_note": "full Re:Dr minus capacity one, paired by seed. Reported as an interval rather than a count of domains, because the point estimate's sign flips on noise where the interval spans zero",
+ "keying_effect_pooled": {
+  "cells": 25,
+  "ci95": [
+   0.07110704156154297,
+   0.23851553376966322
+  ],
+  "mean": 0.1548112876656031,
+  "separates": true,
+  "stderr": 0.04270624801227557
+ },
+ "keying_effect_separating_domains": [
+  "graph_coloring",
+  "countdown"
+ ],
+ "means": {
+  "capacity_one": 0.21767782089307852,
+  "capacity_one_effect": 0.21360357598001425,
+  "control": 0.004074244913064307,
+  "frequency": 0.16048926544487996,
+  "redr_effect": 0.3684148636456174,
+  "uniform": 0.37248910855868167
+ },
+ "monotonic": false,
+ "rungs": {
+  "capacity_one": "E130, one slot, mode identity absent",
+  "control": "E128, no replay",
+  "frequency": "E120-R1, full capacity, discovery-frequency weights",
+  "uniform": "Re:Dr, full capacity, uniform rehearsal (from matched_redr_20260924.json)"
+ },
+ "schema": "paper-replay-mechanism-ladder-v1",
+ "small_denominator_domains": [
+  "mathir"
+ ],
+ "small_denominator_note": "reported, not excluded: their Level-1 Re:Dr effect is a few hundredths, so the ratio is unstable; see level3_reference per domain",
+ "sources": {
+  "comparators": {
+   "path": "paper/results/mode_diversity_comparators_diversity_05b.json",
+   "sha256": "3ff6b133a1571bf0bba5476bbc2795ca70d5d53dcd3a5d97665abc973ea9ddb8"
+  },
+  "e120r1_ledger": {
+   "path": "var/artifacts/e120r1_frequency_weighted_replay_jobs.json",
+   "sha256": "5302ba26da3f67d0b57e9eef1e8f528c6a56aef5faeb543a3adbfe32e721d8e7"
+  },
+  "e130": {
+   "path": "paper/results/mode_agnostic_replay_20260923.json",
+   "sha256": "b277cd06f1bc77f013a61d4fe5a4b2f7603a669b96791cc5ad9927a178ce3774"
+  },
+  "extractor": {
+   "path": "ops/extract_diversity_comparator_mode_diversity.py",
+   "sha256": "c9b7e90c732b16de4a399a4c8f75023cb3d91d92742ace98af7214ecd1a5392f"
+  },
+  "redr": {
+   "path": "paper/results/matched_redr_20260924.json",
+   "sha256": "52ea85f974abce86665f66117ac1a7fea616ca0c188a2f9e8a63a99847083973"
+  }
+ }
+}

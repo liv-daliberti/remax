@@ -1,0 +1,21 @@
+{
+  "python": "3.10.19",
+  "scope": "Fresh CPU development environment; no GPU training qualification.",
+  "modebench_source": {
+    "url": "https://github.com/liv-daliberti/modeBench.git",
+    "vcs_info": {
+      "commit_id": "94c45d1f66d3eb181fac2225dc04d62e08568b8e",
+      "requested_revision": "94c45d1f66d3eb181fac2225dc04d62e08568b8e",
+      "vcs": "git"
+    }
+  },
+  "packages": {
+    "torch": "2.6.0+cpu",
+    "numpy": "2.2.6",
+    "sympy": "1.13.1",
+    "pytest": "9.1.1",
+    "math-verify": "0.7.0",
+    "latex2sympy2-extended": "1.10.1",
+    "pylatexenc": "2.10"
+  }
+}

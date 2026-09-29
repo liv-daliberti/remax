@@ -1,0 +1,893 @@
+{
+ "cells": [
+  {
+   "control": {
+    "defined_prompts": 76,
+    "draws": 4,
+    "pass8": 0.4921875,
+    "pmd": 0.07262849786234257,
+    "prompts": 128,
+    "reportable": true,
+    "run_dir": "/n/fs/similarity/maxent-grpo/var/data/xdr_qwen25_0p5b_instruct_grpo_compute_matched_e134_tc_lr5e8_b1_graph_s43",
+    "terminal_step": 3072
+   },
+   "domain": "graph_coloring",
+   "redr": {
+    "defined_prompts": 127,
+    "draws": 4,
+    "pass8": 0.923828125,
+    "pmd": 0.7502544084712814,
+    "prompts": 128,
+    "reportable": true,
+    "run_dir": "/n/fs/similarity/maxent-grpo/var/data/xdr_qwen25_0p5b_instruct_verified_first_replay_rehearsal_only_e134_redr_lr5e8_b1_graph_s43",
+    "terminal_step": 3072
+   },
+   "seed": 43,
+   "setting": "tc_lr5e8_b1"
+  },
+  {
+   "control": {
+    "defined_prompts": 53,
+    "draws": 4,
+    "pass8": 0.365234375,
+    "pmd": 0.051850458204111105,
+    "prompts": 128,
+    "reportable": true,
+    "run_dir": "/n/fs/similarity/maxent-grpo/var/data/xdr_qwen25_0p5b_instruct_grpo_compute_matched_e134_tc_lr5e8_b1_graph_s44",
+    "terminal_step": 3072
+   },
+   "domain": "graph_coloring",
+   "redr": {
+    "defined_prompts": 127,
+    "draws": 4,
+    "pass8": 0.9375,
+    "pmd": 0.7671025815539548,
+    "prompts": 128,
+    "reportable": true,
+    "run_dir": "/n/fs/similarity/maxent-grpo/var/data/xdr_qwen25_0p5b_instruct_verified_first_replay_rehearsal_only_e134_redr_lr5e8_b1_graph_s44",
+    "terminal_step": 3072
+   },
+   "seed": 44,
+   "setting": "tc_lr5e8_b1"
+  },
+  {
+   "control": {
+    "defined_prompts": 51,
+    "draws": 4,
+    "pass8": 0.36328125,
+    "pmd": 0.06516080377560453,
+    "prompts": 128,
+    "reportable": true,
+    "run_dir": "/n/fs/similarity/maxent-grpo/var/data/xdr_qwen25_0p5b_instruct_grpo_compute_matched_e134_tc_lr5e8_b1_graph_s45",
+    "terminal_step": 3072
+   },
+   "domain": "graph_coloring",
+   "redr": {
+    "defined_prompts": 128,
+    "draws": 4,
+    "pass8": 0.94140625,
+    "pmd": 0.7592357063393552,
+    "prompts": 128,
+    "reportable": true,
+    "run_dir": "/n/fs/similarity/maxent-grpo/var/data/xdr_qwen25_0p5b_instruct_verified_first_replay_rehearsal_only_e134_redr_lr5e8_b1_graph_s45",
+    "terminal_step": 3072
+   },
+   "seed": 45,
+   "setting": "tc_lr5e8_b1"
+  },
+  {
+   "control": {
+    "defined_prompts": 60,
+    "draws": 4,
+    "pass8": 0.41796875,
+    "pmd": 0.03101478494623656,
+    "prompts": 128,
+    "reportable": true,
+    "run_dir": "/n/fs/similarity/maxent-grpo/var/data/xdr_qwen25_0p5b_instruct_grpo_compute_matched_e134_tc_lr5e8_b1_graph_s46",
+    "terminal_step": 3072
+   },
+   "domain": "graph_coloring",
+   "redr": {
+    "defined_prompts": 126,
+    "draws": 4,
+    "pass8": 0.90625,
+    "pmd": 0.7786231123460546,
+    "prompts": 128,
+    "reportable": true,
+    "run_dir": "/n/fs/similarity/maxent-grpo/var/data/xdr_qwen25_0p5b_instruct_verified_first_replay_rehearsal_only_e134_redr_lr5e8_b1_graph_s46",
+    "terminal_step": 3072
+   },
+   "seed": 46,
+   "setting": "tc_lr5e8_b1"
+  },
+  {
+   "control": {
+    "defined_prompts": 60,
+    "draws": 4,
+    "pass8": 0.453125,
+    "pmd": 0.05141434506353861,
+    "prompts": 128,
+    "reportable": true,
+    "run_dir": "/n/fs/similarity/maxent-grpo/var/data/xdr_qwen25_0p5b_instruct_grpo_compute_matched_e134_tc_lr5e8_b1_graph_s47",
+    "terminal_step": 3072
+   },
+   "domain": "graph_coloring",
+   "redr": {
+    "defined_prompts": 128,
+    "draws": 4,
+    "pass8": 0.95703125,
+    "pmd": 0.7643132264751773,
+    "prompts": 128,
+    "reportable": true,
+    "run_dir": "/n/fs/similarity/maxent-grpo/var/data/xdr_qwen25_0p5b_instruct_verified_first_replay_rehearsal_only_e134_redr_lr5e8_b1_graph_s47",
+    "terminal_step": 3072
+   },
+   "seed": 47,
+   "setting": "tc_lr5e8_b1"
+  },
+  {
+   "control": {
+    "defined_prompts": 83,
+    "draws": 4,
+    "pass8": 0.64453125,
+    "pmd": 0.015225738117304382,
+    "prompts": 128,
+    "reportable": true,
+    "run_dir": "/n/fs/similarity/maxent-grpo/var/data/xdr_qwen25_0p5b_instruct_grpo_compute_matched_e134_tc_ent1e3_b1r_countdown_s43",
+    "terminal_step": 3072
+   },
+   "domain": "countdown",
+   "redr": {
+    "defined_prompts": 85,
+    "draws": 4,
+    "pass8": 0.6640625,
+    "pmd": 0.5598716037712004,
+    "prompts": 128,
+    "reportable": true,
+    "run_dir": "/n/fs/similarity/maxent-grpo/var/data/xdr_qwen25_0p5b_instruct_verified_first_replay_rehearsal_only_e134_redr_ent1e3_b1r_countdown_s43",
+    "terminal_step": 3072
+   },
+   "seed": 43,
+   "setting": "tc_ent1e3_b1r"
+  },
+  {
+   "control": {
+    "defined_prompts": 80,
+    "draws": 4,
+    "pass8": 0.625,
+    "pmd": 0.006731121700879766,
+    "prompts": 128,
+    "reportable": true,
+    "run_dir": "/n/fs/similarity/maxent-grpo/var/data/xdr_qwen25_0p5b_instruct_grpo_compute_matched_e134_tc_ent1e3_b1r_countdown_s44",
+    "terminal_step": 3072
+   },
+   "domain": "countdown",
+   "redr": {
+    "defined_prompts": 86,
+    "draws": 4,
+    "pass8": 0.662109375,
+    "pmd": 0.5391558086674824,
+    "prompts": 128,
+    "reportable": true,
+    "run_dir": "/n/fs/similarity/maxent-grpo/var/data/xdr_qwen25_0p5b_instruct_verified_first_replay_rehearsal_only_e134_redr_ent1e3_b1r_countdown_s44",
+    "terminal_step": 3072
+   },
+   "seed": 44,
+   "setting": "tc_ent1e3_b1r"
+  },
+  {
+   "control": {
+    "defined_prompts": 78,
+    "draws": 4,
+    "pass8": 0.603515625,
+    "pmd": 0.02757961124896609,
+    "prompts": 128,
+    "reportable": true,
+    "run_dir": "/n/fs/similarity/maxent-grpo/var/data/xdr_qwen25_0p5b_instruct_grpo_compute_matched_e134_tc_ent1e3_b1r_countdown_s45",
+    "terminal_step": 3072
+   },
+   "domain": "countdown",
+   "redr": {
+    "defined_prompts": 85,
+    "draws": 4,
+    "pass8": 0.6640625,
+    "pmd": 0.6257206412253851,
+    "prompts": 128,
+    "reportable": true,
+    "run_dir": "/n/fs/similarity/maxent-grpo/var/data/xdr_qwen25_0p5b_instruct_verified_first_replay_rehearsal_only_e134_redr_ent1e3_b1r_countdown_s45",
+    "terminal_step": 3072
+   },
+   "seed": 45,
+   "setting": "tc_ent1e3_b1r"
+  },
+  {
+   "control": {
+    "defined_prompts": 72,
+    "draws": 4,
+    "pass8": 0.55078125,
+    "pmd": 0.0016801075268817205,
+    "prompts": 128,
+    "reportable": true,
+    "run_dir": "/n/fs/similarity/maxent-grpo/var/data/xdr_qwen25_0p5b_instruct_grpo_compute_matched_e134_tc_ent1e3_b1r_countdown_s46",
+    "terminal_step": 3072
+   },
+   "domain": "countdown",
+   "redr": {
+    "defined_prompts": 84,
+    "draws": 4,
+    "pass8": 0.654296875,
+    "pmd": 0.6315449865544047,
+    "prompts": 128,
+    "reportable": true,
+    "run_dir": "/n/fs/similarity/maxent-grpo/var/data/xdr_qwen25_0p5b_instruct_verified_first_replay_rehearsal_only_e134_redr_ent1e3_b1r_countdown_s46",
+    "terminal_step": 3072
+   },
+   "seed": 46,
+   "setting": "tc_ent1e3_b1r"
+  },
+  {
+   "control": {
+    "defined_prompts": 83,
+    "draws": 4,
+    "pass8": 0.638671875,
+    "pmd": 0.010590750097162845,
+    "prompts": 128,
+    "reportable": true,
+    "run_dir": "/n/fs/similarity/maxent-grpo/var/data/xdr_qwen25_0p5b_instruct_grpo_compute_matched_e134_tc_ent1e3_b1r_countdown_s47",
+    "terminal_step": 3072
+   },
+   "domain": "countdown",
+   "redr": {
+    "defined_prompts": 85,
+    "draws": 4,
+    "pass8": 0.662109375,
+    "pmd": 0.5361858112006281,
+    "prompts": 128,
+    "reportable": true,
+    "run_dir": "/n/fs/similarity/maxent-grpo/var/data/xdr_qwen25_0p5b_instruct_verified_first_replay_rehearsal_only_e134_redr_ent1e3_b1r_countdown_s47",
+    "terminal_step": 3072
+   },
+   "seed": 47,
+   "setting": "tc_ent1e3_b1r"
+  },
+  {
+   "control": {
+    "defined_prompts": 22,
+    "draws": 4,
+    "pass8": 0.171875,
+    "pmd": 0.0,
+    "prompts": 128,
+    "reportable": false,
+    "run_dir": "/n/fs/similarity/maxent-grpo/var/data/xdr_qwen25_0p5b_instruct_grpo_compute_matched_e128_control_python_s43",
+    "terminal_step": 3072
+   },
+   "domain": "python_factors",
+   "redr": {
+    "defined_prompts": 128,
+    "draws": 4,
+    "pass8": 0.994140625,
+    "pmd": 0.0009765625,
+    "prompts": 128,
+    "reportable": true,
+    "run_dir": "/n/fs/similarity/maxent-grpo/var/data/xdr_qwen25_0p5b_instruct_verified_first_replay_rehearsal_only_e132_redr_matched_python_s43",
+    "terminal_step": 3072
+   },
+   "seed": 43,
+   "setting": "baseline"
+  },
+  {
+   "control": {
+    "defined_prompts": 128,
+    "draws": 4,
+    "pass8": 1.0,
+    "pmd": 0.0,
+    "prompts": 128,
+    "reportable": true,
+    "run_dir": "/n/fs/similarity/maxent-grpo/var/data/xdr_qwen25_0p5b_instruct_grpo_compute_matched_e128_control_python_s44",
+    "terminal_step": 3072
+   },
+   "domain": "python_factors",
+   "redr": {
+    "defined_prompts": 128,
+    "draws": 4,
+    "pass8": 0.99609375,
+    "pmd": 0.005321615870772051,
+    "prompts": 128,
+    "reportable": true,
+    "run_dir": "/n/fs/similarity/maxent-grpo/var/data/xdr_qwen25_0p5b_instruct_verified_first_replay_rehearsal_only_e132_redr_matched_python_s44",
+    "terminal_step": 3072
+   },
+   "seed": 44,
+   "setting": "baseline"
+  },
+  {
+   "control": {
+    "defined_prompts": 22,
+    "draws": 4,
+    "pass8": 0.171875,
+    "pmd": 0.0,
+    "prompts": 128,
+    "reportable": false,
+    "run_dir": "/n/fs/similarity/maxent-grpo/var/data/xdr_qwen25_0p5b_instruct_grpo_compute_matched_e128_control_python_s45",
+    "terminal_step": 3072
+   },
+   "domain": "python_factors",
+   "redr": {
+    "defined_prompts": 128,
+    "draws": 4,
+    "pass8": 1.0,
+    "pmd": 0.05071148001747974,
+    "prompts": 128,
+    "reportable": true,
+    "run_dir": "/n/fs/similarity/maxent-grpo/var/data/xdr_qwen25_0p5b_instruct_verified_first_replay_rehearsal_only_e132_redr_matched_python_s45",
+    "terminal_step": 3072
+   },
+   "seed": 45,
+   "setting": "baseline"
+  },
+  {
+   "control": {
+    "defined_prompts": 22,
+    "draws": 4,
+    "pass8": 0.171875,
+    "pmd": 0.0,
+    "prompts": 128,
+    "reportable": false,
+    "run_dir": "/n/fs/similarity/maxent-grpo/var/data/xdr_qwen25_0p5b_instruct_grpo_compute_matched_e128_control_python_s46",
+    "terminal_step": 3072
+   },
+   "domain": "python_factors",
+   "redr": {
+    "defined_prompts": 28,
+    "draws": 4,
+    "pass8": 0.220703125,
+    "pmd": 0.0,
+    "prompts": 128,
+    "reportable": false,
+    "run_dir": "/n/fs/similarity/maxent-grpo/var/data/xdr_qwen25_0p5b_instruct_verified_first_replay_rehearsal_only_e132_redr_matched_python_s46",
+    "terminal_step": 3072
+   },
+   "seed": 46,
+   "setting": "baseline"
+  },
+  {
+   "control": {
+    "defined_prompts": 22,
+    "draws": 4,
+    "pass8": 0.171875,
+    "pmd": 0.0,
+    "prompts": 128,
+    "reportable": false,
+    "run_dir": "/n/fs/similarity/maxent-grpo/var/data/xdr_qwen25_0p5b_instruct_grpo_compute_matched_e128_control_python_s47",
+    "terminal_step": 3072
+   },
+   "domain": "python_factors",
+   "redr": {
+    "defined_prompts": 128,
+    "draws": 4,
+    "pass8": 1.0,
+    "pmd": 0.4977678106783034,
+    "prompts": 128,
+    "reportable": true,
+    "run_dir": "/n/fs/similarity/maxent-grpo/var/data/xdr_qwen25_0p5b_instruct_verified_first_replay_rehearsal_only_e132_redr_matched_python_s47",
+    "terminal_step": 3072
+   },
+   "seed": 47,
+   "setting": "baseline"
+  },
+  {
+   "control": {
+    "defined_prompts": 69,
+    "draws": 4,
+    "pass8": 0.529296875,
+    "pmd": 0.0,
+    "prompts": 128,
+    "reportable": true,
+    "run_dir": "/n/fs/similarity/maxent-grpo/var/data/xdr_qwen25_0p5b_instruct_grpo_compute_matched_e134_tc_ent1e3_b1r_mathir_s43",
+    "terminal_step": 3072
+   },
+   "domain": "mathir",
+   "redr": {
+    "defined_prompts": 115,
+    "draws": 4,
+    "pass8": 0.88671875,
+    "pmd": 0.032911701005264325,
+    "prompts": 128,
+    "reportable": true,
+    "run_dir": "/n/fs/similarity/maxent-grpo/var/data/xdr_qwen25_0p5b_instruct_verified_first_replay_rehearsal_only_e134_redr_ent1e3_b1r_mathir_s43",
+    "terminal_step": 3072
+   },
+   "seed": 43,
+   "setting": "tc_ent1e3_b1r"
+  },
+  {
+   "control": {
+    "defined_prompts": 60,
+    "draws": 4,
+    "pass8": 0.451171875,
+    "pmd": 0.011111111111111112,
+    "prompts": 128,
+    "reportable": true,
+    "run_dir": "/n/fs/similarity/maxent-grpo/var/data/xdr_qwen25_0p5b_instruct_grpo_compute_matched_e134_tc_ent1e3_b1r_mathir_s44",
+    "terminal_step": 3072
+   },
+   "domain": "mathir",
+   "redr": {
+    "defined_prompts": 116,
+    "draws": 4,
+    "pass8": 0.88671875,
+    "pmd": 0.020392503568191313,
+    "prompts": 128,
+    "reportable": true,
+    "run_dir": "/n/fs/similarity/maxent-grpo/var/data/xdr_qwen25_0p5b_instruct_verified_first_replay_rehearsal_only_e134_redr_ent1e3_b1r_mathir_s44",
+    "terminal_step": 3072
+   },
+   "seed": 44,
+   "setting": "tc_ent1e3_b1r"
+  },
+  {
+   "control": {
+    "defined_prompts": 65,
+    "draws": 4,
+    "pass8": 0.50390625,
+    "pmd": 0.002051282051282051,
+    "prompts": 128,
+    "reportable": true,
+    "run_dir": "/n/fs/similarity/maxent-grpo/var/data/xdr_qwen25_0p5b_instruct_grpo_compute_matched_e134_tc_ent1e3_b1r_mathir_s45",
+    "terminal_step": 3072
+   },
+   "domain": "mathir",
+   "redr": {
+    "defined_prompts": 108,
+    "draws": 4,
+    "pass8": 0.8203125,
+    "pmd": 0.03877210336247546,
+    "prompts": 128,
+    "reportable": true,
+    "run_dir": "/n/fs/similarity/maxent-grpo/var/data/xdr_qwen25_0p5b_instruct_verified_first_replay_rehearsal_only_e134_redr_ent1e3_b1r_mathir_s45",
+    "terminal_step": 3072
+   },
+   "seed": 45,
+   "setting": "tc_ent1e3_b1r"
+  },
+  {
+   "control": {
+    "defined_prompts": 70,
+    "draws": 4,
+    "pass8": 0.5234375,
+    "pmd": 0.014285714285714285,
+    "prompts": 128,
+    "reportable": true,
+    "run_dir": "/n/fs/similarity/maxent-grpo/var/data/xdr_qwen25_0p5b_instruct_grpo_compute_matched_e134_tc_ent1e3_b1r_mathir_s46",
+    "terminal_step": 3072
+   },
+   "domain": "mathir",
+   "redr": {
+    "defined_prompts": 113,
+    "draws": 4,
+    "pass8": 0.853515625,
+    "pmd": 0.021658040757827148,
+    "prompts": 128,
+    "reportable": true,
+    "run_dir": "/n/fs/similarity/maxent-grpo/var/data/xdr_qwen25_0p5b_instruct_verified_first_replay_rehearsal_only_e134_redr_ent1e3_b1r_mathir_s46",
+    "terminal_step": 3072
+   },
+   "seed": 46,
+   "setting": "tc_ent1e3_b1r"
+  },
+  {
+   "control": {
+    "defined_prompts": 71,
+    "draws": 4,
+    "pass8": 0.55078125,
+    "pmd": 0.0014084507042253518,
+    "prompts": 128,
+    "reportable": true,
+    "run_dir": "/n/fs/similarity/maxent-grpo/var/data/xdr_qwen25_0p5b_instruct_grpo_compute_matched_e134_tc_ent1e3_b1r_mathir_s47",
+    "terminal_step": 3072
+   },
+   "domain": "mathir",
+   "redr": {
+    "defined_prompts": 114,
+    "draws": 4,
+    "pass8": 0.87109375,
+    "pmd": 0.026093008602204978,
+    "prompts": 128,
+    "reportable": true,
+    "run_dir": "/n/fs/similarity/maxent-grpo/var/data/xdr_qwen25_0p5b_instruct_verified_first_replay_rehearsal_only_e134_redr_ent1e3_b1r_mathir_s47",
+    "terminal_step": 3072
+   },
+   "seed": 47,
+   "setting": "tc_ent1e3_b1r"
+  },
+  {
+   "control": {
+    "defined_prompts": 85,
+    "draws": 4,
+    "pass8": 0.64453125,
+    "pmd": 0.13135673624288427,
+    "prompts": 128,
+    "reportable": true,
+    "run_dir": "/n/fs/similarity/maxent-grpo/var/data/xdr_qwen25_0p5b_instruct_grpo_compute_matched_e134_tc_lr5e8_b1_pantry_s43",
+    "terminal_step": 3072
+   },
+   "domain": "pantry_plan",
+   "redr": {
+    "defined_prompts": 104,
+    "draws": 4,
+    "pass8": 0.77734375,
+    "pmd": 0.5608543474833689,
+    "prompts": 128,
+    "reportable": true,
+    "run_dir": "/n/fs/similarity/maxent-grpo/var/data/xdr_qwen25_0p5b_instruct_verified_first_replay_rehearsal_only_e134_redr_lr5e8_b1_pantry_s43",
+    "terminal_step": 3072
+   },
+   "seed": 43,
+   "setting": "tc_lr5e8_b1"
+  },
+  {
+   "control": {
+    "defined_prompts": 69,
+    "draws": 4,
+    "pass8": 0.5546875,
+    "pmd": 0.02331697054698457,
+    "prompts": 128,
+    "reportable": true,
+    "run_dir": "/n/fs/similarity/maxent-grpo/var/data/xdr_qwen25_0p5b_instruct_grpo_compute_matched_e134_tc_lr5e8_b1_pantry_s44",
+    "terminal_step": 3072
+   },
+   "domain": "pantry_plan",
+   "redr": {
+    "defined_prompts": 97,
+    "draws": 4,
+    "pass8": 0.76171875,
+    "pmd": 0.5066051810881365,
+    "prompts": 128,
+    "reportable": true,
+    "run_dir": "/n/fs/similarity/maxent-grpo/var/data/xdr_qwen25_0p5b_instruct_verified_first_replay_rehearsal_only_e134_redr_lr5e8_b1_pantry_s44",
+    "terminal_step": 3072
+   },
+   "seed": 44,
+   "setting": "tc_lr5e8_b1"
+  },
+  {
+   "control": {
+    "defined_prompts": 83,
+    "draws": 4,
+    "pass8": 0.634765625,
+    "pmd": 0.07969782355227362,
+    "prompts": 128,
+    "reportable": true,
+    "run_dir": "/n/fs/similarity/maxent-grpo/var/data/xdr_qwen25_0p5b_instruct_grpo_compute_matched_e134_tc_lr5e8_b1_pantry_s45",
+    "terminal_step": 3072
+   },
+   "domain": "pantry_plan",
+   "redr": {
+    "defined_prompts": 106,
+    "draws": 4,
+    "pass8": 0.794921875,
+    "pmd": 0.6176090442154313,
+    "prompts": 128,
+    "reportable": true,
+    "run_dir": "/n/fs/similarity/maxent-grpo/var/data/xdr_qwen25_0p5b_instruct_verified_first_replay_rehearsal_only_e134_redr_lr5e8_b1_pantry_s45",
+    "terminal_step": 3072
+   },
+   "seed": 45,
+   "setting": "tc_lr5e8_b1"
+  },
+  {
+   "control": {
+    "defined_prompts": 85,
+    "draws": 4,
+    "pass8": 0.650390625,
+    "pmd": 0.13861480075901328,
+    "prompts": 128,
+    "reportable": true,
+    "run_dir": "/n/fs/similarity/maxent-grpo/var/data/xdr_qwen25_0p5b_instruct_grpo_compute_matched_e134_tc_lr5e8_b1_pantry_s46",
+    "terminal_step": 3072
+   },
+   "domain": "pantry_plan",
+   "redr": {
+    "defined_prompts": 100,
+    "draws": 4,
+    "pass8": 0.75,
+    "pmd": 0.49501260011102083,
+    "prompts": 128,
+    "reportable": true,
+    "run_dir": "/n/fs/similarity/maxent-grpo/var/data/xdr_qwen25_0p5b_instruct_verified_first_replay_rehearsal_only_e134_redr_lr5e8_b1_pantry_s46",
+    "terminal_step": 3072
+   },
+   "seed": 46,
+   "setting": "tc_lr5e8_b1"
+  },
+  {
+   "control": {
+    "defined_prompts": 81,
+    "draws": 4,
+    "pass8": 0.62109375,
+    "pmd": 0.08034647550776583,
+    "prompts": 128,
+    "reportable": true,
+    "run_dir": "/n/fs/similarity/maxent-grpo/var/data/xdr_qwen25_0p5b_instruct_grpo_compute_matched_e134_tc_lr5e8_b1_pantry_s47",
+    "terminal_step": 3072
+   },
+   "domain": "pantry_plan",
+   "redr": {
+    "defined_prompts": 106,
+    "draws": 4,
+    "pass8": 0.806640625,
+    "pmd": 0.6372871217209244,
+    "prompts": 128,
+    "reportable": true,
+    "run_dir": "/n/fs/similarity/maxent-grpo/var/data/xdr_qwen25_0p5b_instruct_verified_first_replay_rehearsal_only_e134_redr_lr5e8_b1_pantry_s47",
+    "terminal_step": 3072
+   },
+   "seed": 47,
+   "setting": "tc_lr5e8_b1"
+  }
+ ],
+ "domains": [
+  {
+   "control_pass8": 0.418359375,
+   "control_pmd": 0.05441377797036667,
+   "domain": "graph_coloring",
+   "e128_pass8": 0.325390625,
+   "e128_pmd": 0.0032280936087680455,
+   "paired_pass8": {
+    "ci95": [
+     0.43869390648740847,
+     0.5909935935125916
+    ],
+    "mean": 0.51484375,
+    "n": 5,
+    "negative": 0,
+    "positive": 5
+   },
+   "paired_pmd": {
+    "ci95": [
+     0.6769359582648795,
+     0.7420480998687167
+    ],
+    "mean": 0.7094920290667981,
+    "n": 5,
+    "negative": 0,
+    "positive": 5
+   },
+   "redr_pass8": 0.933203125,
+   "redr_pmd": 0.7639058070371647,
+   "selected": true,
+   "setting": "tc_lr5e8_b1"
+  },
+  {
+   "control_pass8": 0.6125,
+   "control_pmd": 0.012361465738238962,
+   "domain": "countdown",
+   "e128_pass8": 0.589453125,
+   "e128_pmd": 0.01714313095655349,
+   "paired_pass8": {
+    "ci95": [
+     0.005964439528186427,
+     0.09169181047181357
+    ],
+    "mean": 0.048828125,
+    "n": 5,
+    "negative": 0,
+    "positive": 5
+   },
+   "paired_pmd": {
+    "ci95": [
+     0.5094891481540423,
+     0.6227794609371201
+    ],
+    "mean": 0.5661343045455812,
+    "n": 5,
+    "negative": 0,
+    "positive": 5
+   },
+   "redr_pass8": 0.661328125,
+   "redr_pmd": 0.5784957702838202,
+   "selected": true,
+   "setting": "tc_ent1e3_b1r"
+  },
+  {
+   "control_pass8": 0.3375,
+   "control_pmd": 0.0,
+   "domain": "python_factors",
+   "e128_pass8": 0.3375,
+   "e128_pmd": 0.0,
+   "paired_pass8": {
+    "ci95": [
+     -0.042316545073844414,
+     1.0516915450738442
+    ],
+    "mean": 0.5046875,
+    "n": 5,
+    "negative": 1,
+    "positive": 4
+   },
+   "paired_pmd": {
+    "ci95": [
+     -0.1587726664811917,
+     0.3806836541078138
+    ],
+    "mean": 0.11095549381331105,
+    "n": 5,
+    "negative": 0,
+    "positive": 4
+   },
+   "redr_pass8": 0.8421875,
+   "redr_pmd": 0.11095549381331105,
+   "selected": true,
+   "setting": "baseline"
+  },
+  {
+   "control_pass8": 0.51171875,
+   "control_pmd": 0.00577131163046656,
+   "domain": "mathir",
+   "e128_pass8": 0.441015625,
+   "e128_pmd": 0.0,
+   "paired_pass8": {
+    "ci95": [
+     0.29062599033442915,
+     0.4132802596655708
+    ],
+    "mean": 0.351953125,
+    "n": 5,
+    "negative": 0,
+    "positive": 5
+   },
+   "paired_pmd": {
+    "ci95": [
+     0.0055553108004334495,
+     0.03883300885701872
+    ],
+    "mean": 0.022194159828726086,
+    "n": 5,
+    "negative": 0,
+    "positive": 5
+   },
+   "redr_pass8": 0.863671875,
+   "redr_pmd": 0.027965471459192648,
+   "selected": true,
+   "setting": "tc_ent1e3_b1r"
+  },
+  {
+   "control_pass8": 0.62109375,
+   "control_pmd": 0.09066656132178431,
+   "domain": "pantry_plan",
+   "e128_pass8": 0.5265625,
+   "e128_pmd": 0.0,
+   "paired_pass8": {
+    "ci95": [
+     0.10433575706572776,
+     0.20972674293427226
+    ],
+    "mean": 0.15703125,
+    "n": 5,
+    "negative": 0,
+    "positive": 5
+   },
+   "paired_pmd": {
+    "ci95": [
+     0.37108707294889054,
+     0.5745271222550936
+    ],
+    "mean": 0.4728070976019921,
+    "n": 5,
+    "negative": 0,
+    "positive": 5
+   },
+   "redr_pass8": 0.778125,
+   "redr_pmd": 0.5634736589237763,
+   "selected": true,
+   "setting": "tc_lr5e8_b1"
+  }
+ ],
+ "generated_at": "2026-09-28T03:07:37.018194+00:00",
+ "non_selected": [
+  {
+   "control_pass8": 0.565625,
+   "control_pmd": 0.015680415728320483,
+   "domain": "countdown",
+   "paired_pass8": {
+    "ci95": [
+     -0.0755345628026346,
+     0.2786595628026346
+    ],
+    "mean": 0.1015625,
+    "n": 5,
+    "negative": 0,
+    "positive": 5
+   },
+   "paired_pmd": {
+    "ci95": [
+     0.451576447657422,
+     0.5850909258200638
+    ],
+    "mean": 0.5183336867387429,
+    "n": 5,
+    "negative": 0,
+    "positive": 5
+   },
+   "redr_pass8": 0.6671875,
+   "redr_pmd": 0.5340141024670635,
+   "selected": false,
+   "setting": "tc_lr5e7_b4"
+  }
+ ],
+ "pooled": {
+  "pass8": {
+   "ci95": [
+    0.20629227845121,
+    0.42464522154879003
+   ],
+   "mean": 0.31546875,
+   "n": 25,
+   "negative": 1,
+   "positive": 24
+  },
+  "pmd": {
+   "ci95": [
+    0.2575005920922441,
+    0.49513264185031924
+   ],
+   "mean": 0.37631661697128166,
+   "n": 25,
+   "negative": 0,
+   "positive": 24
+  }
+ },
+ "registered_predictions": {
+  "1_gap_persists": {
+   "held_pass8": true,
+   "held_pmd": true,
+   "pass8": {
+    "ci95": [
+     0.20629227845121,
+     0.42464522154879003
+    ],
+    "mean": 0.31546875,
+    "n": 25,
+    "negative": 1,
+    "positive": 24
+   },
+   "pmd": {
+    "ci95": [
+     0.2575005920922441,
+     0.49513264185031924
+    ],
+    "mean": 0.37631661697128166,
+    "n": 25,
+    "negative": 0,
+    "positive": 24
+   }
+  },
+  "2_tuning_closes_part": {
+   "e128_pass8": 0.44398437500000004,
+   "half_e132_pmd_effect": 0.1842074318228087,
+   "held_pass8": true,
+   "held_pmd": true,
+   "tuned_pass8": 0.500234375,
+   "tuned_pmd": 0.0326426233321713
+  }
+ },
+ "schema": "paper-tuned-control-stage2-v1",
+ "selection": {
+  "countdown": "tc_ent1e3_b1r",
+  "graph_coloring": "tc_lr5e8_b1",
+  "mathir": "tc_ent1e3_b1r",
+  "pantry_plan": "tc_lr5e8_b1",
+  "python_factors": "baseline"
+ },
+ "sources": {
+  "paper/preregistration/e134_tuned_control_05b_20260924.md": "3cd37a29f0f0d16f9f60d60b6040160686e36685df3120bf58ff44f08bab0cf1",
+  "paper/results/matched_redr_20260924.json": "52ea85f974abce86665f66117ac1a7fea616ca0c188a2f9e8a63a99847083973",
+  "paper/results/tuned_control_sweep_20260927.json": "00b8345b6e74fbe758e43c9f2802247fe392e909c6a3de087f489a09d621cc4a",
+  "var/artifacts/e128_matched_control_05b_jobs.json": "4d588857cc282880db7fd9995df1389163fb16161691d7d5404c0b3d2d895378",
+  "var/artifacts/e132_matched_redr_05b_jobs.json": "fc8573fad06025ecc43e6ff0da4f5b482196a00001489f38b03d88e8e083fc4c",
+  "var/artifacts/e134_tuned_control_05b_stage1_entropy_rerun_jobs.json": "f32761fee22c55d210e0c819267710533fee307c465dc9a22ce18eae59f892da",
+  "var/artifacts/e134_tuned_control_05b_stage1_jobs.json": "bedb4fe806e07b7b2c18b0414612c79cd8b48b7aff9891bc35632ad9f070266f",
+  "var/artifacts/e134_tuned_control_05b_stage2_jobs.json": "ec32e248affdf9eae7ccaae9a54eac45ba4f9b59d00e51ca4a3c600ea95f1a8a",
+  "var/artifacts/e134_tuned_control_05b_stage2b_jobs.json": "42c5bb1e90a576a554c8b147d3d800ea03d1642de36283b12b03897acd54a372"
+ }
+}

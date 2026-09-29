@@ -1,0 +1,37 @@
+# Contributing
+
+Use the CPU environment in the [README](README.md#quick-start-cpu-checks), then run:
+
+```sh
+make check
+python examples/replay_loss.py
+```
+
+These commands test replay objectives, bank admission and scheduling, method/control flags, retained numerical evidence, and shell syntax. GPU training is a separate validation step.
+
+## Scientific compatibility
+
+Explain how a change affects fresh-sample advantages, bank admission, exemplar identity, replay weights, schedule/resume state, loss scaling, or compute-matched controls. Add focused behavioral tests for changes to those contracts.
+
+Preserve the ModeBench admission boundary: correctness and canonical mode identity must derive from the executable benchmark validator. Training support must not be initialized from evaluation answers or a certified solution catalogue.
+
+Keep frozen evidence immutable. New analyses, recipes, exclusions, or protocol revisions need their own identities. Do not update expected result files simply to make a numerical check pass. Preserve original copyright notices and source attribution.
+
+The public package should support CPU objective testing without installing OAT, vLLM, or DeepSpeed. Keep GPU integration dependencies in the `train` extra. Treat removed historical learner branches as scientific refactors requiring equivalence checks, not automatic cleanup.
+
+## Changes and issues
+
+Use [GitHub issues](https://github.com/liv-daliberti/remax/issues) for bugs and protocol questions. Include the commit, recipe, Python/package versions, minimal reproduction, and expected versus observed behavior. For numerical reports, include checkpoint/evaluation identities and relevant support counts.
+
+A pull request should describe the final behavior, why it changes, and checks performed. State explicitly whether GPU training was tested.
+
+## Release identities
+
+After reviewed edits, maintainers can refresh the final release hashes:
+
+```sh
+python ops/verify_release.py --refresh
+python ops/verify_release.py
+```
+
+Review the manifest and provenance diff before committing. Hash refresh records changed files; it does not replace regression tests, numerical reproduction, or a scientific review of altered behavior.

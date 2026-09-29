@@ -1,0 +1,258 @@
+{
+ "cells": 25,
+ "cells_on_spec": 25,
+ "cohort": "e132",
+ "control_cohort": "e128",
+ "domains": {
+  "countdown": {
+   "banked_modes_max": 6.0,
+   "control": {
+    "pass8": 0.589453125,
+    "pmd": 0.01714313095655349
+   },
+   "paired_pmd_by_seed": [
+    0.4717267216528843,
+    0.5322840406301406,
+    0.5467213198347991,
+    0.4929420430877358,
+    0.5625505921287492
+   ],
+   "paired_pmd_effect": 0.5212449434668618,
+   "published_e78_pmd": 0.4965958202197445,
+   "replay": {
+    "pass8": 0.662890625,
+    "pmd": 0.5383880744234153
+   },
+   "replay_pmd_by_seed": [
+    0.5058270629264005,
+    0.5505638772063481,
+    0.5544766536145846,
+    0.4965127776388435,
+    0.5845600007308998
+   ],
+   "reportable": 5,
+   "seeds": [
+    43,
+    44,
+    45,
+    46,
+    47
+   ],
+   "seeds_positive": 5
+  },
+  "graph_coloring": {
+   "banked_modes_max": 14.0,
+   "control": {
+    "pass8": 0.325390625,
+    "pmd": 0.0032280936087680455
+   },
+   "paired_pmd_by_seed": [
+    0.7081324618565428,
+    0.7148912046784451,
+    0.725516758837561,
+    0.6777553984305108,
+    0.7117105284225943
+   ],
+   "paired_pmd_effect": 0.7076012704451309,
+   "published_e78_pmd": 0.6863121985271341,
+   "replay": {
+    "pass8": 0.95,
+    "pmd": 0.7108293640538988
+   },
+   "replay_pmd_by_seed": [
+    0.7124105893152367,
+    0.7267535452635914,
+    0.725516758837561,
+    0.6777553984305108,
+    0.7117105284225943
+   ],
+   "reportable": 5,
+   "seeds": [
+    43,
+    44,
+    45,
+    46,
+    47
+   ],
+   "seeds_positive": 5
+  },
+  "mathir": {
+   "banked_modes_max": 3.0,
+   "control": {
+    "pass8": 0.441015625,
+    "pmd": 0.0
+   },
+   "paired_pmd_by_seed": [
+    0.01174033513656155,
+    0.02206972491035347,
+    0.03228189604173801,
+    0.019007569650026614,
+    0.005313292071912761
+   ],
+   "paired_pmd_effect": 0.01808256356211848,
+   "published_e78_pmd": 0.03900621516989278,
+   "replay": {
+    "pass8": 0.786328125,
+    "pmd": 0.01808256356211848
+   },
+   "replay_pmd_by_seed": [
+    0.01174033513656155,
+    0.02206972491035347,
+    0.03228189604173801,
+    0.019007569650026614,
+    0.005313292071912761
+   ],
+   "reportable": 5,
+   "seeds": [
+    43,
+    44,
+    45,
+    46,
+    47
+   ],
+   "seeds_positive": 5
+  },
+  "pantry_plan": {
+   "banked_modes_max": 16.0,
+   "control": {
+    "pass8": 0.5265625,
+    "pmd": 0.0
+   },
+   "paired_pmd_by_seed": [
+    0.4716288202129345,
+    0.41089095914393803,
+    0.5249078311173145,
+    0.5397139403773257,
+    0.4738086838518101
+   ],
+   "paired_pmd_effect": 0.4841900469406646,
+   "published_e78_pmd": 0.5569345281217222,
+   "replay": {
+    "pass8": 0.73828125,
+    "pmd": 0.4841900469406646
+   },
+   "replay_pmd_by_seed": [
+    0.4716288202129345,
+    0.41089095914393803,
+    0.5249078311173145,
+    0.5397139403773257,
+    0.4738086838518101
+   ],
+   "reportable": 5,
+   "seeds": [
+    43,
+    44,
+    45,
+    46,
+    47
+   ],
+   "seeds_positive": 5
+  },
+  "python_factors": {
+   "banked_modes_max": 4.0,
+   "control": {
+    "pass8": 0.3375,
+    "pmd": 0.0
+   },
+   "paired_pmd_by_seed": [
+    0.0009765625,
+    0.005321615870772051,
+    0.05071148001747974,
+    0.0,
+    0.4977678106783034
+   ],
+   "paired_pmd_effect": 0.11095549381331105,
+   "published_e78_pmd": 0.09902418709623431,
+   "replay": {
+    "pass8": 0.8421875,
+    "pmd": 0.11095549381331105
+   },
+   "replay_pmd_by_seed": [
+    0.0009765625,
+    0.005321615870772051,
+    0.05071148001747974,
+    0.0,
+    0.4977678106783034
+   ],
+   "reportable": 4,
+   "seeds": [
+    43,
+    44,
+    45,
+    46,
+    47
+   ],
+   "seeds_positive": 4
+  }
+ },
+ "estimator": "pooled per-prompt PCMD over verified responses, ops/mode_diversity.py, via extract_diversity_comparator_mode_diversity.cell_pcmd",
+ "generated_at": "2026-09-24T17:03:03.440381+00:00",
+ "means": {
+  "control_pass8": 0.44398437500000004,
+  "control_pmd": 0.004074244913064307,
+  "published_pmd": 0.3755745898269456,
+  "redr_pass8": 0.7959375,
+  "redr_pmd": 0.37248910855868167
+ },
+ "paired_cells": {
+  "negative": 0,
+  "negative_cells": [],
+  "positive": 24,
+  "zero": 1,
+  "zero_cells": [
+   "python_factors/s46"
+  ]
+ },
+ "registered_predictions": {
+  "ablation_conclusion_survives": {
+   "cross_cohort_value_it_replaces": 0.5749754445841238,
+   "held": true,
+   "recovered_fraction": 0.5797908745220498,
+   "registered": "within-cohort capacity-one recovered fraction stays strictly between 25% and 85%"
+  },
+  "correctness_exceeds_control": {
+   "control": 0.44398437500000004,
+   "e132": 0.7959375,
+   "held": true,
+   "published": 0.74765625,
+   "registered": "E132 pass@8 exceeds its matched control on the five-domain mean; no match to the published value claimed"
+  },
+  "diversity_agreement": {
+   "absolute_difference": 0.003085481268263912,
+   "e132": 0.37248910855868167,
+   "held": true,
+   "published": 0.3755745898269456,
+   "registered": "E132 five-domain mean PCMD within .05 of the published E78 Re:Dr value"
+  }
+ },
+ "replaces_cross_cohort_arm": "e78 replay (Re:Dr), spans node302 (A100) and node105 (A5000)",
+ "reportable_cells": 24,
+ "schema": "paper-matched-redr-v1",
+ "sources": {
+  "e128_control": {
+   "path": "paper/results/mode_diversity_comparators_diversity_05b.json",
+   "sha256": "3ff6b133a1571bf0bba5476bbc2795ca70d5d53dcd3a5d97665abc973ea9ddb8"
+  },
+  "e130": {
+   "path": "paper/results/mode_agnostic_replay_20260923.json",
+   "sha256": "b277cd06f1bc77f013a61d4fe5a4b2f7603a669b96791cc5ad9927a178ce3774"
+  },
+  "e132_ledger": {
+   "path": "var/artifacts/e132_matched_redr_05b_jobs.json",
+   "sha256": "fc8573fad06025ecc43e6ff0da4f5b482196a00001489f38b03d88e8e083fc4c"
+  },
+  "extractor": {
+   "path": "ops/extract_diversity_comparator_mode_diversity.py",
+   "sha256": "c9b7e90c732b16de4a399a4c8f75023cb3d91d92742ace98af7214ecd1a5392f"
+  },
+  "preregistration": {
+   "path": "paper/preregistration/e132_matched_redr_05b_20260923.md",
+   "sha256": "6396a434cd0a3bab3cde486869a78825490dd8e8c35a39ea34ccdd95fb7e3834"
+  },
+  "published_e78": {
+   "path": "paper/results/reference_kl_comparison.json",
+   "sha256": "4a56ac67242af8fed9372e6c5f7ed8396bc7d53a40d1f5fec405283a4eb613d0"
+  }
+ },
+ "terminal_step": 3072
+}

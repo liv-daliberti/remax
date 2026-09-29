@@ -1,0 +1,504 @@
+{
+  "source_commit": "698dc0fd59de270d324a5a091eb7c4824268e4ee",
+  "source_kind": "working tree (includes uncommitted changes)",
+  "files": [
+    {
+      "path": "src/remax/math_grader_worker.py",
+      "sha256": "e445a19fd25e9586e4207a743f1a2b2ca2c977b76ea4757ba4229bee84dda477",
+      "transformation": "namespace relocation; benchmark imports delegate to modebench",
+      "source": "src/oat_drgrpo/math_grader_worker.py",
+      "source_sha256": "e445a19fd25e9586e4207a743f1a2b2ca2c977b76ea4757ba4229bee84dda477",
+      "extracted_sha256": "e445a19fd25e9586e4207a743f1a2b2ca2c977b76ea4757ba4229bee84dda477"
+    },
+    {
+      "path": "src/remax/math_grader.py",
+      "sha256": "af963ec2792623d789932839d08a9c5ca5e0949604b5bf7c18036df381e0b903",
+      "transformation": "namespace relocation; benchmark imports delegate to modebench",
+      "source": "src/oat_drgrpo/math_grader.py",
+      "source_sha256": "5bc8a2382ab30d9ccb2dfa4a9cbfb78be28187e1b5049063814cc262b5bac255",
+      "extracted_sha256": "697a831e7c18bce8b80be697e918561f381d608f562814bcb7f6cb396902324c",
+      "post_extraction_review": "See repository validation and release status; final file identity differs from the initial mechanical extraction."
+    },
+    {
+      "path": "src/remax/math_route.py",
+      "sha256": "0c430a9e8f4c215665b673d4fbca8e5e4db3dd050814fe30a2a07ac7750317cc",
+      "transformation": "namespace relocation; benchmark imports delegate to modebench",
+      "source": "src/oat_drgrpo/math_route.py",
+      "source_sha256": "0c430a9e8f4c215665b673d4fbca8e5e4db3dd050814fe30a2a07ac7750317cc",
+      "extracted_sha256": "0c430a9e8f4c215665b673d4fbca8e5e4db3dd050814fe30a2a07ac7750317cc"
+    },
+    {
+      "path": "src/remax/train_zero_math.py",
+      "sha256": "91bb36187bd5f2fcf86ceee4eaeebbac084b900dc792491b4ec9d270d9f289ad",
+      "transformation": "namespace relocation; benchmark imports delegate to modebench",
+      "source": "src/oat_drgrpo/train_zero_math.py",
+      "source_sha256": "91bb36187bd5f2fcf86ceee4eaeebbac084b900dc792491b4ec9d270d9f289ad",
+      "extracted_sha256": "91bb36187bd5f2fcf86ceee4eaeebbac084b900dc792491b4ec9d270d9f289ad"
+    },
+    {
+      "path": "src/remax/learner/grpo.py",
+      "sha256": "4647f2fd3d89aaa949cd1cb4d4cfa17b95ddb0174fb473b0479440c8bf0387f2",
+      "transformation": "namespace relocation; benchmark imports delegate to modebench",
+      "source": "src/oat_drgrpo/learner/grpo.py",
+      "source_sha256": "4647f2fd3d89aaa949cd1cb4d4cfa17b95ddb0174fb473b0479440c8bf0387f2",
+      "extracted_sha256": "4647f2fd3d89aaa949cd1cb4d4cfa17b95ddb0174fb473b0479440c8bf0387f2"
+    },
+    {
+      "path": "src/remax/replicated_group.py",
+      "sha256": "5799ccc587ab6485ed4a2254f18b531adfad5b968d4c033fb5c2101842b253d9",
+      "transformation": "namespace relocation; benchmark imports delegate to modebench",
+      "source": "src/oat_drgrpo/replicated_group.py",
+      "source_sha256": "5799ccc587ab6485ed4a2254f18b531adfad5b968d4c033fb5c2101842b253d9",
+      "extracted_sha256": "5799ccc587ab6485ed4a2254f18b531adfad5b968d4c033fb5c2101842b253d9"
+    },
+    {
+      "path": "src/remax/semantic_shannon.py",
+      "sha256": "9beb17aaf73f6023e5b2bfbbb847f8ebaf0e65721b83eecd45f1979f3d5d2b6d",
+      "transformation": "namespace relocation; benchmark imports delegate to modebench",
+      "source": "src/oat_drgrpo/semantic_shannon.py",
+      "source_sha256": "9beb17aaf73f6023e5b2bfbbb847f8ebaf0e65721b83eecd45f1979f3d5d2b6d",
+      "extracted_sha256": "9beb17aaf73f6023e5b2bfbbb847f8ebaf0e65721b83eecd45f1979f3d5d2b6d"
+    },
+    {
+      "path": "src/remax/answer_options.py",
+      "sha256": "0e3c7e82876e33bb8185d213691e8b7784778ba2c609b9783fb099ea896ec167",
+      "transformation": "namespace relocation; benchmark imports delegate to modebench",
+      "source": "src/oat_drgrpo/answer_options.py",
+      "source_sha256": "bca1c2e242f79c27c5f8aeb810d16809ad438db66dbe7825998fc663402c416d",
+      "extracted_sha256": "0e3c7e82876e33bb8185d213691e8b7784778ba2c609b9783fb099ea896ec167"
+    },
+    {
+      "path": "src/remax/gapo.py",
+      "sha256": "86cf123dd6b2da39ad9d698bad04c03261c23c0d918247c7590616952c414a25",
+      "transformation": "namespace relocation; benchmark imports delegate to modebench",
+      "source": "src/oat_drgrpo/gapo.py",
+      "source_sha256": "86cf123dd6b2da39ad9d698bad04c03261c23c0d918247c7590616952c414a25",
+      "extracted_sha256": "86cf123dd6b2da39ad9d698bad04c03261c23c0d918247c7590616952c414a25"
+    },
+    {
+      "path": "src/remax/xdr.py",
+      "sha256": "2ba9bde78ed3f28ccc43cb02e4e408721070f715a9361e32d97fb86bf23b1714",
+      "transformation": "namespace relocation; benchmark imports delegate to modebench",
+      "source": "src/oat_drgrpo/xdr.py",
+      "source_sha256": "2ba9bde78ed3f28ccc43cb02e4e408721070f715a9361e32d97fb86bf23b1714",
+      "extracted_sha256": "2ba9bde78ed3f28ccc43cb02e4e408721070f715a9361e32d97fb86bf23b1714"
+    },
+    {
+      "path": "src/remax/math_strategy_canonicalizer.py",
+      "sha256": "1dc83a2cd9da4cb092dbde747a647b416107846f985683104a98cbe9b022282b",
+      "transformation": "namespace relocation; benchmark imports delegate to modebench",
+      "source": "src/oat_drgrpo/math_strategy_canonicalizer.py",
+      "source_sha256": "1dc83a2cd9da4cb092dbde747a647b416107846f985683104a98cbe9b022282b",
+      "extracted_sha256": "1dc83a2cd9da4cb092dbde747a647b416107846f985683104a98cbe9b022282b"
+    },
+    {
+      "path": "src/remax/tensor_utils.py",
+      "sha256": "491e81046574974fcde2cd29b6a85fb2cab4d77f0598f8f268318edc0d1fddcd",
+      "transformation": "namespace relocation; benchmark imports delegate to modebench",
+      "source": "src/oat_drgrpo/tensor_utils.py",
+      "source_sha256": "491e81046574974fcde2cd29b6a85fb2cab4d77f0598f8f268318edc0d1fddcd",
+      "extracted_sha256": "491e81046574974fcde2cd29b6a85fb2cab4d77f0598f8f268318edc0d1fddcd"
+    },
+    {
+      "path": "src/remax/ucpo.py",
+      "sha256": "c52d10df84ab2d5cfcf97420807c7c02d79841714e8d7c56fe59bc1fdffec110",
+      "transformation": "namespace relocation; benchmark imports delegate to modebench",
+      "source": "src/oat_drgrpo/ucpo.py",
+      "source_sha256": "c52d10df84ab2d5cfcf97420807c7c02d79841714e8d7c56fe59bc1fdffec110",
+      "extracted_sha256": "c52d10df84ab2d5cfcf97420807c7c02d79841714e8d7c56fe59bc1fdffec110"
+    },
+    {
+      "path": "src/remax/setpo.py",
+      "sha256": "8bcf496cc221268b03f446c178109fb706debcc6613b2dd67f4ee77d4b4c082a",
+      "transformation": "namespace relocation; benchmark imports delegate to modebench",
+      "source": "src/oat_drgrpo/setpo.py",
+      "source_sha256": "8bcf496cc221268b03f446c178109fb706debcc6613b2dd67f4ee77d4b4c082a",
+      "extracted_sha256": "8bcf496cc221268b03f446c178109fb706debcc6613b2dd67f4ee77d4b4c082a"
+    },
+    {
+      "path": "src/remax/seed_weights.py",
+      "sha256": "05444f9dff5766b01497827be1c3c79079476ef482e51e9eb6092b95c2f91570",
+      "transformation": "namespace relocation; benchmark imports delegate to modebench",
+      "source": "src/oat_drgrpo/seed_weights.py",
+      "source_sha256": "05444f9dff5766b01497827be1c3c79079476ef482e51e9eb6092b95c2f91570",
+      "extracted_sha256": "05444f9dff5766b01497827be1c3c79079476ef482e51e9eb6092b95c2f91570"
+    },
+    {
+      "path": "src/remax/math_strategy_menu.py",
+      "sha256": "95b061310c646c853aa6241b67a3b5b34663f28a7b0e004ed49418d3c7fb1fed",
+      "transformation": "namespace relocation; benchmark imports delegate to modebench",
+      "source": "src/oat_drgrpo/math_strategy_menu.py",
+      "source_sha256": "95b061310c646c853aa6241b67a3b5b34663f28a7b0e004ed49418d3c7fb1fed",
+      "extracted_sha256": "95b061310c646c853aa6241b67a3b5b34663f28a7b0e004ed49418d3c7fb1fed"
+    },
+    {
+      "path": "src/remax/online_canonical_bank.py",
+      "sha256": "1700459e95cbfd4bd7c2391884e95c8513554e262d68b80205b1ea65e289eef1",
+      "transformation": "namespace relocation; benchmark imports delegate to modebench",
+      "source": "src/oat_drgrpo/online_canonical_bank.py",
+      "source_sha256": "453ffdf9a1dc45550057bf7a1152cdac9837360939c693ccaff38e5bc027c26c",
+      "extracted_sha256": "1700459e95cbfd4bd7c2391884e95c8513554e262d68b80205b1ea65e289eef1"
+    },
+    {
+      "path": "src/remax/canonical_actions.py",
+      "sha256": "a4954284b425a94813614f340451841030e320f5ab3561060bac0ba48810c82a",
+      "transformation": "namespace relocation; benchmark imports delegate to modebench",
+      "source": "src/oat_drgrpo/canonical_actions.py",
+      "source_sha256": "658d150cc5eb7a360ef1b05ce12d2502bde1186f5d992caaad5e2616c4fbf675",
+      "extracted_sha256": "a4954284b425a94813614f340451841030e320f5ab3561060bac0ba48810c82a"
+    },
+    {
+      "path": "src/remax/verified_route_library.py",
+      "sha256": "5efeb899cfbd632df473cdd4446e5589c4fbd0405d3bc68fd9e41b76d2fc74d1",
+      "transformation": "namespace relocation; benchmark imports delegate to modebench",
+      "source": "src/oat_drgrpo/verified_route_library.py",
+      "source_sha256": "5efeb899cfbd632df473cdd4446e5589c4fbd0405d3bc68fd9e41b76d2fc74d1",
+      "extracted_sha256": "5efeb899cfbd632df473cdd4446e5589c4fbd0405d3bc68fd9e41b76d2fc74d1"
+    },
+    {
+      "path": "src/remax/learner/init.py",
+      "sha256": "5ded6bd6ef203c0d8f526b7581b58a065ddd03434851b1432ff72c700bcae523",
+      "transformation": "namespace relocation; benchmark imports delegate to modebench",
+      "source": "src/oat_drgrpo/learner/init.py",
+      "source_sha256": "5ded6bd6ef203c0d8f526b7581b58a065ddd03434851b1432ff72c700bcae523",
+      "extracted_sha256": "5ded6bd6ef203c0d8f526b7581b58a065ddd03434851b1432ff72c700bcae523"
+    },
+    {
+      "path": "src/remax/rlep.py",
+      "sha256": "0ee35952abaff2832b967efdc070d9f0ed4fb58b3964f6cb889d3989ae9b6dbf",
+      "transformation": "namespace relocation; benchmark imports delegate to modebench",
+      "source": "src/oat_drgrpo/rlep.py",
+      "source_sha256": "0ee35952abaff2832b967efdc070d9f0ed4fb58b3964f6cb889d3989ae9b6dbf",
+      "extracted_sha256": "0ee35952abaff2832b967efdc070d9f0ed4fb58b3964f6cb889d3989ae9b6dbf"
+    },
+    {
+      "path": "src/remax/learner/base.py",
+      "sha256": "2cc6f6d6d39208c3287fa7eabf3a5537b1b60081a157a60df170ced8f3fd4192",
+      "transformation": "namespace relocation; benchmark imports delegate to modebench",
+      "source": "src/oat_drgrpo/learner/base.py",
+      "source_sha256": "2cc6f6d6d39208c3287fa7eabf3a5537b1b60081a157a60df170ced8f3fd4192",
+      "extracted_sha256": "2cc6f6d6d39208c3287fa7eabf3a5537b1b60081a157a60df170ced8f3fd4192"
+    },
+    {
+      "path": "src/remax/outcome_collision.py",
+      "sha256": "3db2096f73bb2c0bf36269847e06df0daeba7d9b8ecd8e27ce65063b484b9482",
+      "transformation": "namespace relocation; benchmark imports delegate to modebench",
+      "source": "src/oat_drgrpo/outcome_collision.py",
+      "source_sha256": "3db2096f73bb2c0bf36269847e06df0daeba7d9b8ecd8e27ce65063b484b9482",
+      "extracted_sha256": "3db2096f73bb2c0bf36269847e06df0daeba7d9b8ecd8e27ce65063b484b9482"
+    },
+    {
+      "path": "src/remax/canonical_replay.py",
+      "sha256": "14fea9577d1f5677a5270dc3c6f922ff96d807d80b2f6a32ee4431efda36c2ec",
+      "transformation": "namespace relocation; benchmark imports delegate to modebench",
+      "source": "src/oat_drgrpo/canonical_replay.py",
+      "source_sha256": "14fea9577d1f5677a5270dc3c6f922ff96d807d80b2f6a32ee4431efda36c2ec",
+      "extracted_sha256": "14fea9577d1f5677a5270dc3c6f922ff96d807d80b2f6a32ee4431efda36c2ec"
+    },
+    {
+      "path": "src/remax/args.py",
+      "sha256": "1842cb6fae41434b6840f401a1b1b1b7f25a33f7a97b6ded77d837aef3659c2d",
+      "transformation": "namespace relocation; benchmark imports delegate to modebench",
+      "source": "src/oat_drgrpo/args.py",
+      "source_sha256": "a8757b118fe0b7890c8defea489dcbf59f632d45132f819543f6d96e594926ca",
+      "extracted_sha256": "1842cb6fae41434b6840f401a1b1b1b7f25a33f7a97b6ded77d837aef3659c2d"
+    },
+    {
+      "path": "src/remax/on_policy_maxent.py",
+      "sha256": "93f7b52fb73a7678336bcd136950639a56f39d7d17e4119af4771e8546cdf926",
+      "transformation": "namespace relocation; benchmark imports delegate to modebench",
+      "source": "src/oat_drgrpo/on_policy_maxent.py",
+      "source_sha256": "93f7b52fb73a7678336bcd136950639a56f39d7d17e4119af4771e8546cdf926",
+      "extracted_sha256": "93f7b52fb73a7678336bcd136950639a56f39d7d17e4119af4771e8546cdf926"
+    },
+    {
+      "path": "src/remax/maxrl.py",
+      "sha256": "9f2cb94c4df2cce93d5d2b5a96954ffd0eaea3ac01a92168cb93ef4ac9287268",
+      "transformation": "namespace relocation; benchmark imports delegate to modebench",
+      "source": "src/oat_drgrpo/maxrl.py",
+      "source_sha256": "9f2cb94c4df2cce93d5d2b5a96954ffd0eaea3ac01a92168cb93ef4ac9287268",
+      "extracted_sha256": "9f2cb94c4df2cce93d5d2b5a96954ffd0eaea3ac01a92168cb93ef4ac9287268"
+    },
+    {
+      "path": "src/remax/fused_adam_shim.py",
+      "sha256": "aa1d9ce74bc7e868affe6e36488a37262ea90abcbe40c8d363538f374232ce11",
+      "transformation": "namespace relocation; benchmark imports delegate to modebench",
+      "source": "src/oat_drgrpo/fused_adam_shim.py",
+      "source_sha256": "aa1d9ce74bc7e868affe6e36488a37262ea90abcbe40c8d363538f374232ce11",
+      "extracted_sha256": "aa1d9ce74bc7e868affe6e36488a37262ea90abcbe40c8d363538f374232ce11"
+    },
+    {
+      "path": "src/remax/xdr_sac_dual_controller.py",
+      "sha256": "82c87d6cba59f3047b7a0cc5c6dc955b58d3cf753cf6c607f2ea819c75787b0f",
+      "transformation": "namespace relocation; benchmark imports delegate to modebench",
+      "source": "src/oat_drgrpo/xdr_sac_dual_controller.py",
+      "source_sha256": "82c87d6cba59f3047b7a0cc5c6dc955b58d3cf753cf6c607f2ea819c75787b0f",
+      "extracted_sha256": "82c87d6cba59f3047b7a0cc5c6dc955b58d3cf753cf6c607f2ea819c75787b0f"
+    },
+    {
+      "path": "src/remax/learner/run.py",
+      "sha256": "549b72808e24d150e38a19bd9cd4d5c7b74dc747923ca29a38412e1a78604db3",
+      "transformation": "namespace relocation; benchmark imports delegate to modebench",
+      "source": "src/oat_drgrpo/learner/run.py",
+      "source_sha256": "cea253487d9558f269581ca28b0dff85f0a3e8c9735f4d6f9cf50394c7cacc94",
+      "extracted_sha256": "549b72808e24d150e38a19bd9cd4d5c7b74dc747923ca29a38412e1a78604db3"
+    },
+    {
+      "path": "src/remax/runtime.py",
+      "sha256": "d4290ff8f276b6dfa624f5aa5dfb6e0b64fc4395eacf873c3962bb5e83265966",
+      "transformation": "namespace relocation; benchmark imports delegate to modebench",
+      "source": "src/oat_drgrpo/runtime.py",
+      "source_sha256": "d4290ff8f276b6dfa624f5aa5dfb6e0b64fc4395eacf873c3962bb5e83265966",
+      "extracted_sha256": "d4290ff8f276b6dfa624f5aa5dfb6e0b64fc4395eacf873c3962bb5e83265966"
+    },
+    {
+      "path": "src/remax/setpo_embedder.py",
+      "sha256": "f65442e1efd5c34bdd0082ca48506084c191c995a0e17ee063f4826d482e0495",
+      "transformation": "namespace relocation; benchmark imports delegate to modebench",
+      "source": "src/oat_drgrpo/setpo_embedder.py",
+      "source_sha256": "f65442e1efd5c34bdd0082ca48506084c191c995a0e17ee063f4826d482e0495",
+      "extracted_sha256": "f65442e1efd5c34bdd0082ca48506084c191c995a0e17ee063f4826d482e0495"
+    },
+    {
+      "path": "src/remax/trajectory_dataset.py",
+      "sha256": "e7e9acaa90098a6f37e4e1e5158df28be0f4b3e9879143a1300aaab7851e261d",
+      "transformation": "namespace relocation; benchmark imports delegate to modebench",
+      "source": "src/oat_drgrpo/trajectory_dataset.py",
+      "source_sha256": "e7e9acaa90098a6f37e4e1e5158df28be0f4b3e9879143a1300aaab7851e261d",
+      "extracted_sha256": "e7e9acaa90098a6f37e4e1e5158df28be0f4b3e9879143a1300aaab7851e261d"
+    },
+    {
+      "path": "src/remax/dapo.py",
+      "sha256": "53eea2a5061cd96b2151c02fa7f20ef4875856a03746d8287c4b0fd2a52de3f2",
+      "transformation": "namespace relocation; benchmark imports delegate to modebench",
+      "source": "src/oat_drgrpo/dapo.py",
+      "source_sha256": "53eea2a5061cd96b2151c02fa7f20ef4875856a03746d8287c4b0fd2a52de3f2",
+      "extracted_sha256": "53eea2a5061cd96b2151c02fa7f20ef4875856a03746d8287c4b0fd2a52de3f2"
+    },
+    {
+      "path": "src/remax/scoring.py",
+      "sha256": "0889453687194c3aed791dce82a1522d375e4903a2b0509448b02fc20f46e7ab",
+      "transformation": "namespace relocation; benchmark imports delegate to modebench",
+      "source": "src/oat_drgrpo/scoring.py",
+      "source_sha256": "0889453687194c3aed791dce82a1522d375e4903a2b0509448b02fc20f46e7ab",
+      "extracted_sha256": "0889453687194c3aed791dce82a1522d375e4903a2b0509448b02fc20f46e7ab"
+    },
+    {
+      "path": "src/remax/actor.py",
+      "sha256": "fd8c98d0e88e815e724c5af4379251cfcaffc52a72da9ab409161b9f4f71c61c",
+      "transformation": "namespace relocation; benchmark imports delegate to modebench",
+      "source": "src/oat_drgrpo/actor.py",
+      "source_sha256": "fd8c98d0e88e815e724c5af4379251cfcaffc52a72da9ab409161b9f4f71c61c",
+      "extracted_sha256": "fd8c98d0e88e815e724c5af4379251cfcaffc52a72da9ab409161b9f4f71c61c"
+    },
+    {
+      "path": "src/remax/semantic_rms_controller.py",
+      "sha256": "9c5c162f938d7a1850d7fd205623cc7d641be1f55f2af05c3a949772c9607934",
+      "transformation": "namespace relocation; benchmark imports delegate to modebench",
+      "source": "src/oat_drgrpo/semantic_rms_controller.py",
+      "source_sha256": "9c5c162f938d7a1850d7fd205623cc7d641be1f55f2af05c3a949772c9607934",
+      "extracted_sha256": "9c5c162f938d7a1850d7fd205623cc7d641be1f55f2af05c3a949772c9607934"
+    },
+    {
+      "path": "src/remax/modebench_guided.py",
+      "sha256": "b1e744d18e186ab138469059a7557147a436c142eebf354b94138c0f6aa9534c",
+      "transformation": "namespace relocation; benchmark imports delegate to modebench",
+      "source": "src/oat_drgrpo/modebench_guided.py",
+      "source_sha256": "b1e744d18e186ab138469059a7557147a436c142eebf354b94138c0f6aa9534c",
+      "extracted_sha256": "b1e744d18e186ab138469059a7557147a436c142eebf354b94138c0f6aa9534c"
+    },
+    {
+      "path": "src/remax/maxent_length_controller.py",
+      "sha256": "83aa8729166cf5d5d8c069dd92a175165ea11888673c44fe705c87919f059f89",
+      "transformation": "namespace relocation; benchmark imports delegate to modebench",
+      "source": "src/oat_drgrpo/maxent_length_controller.py",
+      "source_sha256": "83aa8729166cf5d5d8c069dd92a175165ea11888673c44fe705c87919f059f89",
+      "extracted_sha256": "83aa8729166cf5d5d8c069dd92a175165ea11888673c44fe705c87919f059f89"
+    },
+    {
+      "path": "src/remax/resume_state.py",
+      "sha256": "4812ed6ada59d5e55a3de2a74e628924b1fa851438c51f165f70189d401c4960",
+      "transformation": "namespace relocation; benchmark imports delegate to modebench",
+      "source": "src/oat_drgrpo/resume_state.py",
+      "source_sha256": "4812ed6ada59d5e55a3de2a74e628924b1fa851438c51f165f70189d401c4960",
+      "extracted_sha256": "4812ed6ada59d5e55a3de2a74e628924b1fa851438c51f165f70189d401c4960"
+    },
+    {
+      "path": "src/remax/logging_utils.py",
+      "sha256": "ce45a9c868e62d23d51b06318b1c52f81fba27c86a063b619b43c1182dc3ae5b",
+      "transformation": "namespace relocation; benchmark imports delegate to modebench",
+      "source": "src/oat_drgrpo/logging_utils.py",
+      "source_sha256": "ce45a9c868e62d23d51b06318b1c52f81fba27c86a063b619b43c1182dc3ae5b",
+      "extracted_sha256": "ce45a9c868e62d23d51b06318b1c52f81fba27c86a063b619b43c1182dc3ae5b"
+    },
+    {
+      "path": "src/remax/online_canonical_controller.py",
+      "sha256": "33163297c201adfe7590dc300fc47c26819cf42b877ef9c3cacee7adae40727b",
+      "transformation": "namespace relocation; benchmark imports delegate to modebench",
+      "source": "src/oat_drgrpo/online_canonical_controller.py",
+      "source_sha256": "33163297c201adfe7590dc300fc47c26819cf42b877ef9c3cacee7adae40727b",
+      "extracted_sha256": "33163297c201adfe7590dc300fc47c26819cf42b877ef9c3cacee7adae40727b"
+    },
+    {
+      "path": "src/remax/proposal_starvation.py",
+      "sha256": "2538b9546f779dcb5c624c9deeeebac8bc154ca055c6bd2ac379aa95c4bd3164",
+      "transformation": "namespace relocation; benchmark imports delegate to modebench",
+      "source": "src/oat_drgrpo/proposal_starvation.py",
+      "source_sha256": "2538b9546f779dcb5c624c9deeeebac8bc154ca055c6bd2ac379aa95c4bd3164",
+      "extracted_sha256": "2538b9546f779dcb5c624c9deeeebac8bc154ca055c6bd2ac379aa95c4bd3164"
+    },
+    {
+      "path": "src/remax/xdr_tau_controller.py",
+      "sha256": "3c047cc76a017ae76895048201aa826e66c7061e00d8bdf4f47e320ee6f20d28",
+      "transformation": "namespace relocation; benchmark imports delegate to modebench",
+      "source": "src/oat_drgrpo/xdr_tau_controller.py",
+      "source_sha256": "3c047cc76a017ae76895048201aa826e66c7061e00d8bdf4f47e320ee6f20d28",
+      "extracted_sha256": "3c047cc76a017ae76895048201aa826e66c7061e00d8bdf4f47e320ee6f20d28"
+    },
+    {
+      "path": "src/remax/maxent_controllers.py",
+      "sha256": "153125aa0b251512a2222e9a1020144ebf379a8e257b592f6f3ffd75d10133c1",
+      "transformation": "namespace relocation; benchmark imports delegate to modebench",
+      "source": "src/oat_drgrpo/maxent_controllers.py",
+      "source_sha256": "153125aa0b251512a2222e9a1020144ebf379a8e257b592f6f3ffd75d10133c1",
+      "extracted_sha256": "153125aa0b251512a2222e9a1020144ebf379a8e257b592f6f3ffd75d10133c1"
+    },
+    {
+      "path": "src/remax/admission_retention.py",
+      "sha256": "beeb6b758cea2fb0afe7d5bf37d0f815197ad8d00f2ec1e5143aa238405aea4c",
+      "transformation": "namespace relocation; benchmark imports delegate to modebench",
+      "source": "src/oat_drgrpo/admission_retention.py",
+      "source_sha256": "beeb6b758cea2fb0afe7d5bf37d0f815197ad8d00f2ec1e5143aa238405aea4c",
+      "extracted_sha256": "beeb6b758cea2fb0afe7d5bf37d0f815197ad8d00f2ec1e5143aa238405aea4c"
+    },
+    {
+      "path": "src/remax/verified_transformations.py",
+      "sha256": "0b4585f7c719d8c8d962427deabcc0a656c5b223b5c5bf3dbde0f719d73ca7c2",
+      "transformation": "namespace relocation; benchmark imports delegate to modebench",
+      "source": "src/oat_drgrpo/verified_transformations.py",
+      "source_sha256": "cd90a779f5102ac19086689107bab72d369a92d5191ff13c79290ac80b3bb274",
+      "extracted_sha256": "0b4585f7c719d8c8d962427deabcc0a656c5b223b5c5bf3dbde0f719d73ca7c2"
+    },
+    {
+      "path": "src/remax/vllm_worker.py",
+      "sha256": "36d12712ccf42e0bad739392b90a9a4d79e23e30e9defb13b002b4ccba96fa04",
+      "transformation": "namespace relocation; benchmark imports delegate to modebench",
+      "source": "src/oat_drgrpo/vllm_worker.py",
+      "source_sha256": "9205f1db9ca02c1dfa0569aa0474a285ccc03d72797e649dd30121fbba3812a9",
+      "extracted_sha256": "36d12712ccf42e0bad739392b90a9a4d79e23e30e9defb13b002b4ccba96fa04"
+    },
+    {
+      "path": "src/remax/math_grader_process.py",
+      "sha256": "3e3dc544c3f39d90a7513c9c190e47929f8cf965d8f5e98a4724052b2a10a28a",
+      "transformation": "namespace relocation; benchmark imports delegate to modebench",
+      "source": "src/oat_drgrpo/math_grader_process.py",
+      "source_sha256": "8dcd206b5374e30f89e51787ece157e5ed943069a3602267a16c7e5b806c5ddd",
+      "extracted_sha256": "3e3dc544c3f39d90a7513c9c190e47929f8cf965d8f5e98a4724052b2a10a28a"
+    },
+    {
+      "path": "src/remax/__init__.py",
+      "sha256": "b845e5f5f29bc232d7a0a01228c1d3df111f73861fe461c042ec6af284134cd9",
+      "transformation": "new release interface",
+      "extracted_sha256": "b845e5f5f29bc232d7a0a01228c1d3df111f73861fe461c042ec6af284134cd9"
+    },
+    {
+      "path": "src/remax/learner/__init__.py",
+      "sha256": "d7576dc96be3ab66f3b08e84c28c5e910fe57cc9e5bd735a5c1403e273a7856b",
+      "transformation": "new release interface",
+      "extracted_sha256": "d7576dc96be3ab66f3b08e84c28c5e910fe57cc9e5bd735a5c1403e273a7856b"
+    },
+    {
+      "path": "tests/test_maxrl.py",
+      "sha256": "c64e34280acad7da5d1ce45efc50157de92dbaa75be75307ab247be98b41d98b",
+      "transformation": "imports relocated",
+      "source": "tests/test_maxrl.py",
+      "source_sha256": "debdac51b4e95210dd14935f0ffa054c1ea874f8e3316053ff591195ef008b47",
+      "extracted_sha256": "c64e34280acad7da5d1ce45efc50157de92dbaa75be75307ab247be98b41d98b"
+    },
+    {
+      "path": "tests/test_canonical_replay.py",
+      "sha256": "90cc7ba3df8542761c6442d99bef8a24a62c4a808e107391a7c38d4547073947",
+      "transformation": "imports relocated",
+      "source": "tests/test_canonical_replay.py",
+      "source_sha256": "c036cc8c785275dd8b8143be680bbe6af14872ed6f124ce4c9de4321c771073b",
+      "extracted_sha256": "90cc7ba3df8542761c6442d99bef8a24a62c4a808e107391a7c38d4547073947"
+    },
+    {
+      "path": "tests/test_online_canonical_bank.py",
+      "sha256": "0c507686605bb38ecd23c3b55eceed49231c735093125f557cc56a729396fca4",
+      "transformation": "imports relocated",
+      "source": "tests/test_online_canonical_bank.py",
+      "source_sha256": "d97f70a4cc92f5a3dc3113ac5dc325799625f08df4d0d8546c90f065938504ff",
+      "extracted_sha256": "0c507686605bb38ecd23c3b55eceed49231c735093125f557cc56a729396fca4"
+    },
+    {
+      "path": "tests/test_admission_retention.py",
+      "sha256": "5817d4627f4f0d81e70d85eca5061a9709c66e87ffbc6aed4c848ad126c94465",
+      "transformation": "imports relocated",
+      "source": "tests/test_admission_retention.py",
+      "source_sha256": "8d7ff3198c2f30146d341af4f454efb8c8d311cb0a862990bd38fd2c316f0062",
+      "extracted_sha256": "5817d4627f4f0d81e70d85eca5061a9709c66e87ffbc6aed4c848ad126c94465"
+    },
+    {
+      "path": "tests/test_replicated_group.py",
+      "sha256": "5d68a491e2125a26956aee74a7756930c33fdbbf843848b02f6125d0faa0daa4",
+      "transformation": "imports relocated",
+      "source": "tests/test_replicated_group.py",
+      "source_sha256": "211a45fa7b935ec4ba61ac25dc79a0ca139ceb6b6ac1e70cd600122a8d50be59",
+      "extracted_sha256": "5d68a491e2125a26956aee74a7756930c33fdbbf843848b02f6125d0faa0daa4"
+    },
+    {
+      "path": "tests/test_seed_weights.py",
+      "sha256": "af4e241ab41c4a81af4119709cbc4f5b19a82394c5798454c1c32e8f81574b3a",
+      "transformation": "imports relocated",
+      "source": "tests/test_seed_weights.py",
+      "source_sha256": "6e574520076a4aeb8c50f85ab6173e23fb589ee4f2fb3122df9d04b80bc8cbd6",
+      "extracted_sha256": "af4e241ab41c4a81af4119709cbc4f5b19a82394c5798454c1c32e8f81574b3a"
+    },
+    {
+      "path": "tests/test_on_policy_maxent.py",
+      "sha256": "898b91de00c94291b6b023c5ad07aa72605648616152c0641bb9dc803b8b0acb",
+      "transformation": "imports relocated",
+      "source": "tests/test_on_policy_maxent.py",
+      "source_sha256": "c6e971102a29d585f5512637f3b2389f78fa0d91e12ced969d33471b99c61d64",
+      "extracted_sha256": "898b91de00c94291b6b023c5ad07aa72605648616152c0641bb9dc803b8b0acb"
+    },
+    {
+      "path": "tests/test_canonical_actions.py",
+      "sha256": "584b47a52d5a764db946c977e336c4dfaab8e7fbb3887868758434641558b581",
+      "transformation": "imports relocated",
+      "source": "tests/test_canonical_actions.py",
+      "source_sha256": "ae95fa8bbaef8650f15c306acc03acc26e59d921b9f60ddb1fdf8102ef164472",
+      "extracted_sha256": "584b47a52d5a764db946c977e336c4dfaab8e7fbb3887868758434641558b581"
+    },
+    {
+      "path": "LICENSE",
+      "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+      "transformation": "byte-preserving copy",
+      "source": "LICENSE",
+      "source_sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+      "extracted_sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+    },
+    {
+      "path": ".gitignore",
+      "sha256": "53cfb1cacaf65736b38439ed81d55e8c5e7252aa065aa873d23f6446967e900c",
+      "transformation": "new release interface",
+      "extracted_sha256": "53cfb1cacaf65736b38439ed81d55e8c5e7252aa065aa873d23f6446967e900c"
+    },
+    {
+      "path": "tests/conftest.py",
+      "sha256": "8f705f40cc7bdfc8eea108fcd6258562e177d13f171dd505705bb8740bb52b39",
+      "transformation": "new release interface",
+      "extracted_sha256": "8f705f40cc7bdfc8eea108fcd6258562e177d13f171dd505705bb8740bb52b39"
+    },
+    {
+      "path": "docs/assets/verified-replay.png",
+      "source": "paper/figures/verified_replay_mechanism.png",
+      "source_sha256": "1eae223fd977dc9cd872e4f0802500ef85bc799499ead5ce03d6a567475abe69",
+      "sha256": "1eae223fd977dc9cd872e4f0802500ef85bc799499ead5ce03d6a567475abe69",
+      "extracted_sha256": "1eae223fd977dc9cd872e4f0802500ef85bc799499ead5ce03d6a567475abe69",
+      "transformation": "Unmodified paper verified-replay schematic for the public README."
+    }
+  ],
+  "scope": "Initial source extraction map. RELEASE_MANIFEST.json covers all final files, including new interfaces and evidence."
+}
