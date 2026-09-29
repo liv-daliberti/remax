@@ -3,8 +3,8 @@
   "files": [
     {
       "path": ".github/workflows/check.yml",
-      "sha256": "dd821d9872bcbc0810074b2e4493283522f96cc61867dba7ac28118675ea9ef1",
-      "bytes": 655
+      "sha256": "9f9715b7855468d19ad61495bbf9dd45a5fb2e8d29f434f25ecf0c6cbc98ea24",
+      "bytes": 955
     },
     {
       "path": ".gitignore",
@@ -13,8 +13,8 @@
     },
     {
       "path": "CONTRIBUTING.md",
-      "sha256": "12d3b8525ed9eea641e000c9f5274a8b2e163c600ca8a7e41eb890740063ec5e",
-      "bytes": 2213
+      "sha256": "fc14d3fab8b7db942acbb0c832678ed36952b187f4f49a62dbc60d78cb79a573",
+      "bytes": 2754
     },
     {
       "path": "LICENSE",
@@ -23,8 +23,8 @@
     },
     {
       "path": "Makefile",
-      "sha256": "53578b58a26d758713e67d7e43b84289cc8ba7486d5348687070b2765b4ca03c",
-      "bytes": 184
+      "sha256": "56ee465e460675e53dd374f8056feffc7efaa8f03c570ac7cd4c8e96b010bdb0",
+      "bytes": 402
     },
     {
       "path": "PROVENANCE.json",
@@ -33,13 +33,13 @@
     },
     {
       "path": "README.md",
-      "sha256": "a1a7c2db57e362ec5bf92b7b986afb81072982fd714fb35685b007cb50f32e85",
-      "bytes": 5620
+      "sha256": "eeb55fb971476c214a608ca48ecb4c58e32b41e8aa7b92aa52f51cbbd828752c",
+      "bytes": 5980
     },
     {
       "path": "RELEASE_STATUS.md",
-      "sha256": "f4e82cfc539408f5adb033d79b3f9a6264f7b59c89dd81ec7e502682e36fbb19",
-      "bytes": 1938
+      "sha256": "1dd473ab094c8bcc8666e693f8ada0b50f3abb267aed451c995d6d66b6ca2136",
+      "bytes": 2003
     },
     {
       "path": "VALIDATED_CPU_ENVIRONMENT.json",
@@ -53,8 +53,8 @@
     },
     {
       "path": "VALIDATION.md",
-      "sha256": "c33efd3e2a7d1bb547d5fca660af9191b1cec04fadccefc61776bd9149a5255c",
-      "bytes": 2388
+      "sha256": "faa362829a0b523dad7bf8f5f4c726f39c0cbb63a6a26d984abd7a9ddae1e397",
+      "bytes": 3897
     },
     {
       "path": "configs/drgrpo_countdown_05b.json",
@@ -173,8 +173,8 @@
     },
     {
       "path": "docs/method.md",
-      "sha256": "b24244a8306b91eab43994130a559ab8177267f5cda02a57ccff06b0c8d6222c",
-      "bytes": 5865
+      "sha256": "bf1cef4501ae959ecc0578fb0d8deb8e69a1f5577bfbf42b0fdfc8a3f4798f56",
+      "bytes": 10751
     },
     {
       "path": "docs/reproducibility.md",
@@ -230,6 +230,11 @@
       "path": "ops/build_mode_diversity_training.py",
       "sha256": "cff97f66e9852414121cd759e508bf9476817e9f6ff6841a82ae571d973cd573",
       "bytes": 9842
+    },
+    {
+      "path": "ops/check_training_reference.py",
+      "sha256": "ee238faa6745d8ed91d47fc007f3e046352c41a0605e33d634f9985fba28a105",
+      "bytes": 2692
     },
     {
       "path": "ops/followup_metrics.py",
@@ -547,6 +552,21 @@
       "bytes": 144
     },
     {
+      "path": "tests/fixtures/training_v1/expected.json",
+      "sha256": "c952d89d936d2391e7bd2449155a0864a949d3f10e7c0064d494028a2e434ce5",
+      "bytes": 93947
+    },
+    {
+      "path": "tests/fixtures/training_v1/inputs.json",
+      "sha256": "acc0a2502f9de2d07ca01515f9471a5da4b9cd88454f55afe1cc0ea7d4aee5e7",
+      "bytes": 3868
+    },
+    {
+      "path": "tests/fixtures/training_v1/manifest.json",
+      "sha256": "6e5d34060d3fc0a8c5aceecdaa3c2af59e450efe352b7079213d1836f4eb347b",
+      "bytes": 533
+    },
+    {
       "path": "tests/test_admission_retention.py",
       "sha256": "5817d4627f4f0d81e70d85eca5061a9709c66e87ffbc6aed4c848ad126c94465",
       "bytes": 5300
@@ -595,6 +615,26 @@
       "path": "tests/test_seed_weights.py",
       "sha256": "af4e241ab41c4a81af4119709cbc4f5b19a82394c5798454c1c32e8f81574b3a",
       "bytes": 2982
+    },
+    {
+      "path": "tests/test_training_conformance.py",
+      "sha256": "e69ac6cbfc1548086500a57bc2e01b48afd70896e4bef0462305f32ec33cf953",
+      "bytes": 11500
+    },
+    {
+      "path": "tests/test_training_reference_guard.py",
+      "sha256": "25e6538166b9c66d6822c57a07578cd9e0fb75d11e459239615dcda9808e4efd",
+      "bytes": 2093
+    },
+    {
+      "path": "tests/training_harness.py",
+      "sha256": "b50095ffedde359339c15cb5b6080386752340c13b0efcf1829300c79d4ff6fb",
+      "bytes": 12117
+    },
+    {
+      "path": "tests/training_oracle.py",
+      "sha256": "98a6dd26952fc972bdfd7f251ecfc14f969eb7a84471b00d1f3f7c12a65381f8",
+      "bytes": 3017
     }
   ]
 }

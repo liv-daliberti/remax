@@ -1,0 +1,9 @@
+{
+  "schema": "remax-training-conformance-v1",
+  "baseline_commit": "e4c7b50980e1a2a33c67de613b68a1e013ce5639",
+  "reference": "Unmodified production learner, independently checked with scalar softmax derivatives and SGD. Human scientific review is still required; these are implementation references, not evidence of paper correctness.",
+  "files": {
+    "inputs.json": "acc0a2502f9de2d07ca01515f9471a5da4b9cd88454f55afe1cc0ea7d4aee5e7",
+    "expected.json": "c952d89d936d2391e7bd2449155a0864a949d3f10e7c0064d494028a2e434ce5"
+  }
+}

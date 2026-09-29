@@ -72,6 +72,42 @@ The control arms retain bank state, scheduling, exemplar scoring, and backward t
 
 Disabling bank bookkeeping or skipping the replay pass is a different control. The recipe regression tests check objective selection and the compute-only flag across all 20 exported configurations.
 
+## Training conformance
+
+```sh
+make conformance
+# Before reviewing a refactor, also compare to the branch base:
+python ops/check_training_reference.py --base-ref origin/main
+```
+
+The suite executes the unchanged `_grpo_learning_step_with_progress` path, including the installed ModeBench validator, bank admission/update, global scheduler, replay materialization, teacher-forced scoring, fresh advantages, replay backward passes, and a real PyTorch SGD update. It covers all four maintained methods. No model download, generation, or GPU is needed.
+
+[Version 1 inputs](../tests/fixtures/training_v1/inputs.json) and [expected traces](../tests/fixtures/training_v1/expected.json) freeze **12 sequential updates** at source commit `e4c7b50980e1a2a33c67de613b68a1e013ce5639`. Each method runs three steps:
+
+1. Admit two Countdown modes and a duplicate canonical alias. Select the deterministic exemplar despite different response lengths; reject an incorrect response.
+2. Observe another prompt with a valid singleton, an actor-negative valid answer, a verifier-negative actor-positive answer, and an inactive valid answer. Only the singleton enters the bank. Global scheduling still replays the earlier prompt.
+3. Observe an all-failure group. Replay the second prompt's singleton from memory, leaving fresh discovery counts unchanged.
+
+The toy tokenizer maps fixed token sequences to real Countdown responses. The model is an eight-token causal bigram table, initialized by `((7*i) % 23 - 11) / 13` for flattened parameter index `i`. EOS is token 7 and padding is token 0. Unequal prompt/response lengths and unused trailing padding expose mask and normalization mistakes. This isolates the training contract from tokenizer downloads and stochastic generation; it is not a test of a pretrained tokenizer.
+
+Two references protect the result. Frozen traces compare bank counts, exemplars, schedule state, input labels/masks, scores, losses, all 64 parameter gradients, and updated parameters. A separate [scalar oracle](../tests/training_oracle.py), with no PyTorch or ReMax imports, differentiates categorical probabilities directly. For these one-epoch same-snapshot cases, fresh PPO ratios are one and clipping is inactive:
+
+```text
+fresh gradient = mean_i [-A_i * active_i / Tmax * sum_t grad log p(y_it)]
+replay gradient = -alpha * (N-1)/N² * mean_banks mean_modes mean_response_tokens grad log p(y_t)
+SGD update     = parameters - learning_rate * (fresh gradient + replay gradient)
+```
+
+The checks vary microbatch size (1, 2, 4), accumulation width, rollout count (4 and 16), temperature, and replay coefficient (including zero). They also cover empty/singleton banks, replay capacity versus discovery counts, candidate permutation, bank/scheduler restoration, and the deterministic replicated-layout branch with a real one-rank Gloo group. Restoring this small SGD state does not qualify the full training checkpoint/resume mechanism.
+
+Controls must perform both detached and differentiable replay scoring and every replay backward call. Instrumentation checks actual calls, their order, model eval/train mode, and gradient increments. Each control replay increment must be exactly zero, and its resulting parameters must be **bitwise equal** to a fresh-only update. Treatment gradients must still be nonzero when fresh rewards are all zero but a singleton is available.
+
+Discrete identities and masks compare exactly. Float32 scores, gradients, and parameters use `rtol=2e-6`, `atol=2e-7`; the control's zero-gradient and bitwise checks have no tolerance. Baseline gradients were checked against the scalar oracle before freezing. These are implementation references, not independent human scientific approval or evidence that the paper's specification is correct.
+
+The [CPU adapter](../tests/training_harness.py) substitutes only external infrastructure: OAT's argument base, two statistical helpers, completion-mask/reduction interfaces, CUDA device selection, and the DeepSpeed accumulation/step contract. It imports and executes the production ReMax methods; it does not copy their implementations. Its strategy divides every backward call by the accumulation width and steps only at a microbatch boundary. Actual autograd and SGD run in PyTorch. Multi-rank collectives, ZeRO/offload, mixed precision, Adam state, actor generation, multiple PPO epochs, and historical comparator branches require separate integration qualification.
+
+CI runs conformance with the ordinary regression suite on Python 3.10–3.12. A separate PR-base comparison rejects changing or deleting existing reference files, **even if their local hashes are refreshed**. Keep version 1 immutable. An intentional method change needs an explicitly versioned contract, new fixtures/tests, and scientific review explaining the difference; changing expected numbers to make a refactor pass is not acceptable.
+
 ## Source map
 
 | Module | Responsibility |

@@ -28,6 +28,8 @@ ModeBench is installed from the immutable Git commit declared in `pyproject.toml
 
 The example prints a replay loss of `2.0` and score gradients `[-0.25, -0.25, -0.5]` for two illustrative prompt banks. `make check` runs regression tests, verifies the retained training analysis, and checks shell syntax.
 
+Run `make conformance` for the training contract alone: frozen admission-to-optimizer cases for Re:Max, Re:Dr, and both compute-matched controls. These execute the production learner on a tiny CPU model and compare every update with an independent gradient calculation. See [training conformance](docs/method.md#training-conformance) for coverage and limits.
+
 A GPU training environment needs the separate `train` extra and a compatible CUDA/PyTorch stack. Follow the [training guide](docs/training.md) rather than using the CPU wheel above for training.
 
 ## Four matched methods
