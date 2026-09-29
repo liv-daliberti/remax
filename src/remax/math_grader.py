@@ -44,51 +44,27 @@ from sympy.parsing import sympy_parser
 from sympy.parsing.latex import parse_latex
 from sympy.parsing.sympy_parser import parse_expr
 
-from modebench.mathir import (
-    MATHIR_MENU_VERIFIER,
-    MATHIR_VERIFIER,
-    validate_mathir_action_menu,
-    validate_mathir_algebra,
-)
 from .math_route import validate_math_route_response
-from modebench.pantry_plan import (
-    PANTRY_PLAN_VERIFIER,
-    validate_pantry_plan,
+from .benchmark import (
+    EvaluationFailure,
+    failure,
+    grade_reference_response,
+    outcome_key,
+    parse_reference,
+    reward_from_diagnostic,
+    validate_reward_batch,
 )
-from modebench.python_modebench import (
-    PYTHON_FACTOR_VERIFIER,
-    python_factor_route_signature,
-)
-from modebench.python_modebench_process import validate_python_factor_function_external
 
+# Public legacy text extractors are used only for ordinary MATH formatting.
+# Executable benchmark grading always goes through modebench.api in benchmark.py.
+from modebench.grading import extract_answer, VerifiedExplorationIdentity
 
-# ModeBench is the sole implementation of executable task identity.
-from modebench.grading import (
-    last_boxed_only_string,
-    remove_boxed,
-    extract_boxed_answer,
-    extract_answer,
-    _parse_modebench_spec,
-    _normalize_python_factor_lambda_surface,
-    _extract_modebench_candidate,
-    _parse_graph_coloring_answer,
-    _parse_graph_digit_sequence,
-    _verify_graph_coloring_colors,
-    _verify_graph_coloring_answer,
-    _normalize_countdown_expression,
-    _countdown_eval_and_numbers,
-    _verify_countdown_expression,
-    _graph_coloring_from_candidate,
-    _canonical_countdown_ast,
-    _canonical_countdown_route_ast,
-    _canonical_countdown_expression_key,
-    _modebench_answer_key,
-    validated_modebench_outcome_key,
-    VerifiedExplorationIdentity,
-    validated_modebench_exploration_identity,
-    _grade_modebench_answer,
-    PYTHON_FACTOR_RESPONSE_SURFACE_VERSION,
-)
+validated_modebench_outcome_key = outcome_key
+
+# math_verify catches its own TimeoutException and returns False/[] internally.
+# Remember deadlines per calling thread so the outer reward boundary can refuse
+# that numeric fallback even when the library suppresses the exception.
+_math_verify_deadline = threading.local()
 
 
 def _thread_compatible_math_verify_timeout(timeout_seconds: int = 10):
@@ -111,7 +87,11 @@ def _thread_compatible_math_verify_timeout(timeout_seconds: int = 10):
         @functools.wraps(func)
         def wrapper(*args, **kwargs):
             if threading.current_thread() is threading.main_thread():
-                return signal_wrapped(*args, **kwargs)
+                try:
+                    return signal_wrapped(*args, **kwargs)
+                except MathVerifyTimeout:
+                    _math_verify_deadline.expired = True
+                    raise
             result_queue: queue.Queue[tuple[bool, Any]] = queue.Queue(maxsize=1)
 
             def run() -> None:
@@ -128,10 +108,13 @@ def _thread_compatible_math_verify_timeout(timeout_seconds: int = 10):
             worker.start()
             worker.join(seconds)
             if worker.is_alive():
+                _math_verify_deadline.expired = True
                 raise MathVerifyTimeout("Operation timed out!")
             succeeded, value = result_queue.get_nowait()
             if succeeded:
                 return value
+            if isinstance(value, MathVerifyTimeout):
+                _math_verify_deadline.expired = True
             raise value
 
         return wrapper
@@ -233,20 +216,56 @@ def collect_threaded_math_rewards(
 ):
     """Grade a response batch concurrently with one bounded wait per result."""
 
-    pending = [
-        pool.apply_async(reward_fn, (response, reference))
-        for response, reference in zip(responses, references)
-    ]
-    rewards = []
-    infos = []
-    for result in pending:
+    responses, references = list(responses), list(references)
+    if len(responses) != len(references):
+        raise failure("invalid_reference", "response/reference batch lengths differ")
+    # ModeBench owns its bounded subprocess. Do not race its cold start with
+    # the historical one-second ThreadPool deadline for ordinary MATH.
+    pending = []
+    for index, (response, reference) in enumerate(zip(responses, references)):
         try:
-            info, reward = result.get(timeout=timeout_seconds)
-            rewards.append(reward)
-            infos.append(info)
-        except MultiprocessingTimeoutError:
-            rewards.append(0.0)
-            infos.append({"formatted": False})
+            pending.append(
+                reward_fn(response, reference)
+                if parse_reference(reference) is not None
+                else pool.apply_async(reward_fn, (response, reference))
+            )
+        except EvaluationFailure as error:
+            raise EvaluationFailure(
+                dict(error.diagnostic, context="reward_submission", row_index=index)
+            ) from error
+        except Exception as error:
+            raise failure(
+                "worker_failure", f"{type(error).__name__}: {error}", row_index=index
+            ) from error
+    rewards, infos = [], []
+    for index, result in enumerate(pending):
+        try:
+            info, reward = (
+                result
+                if isinstance(result, tuple)
+                else result.get(timeout=timeout_seconds)
+            )
+        except EvaluationFailure as error:
+            raise EvaluationFailure(
+                dict(error.diagnostic, context="reward_batch", row_index=index)
+            ) from error
+        except (MultiprocessingTimeoutError, TimeoutError, MathVerifyTimeout) as error:
+            raise failure(
+                "timeout", "reward worker deadline exceeded", row_index=index
+            ) from error
+        except Exception as error:
+            raise failure(
+                "worker_failure", f"{type(error).__name__}: {error}", row_index=index
+            ) from error
+        rewards.append(reward)
+        infos.append(info)
+    validate_reward_batch(
+        rewards,
+        infos,
+        count=len(responses),
+        context="threaded_rewards",
+        references=references,
+    )
     return rewards, infos
 
 
@@ -715,6 +734,7 @@ class timeout:
         self._old_handler = None
 
     def handle_timeout(self, signum, frame):
+        _math_verify_deadline.expired = True
         raise TimeoutError(self.error_message)
 
     def __enter__(self):
@@ -826,6 +846,7 @@ def _is_latex_equal(str1, str2):
 
 
 def is_latex_equal(given_answer: str, ground_truth: str) -> bool:
+    _math_verify_deadline.expired = False
     try:
         with timeout(1):
             try:
@@ -872,10 +893,16 @@ def is_latex_equal(given_answer: str, ground_truth: str) -> bool:
                     timeout_seconds=1,
                 )
                 # or symbolic_equal(ground_truth, given_answer)
+            except (TimeoutError, MathVerifyTimeout, EvaluationFailure):
+                raise
             except Exception:
                 return False
-    except TimeoutError:
-        return False
+    except (TimeoutError, MathVerifyTimeout) as error:
+        raise failure("timeout", "full MATH verifier deadline exceeded") from error
+    finally:
+        if getattr(_math_verify_deadline, "expired", False):
+            _math_verify_deadline.expired = False
+            raise failure("timeout", "math_verify suppressed an internal deadline")
 
 
 def is_value_equal(given_answer: str, ground_truth: str) -> bool:
@@ -1113,12 +1140,6 @@ def split_tuple(expr: str):
     return elems
 
 
-
-
-
-
-
-
 def grade_answer_sympy(given_answer: str, ground_truth: str) -> bool:
     ground_truth_normalized = _normalize(ground_truth)
     given_normalized = _normalize(given_answer)
@@ -1167,48 +1188,6 @@ def grade_answer_mathd(given_answer: str, ground_truth: str) -> bool:
     if ground_truth_normalized_mathd == given_answer_normalized_mathd:
         return True
     return False
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 def _clean_final_answer_candidate(candidate: str | None) -> str | None:
@@ -1270,19 +1249,11 @@ def extract_normalized_final_answer(
 ) -> str | None:
     """Return a conservative canonical key for an answer or exact benchmark mode."""
 
+    # Keep the benchmark call outside ordinary-MATH best-effort parsing.
+    # Infrastructure failure must propagate, never become a missing identity.
+    if parse_reference(gt_answer) is not None:
+        return outcome_key(model_response, gt_answer)
     try:
-        if gt_answer is not None:
-            if _parse_modebench_spec(gt_answer) is not None:
-                return _modebench_answer_key(
-                    model_response,
-                    gt_answer,
-                )
-            modebench_key = _modebench_answer_key(
-                model_response,
-                gt_answer,
-            )
-            if modebench_key is not None:
-                return modebench_key
         candidate = None
         if template == "r1":
             # Match the training reward's strict R1 formatting gate.
@@ -1326,17 +1297,12 @@ def grade(model_answer: str, gt_answer: str, fast: bool = True):
 
 
 def boxed_reward_fn(model_response, gt_answer, fast=False):
-    model_answer = _extract_modebench_candidate(model_response, gt_answer)
-    if model_answer is not None:
-        modebench_correct = _grade_modebench_answer(model_answer, gt_answer)
-        if modebench_correct is not None:
-            return {"formatted": True}, 1.0 if modebench_correct else 0.0
+    diagnostic = grade_reference_response(model_response, gt_answer)
+    if diagnostic is not None:
+        return reward_from_diagnostic(diagnostic)
     model_answer = extract_answer(model_response)
     if model_answer is None:
-        return {"formatted": False}, 0.0  # Cannot even parse anything.
-    modebench_correct = _grade_modebench_answer(model_answer, gt_answer)
-    if modebench_correct is not None:
-        return {"formatted": True}, 1.0 if modebench_correct else 0.0
+        return {"formatted": False}, 0.0
     if isinstance(gt_answer, float) or isinstance(gt_answer, int):
         gt_answer = str(gt_answer)
     if isinstance(gt_answer, str):
@@ -1389,6 +1355,8 @@ def validated_math_route_signature(
         if not grade(model_answer, terminal_answer, fast=fast):
             return None
         return validation.route_signature
+    except EvaluationFailure:
+        raise
     except Exception:
         return None
 
@@ -1411,11 +1379,12 @@ def validated_exploration_identity(
     reward while contributing no route identity.
     """
 
-    if _parse_modebench_spec(gt_answer) is not None:
-        return validated_modebench_exploration_identity(
-            model_response,
-            gt_answer,
-        )
+    if parse_reference(gt_answer) is not None:
+        # Historical route signatures are not part of the maintained API.
+        # Gate them with structured grading first; quarantine the legacy helper.
+        from .legacy_modebench import exploration_identity
+
+        return exploration_identity(model_response, gt_answer)
     try:
         if task_verified is None:
             _info, reward = boxed_reward_fn(
@@ -1445,24 +1414,38 @@ def validated_exploration_identity(
             endpoint_key=f"math-answer:{endpoint}",
             route_signature=route,
         )
+    except EvaluationFailure:
+        raise
     except Exception:
         return None
 
 
+def _tag_format_rejection(diagnostic, *, formatted=False):
+    # The executable verdict was obtained first so a failed environment cannot
+    # hide behind an early formatting rejection. Then apply the legacy gate.
+    if diagnostic is None:
+        return {'formatted': formatted}, 0.0
+    info, reward = reward_from_diagnostic(dict(
+        diagnostic, status='malformed', verified=False, canonical_key=None,
+        detail='response violates the historical answer-tag format contract'))
+    info['formatted'] = formatted
+    return info, reward
+
+
 def answer_tag_reward_fn(model_response, gt_answer, fast=False):
+    benchmark_result = grade_reference_response(model_response, gt_answer)
     # We are strict about format to evaluate our models.
     if "</think> <answer>" in model_response and "</answer>" in model_response:
         model_answer = model_response.split("<answer>")[-1].replace("</answer>", "")
         if "\\boxed" in model_answer:
             model_answer = extract_answer(model_answer)
             if model_answer is None:
-                return {"formatted": True}, 0.0
-        modebench_plain_answer = _extract_modebench_candidate(model_answer, gt_answer)
-        if modebench_plain_answer is not None:
-            model_answer = modebench_plain_answer
-        modebench_correct = _grade_modebench_answer(model_answer, gt_answer)
-        if modebench_correct is not None:
-            return {"formatted": True}, 1.0 if modebench_correct else 0.0
+                return _tag_format_rejection(benchmark_result, formatted=True)
+        if benchmark_result is not None:
+            # Tags are a historical formatting contract; grade only their body.
+            return reward_from_diagnostic(
+                grade_reference_response(model_answer, gt_answer)
+            )
         if isinstance(gt_answer, float) or isinstance(gt_answer, int):
             gt_answer = str(gt_answer)
         if isinstance(gt_answer, str):
@@ -1479,23 +1462,23 @@ def answer_tag_reward_fn(model_response, gt_answer, fast=False):
                 0.0,
             )  # Formatted but wrong answer; no format reward to avoid hacking.
     else:
-        return {"formatted": False}, 0.0  # Unformatted.
+        return _tag_format_rejection(benchmark_result)
 
 
 def answer_tag_reward_fn_for_orz(model_response, gt_answer, fast=False):
+    benchmark_result = grade_reference_response(model_response, gt_answer)
     # We are a bit less strict for baselines.
     if "<answer>" in model_response and "</answer>" in model_response:
         model_answer = model_response.split("<answer>")[-1].replace("</answer>", "")
         if "\\boxed" in model_answer:
             model_answer = extract_answer(model_answer)
             if model_answer is None:
-                return {"formatted": True}, 0.0
-        modebench_plain_answer = _extract_modebench_candidate(model_answer, gt_answer)
-        if modebench_plain_answer is not None:
-            model_answer = modebench_plain_answer
-        modebench_correct = _grade_modebench_answer(model_answer, gt_answer)
-        if modebench_correct is not None:
-            return {"formatted": True}, 1.0 if modebench_correct else 0.0
+                return _tag_format_rejection(benchmark_result, formatted=True)
+        if benchmark_result is not None:
+            # Tags are a historical formatting contract; grade only their body.
+            return reward_from_diagnostic(
+                grade_reference_response(model_answer, gt_answer)
+            )
         if isinstance(gt_answer, float) or isinstance(gt_answer, int):
             gt_answer = str(gt_answer)
         if isinstance(gt_answer, str):
@@ -1512,4 +1495,4 @@ def answer_tag_reward_fn_for_orz(model_response, gt_answer, fast=False):
                 0.0,
             )  # Formatted but wrong answer; no format reward to avoid hacking.
     else:
-        return {"formatted": False}, 0.0  # Unformatted.
+        return _tag_format_rejection(benchmark_result)

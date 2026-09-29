@@ -13,8 +13,8 @@
     },
     {
       "path": "CONTRIBUTING.md",
-      "sha256": "fc14d3fab8b7db942acbb0c832678ed36952b187f4f49a62dbc60d78cb79a573",
-      "bytes": 2754
+      "sha256": "98a00ae571defc883fb83f1643e0ec41bff5f73c3b1cc97f1e02f64186c1509c",
+      "bytes": 2977
     },
     {
       "path": "LICENSE",
@@ -23,28 +23,28 @@
     },
     {
       "path": "Makefile",
-      "sha256": "56ee465e460675e53dd374f8056feffc7efaa8f03c570ac7cd4c8e96b010bdb0",
-      "bytes": 402
+      "sha256": "0cbd0a79bb25c5ecc61274480ecb242f11391e092a91eb5fdbd1e9c21f8292e2",
+      "bytes": 603
     },
     {
       "path": "PROVENANCE.json",
-      "sha256": "cb8650c6a0d31fc08fc765a2bc9d163b3e851b360b2ffb810d321cc34b7f06ab",
+      "sha256": "c58367a6693019b6a9a549cb3efad9d0ba79ead0e73b805af10739baffbc4077",
       "bytes": 28669
     },
     {
       "path": "README.md",
-      "sha256": "eeb55fb971476c214a608ca48ecb4c58e32b41e8aa7b92aa52f51cbbd828752c",
-      "bytes": 5980
+      "sha256": "5be3e4b388cffd87539d1158cae4f1ecc5600bdab9e41aefa216e5e2e65d7c3c",
+      "bytes": 6431
     },
     {
       "path": "RELEASE_STATUS.md",
-      "sha256": "1dd473ab094c8bcc8666e693f8ada0b50f3abb267aed451c995d6d66b6ca2136",
+      "sha256": "c095c4455780761493bf212183b6927efd4a4c9eb30c2b5130863c810c2d598f",
       "bytes": 2003
     },
     {
       "path": "VALIDATED_CPU_ENVIRONMENT.json",
-      "sha256": "c3908bff4b0d6021cc203b250ca884c0fa28c031680066d0c3c9a7a6b7894331",
-      "bytes": 581
+      "sha256": "6a5f6c5cd0a3f6744108c303938ce69fe9c6d2bcef7ddaef8395acde3c04990c",
+      "bytes": 645
     },
     {
       "path": "VALIDATED_ENVIRONMENT.json",
@@ -53,8 +53,8 @@
     },
     {
       "path": "VALIDATION.md",
-      "sha256": "faa362829a0b523dad7bf8f5f4c726f39c0cbb63a6a26d984abd7a9ddae1e397",
-      "bytes": 3897
+      "sha256": "a5e1eada171f5c91e0303d31c5b18d40ec1e017a126625622c19e8fe9ab87def",
+      "bytes": 5227
     },
     {
       "path": "configs/drgrpo_countdown_05b.json",
@@ -173,18 +173,18 @@
     },
     {
       "path": "docs/method.md",
-      "sha256": "bf1cef4501ae959ecc0578fb0d8deb8e69a1f5577bfbf42b0fdfc8a3f4798f56",
-      "bytes": 10751
+      "sha256": "06498e9eabe1ac6eb65cf35ac3d3ac3f522c002b29edbc718b1707e53dc403f5",
+      "bytes": 15683
     },
     {
       "path": "docs/reproducibility.md",
-      "sha256": "6c18ae54debce524d10a172b31bf4244620ab63f61703f367625cdfd96a36ded",
-      "bytes": 5669
+      "sha256": "5b51e9a00f665769466ccc61ed09fc1670b12a2d2d0b3c4c0f84b64a0c02d755",
+      "bytes": 5668
     },
     {
       "path": "docs/training.md",
-      "sha256": "d66fea0ed2998fb9eb35ea110f1e21331ed823216ddab51a88494495ef521ba9",
-      "bytes": 9143
+      "sha256": "cc6821755cad75cda7b2cf403eb5dd1db8b6cd1fc0a1286f786a424a293addc8",
+      "bytes": 9457
     },
     {
       "path": "evidence/mode_diversity_training.json",
@@ -233,8 +233,8 @@
     },
     {
       "path": "ops/check_training_reference.py",
-      "sha256": "ee238faa6745d8ed91d47fc007f3e046352c41a0605e33d634f9985fba28a105",
-      "bytes": 2692
+      "sha256": "c3af469518df759ba10cba7f8e08816eb31ed83e6cd897546a3370f34a1babd6",
+      "bytes": 3107
     },
     {
       "path": "ops/followup_metrics.py",
@@ -288,8 +288,8 @@
     },
     {
       "path": "pyproject.toml",
-      "sha256": "b7cbb05b4c0b9ab3a03d132b57828cb0f9bfea82287e7d429d7312275b4b83a5",
-      "bytes": 1101
+      "sha256": "0013c61532280c2ab0191afeb7db826ec33ebdd29b7c7473040784a628c2b876",
+      "bytes": 1107
     },
     {
       "path": "src/remax/__init__.py",
@@ -298,8 +298,8 @@
     },
     {
       "path": "src/remax/actor.py",
-      "sha256": "fd8c98d0e88e815e724c5af4379251cfcaffc52a72da9ab409161b9f4f71c61c",
-      "bytes": 52124
+      "sha256": "6fea95d8a4cbe22acb815932774b30d4cb11d22b9426c2040b315525081377c4",
+      "bytes": 52695
     },
     {
       "path": "src/remax/admission_retention.py",
@@ -315,6 +315,11 @@
       "path": "src/remax/args.py",
       "sha256": "1842cb6fae41434b6840f401a1b1b1b7f25a33f7a97b6ded77d837aef3659c2d",
       "bytes": 115134
+    },
+    {
+      "path": "src/remax/benchmark.py",
+      "sha256": "d27e1a660534e67653cbef2bf857f1acf2fb6a6a45a82755ad7a24ac980e1d46",
+      "bytes": 7277
     },
     {
       "path": "src/remax/canonical_actions.py",
@@ -353,8 +358,8 @@
     },
     {
       "path": "src/remax/learner/grpo.py",
-      "sha256": "4647f2fd3d89aaa949cd1cb4d4cfa17b95ddb0174fb473b0479440c8bf0387f2",
-      "bytes": 214064
+      "sha256": "775501ec53e6a0f96fd0f7116e6ecbe95bd0cfbc88298a873d6d535e257da14f",
+      "bytes": 214578
     },
     {
       "path": "src/remax/learner/init.py",
@@ -363,8 +368,13 @@
     },
     {
       "path": "src/remax/learner/run.py",
-      "sha256": "549b72808e24d150e38a19bd9cd4d5c7b74dc747923ca29a38412e1a78604db3",
-      "bytes": 204843
+      "sha256": "b48a9c872bd6cecfe131eac99a8a8ed64927ec5ab8218fdd5061342e906d37f2",
+      "bytes": 209676
+    },
+    {
+      "path": "src/remax/legacy_modebench.py",
+      "sha256": "b0dd4e3c3658a1a063af42504774dd45104ab338dda5bf1a096a255451072201",
+      "bytes": 928
     },
     {
       "path": "src/remax/logging_utils.py",
@@ -373,18 +383,18 @@
     },
     {
       "path": "src/remax/math_grader.py",
-      "sha256": "af963ec2792623d789932839d08a9c5ca5e0949604b5bf7c18036df381e0b903",
-      "bytes": 44288
+      "sha256": "12e051fc5a37bcf79b6cc195e1a32425622cca6e1628add30774356fa78970e9",
+      "bytes": 46251
     },
     {
       "path": "src/remax/math_grader_process.py",
-      "sha256": "3e3dc544c3f39d90a7513c9c190e47929f8cf965d8f5e98a4724052b2a10a28a",
-      "bytes": 4259
+      "sha256": "74b38d8abba39e8f53a1425928de75c9ab58f0cda191a04d5a00e0d0113450cc",
+      "bytes": 7787
     },
     {
       "path": "src/remax/math_grader_worker.py",
-      "sha256": "e445a19fd25e9586e4207a743f1a2b2ca2c977b76ea4757ba4229bee84dda477",
-      "bytes": 1037
+      "sha256": "b6d98082e9e9770bc681e04892de369a10d238a0aec4e4f72b68160554787cc9",
+      "bytes": 1469
     },
     {
       "path": "src/remax/math_route.py",
@@ -508,8 +518,8 @@
     },
     {
       "path": "src/remax/trajectory_dataset.py",
-      "sha256": "e7e9acaa90098a6f37e4e1e5158df28be0f4b3e9879143a1300aaab7851e261d",
-      "bytes": 5516
+      "sha256": "1e89c8ef1b1b7e81cf5c63b7ca6f4de8f2776721484eba4acc940d3527adcbac",
+      "bytes": 5768
     },
     {
       "path": "src/remax/ucpo.py",
@@ -523,8 +533,8 @@
     },
     {
       "path": "src/remax/verified_transformations.py",
-      "sha256": "0b4585f7c719d8c8d962427deabcc0a656c5b223b5c5bf3dbde0f719d73ca7c2",
-      "bytes": 18776
+      "sha256": "c31d9208807cb864fef4a4752f0d05ad681c4543f108552afe10415e380534fc",
+      "bytes": 18814
     },
     {
       "path": "src/remax/vllm_worker.py",
@@ -547,9 +557,24 @@
       "bytes": 5315
     },
     {
+      "path": "tests/boundary_runtime_harness.py",
+      "sha256": "0c65fca452f92b9b56194464cb2c695e08f14f953ab4d401e490320860b92ecf",
+      "bytes": 2976
+    },
+    {
       "path": "tests/conftest.py",
       "sha256": "8f705f40cc7bdfc8eea108fcd6258562e177d13f171dd505705bb8740bb52b39",
       "bytes": 144
+    },
+    {
+      "path": "tests/fixtures/benchmark_boundary_v1.json",
+      "sha256": "2cb6cd37265e080c8a804212c8986d51b820afe506bdbd0a9790f9d9478dc81c",
+      "bytes": 277308
+    },
+    {
+      "path": "tests/fixtures/benchmark_boundary_v1.sha256",
+      "sha256": "666ff8b065a427a7441fb89e688af9fdaa84ff16444403bcd99845f855b478c8",
+      "bytes": 65
     },
     {
       "path": "tests/fixtures/training_v1/expected.json",
@@ -573,8 +598,8 @@
     },
     {
       "path": "tests/test_benchmark_boundary.py",
-      "sha256": "d8c90ae1d024cd26f913911beac6bed9665a78c3b3622f680386edacbcee2141",
-      "bytes": 698
+      "sha256": "40ced1d847d6dfe11ffd14a0a772077cc2acd954cc581f5a7a20f6fef5e99c96",
+      "bytes": 8628
     },
     {
       "path": "tests/test_canonical_actions.py",
@@ -585,6 +610,11 @@
       "path": "tests/test_canonical_replay.py",
       "sha256": "90cc7ba3df8542761c6442d99bef8a24a62c4a808e107391a7c38d4547073947",
       "bytes": 11037
+    },
+    {
+      "path": "tests/test_evaluation_failure_boundary.py",
+      "sha256": "b69f88ac9dbabaa774f47da378b5a5062199ba2776f50f280f36e46e91fac1d8",
+      "bytes": 6932
     },
     {
       "path": "tests/test_maxrl.py",
@@ -623,8 +653,13 @@
     },
     {
       "path": "tests/test_training_reference_guard.py",
-      "sha256": "25e6538166b9c66d6822c57a07578cd9e0fb75d11e459239615dcda9808e4efd",
-      "bytes": 2093
+      "sha256": "3bd9ba35fa27a84419ed3046f8b08b530b1d75fc903363e3117907d5b7394359",
+      "bytes": 3070
+    },
+    {
+      "path": "tests/test_verifier_workers.py",
+      "sha256": "33a43eb824d29a12608d018464cc8570eb3bb53e5318f390376512235884dd48",
+      "bytes": 6278
     },
     {
       "path": "tests/training_harness.py",

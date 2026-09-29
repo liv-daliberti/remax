@@ -12,3 +12,8 @@ reproduce:
 conformance:
 	$(PYTHON) ops/check_training_reference.py
 	$(PYTHON) -m pytest -q tests/test_training_conformance.py tests/test_training_reference_guard.py
+
+.PHONY: boundary
+boundary:
+	$(PYTHON) ops/check_training_reference.py
+	$(PYTHON) -m pytest -q tests/test_benchmark_boundary.py tests/test_verifier_workers.py tests/test_evaluation_failure_boundary.py

@@ -5,6 +5,7 @@ Use the CPU environment in the [README](README.md#quick-start-cpu-checks), then 
 ```sh
 make check
 make conformance
+make boundary
 python examples/replay_loss.py
 ```
 
@@ -15,6 +16,8 @@ These commands test replay objectives, bank admission and scheduling, method/con
 Explain how a change affects fresh-sample advantages, bank admission, exemplar identity, replay weights, schedule/resume state, loss scaling, or compute-matched controls. Add focused behavioral tests for changes to those contracts.
 
 Before refactoring training, run `make conformance` and `python ops/check_training_reference.py --base-ref origin/main`. The frozen integration traces and independent scalar oracle cover admission through parameter updates. See [the contract and CPU adapter limits](docs/method.md#training-conformance). PR CI rejects edits to existing training fixture bytes even if hashes are refreshed. Add explicitly versioned cases and a scientific compatibility explanation for deliberate method changes; preserve the old references.
+
+Run `make boundary` for dependency or grading changes. Preserve the historical reward/key fixtures and propagate `EvaluationFailure`; catching it and returning zero or `None` is a scientific correctness bug.
 
 Preserve the ModeBench admission boundary: correctness and canonical mode identity must derive from the executable benchmark validator. Training support must not be initialized from evaluation answers or a certified solution catalogue.
 

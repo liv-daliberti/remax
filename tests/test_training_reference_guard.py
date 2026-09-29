@@ -68,3 +68,34 @@ def test_reference_guard_compares_base_bytes(tmp_path, change):
     if change != "delete":
         with pytest.raises(subprocess.CalledProcessError):
             check(tmp_path, "missing-ref")
+
+
+def test_boundary_fixture_cannot_be_rewritten_and_rehashed(tmp_path):
+    import shutil
+    from pathlib import Path
+
+    root = Path(__file__).parent / "fixtures"
+    shutil.copytree(root, tmp_path / "tests/fixtures")
+    command(tmp_path, "init", "-q")
+    command(tmp_path, "add", ".")
+    command(
+        tmp_path,
+        "-c",
+        "user.name=Test",
+        "-c",
+        "user.email=test@example.invalid",
+        "-c",
+        "commit.gpgsign=false",
+        "commit",
+        "-qm",
+        "Freeze boundary",
+    )
+    base = command(tmp_path, "rev-parse", "HEAD").decode().strip()
+    assert check(tmp_path, base)["preserved_base_files"] == 5
+    path = tmp_path / "tests/fixtures/benchmark_boundary_v1.json"
+    path.write_text("{}\n")
+    path.with_suffix(".sha256").write_text(
+        hashlib.sha256(path.read_bytes()).hexdigest() + "\n"
+    )
+    with pytest.raises(ValueError, match="PR changes frozen training reference"):
+        check(tmp_path, base)

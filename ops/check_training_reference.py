@@ -35,6 +35,14 @@ def check(root=ROOT, base_ref=None):
             ):
                 raise ValueError(f"changed frozen training reference: {path}")
             checked += 1
+    for path in sorted((root / PREFIX).glob("benchmark_boundary_v*.json")):
+        lock = path.with_suffix(".sha256")
+        if (
+            not lock.is_file()
+            or lock.read_text().strip() != hashlib.sha256(path.read_bytes()).hexdigest()
+        ):
+            raise ValueError(f"changed frozen benchmark boundary: {path}")
+        checked += 1
     preserved = 0
     if base_ref:
         # Resolve the ref first: an invalid/missing base must never look like an
@@ -51,7 +59,9 @@ def check(root=ROOT, base_ref=None):
         )
         for relative in paths:
             parts = Path(relative).parts
-            if len(parts) < 4 or not parts[2].startswith("training_v"):
+            if len(parts) < 3 or not parts[2].startswith(
+                ("training_v", "benchmark_boundary_v")
+            ):
                 continue
             original = git(root, "show", f"{commit}:{relative}")
             path = root / relative

@@ -30,6 +30,7 @@ from torch.utils.data import DataLoader, DistributedSampler
 from tqdm import tqdm
 
 from ..answer_options import conditional_answer_repr, crossfit_option_answer_mi
+from ..benchmark import EvaluationFailure, failure, validate_reward_batch
 from ..args import resolve_canonical_action_task
 from ..canonical_actions import (
     CanonicalActionSpace,
@@ -2349,6 +2350,7 @@ class ZeroMathRunMixin:
                 record["reference"],
                 fast=self.args.verifier_version == "fast",
             )
+            record["verifier_diagnostic"] = oracle_info.get("verifier")
             formatted = bool(oracle_info.get("formatted", False))
             numeric_reward = float(reward)
             if not formatted:
@@ -2422,6 +2424,9 @@ class ZeroMathRunMixin:
                 info=info,
             )
             setattr(trajectory, "reference", record["reference"])
+            setattr(
+                trajectory, "verifier_diagnostic", record.get("verifier_diagnostic")
+            )
             setattr(
                 trajectory,
                 "canonical_behavior_action_logprobs",
@@ -4139,6 +4144,35 @@ class ZeroMathRunMixin:
         )
 
     def evaluate(self, dataloader, steps):
+        try:
+            return self._evaluate_verified(dataloader, steps)
+        except Exception as error:
+            diagnostic = (
+                error.diagnostic
+                if isinstance(error, EvaluationFailure)
+                else failure(
+                    "worker_failure", f"{type(error).__name__}: {error}"
+                ).diagnostic
+            )
+            if self.strategy.is_rank_0():
+                path = os.path.join(self.save_path, "evaluation_failures.jsonl")
+                with open(path, "a", encoding="utf-8") as sink:
+                    sink.write(
+                        json.dumps(
+                            {
+                                "status": "failed",
+                                "step": steps,
+                                "metrics": None,
+                                "diagnostic": diagnostic,
+                            }
+                        )
+                        + "\n"
+                    )
+                    sink.flush()
+                    os.fsync(sink.fileno())
+            raise
+
+    def _evaluate_verified(self, dataloader, steps):
         # Discard the default eval dataloader, and run eval on multiple benchmarks.
         del dataloader
         all_metrics = {}
@@ -4238,15 +4272,36 @@ class ZeroMathRunMixin:
         draw_count = int(getattr(self.args, "eval_mode_coverage_draws", 4))
         seed_base = int(getattr(self.args, "eval_mode_coverage_seed", 1001))
         try:
-            metrics = self._run_sampled_mode_coverage(
-                dataset,
-                benchmark_name,
-                steps,
-                k=k,
-                temperature=temperature,
-                draw_count=draw_count,
-                seed_base=seed_base,
-            )
+            diagnostic = None
+            try:
+                metrics = self._run_sampled_mode_coverage(
+                    dataset,
+                    benchmark_name,
+                    steps,
+                    k=k,
+                    temperature=temperature,
+                    draw_count=draw_count,
+                    seed_base=seed_base,
+                )
+            except Exception as error:
+                metrics = {}
+                diagnostic = (
+                    error.diagnostic
+                    if isinstance(error, EvaluationFailure)
+                    else failure(
+                        "worker_failure", f"{type(error).__name__}: {error}"
+                    ).diagnostic
+                )
+            if (
+                dist.is_available()
+                and dist.is_initialized()
+                and dist.get_world_size() > 1
+            ):
+                failures = [None] * dist.get_world_size()
+                dist.all_gather_object(failures, diagnostic)
+                diagnostic = next((item for item in failures if item is not None), None)
+            if diagnostic is not None:
+                raise EvaluationFailure(diagnostic)
         finally:
             self._post_evaluate()
         # All ranks must call broadcast the same number of times (once per key).
@@ -4575,6 +4630,29 @@ class ZeroMathRunMixin:
                     futs, pending
                 ):
                     result = fut.result()
+                    verifier_rows = result.get("verifier_infos")
+                    if verifier_rows is None or len(verifier_rows) != len(queued_refs):
+                        raise failure(
+                            "worker_failure",
+                            "missing sampled-evaluation verifier diagnostics",
+                        )
+                    for rewards_row, infos_row, ref in zip(
+                        result["rewards"], verifier_rows, queued_refs
+                    ):
+                        validate_reward_batch(
+                            rewards_row,
+                            infos_row,
+                            count=k,
+                            context="sampled_evaluation",
+                            references=[ref] * k,
+                        )
+                    if any(
+                        len(result.get(key, [])) != len(queued_refs)
+                        for key in ("rewards", "answer_keys", "responses")
+                    ):
+                        raise failure(
+                            "worker_failure", "incomplete sampled-evaluation payload"
+                        )
                     option_rows = result.get("option_ids")
                     if option_rows is None:
                         option_rows = [
@@ -4584,12 +4662,19 @@ class ZeroMathRunMixin:
                     request_seed_rows = result.get("request_seeds_by_prompt")
                     if request_seed_rows is None:
                         request_seed_rows = [[] for _ in result["rewards"]]
+                    if len(option_rows) != len(queued_refs) or len(
+                        request_seed_rows
+                    ) != len(queued_refs):
+                        raise failure(
+                            "worker_failure", "incomplete sampled-evaluation metadata"
+                        )
                     for (
                         rewards,
                         answer_keys,
                         responses,
                         option_ids,
                         request_seeds,
+                        verifier_infos,
                         ref,
                         prompt_index,
                         prompt,
@@ -4599,10 +4684,30 @@ class ZeroMathRunMixin:
                         result["responses"],
                         option_rows,
                         request_seed_rows,
+                        verifier_rows,
                         queued_refs,
                         queued_indices,
                         queued_prompts,
                     ):
+                        if (
+                            len(answer_keys) != k
+                            or len(responses) != k
+                            or len(option_ids) != k
+                        ):
+                            raise failure(
+                                "worker_failure",
+                                "incomplete sampled-evaluation response/key rows",
+                            )
+                        for key, info in zip(answer_keys, verifier_infos):
+                            diagnostic = info.get("verifier")
+                            if (
+                                diagnostic is not None
+                                and key != diagnostic["canonical_key"]
+                            ):
+                                raise failure(
+                                    "worker_failure",
+                                    "evaluation identity disagrees with verifier",
+                                )
                         mode_count = _parse_answer_mode_count(ref)
                         prompt_metrics = _compute_mode_coverage_metrics(
                             rewards,
@@ -4617,6 +4722,7 @@ class ZeroMathRunMixin:
                                 "prompt": prompt,
                                 "reference": ref,
                                 "answer_mode_count": mode_count,
+                                "verifier_infos": verifier_infos,
                                 "responses": [str(response) for response in responses],
                                 "rewards": [float(value) for value in rewards],
                                 "answer_keys": [

@@ -5,6 +5,7 @@ from __future__ import annotations
 import json
 import sys
 
+from .benchmark import EvaluationFailure, failure, validate_reward_batch
 from .math_grader import answer_tag_reward_fn, boxed_reward_fn
 
 
@@ -20,14 +21,22 @@ def main() -> None:
             info, reward = reward_fn(
                 request["response"], request["reference"], fast=False
             )
+            validate_reward_batch(
+                [reward], [info], count=1, context="full_verifier_worker"
+            )
             payload = {"info": info, "reward": float(reward)}
-        except Exception as error:
+        except EvaluationFailure as error:
             payload = {
-                "info": {
-                    "formatted": False,
-                    "verifier_worker_error": type(error).__name__,
-                },
-                "reward": 0.0,
+                "info": {"formatted": False, "verifier": error.diagnostic},
+                "reward": None,
+            }
+        except Exception as error:
+            diagnostic = failure(
+                "worker_failure", f"{type(error).__name__}: {error}"
+            ).diagnostic
+            payload = {
+                "info": {"formatted": False, "verifier": diagnostic},
+                "reward": None,
             }
         sys.stdout.write(json.dumps(payload, allow_nan=False) + "\n")
         sys.stdout.flush()

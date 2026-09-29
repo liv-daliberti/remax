@@ -51,7 +51,7 @@ The installed ModeBench Python package supplies validators. Its **Git checkout**
 
 ```sh
 git clone https://github.com/liv-daliberti/modeBench.git ../modeBench
-git -C ../modeBench checkout 94c45d1f66d3eb181fac2225dc04d62e08568b8e
+git -C ../modeBench checkout 33cfc3fd1732bd500fe13f13555419557aa248e2
 python ../modeBench/ops/verify_data.py
 python ../modeBench/ops/materialize_training_data.py \
   --config level1_countdown --output outputs/data/countdown
@@ -144,3 +144,5 @@ The launcher validates basic file existence, not complete dataset/model provenan
 | Frozen numerical reproduction fails | Restore the matching evidence and code revision; do not overwrite expected results to silence a mismatch. |
 
 CPU CI does not exercise GPU sampling, distributed optimization, or checkpoint equivalence. Those remain explicit validation requirements for a full training reproduction.
+
+Verifier failures are fatal, with structured diagnostics rather than zero rewards. Inspect `evaluation_failures.jsonl` for failed evaluation steps; do not combine partial draw records from those steps into a completed score. See [the boundary and compatibility policy](method.md#modebench-boundary-and-failures).

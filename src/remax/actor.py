@@ -33,6 +33,7 @@ from .math_grader import (
     collect_threaded_math_rewards,
     extract_normalized_final_answer,
 )
+from .benchmark import validate_reward_batch
 from .math_grader_process import FullMathVerifierProcess
 from .modebench_guided import guided_sampling_params
 from .vllm_worker import PinnedWorkerExtensionArgs
@@ -348,6 +349,13 @@ class MATHOracle(RewardOracleBase, PreferenceOracleBase):
                 timeout_seconds=1,
             )
 
+        validate_reward_batch(
+            rewards,
+            infos,
+            count=len(responses),
+            context="actor_oracle",
+            references=references,
+        )
         return torch.tensor(rewards), infos
 
     def compare(
@@ -711,7 +719,7 @@ class ZeroMathActor(PPOActor):
         ]
         all_refs_flat = [ref for ref in refs for _ in range(n)]
 
-        rewards_tensor, _ = self.oracle.get_reward(
+        rewards_tensor, oracle_infos = self.oracle.get_reward(
             [""] * len(all_responses),
             all_responses,
             all_refs_flat,
@@ -741,6 +749,9 @@ class ZeroMathActor(PPOActor):
 
         return {
             "rewards": per_prompt_rewards,
+            "verifier_infos": [
+                oracle_infos[i : i + n] for i in range(0, len(oracle_infos), n)
+            ],
             "answer_keys": per_prompt_keys,
             "responses": realized_responses,
             "option_ids": per_prompt_options,
@@ -1152,6 +1163,11 @@ class ZeroMathActor(PPOActor):
                     info=info,
                 )
                 setattr(trajectory, "reference", reference)
+                setattr(
+                    trajectory,
+                    "verifier_diagnostic",
+                    oracle_infos[i * total_samples_per_prompt + j].get("verifier"),
+                )
                 if use_diayn_options:
                     option_id = diayn_option_ids[i][j]
                     if option_id is None:

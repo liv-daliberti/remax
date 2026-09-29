@@ -16,13 +16,13 @@ import json
 from collections.abc import Iterable, Mapping
 from typing import Any
 
-from .math_grader import (
+from .legacy_modebench import (
     _canonical_countdown_expression_key,
     _extract_modebench_candidate,
     _graph_coloring_from_candidate,
     _verify_graph_coloring_colors,
-    validated_modebench_outcome_key,
 )
+from .benchmark import outcome_key as validated_modebench_outcome_key
 from .canonical_actions import (
     decode_countdown_action_code,
     enumerate_countdown_action_codes,

@@ -10,7 +10,7 @@ This repository contains replay objectives, bank state and scheduling, OAT learn
 
 ## Quick start: CPU checks
 
-Use Linux with Python 3.10 or later; the historical GPU training stack uses Python 3.10. Check your interpreter version before creating the environment.
+Use Linux with Python 3.10–3.12; the historical GPU training stack uses Python 3.10. Check your interpreter version before creating the environment.
 
 ```sh
 git clone https://github.com/liv-daliberti/remax.git
@@ -29,6 +29,8 @@ ModeBench is installed from the immutable Git commit declared in `pyproject.toml
 The example prints a replay loss of `2.0` and score gradients `[-0.25, -0.25, -0.5]` for two illustrative prompt banks. `make check` runs regression tests, verifies the retained training analysis, and checks shell syntax.
 
 Run `make conformance` for the training contract alone: frozen admission-to-optimizer cases for Re:Max, Re:Dr, and both compute-matched controls. These execute the production learner on a tiny CPU model and compare every update with an independent gradient calculation. See [training conformance](docs/method.md#training-conformance) for coverage and limits.
+
+The maintained grading path uses ModeBench 0.4.0's supported API at the immutable commit in `pyproject.toml`. `make boundary` checks 175 frozen historical reward/key pairs and failure propagation through workers, training, and evaluation. Timeouts, invalid references, resource limits, and broken workers abort the affected work; they are never counted as incorrect answers. See [the verifier boundary](docs/method.md#modebench-boundary-and-failures).
 
 A GPU training environment needs the separate `train` extra and a compatible CUDA/PyTorch stack. Follow the [training guide](docs/training.md) rather than using the CPU wheel above for training.
 

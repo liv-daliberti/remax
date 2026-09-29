@@ -80,7 +80,7 @@ make conformance
 python ops/check_training_reference.py --base-ref origin/main
 ```
 
-The suite executes the unchanged `_grpo_learning_step_with_progress` path, including the installed ModeBench validator, bank admission/update, global scheduler, replay materialization, teacher-forced scoring, fresh advantages, replay backward passes, and a real PyTorch SGD update. It covers all four maintained methods. No model download, generation, or GPU is needed.
+The suite executes the production `_grpo_learning_step_with_progress` path, including the installed ModeBench validator, bank admission/update, global scheduler, replay materialization, teacher-forced scoring, fresh advantages, replay backward passes, and a real PyTorch SGD update. It covers all four maintained methods. No model download, generation, or GPU is needed.
 
 [Version 1 inputs](../tests/fixtures/training_v1/inputs.json) and [expected traces](../tests/fixtures/training_v1/expected.json) freeze **12 sequential updates** at source commit `e4c7b50980e1a2a33c67de613b68a1e013ce5639`. Each method runs three steps:
 
@@ -108,6 +108,34 @@ The [CPU adapter](../tests/training_harness.py) substitutes only external infras
 
 CI runs conformance with the ordinary regression suite on Python 3.10–3.12. A separate PR-base comparison rejects changing or deleting existing reference files, **even if their local hashes are refreshed**. Keep version 1 immutable. An intentional method change needs an explicitly versioned contract, new fixtures/tests, and scientific review explaining the difference; changing expected numbers to make a refactor pass is not acceptable.
 
+## ModeBench boundary and failures
+
+The maintained methods call `modebench.api.grade(Task(...), response)` through [benchmark.py](../src/remax/benchmark.py), pinned to ModeBench **0.4.0**, commit `33cfc3fd1732bd500fe13f13555419557aa248e2`. They derive correctness and canonical identity from the same structured verdict. Private grading helpers are confined to historical proposal/route compatibility; they do not decide rewards or bank admission in the 20 maintained recipes.
+
+| Verifier status | Reward / action |
+| --- | --- |
+| `correct` | Reward 1; retain the returned canonical key |
+| `incorrect`, `malformed` | Reward 0; no canonical key |
+| `timeout`, `invalid_reference`, `worker_failure`, `resource_limit` | Raise `EvaluationFailure` with the original diagnostic; no numeric reward |
+| Unknown or inconsistent reply, missing rows/diagnostics | Treat as worker failure and abort |
+
+`EvaluationFailure.diagnostic` survives pickle/RPC and JSON transport, including status, detail, and row/context where available. Neither the thread collector nor the full-MATH worker substitutes zero after failure. The full worker bounds writes and partial reads, reaps failed processes, and allows a subsequent request to start a new worker. It does not silently retry a failed request. ModeBench owns its own bounded worker; its calls bypass the historical one-second ordinary-MATH thread deadline. Legacy full-MATH internal deadlines are also surfaced if `math_verify` catches its own timeout.
+
+Successful diagnostics accompany actor trajectories and sampled-evaluation rows. The learner checks transported failures before bank mutation or optimization, and independently revalidates bank candidates through the supported API. Old trajectories without diagnostic fields remain readable and still receive independent admission validation. A failed admission batch does not commit its discoveries or apply an optimizer update.
+
+Sampled evaluation requires complete diagnostic/reward/key rows before computing metrics. Rank-local failures are exchanged before score broadcasts. The top-level evaluator raises and appends `evaluation_failures.jsonl` with `status: "failed"`, the step, diagnostic, and `metrics: null`. There is no completed aggregate for that evaluation. Earlier successful draw records may already exist; a failure record invalidates the **complete evaluation at that step**, and those partial draws must not be presented as a completed result. Restart or rerun explicitly after fixing the environment; never replace failures with incorrect answers.
+
+Historical recipes supply reference-only **decoded** responses. For Countdown, Graph, Python, and MathIR, the public validators have level-independent response semantics. Historical Pantry actors convert Level 1 support masks into allocations before grading. The compatibility adapter uses the public allocation contract (the Level 2+ Pantry grading surface) for these decoded strings; the dataset and experiment remain Level 1. New callers grading raw registered masks should supply their actual level/domain through `grade_task(Task(...), response)`. The adapter never guesses a surface from the generated answer.
+
+The [175 historical cases](../tests/fixtures/benchmark_boundary_v1.json) were captured **before** upgrading, with the old ModeBench commit and fixture-source digest recorded. They cover accepted/rejected answers and formatting across all 25 level/domain cells, including Pantry decoding. Every frozen reward and admission key remains identical under the new API, as do the 12 frozen training updates. Legacy R1/ORZ tag gates still produce genuine malformed-answer verdicts when formatting fails. Invalid references and environment failures intentionally change from ambiguous failure behavior to explicit exceptions. The `formatted` diagnostic now follows the structured malformed status; it does not change the binary reward. Compatibility fixtures retain their ModeBench dataset provenance; see the pinned [dataset license and attribution](https://github.com/liv-daliberti/modeBench/blob/33cfc3fd1732bd500fe13f13555419557aa248e2/DATA_LICENSE).
+
+```sh
+make boundary
+python ops/check_training_reference.py --base-ref origin/main
+```
+
+The PR-base guard protects both training and boundary fixtures from rewriting, including attempts to refresh their checksums. CPU tests exercise real worker crashes, deadlines, blocked writes, partial/malformed replies, cleanup/restart, actor reward calls, failed bank admission, transported diagnostics, and evaluation failure records. OAT/vLLM are represented by test adapters; multi-rank failure exchange is simulated. A fresh GPU/DeepSpeed or multi-process distributed training/evaluation run remains a separate qualification.
+
 ## Source map
 
 | Module | Responsibility |
@@ -118,7 +146,9 @@ CI runs conformance with the ordinary regression suite on Python 3.10–3.12. A 
 | `src/remax/actor.py` | Sampling and reward integration |
 | `src/remax/learner/grpo.py` | Integrated optimization and applied replay/control gradients |
 | `src/remax/learner/run.py` | Training loop and evaluation plumbing |
-| `src/remax/math_grader.py` | Trainer grading adapter; executable ModeBench identity delegates to `modebench.grading` |
+| `src/remax/benchmark.py` | Supported `modebench.api` integration, structured verdicts, fatal failure policy |
+| `src/remax/math_grader.py` | Reward/identity compatibility surface and ordinary MATH grading |
+| `src/remax/legacy_modebench.py` | Quarantined helpers for historical proposal/route experiments |
 | `ops/run_recipe.py` | Translate an exported recipe into a portable command |
 | `ops/train.sh` | OAT CLI construction and local execution |
 

@@ -76,6 +76,7 @@ class ZeroMathTrajectoryDataset(Dataset):
                         None,
                     ),
                     "reference": getattr(item, "reference", None),
+                    "verifier_diagnostic": getattr(item, "verifier_diagnostic", None),
                     "diayn_option_id": getattr(item, "diayn_option_id", None),
                 }
             )
@@ -101,6 +102,7 @@ class ZeroMathTrajectoryDataset(Dataset):
             "canonical_behavior_action_token_ids": [],
             "canonical_behavior_action_token_ids_by_position": [],
             "references": [],
+            "verifier_diagnostics": [],
             "diayn_option_ids": [],
         }
         for item in item_list:
@@ -123,6 +125,9 @@ class ZeroMathTrajectoryDataset(Dataset):
             ].append(item["canonical_behavior_action_token_ids_by_position"])
             batch_trajectories["action_ids"].append(item["action_ids"])
             batch_trajectories["references"].append(item.get("reference"))
+            batch_trajectories["verifier_diagnostics"].append(
+                item.get("verifier_diagnostic")
+            )
             batch_trajectories["diayn_option_ids"].append(item.get("diayn_option_id"))
 
         padding_side = "right"

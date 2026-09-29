@@ -16,6 +16,7 @@ import torch
 import torch.distributed as dist
 from oat.utils.ops import masked_mean
 
+from ..benchmark import require_scorable, failure
 from ..args import resolve_canonical_action_task
 from ..answer_options import coerce_option_id, conditional_answer_repr
 from ..canonical_actions import (
@@ -2027,6 +2028,14 @@ class ZeroMathGrpoMixin:
         return infos
 
     def _grpo_learning_step_with_progress(self, trajectory):
+        # Check transported diagnostics before bank mutation, scheduling or loss.
+        diagnostics = trajectory.get("verifier_diagnostics")
+        if diagnostics is not None:
+            if len(diagnostics) != len(trajectory["input_ids"]):
+                raise failure("worker_failure", "incomplete trajectory diagnostics")
+            for diagnostic in diagnostics:
+                if diagnostic is not None:
+                    require_scorable(diagnostic)
         args = self.args
         canonical_task = resolve_canonical_action_task(args)
         canonical_actions = canonical_task != "none"

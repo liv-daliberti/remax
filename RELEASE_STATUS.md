@@ -2,7 +2,7 @@
 
 This initial standalone release includes verified replay losses and bank state, OAT learner integration, 20 portable Qwen2.5-0.5B Level 1 recipes, core regression tests, frozen training conformance cases through CPU optimizer updates, a runnable CPU gradient example, and saved-key reproduction of 473 seed records across 95 arms.
 
-ModeBench is a separate public dependency pinned to commit `94c45d1f66d3eb181fac2225dc04d62e08568b8e`. See [validation](VALIDATION.md) for checks actually completed.
+ModeBench is a separate public dependency pinned to commit `33cfc3fd1732bd500fe13f13555419557aa248e2`. See [validation](VALIDATION.md) for checks actually completed.
 
 ## Known gaps and follow-up work
 

@@ -23,7 +23,7 @@ Here `cells` counts retained seed records. `reportable_arms` refers to before/af
 
 The builder compares steps 0 and 3072 in the frozen archive. Selected step-0-only failures can retain an admissible terminal record under the original rules; issues affecting other steps are treated differently. The source builder preserves those distinctions. It does not silently turn missing observations into zeros.
 
-PCMD is computed from prompt-local verified-mode counts, pooling a prompt's recorded groups and averaging defined prompts equally. Keep correctness and support alongside PCMD; see [ModeBench's metric guide](https://github.com/liv-daliberti/modeBench/blob/94c45d1f66d3eb181fac2225dc04d62e08568b8e/docs/evaluation.md).
+PCMD is computed from prompt-local verified-mode counts, pooling a prompt's recorded groups and averaging defined prompts equally. Keep correctness and support alongside PCMD; see [ModeBench's metric guide](https://github.com/liv-daliberti/modeBench/blob/33cfc3fd1732bd500fe13f13555419557aa248e2/README.md#metrics).
 
 ## Evidence boundaries
 
@@ -44,7 +44,7 @@ The included archive is a saved-key analysis input, not a complete collection of
 
 ## Identities and environment
 
-The package depends on ModeBench commit `94c45d1f66d3eb181fac2225dc04d62e08568b8e`, rather than an unversioned sibling checkout or an assumed PyPI release.
+The package depends on ModeBench commit `33cfc3fd1732bd500fe13f13555419557aa248e2`, rather than an unversioned sibling checkout or an assumed PyPI release.
 
 - `PROVENANCE.json` maps extracted files to research source paths and hashes. The extraction included working-tree changes, so the original research commit alone is insufficient to reconstruct it.
 - `RELEASE_MANIFEST.json` binds final release files, including evidence and documentation. Check it with `python ops/verify_release.py`.
