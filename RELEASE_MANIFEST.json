@@ -23,23 +23,23 @@
     },
     {
       "path": "Makefile",
-      "sha256": "0cbd0a79bb25c5ecc61274480ecb242f11391e092a91eb5fdbd1e9c21f8292e2",
-      "bytes": 603
+      "sha256": "4a3ac0a6a39f0e792613c702910d5aea7203125215e3011feddda235b99ab892",
+      "bytes": 632
     },
     {
       "path": "PROVENANCE.json",
-      "sha256": "c58367a6693019b6a9a549cb3efad9d0ba79ead0e73b805af10739baffbc4077",
+      "sha256": "a14e91e2aa5e287fcafd85c797346f209edf35eda2d84f747f79205b3ba8049b",
       "bytes": 28669
     },
     {
       "path": "README.md",
-      "sha256": "5be3e4b388cffd87539d1158cae4f1ecc5600bdab9e41aefa216e5e2e65d7c3c",
-      "bytes": 6431
+      "sha256": "5ffcafd813f05d6d753ad3197aee7c0ab4c40434d494dd3b8dfd2ffc846153be",
+      "bytes": 6567
     },
     {
       "path": "RELEASE_STATUS.md",
-      "sha256": "c095c4455780761493bf212183b6927efd4a4c9eb30c2b5130863c810c2d598f",
-      "bytes": 2003
+      "sha256": "f6ce97ad217b25f392d7962d273d929603fad896410c3cfbd50dfa9d8e764752",
+      "bytes": 2319
     },
     {
       "path": "VALIDATED_CPU_ENVIRONMENT.json",
@@ -52,9 +52,14 @@
       "bytes": 494
     },
     {
+      "path": "VALIDATED_GPU_RUN.json",
+      "sha256": "d64c528a7684df59f3e86ce54078c59847f2786c06374cd8ab9b5d2e3ebb0613",
+      "bytes": 19442
+    },
+    {
       "path": "VALIDATION.md",
-      "sha256": "a5e1eada171f5c91e0303d31c5b18d40ec1e017a126625622c19e8fe9ab87def",
-      "bytes": 5227
+      "sha256": "53142a10744d0178b1aead8247985db3b0cd1de34c4ba1c042bdf7a9b25abf85",
+      "bytes": 8066
     },
     {
       "path": "configs/drgrpo_countdown_05b.json",
@@ -183,8 +188,8 @@
     },
     {
       "path": "docs/training.md",
-      "sha256": "cc6821755cad75cda7b2cf403eb5dd1db8b6cd1fc0a1286f786a424a293addc8",
-      "bytes": 9457
+      "sha256": "1ba2fdeea4df02fbadf62145e68216720f73905b835e15eb0dc46132750c41fc",
+      "bytes": 14439
     },
     {
       "path": "evidence/mode_diversity_training.json",
@@ -227,14 +232,24 @@
       "bytes": 937
     },
     {
+      "path": "ops/audit_gpu_smoke.py",
+      "sha256": "31a9573f551b84096667ff56e912dfa7a76b4cd851cc86b942b3f9d660540e89",
+      "bytes": 10753
+    },
+    {
       "path": "ops/build_mode_diversity_training.py",
       "sha256": "cff97f66e9852414121cd759e508bf9476817e9f6ff6841a82ae571d973cd573",
       "bytes": 9842
     },
     {
       "path": "ops/check_training_reference.py",
-      "sha256": "c3af469518df759ba10cba7f8e08816eb31ed83e6cd897546a3370f34a1babd6",
-      "bytes": 3107
+      "sha256": "44fb861bfc5d5965520fff1570d55ce3993b585be546df4d0834cecd4e09f685",
+      "bytes": 3229
+    },
+    {
+      "path": "ops/compare_gpu_recipe.py",
+      "sha256": "2e88e909f374c4e1c1ce0b77b85a58a07763ad0dccb135707b7386a0b7f09b94",
+      "bytes": 3744
     },
     {
       "path": "ops/followup_metrics.py",
@@ -242,9 +257,14 @@
       "bytes": 4837
     },
     {
+      "path": "ops/gpu_smoke.py",
+      "sha256": "40b6bbf1456ea599ee9a38381f81c223c4f4c565187fd165e57c83cce5bb1430",
+      "bytes": 10819
+    },
+    {
       "path": "ops/repo_env.sh",
-      "sha256": "a4697b07d8704db46807ed59a6b4fce0ffcf4627fb8c32f6e7daecab85fc76eb",
-      "bytes": 388
+      "sha256": "1f8447ea93cf3ebc5aece0f9f81c83c8d912f00162e2c2010c2484f141cc339d",
+      "bytes": 554
     },
     {
       "path": "ops/reproduce_training.py",
@@ -257,14 +277,19 @@
       "bytes": 2024
     },
     {
+      "path": "ops/setup_gpu_environment.sh",
+      "sha256": "096804f394c4b68545953b7f154dcb98c046870603b3aaed39acd5334afa740e",
+      "bytes": 1066
+    },
+    {
       "path": "ops/train.sh",
-      "sha256": "85b39a12290f3ecc1f6c168a0ceb547659b1e3bfd7606c68225689e1e27dc7ff",
-      "bytes": 61639
+      "sha256": "74b5c77df3c2be50eed34592cc1f9b568fbffdc3d4f0a996f96555b2c4a267e3",
+      "bytes": 61946
     },
     {
       "path": "ops/verify_release.py",
-      "sha256": "642ae3e46ca3b4609c16084d9a2cadc037a2d90d2a3225f27c60a776580d095f",
-      "bytes": 2392
+      "sha256": "53238a2e1add9c2616cc95e3bfb08a2547de15c33792a06052b2502f4529ecf4",
+      "bytes": 2787
     },
     {
       "path": "protocols/e118f1_falcon_five_seed_extension_20260901.md",
@@ -290,6 +315,11 @@
       "path": "pyproject.toml",
       "sha256": "0013c61532280c2ab0191afeb7db826ec33ebdd29b7c7473040784a628c2b876",
       "bytes": 1107
+    },
+    {
+      "path": "requirements-gpu-py310-cu124.txt",
+      "sha256": "0f6821092ffcd3a5a9846c17474042b9d4fd8eed494ac11851c775a7191a139d",
+      "bytes": 5182
     },
     {
       "path": "src/remax/__init__.py",
@@ -368,8 +398,8 @@
     },
     {
       "path": "src/remax/learner/run.py",
-      "sha256": "b48a9c872bd6cecfe131eac99a8a8ed64927ec5ab8218fdd5061342e906d37f2",
-      "bytes": 209676
+      "sha256": "e28111f1a329195b4914db8e4df9f2faa5afd0f7d29fe60782c59b516a351dd9",
+      "bytes": 209807
     },
     {
       "path": "src/remax/legacy_modebench.py",
@@ -577,6 +607,16 @@
       "bytes": 65
     },
     {
+      "path": "tests/fixtures/gpu_historical_pantry_v1.json",
+      "sha256": "4b7517a3006de74962557f7d3977aad739a47466ddff384511d7f1061acb3bac",
+      "bytes": 7726
+    },
+    {
+      "path": "tests/fixtures/gpu_historical_pantry_v1.sha256",
+      "sha256": "40f799af10c7401d1c5c3d5fdd34259b8a655ca61f3bb59c1bec4023776d4192",
+      "bytes": 65
+    },
+    {
       "path": "tests/fixtures/training_v1/expected.json",
       "sha256": "c952d89d936d2391e7bd2449155a0864a949d3f10e7c0064d494028a2e434ce5",
       "bytes": 93947
@@ -613,8 +653,13 @@
     },
     {
       "path": "tests/test_evaluation_failure_boundary.py",
-      "sha256": "b69f88ac9dbabaa774f47da378b5a5062199ba2776f50f280f36e46e91fac1d8",
-      "bytes": 6932
+      "sha256": "15f09e3697bba928aa6bd8e581381a1c9aa8373ca2cd397ee3959e94f5ccba06",
+      "bytes": 8671
+    },
+    {
+      "path": "tests/test_gpu_workflow.py",
+      "sha256": "3e6f046c7dd1d5c5ab53f56a143f80405694ac8c9cfc3f3ded89d3eeb81abcd1",
+      "bytes": 4458
     },
     {
       "path": "tests/test_maxrl.py",
@@ -653,8 +698,8 @@
     },
     {
       "path": "tests/test_training_reference_guard.py",
-      "sha256": "3bd9ba35fa27a84419ed3046f8b08b530b1d75fc903363e3117907d5b7394359",
-      "bytes": 3070
+      "sha256": "d1b77258555b2100439e293018877ddb61d0272a393808cfed4a33dd377fb9fd",
+      "bytes": 3160
     },
     {
       "path": "tests/test_verifier_workers.py",

@@ -35,7 +35,12 @@ def check(root=ROOT, base_ref=None):
             ):
                 raise ValueError(f"changed frozen training reference: {path}")
             checked += 1
-    for path in sorted((root / PREFIX).glob("benchmark_boundary_v*.json")):
+    for path in sorted(
+        [
+            *(root / PREFIX).glob("benchmark_boundary_v*.json"),
+            *(root / PREFIX).glob("gpu_historical_*_v*.json"),
+        ]
+    ):
         lock = path.with_suffix(".sha256")
         if (
             not lock.is_file()
@@ -60,7 +65,7 @@ def check(root=ROOT, base_ref=None):
         for relative in paths:
             parts = Path(relative).parts
             if len(parts) < 3 or not parts[2].startswith(
-                ("training_v", "benchmark_boundary_v")
+                ("training_v", "benchmark_boundary_v", "gpu_historical_")
             ):
                 continue
             original = git(root, "show", f"{commit}:{relative}")

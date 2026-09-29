@@ -68,7 +68,7 @@ python ops/run_recipe.py configs/remax_countdown_05b.json \
   --output outputs/remax-countdown-s43
 ```
 
-The default prints the command. Add `--execute` to train locally or `--seed 44` to select another registered seed. The launcher does not require Slurm. A newly installed GPU training run has not been validated for this extracted release; [release scope](RELEASE_STATUS.md) records that boundary.
+The default prints the command. Add `--execute` to train locally or `--seed 44` to select another registered seed. The launcher does not require Slurm. A clean installation completed the [four-method GPU walkthrough](docs/training.md#complete-gpu-smoke-workflow) on one 48 GB A6000, including checkpoint reload and identical evaluation records. See [measured results](VALIDATED_GPU_RUN.json) and [release scope](RELEASE_STATUS.md).
 
 ## Documentation
 

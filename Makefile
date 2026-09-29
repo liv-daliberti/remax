@@ -2,7 +2,7 @@ PYTHON ?= python
 .PHONY: check test reproduce
 check: test reproduce
 	$(PYTHON) ops/check_training_reference.py
-	bash -n ops/train.sh ops/repo_env.sh
+	bash -n ops/train.sh ops/repo_env.sh ops/setup_gpu_environment.sh
 test:
 	$(PYTHON) -m pytest -q
 reproduce:

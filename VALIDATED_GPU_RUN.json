@@ -1,0 +1,510 @@
+{
+  "allocation": {
+    "cpu_cores": 8,
+    "gpu_count": 1,
+    "host_ram_gib": 64,
+    "nvidia_driver": "610.57.04",
+    "slurm_max_rss_kib": 52892052,
+    "total_elapsed_seconds_including_audit": 687
+  },
+  "base_remax_commit": "33c39a89b40ac1b34b3cf7474c1a5877394b396e",
+  "clean_environment": {
+    "include_system_site_packages": false,
+    "pip_check": "No broken requirements found.",
+    "python": "3.10.19",
+    "requirements": "requirements-gpu-py310-cu124.txt",
+    "requirements_sha256": "0f6821092ffcd3a5a9846c17474042b9d4fd8eed494ac11851c775a7191a139d"
+  },
+  "datasets": {
+    "eval": {
+      "row_indices": [
+        0,
+        1
+      ],
+      "source": {
+        "config_name": "level1_pantry_plan",
+        "data_file": "data/level1/pantry_plan/eval.parquet",
+        "domain": "pantry_plan",
+        "level": 1,
+        "original_datasetdict_split": "multi_answer",
+        "parquet_sha256": "2807515694c01108c5b8a616eded485a6ffded07fd1f9eb5fa0155cfeb7c2c34",
+        "rows": 128,
+        "rows_sha256": "5d81ba8dd00894a1e1ed029b63723ef657089c72c3122307d5255af409505923",
+        "source_column_order": [
+          "problem",
+          "answer",
+          "modebench_task",
+          "answer_mode_family",
+          "answer_mode_count",
+          "answer_mode_split",
+          "instance_fingerprint"
+        ],
+        "split": "eval"
+      }
+    },
+    "train": {
+      "row_indices": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "source": {
+        "config_name": "level1_pantry_plan",
+        "data_file": "data/level1/pantry_plan/train.parquet",
+        "domain": "pantry_plan",
+        "level": 1,
+        "original_datasetdict_split": "train",
+        "parquet_sha256": "eced2be5ca3fb8194703e8f9d7cfd5d29a1ee701369be14cd388d2004b80a8a3",
+        "rows": 384,
+        "rows_sha256": "a4883c5e38c0b03e216fbb7f1b85d42541bb2896aa3a7fd7ff05330d266a757f",
+        "source_column_order": [
+          "problem",
+          "answer",
+          "modebench_task",
+          "answer_mode_family",
+          "answer_mode_count",
+          "answer_mode_split",
+          "instance_fingerprint"
+        ],
+        "split": "train"
+      }
+    }
+  },
+  "hardware": {
+    "cuda_runtime": "12.4",
+    "gpu": "NVIDIA RTX A6000",
+    "gpu_memory_bytes": 50896568320,
+    "platform": "Linux-5.14.0-687.52.1.el9_8.x86_64-x86_64-with-glibc2.34",
+    "python": "3.10.19 (main, Oct 21 2025, 16:43:05) [GCC 11.2.0]"
+  },
+  "historical_configuration_comparison": {
+    "historical_sources": [
+      {
+        "path": "var/artifacts/e118r2_maxrl_verified_replay_factorial_jobs.json",
+        "sha256": "1187ea241786df32aa6183aa98455f883a32912ec979f8e9d4d3c1c9277a1075"
+      },
+      {
+        "path": "var/artifacts/logs/e118-pantry-rm-s43-31008563.out",
+        "sha256": "f88280d0717a326bc505a4a17e2a30b0982133c632899f3231ece2c81a218e45"
+      }
+    ],
+    "interpretation": "Historical wrapper capped evaluation at a quarter pass (96 steps); portable recipe explicitly evaluates each half pass (192). Recovery checkpoint writes were enabled historically but require an explicit OAT_ZERO_SAVE_CKPT=1 in the portable launcher (the smoke enables this). Automatic checkpoint discovery is not implemented by the portable launcher. Training method settings match. This is not a historical score or bitwise trajectory reproduction.",
+    "recipe": "remax_pantry_plan_05b",
+    "registered_environment_fields_matched": 85,
+    "runtime_differences": {
+      "eval_steps": {
+        "current": "192",
+        "historical": 96
+      },
+      "save_ckpt": {
+        "current": false,
+        "historical": true
+      }
+    },
+    "schema": "remax-historical-config-comparison-v1"
+  },
+  "methods": {
+    "drgrpo": {
+      "artifact_sha256": {
+        "drgrpo/TRAINING_COMPLETE.json": "dbb28232c833315079a70ef61a6ed925d4627a609d673677ad9eac91dc2fe062",
+        "drgrpo/debug_gpu-smoke/checkpoints/step_00004/bf16_zero_pp_rank_0_mp_rank_00_optim_states.pt": "8e1c765d4c5a0c4fdada72815871f27c5fb30bf24b2323ab77b59a004c0cbd74",
+        "drgrpo/debug_gpu-smoke/checkpoints/step_00004/mp_rank_00_model_states.pt": "116011466accfaa6f10fd09500cc8574cc42f184612f0f371bbead5d6e80df41",
+        "drgrpo/debug_gpu-smoke/eval_mode_coverage_draws.jsonl": "7f2886b4e3268eb3abd704df336f1967bf8850bd8e7559885381e0995c3f069c",
+        "drgrpo/debug_gpu-smoke/train_metrics.jsonl": "b27964fceed24d6b8edb7c648d128a19d19a7d49459f922654ed3bfd9f1fc26b"
+      },
+      "bank_outcomes": 20,
+      "bank_prompts": 4,
+      "changed_parameter_elements": 2424995,
+      "checkpoint_step": 4,
+      "elapsed_seconds": 133.09472727775574,
+      "gpu_memory_samples": 133,
+      "launch_record_sha256": "b795b505e0b9c58ab32b3ca414ba89307dd58d4a9a59f6a352c51cccc2e86799",
+      "max_absolute_parameter_change": 9.5367431640625e-07,
+      "optimizer_updates": 4.0,
+      "peak_gpu_memory_mib": 20553.0,
+      "replay_applied_loss_max": 0.0,
+      "replay_applied_score_gradient_l2_max": 0.0,
+      "replay_raw_loss_max": 0.0038279742002487183,
+      "replay_score_passes_max": 2.0,
+      "saved_optimizer_updates": [
+        4.0,
+        4.0
+      ],
+      "terminal_evaluation": [
+        {
+          "draw": null,
+          "kind": "deterministic_greedy_trace_neutral",
+          "metrics": {
+            "any_correct_at_k": 1.0,
+            "any_nonseed_correct_at_k": 0.0,
+            "distinct_correct_modes_at_k": 1.0,
+            "distinct_nonseed_correct_modes_at_k": 0.0,
+            "mean_at_k": 1.0,
+            "mode_coverage_at_k": 1.0
+          }
+        },
+        {
+          "draw": 0,
+          "kind": "fixed_seed_sampled_k_neutral",
+          "metrics": {
+            "any_correct_at_k": 1.0,
+            "any_nonseed_correct_at_k": 0.0,
+            "distinct_correct_modes_at_k": 4.5,
+            "distinct_nonseed_correct_modes_at_k": 0.0,
+            "mean_at_k": 0.5625,
+            "mode_coverage_at_k": 4.5
+          }
+        },
+        {
+          "draw": 1,
+          "kind": "fixed_seed_sampled_k_neutral",
+          "metrics": {
+            "any_correct_at_k": 1.0,
+            "any_nonseed_correct_at_k": 0.0,
+            "distinct_correct_modes_at_k": 2.0,
+            "distinct_nonseed_correct_modes_at_k": 0.0,
+            "mean_at_k": 0.25,
+            "mode_coverage_at_k": 2.0
+          }
+        },
+        {
+          "draw": 2,
+          "kind": "fixed_seed_sampled_k_neutral",
+          "metrics": {
+            "any_correct_at_k": 1.0,
+            "any_nonseed_correct_at_k": 0.0,
+            "distinct_correct_modes_at_k": 2.5,
+            "distinct_nonseed_correct_modes_at_k": 0.0,
+            "mean_at_k": 0.3125,
+            "mode_coverage_at_k": 2.5
+          }
+        },
+        {
+          "draw": 3,
+          "kind": "fixed_seed_sampled_k_neutral",
+          "metrics": {
+            "any_correct_at_k": 1.0,
+            "any_nonseed_correct_at_k": 0.0,
+            "distinct_correct_modes_at_k": 3.5,
+            "distinct_nonseed_correct_modes_at_k": 0.0,
+            "mean_at_k": 0.5625,
+            "mode_coverage_at_k": 3.5
+          }
+        }
+      ],
+      "terminal_evaluation_step": 4,
+      "terminal_export_step": 5,
+      "verified_evaluation_responses": 198
+    },
+    "maxrl": {
+      "artifact_sha256": {
+        "maxrl/TRAINING_COMPLETE.json": "fb41dd456d3482009e6619f058bdb8e9a8d9efd41485351173eac0cefa854f06",
+        "maxrl/debug_gpu-smoke/checkpoints/step_00004/bf16_zero_pp_rank_0_mp_rank_00_optim_states.pt": "c9d823a3ff3689796016ac7ec13cd28f4095113c316a825edf4396feb1614043",
+        "maxrl/debug_gpu-smoke/checkpoints/step_00004/mp_rank_00_model_states.pt": "f7331cea7d6a0773f24bebf07dda91937b4354231b62e6fcfba27077be124743",
+        "maxrl/debug_gpu-smoke/eval_mode_coverage_draws.jsonl": "ccd4b2c662ab3602dad8ac993f3e67b211f1cf2cb2732e507fa83fd5b224c1a3",
+        "maxrl/debug_gpu-smoke/train_metrics.jsonl": "44d521f01c8cb0311e92044b0a1cf153371d73a3b798af7be4b158564a02c22f"
+      },
+      "bank_outcomes": 20,
+      "bank_prompts": 4,
+      "changed_parameter_elements": 2419256,
+      "checkpoint_step": 4,
+      "elapsed_seconds": 126.3862452507019,
+      "gpu_memory_samples": 126,
+      "launch_record_sha256": "b2e71c1522a23035535845933c0259d631e8d047b9787b9f35f8c8d751176ce9",
+      "max_absolute_parameter_change": 9.5367431640625e-07,
+      "optimizer_updates": 4.0,
+      "peak_gpu_memory_mib": 20553.0,
+      "replay_applied_loss_max": 0.0,
+      "replay_applied_score_gradient_l2_max": 0.0,
+      "replay_raw_loss_max": 0.0037687502335757017,
+      "replay_score_passes_max": 2.0,
+      "saved_optimizer_updates": [
+        4.0,
+        4.0
+      ],
+      "terminal_evaluation": [
+        {
+          "draw": null,
+          "kind": "deterministic_greedy_trace_neutral",
+          "metrics": {
+            "any_correct_at_k": 1.0,
+            "any_nonseed_correct_at_k": 0.0,
+            "distinct_correct_modes_at_k": 1.0,
+            "distinct_nonseed_correct_modes_at_k": 0.0,
+            "mean_at_k": 1.0,
+            "mode_coverage_at_k": 1.0
+          }
+        },
+        {
+          "draw": 0,
+          "kind": "fixed_seed_sampled_k_neutral",
+          "metrics": {
+            "any_correct_at_k": 1.0,
+            "any_nonseed_correct_at_k": 0.0,
+            "distinct_correct_modes_at_k": 4.5,
+            "distinct_nonseed_correct_modes_at_k": 0.0,
+            "mean_at_k": 0.5625,
+            "mode_coverage_at_k": 4.5
+          }
+        },
+        {
+          "draw": 1,
+          "kind": "fixed_seed_sampled_k_neutral",
+          "metrics": {
+            "any_correct_at_k": 1.0,
+            "any_nonseed_correct_at_k": 0.0,
+            "distinct_correct_modes_at_k": 2.0,
+            "distinct_nonseed_correct_modes_at_k": 0.0,
+            "mean_at_k": 0.25,
+            "mode_coverage_at_k": 2.0
+          }
+        },
+        {
+          "draw": 2,
+          "kind": "fixed_seed_sampled_k_neutral",
+          "metrics": {
+            "any_correct_at_k": 1.0,
+            "any_nonseed_correct_at_k": 0.0,
+            "distinct_correct_modes_at_k": 2.5,
+            "distinct_nonseed_correct_modes_at_k": 0.0,
+            "mean_at_k": 0.3125,
+            "mode_coverage_at_k": 2.5
+          }
+        },
+        {
+          "draw": 3,
+          "kind": "fixed_seed_sampled_k_neutral",
+          "metrics": {
+            "any_correct_at_k": 1.0,
+            "any_nonseed_correct_at_k": 0.0,
+            "distinct_correct_modes_at_k": 2.5,
+            "distinct_nonseed_correct_modes_at_k": 0.0,
+            "mean_at_k": 0.375,
+            "mode_coverage_at_k": 2.5
+          }
+        }
+      ],
+      "terminal_evaluation_step": 4,
+      "terminal_export_step": 5,
+      "verified_evaluation_responses": 198
+    },
+    "redr": {
+      "artifact_sha256": {
+        "redr/TRAINING_COMPLETE.json": "b4f3ff79e79fec635b831db56b75d739dfc5e83b2e9e78cc2b7ea5f697ef4e6f",
+        "redr/debug_gpu-smoke/checkpoints/step_00004/bf16_zero_pp_rank_0_mp_rank_00_optim_states.pt": "a9a9350b85d4a41b29b2d11eca2793c9af606061ba82710908abe741e48277cd",
+        "redr/debug_gpu-smoke/checkpoints/step_00004/mp_rank_00_model_states.pt": "3be04bbccdcb6726cbe20fd44f7bec5d6729a2825042518725f382500f5ea021",
+        "redr/debug_gpu-smoke/eval_mode_coverage_draws.jsonl": "51b0aa5cb7ef36b2f29793a4bd951846b5e68ea2c2ef117b8ac6e6be910cbacd",
+        "redr/debug_gpu-smoke/train_metrics.jsonl": "ea17ed096d64e5182dc230f4f5437baa2ca8965ed48400c0029c012da4048007"
+      },
+      "bank_outcomes": 18,
+      "bank_prompts": 4,
+      "changed_parameter_elements": 2589051,
+      "checkpoint_step": 4,
+      "elapsed_seconds": 132.10562753677368,
+      "gpu_memory_samples": 132,
+      "launch_record_sha256": "56fdee9b2e25998d887a9c3871acb1256448c3b55af583224a20d21cc0b52d31",
+      "max_absolute_parameter_change": 9.5367431640625e-07,
+      "optimizer_updates": 4.0,
+      "peak_gpu_memory_mib": 21139.0,
+      "replay_applied_loss_max": 0.003953075967729092,
+      "replay_applied_score_gradient_l2_max": 0.0707106813788414,
+      "replay_raw_loss_max": 0.003953075967729092,
+      "replay_score_passes_max": 2.0,
+      "saved_optimizer_updates": [
+        4.0,
+        4.0
+      ],
+      "terminal_evaluation": [
+        {
+          "draw": null,
+          "kind": "deterministic_greedy_trace_neutral",
+          "metrics": {
+            "any_correct_at_k": 1.0,
+            "any_nonseed_correct_at_k": 0.0,
+            "distinct_correct_modes_at_k": 1.0,
+            "distinct_nonseed_correct_modes_at_k": 0.0,
+            "mean_at_k": 1.0,
+            "mode_coverage_at_k": 1.0
+          }
+        },
+        {
+          "draw": 0,
+          "kind": "fixed_seed_sampled_k_neutral",
+          "metrics": {
+            "any_correct_at_k": 1.0,
+            "any_nonseed_correct_at_k": 0.0,
+            "distinct_correct_modes_at_k": 4.5,
+            "distinct_nonseed_correct_modes_at_k": 0.0,
+            "mean_at_k": 0.5625,
+            "mode_coverage_at_k": 4.5
+          }
+        },
+        {
+          "draw": 1,
+          "kind": "fixed_seed_sampled_k_neutral",
+          "metrics": {
+            "any_correct_at_k": 1.0,
+            "any_nonseed_correct_at_k": 0.0,
+            "distinct_correct_modes_at_k": 2.0,
+            "distinct_nonseed_correct_modes_at_k": 0.0,
+            "mean_at_k": 0.25,
+            "mode_coverage_at_k": 2.0
+          }
+        },
+        {
+          "draw": 2,
+          "kind": "fixed_seed_sampled_k_neutral",
+          "metrics": {
+            "any_correct_at_k": 1.0,
+            "any_nonseed_correct_at_k": 0.0,
+            "distinct_correct_modes_at_k": 2.5,
+            "distinct_nonseed_correct_modes_at_k": 0.0,
+            "mean_at_k": 0.3125,
+            "mode_coverage_at_k": 2.5
+          }
+        },
+        {
+          "draw": 3,
+          "kind": "fixed_seed_sampled_k_neutral",
+          "metrics": {
+            "any_correct_at_k": 1.0,
+            "any_nonseed_correct_at_k": 0.0,
+            "distinct_correct_modes_at_k": 3.5,
+            "distinct_nonseed_correct_modes_at_k": 0.0,
+            "mean_at_k": 0.5,
+            "mode_coverage_at_k": 3.5
+          }
+        }
+      ],
+      "terminal_evaluation_step": 4,
+      "terminal_export_step": 5,
+      "verified_evaluation_responses": 198
+    },
+    "remax": {
+      "artifact_sha256": {
+        "remax/TRAINING_COMPLETE.json": "1e452d5b311ad6d47b90e44cc1ff508eb66d1f9e967397a331c29f2414f057ba",
+        "remax/debug_gpu-smoke/checkpoints/step_00004/bf16_zero_pp_rank_0_mp_rank_00_optim_states.pt": "4758948f5e77c013a11251622478f4dc655791c00448ea59abdebe65aa2ed956",
+        "remax/debug_gpu-smoke/checkpoints/step_00004/mp_rank_00_model_states.pt": "dce3550000c2f3a36c4fe93e620685b7ca23e7018957983263cf268667980f11",
+        "remax/debug_gpu-smoke/eval_mode_coverage_draws.jsonl": "53267613c1693d1a3769254a8cac5a88e396e8ca5cece342be8708074508bfb4",
+        "remax/debug_gpu-smoke/train_metrics.jsonl": "8462b672e9de9e04d20e1abd5c9f35ab7074430c93f211db9b07cbd904828cdc"
+      },
+      "bank_outcomes": 19,
+      "bank_prompts": 4,
+      "changed_parameter_elements": 2774764,
+      "checkpoint_step": 4,
+      "elapsed_seconds": 128.35870385169983,
+      "gpu_memory_samples": 128,
+      "launch_record_sha256": "34615daee7c2d1c0d83966b442b195e43577167b2eb386250d5149d7b88996ee",
+      "max_absolute_parameter_change": 9.5367431640625e-07,
+      "optimizer_updates": 4.0,
+      "peak_gpu_memory_mib": 20553.0,
+      "replay_applied_loss_max": 0.0037802199367433786,
+      "replay_applied_score_gradient_l2_max": 0.0707106813788414,
+      "replay_raw_loss_max": 0.0037802199367433786,
+      "replay_score_passes_max": 2.0,
+      "saved_optimizer_updates": [
+        4.0,
+        4.0
+      ],
+      "terminal_evaluation": [
+        {
+          "draw": null,
+          "kind": "deterministic_greedy_trace_neutral",
+          "metrics": {
+            "any_correct_at_k": 1.0,
+            "any_nonseed_correct_at_k": 0.0,
+            "distinct_correct_modes_at_k": 1.0,
+            "distinct_nonseed_correct_modes_at_k": 0.0,
+            "mean_at_k": 1.0,
+            "mode_coverage_at_k": 1.0
+          }
+        },
+        {
+          "draw": 0,
+          "kind": "fixed_seed_sampled_k_neutral",
+          "metrics": {
+            "any_correct_at_k": 1.0,
+            "any_nonseed_correct_at_k": 0.0,
+            "distinct_correct_modes_at_k": 4.5,
+            "distinct_nonseed_correct_modes_at_k": 0.0,
+            "mean_at_k": 0.5625,
+            "mode_coverage_at_k": 4.5
+          }
+        },
+        {
+          "draw": 1,
+          "kind": "fixed_seed_sampled_k_neutral",
+          "metrics": {
+            "any_correct_at_k": 1.0,
+            "any_nonseed_correct_at_k": 0.0,
+            "distinct_correct_modes_at_k": 2.0,
+            "distinct_nonseed_correct_modes_at_k": 0.0,
+            "mean_at_k": 0.25,
+            "mode_coverage_at_k": 2.0
+          }
+        },
+        {
+          "draw": 2,
+          "kind": "fixed_seed_sampled_k_neutral",
+          "metrics": {
+            "any_correct_at_k": 1.0,
+            "any_nonseed_correct_at_k": 0.0,
+            "distinct_correct_modes_at_k": 2.5,
+            "distinct_nonseed_correct_modes_at_k": 0.0,
+            "mean_at_k": 0.3125,
+            "mode_coverage_at_k": 2.5
+          }
+        },
+        {
+          "draw": 3,
+          "kind": "fixed_seed_sampled_k_neutral",
+          "metrics": {
+            "any_correct_at_k": 1.0,
+            "any_nonseed_correct_at_k": 0.0,
+            "distinct_correct_modes_at_k": 3.5,
+            "distinct_nonseed_correct_modes_at_k": 0.0,
+            "mean_at_k": 0.5,
+            "mode_coverage_at_k": 3.5
+          }
+        }
+      ],
+      "terminal_evaluation_step": 4,
+      "terminal_export_step": 5,
+      "verified_evaluation_responses": 198
+    }
+  },
+  "model": {
+    "id": "Qwen/Qwen2.5-0.5B-Instruct",
+    "revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+    "sha256": {
+      "config.json": "18e18afcaccafade98daf13a54092927904649e1dd4eba8299ab717d5d94ff45",
+      "generation_config.json": "e558847a8b4402616f1273797b015104dc266fe4b520056fca88823ba8f8ebe6",
+      "merges.txt": "599bab54075088774b1733fde865d5bd747cbcc7a547c5bc12610e874e26f5e3",
+      "model.safetensors": "fdf756fa7fcbe7404d5c60e26bff1a0c8b8aa1f72ced49e7dd0210fe288fb7fe",
+      "tokenizer.json": "c0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539",
+      "tokenizer_config.json": "5b5d4f65d0acd3b2d56a35b56d374a36cbc1c8fa5cf3b3febbbfabf22f359583",
+      "vocab.json": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+    }
+  },
+  "restored_evaluation": {
+    "checkpoint_step": 4,
+    "elapsed_seconds": 69.09960436820984,
+    "exact_draw_records_match": true
+  },
+  "runtime_source_sha256": {
+    "ops/repo_env.sh": "1f8447ea93cf3ebc5aece0f9f81c83c8d912f00162e2c2010c2484f141cc339d",
+    "ops/train.sh": "74b5c77df3c2be50eed34592cc1f9b568fbffdc3d4f0a996f96555b2c4a267e3",
+    "src/remax/learner/run.py": "e28111f1a329195b4914db8e4df9f2faa5afd0f7d29fe60782c59b516a351dd9"
+  },
+  "schema": "remax-gpu-smoke-report-v1",
+  "scope": "Single-GPU execution and checkpoint evaluation conformance on four train/two eval PantryPlan rows. Not a paper-scale performance or historical trajectory reproduction.",
+  "validation_date": "2026-09-29",
+  "verification": {
+    "all_pantry_action_masks_checked": 64,
+    "checkpoint_reload_evaluation_records": 5,
+    "cpu_tests_passed": 443,
+    "frozen_arms": 95,
+    "frozen_seed_records": 473
+  }
+}

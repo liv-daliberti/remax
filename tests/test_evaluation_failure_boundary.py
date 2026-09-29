@@ -212,3 +212,57 @@ def test_oracle_rejects_legacy_worker_zero_fallback(runtime, monkeypatch):
             oracle.get_reward(["p"], ["response"], [REFERENCE])
     finally:
         oracle.full_math_verifier.close()
+
+
+def test_all_canonical_pantry_masks_keep_reference_reward_and_identity(runtime):
+    from pathlib import Path
+    from modebench.api_types import Task
+    from remax.canonical_actions import decode_canonical_action_response
+
+    _, run = runtime
+    fixture = json.loads(
+        (Path(__file__).parent / "fixtures/benchmark_boundary_v1.json").read_text()
+    )
+    reference = next(
+        c["reference"]
+        for c in fixture["cases"]
+        if c["id"] == "level1_pantry_plan/accepted_a"
+    )
+    task = Task(
+        id="all-pantry-actions",
+        level=1,
+        domain="pantry_plan",
+        problem="",
+        answer=reference,
+    )
+    rejected = accepted = 0
+    for number in range(64):
+        mask = f"{number:06b}"
+        decoded = decode_canonical_action_response(
+            "pantry_support_mask", mask, reference
+        )
+        info, reward = run._grade_decoded_canonical_response(
+            decoded, reference, fast=True
+        )
+        expected = benchmark.grade_task(task, mask)
+        assert reward == float(expected["verified"])
+        assert info["verifier"]["canonical_key"] == expected["canonical_key"]
+        if reward:
+            accepted += 1
+        else:
+            rejected += 1
+    assert accepted and rejected
+
+
+@pytest.mark.parametrize("status", sorted(benchmark.UNSCORABLE))
+def test_canonical_learner_never_accepts_fatal_grading_status(
+    runtime, monkeypatch, status
+):
+    _, run = runtime
+    monkeypatch.setattr(
+        benchmark.api,
+        "grade",
+        lambda *a: benchmark.failure(status, "injected").diagnostic,
+    )
+    with pytest.raises(benchmark.EvaluationFailure, match=status):
+        run._grade_decoded_canonical_response("1+2+3", REFERENCE, fast=True)

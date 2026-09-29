@@ -70,7 +70,10 @@ def test_reference_guard_compares_base_bytes(tmp_path, change):
             check(tmp_path, "missing-ref")
 
 
-def test_boundary_fixture_cannot_be_rewritten_and_rehashed(tmp_path):
+@pytest.mark.parametrize(
+    "name", ["benchmark_boundary_v1.json", "gpu_historical_pantry_v1.json"]
+)
+def test_boundary_fixture_cannot_be_rewritten_and_rehashed(tmp_path, name):
     import shutil
     from pathlib import Path
 
@@ -91,8 +94,8 @@ def test_boundary_fixture_cannot_be_rewritten_and_rehashed(tmp_path):
         "Freeze boundary",
     )
     base = command(tmp_path, "rev-parse", "HEAD").decode().strip()
-    assert check(tmp_path, base)["preserved_base_files"] == 5
-    path = tmp_path / "tests/fixtures/benchmark_boundary_v1.json"
+    assert check(tmp_path, base)["preserved_base_files"] == 7
+    path = tmp_path / "tests/fixtures" / name
     path.write_text("{}\n")
     path.with_suffix(".sha256").write_text(
         hashlib.sha256(path.read_bytes()).hexdigest() + "\n"

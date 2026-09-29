@@ -65,6 +65,24 @@ from ..verified_transformations import (
 from ..verified_route_library import VerifiedRouteLibrary
 
 
+def _grade_decoded_canonical_response(response, reference, *, fast):
+    """Grade the environment transition; a legal action can be infeasible.
+
+    For example, a well-formed Pantry mask may decode to the invalid-support
+    sentinel. That is a scorable rejection, not an evaluator failure. The
+    caller has already checked the policy action's serialization separately.
+    """
+    info, reward = boxed_reward_fn(response, reference, fast=fast)
+    validate_reward_batch(
+        [reward],
+        [info],
+        count=1,
+        references=[reference],
+        context="canonical learner verification",
+    )
+    return info, float(reward)
+
+
 def _derive_freeform_request_seed(
     *,
     base_seed: int,
@@ -2345,23 +2363,12 @@ class ZeroMathRunMixin:
             )
             record["response"] = response
             record["response_code"] = response_code
-            oracle_info, reward = boxed_reward_fn(
+            oracle_info, numeric_reward = _grade_decoded_canonical_response(
                 response,
                 record["reference"],
                 fast=self.args.verifier_version == "fast",
             )
             record["verifier_diagnostic"] = oracle_info.get("verifier")
-            formatted = bool(oracle_info.get("formatted", False))
-            numeric_reward = float(reward)
-            if not formatted:
-                raise RuntimeError(
-                    "canonical learner verifier rejected a valid action serialization"
-                )
-            if not np.isfinite(numeric_reward) or numeric_reward not in {0.0, 1.0}:
-                raise RuntimeError(
-                    "canonical learner verifier must return a finite binary reward; "
-                    f"got {reward!r}"
-                )
             rewards.append(numeric_reward)
             formatted_values.append(1.0)
         verify_time = time.time() - verify_start

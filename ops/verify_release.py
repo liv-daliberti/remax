@@ -2,6 +2,7 @@
 import argparse
 import hashlib
 import json
+import os
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -19,6 +20,19 @@ def included(path):
     )
 
 
+def release_files():
+    # Prune environments and GPU artifacts before walking their contents.
+    for directory, children, names in os.walk(ROOT):
+        children[:] = sorted(
+            name for name in children
+            if name not in EXCLUDED and not name.endswith('.egg-info')
+        )
+        for name in sorted(names):
+            path = Path(directory) / name
+            if path.is_file() and included(path):
+                yield path
+
+
 def refresh():
     path = ROOT / 'PROVENANCE.json'
     provenance = json.loads(path.read_text())
@@ -30,7 +44,7 @@ def refresh():
     path.write_text(json.dumps(provenance, indent=2) + '\n')
     files = [
         {'path': str(path.relative_to(ROOT)), 'sha256': digest(path), 'bytes': path.stat().st_size}
-        for path in sorted(ROOT.rglob('*')) if path.is_file() and included(path)
+        for path in sorted(release_files())
     ]
     (ROOT / 'RELEASE_MANIFEST.json').write_text(json.dumps({'schema': 'local-release-files-v1', 'files': files}, indent=2) + '\n')
 
@@ -45,7 +59,7 @@ def verify():
         expected.add(record['path'])
         if not path.is_file() or path.stat().st_size != record['bytes'] or digest(path) != record['sha256']:
             raise ValueError(f"release file missing or changed: {record['path']}")
-    actual = {str(p.relative_to(ROOT)) for p in ROOT.rglob('*') if p.is_file() and included(p)}
+    actual = {str(p.relative_to(ROOT)) for p in release_files()}
     if actual != expected:
         raise ValueError(f'release file inventory differs: {sorted(actual ^ expected)}')
     return {'verified_release_files': len(expected)}

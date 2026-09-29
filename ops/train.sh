@@ -14,6 +14,11 @@ if [[ ! -x "$PYTHON_BIN" ]]; then
   exit 1
 fi
 export PATH="$(dirname "$PYTHON_BIN"):$PATH"
+# Launchpad's native Courier extension links libpython explicitly. Conda-backed
+# venvs do not necessarily put that library on the dynamic loader's search path.
+if [[ -z "$PYTHON_LIB_DIR" ]]; then
+  PYTHON_LIB_DIR="$("$PYTHON_BIN" -c 'import sysconfig; print(sysconfig.get_config_var("LIBDIR") or "")')"
+fi
 if [[ -n "$PYTHON_LIB_DIR" ]]; then export LD_LIBRARY_PATH="$PYTHON_LIB_DIR${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"; fi
 export TOKENIZERS_PARALLELISM="${TOKENIZERS_PARALLELISM:-false}"
 export VLLM_NO_USAGE_STATS=1
