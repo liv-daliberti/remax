@@ -87,7 +87,7 @@ jobs:
           python -m pip install "$ARTIFACT[dev]"
           python -m pip check
           mkdir "$RUNNER_TEMP/remax-regression"
-          cp -r tests ops configs evidence protocols examples pyproject.toml "$RUNNER_TEMP/remax-regression/"
+          cp -r tests ops configs evidence examples pyproject.toml "$RUNNER_TEMP/remax-regression/"
           cd "$RUNNER_TEMP/remax-regression"
           unset PYTHONPATH PYTHONHOME
           python -m pytest --import-mode=importlib -q

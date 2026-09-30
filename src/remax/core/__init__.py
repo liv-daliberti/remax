@@ -2,7 +2,7 @@
 
 Start with OnlineCanonicalBank.score_and_update(), schedule a replay group,
 materialize its causal masks, then score the exemplars with your model and
-apply canonical_replay_uniform_verified_likelihood_loss(). See docs/method.md
+apply canonical_replay_uniform_verified_likelihood_loss(). See README.md
 for the registered coefficient and optimizer-accumulation contract.
 """
 

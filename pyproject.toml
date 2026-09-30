@@ -30,7 +30,7 @@ build_py = "build_support.BuildPy"
 
 [project.urls]
 Repository = "https://github.com/liv-daliberti/remax"
-Documentation = "https://github.com/liv-daliberti/remax/tree/main/docs"
+Documentation = "https://github.com/liv-daliberti/remax#readme"
 Issues = "https://github.com/liv-daliberti/remax/issues"
 
 [tool.setuptools.packages.find]

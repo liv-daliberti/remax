@@ -1,14 +1,16 @@
 # Re:Max / Re:Dr
 
-**Retain and rehearse the correct solution modes a policy discovers.** Re:Dr adds verified replay to Dr.GRPO; Re:Max adds it to MaxRL. The bank admits only validator-positive responses generated during training, then revisits retained exemplars with a uniform teacher-forced likelihood objective.
+**Retain and rehearse the correct solution modes a policy discovers.** Re:Dr adds verified replay to Dr.GRPO; Re:Max adds it to MaxRL. A prompt-local bank stores verified exemplars discovered during training and rehearses their modes uniformly.
 
-[![Re:Max combines fresh MaxRL learning with verified-mode replay to retain discovered modes while finding new ones.](docs/assets/verified-support-story.png)](docs/assets/verified-support-story.png)
+[![Re:Max combines fresh MaxRL learning with verified-mode replay to retain discovered modes while finding new ones.](assets/verified-support-story.png)](assets/verified-support-story.png)
 
-**Start here:** [install → train → resume → evaluate → interpret](docs/training.md). The walkthrough uses the qualified one-GPU environment and a short PantryPlan run. [ModeBench](https://github.com/liv-daliberti/modeBench) separately owns datasets, validators, and canonical identities.
+[Install](#install) · [Train and resume](#train-and-resume) · [API](#public-api) · [Results](#reproduce-results) · [Contributing](#contributing) · [Citation](#citation)
 
-## Quick start: installed CPU workflow
+[ModeBench](https://github.com/liv-daliberti/modeBench) separately supplies datasets, validators, and canonical mode identities. This repository provides the replay method, training integration, 20 Level-1 recipes, and reproducible saved-key analyses.
 
-On Linux x86_64 with Python 3.10–3.12:
+## Install
+
+For the core API on Linux x86_64 with Python 3.10–3.12:
 
 ```sh
 git clone https://github.com/liv-daliberti/remax.git
@@ -18,53 +20,153 @@ source .venv-cpu/bin/activate
 python -m pip install --upgrade pip
 python -m pip install 'torch==2.6.0+cpu' --index-url https://download.pytorch.org/whl/cpu
 python -m pip install .
-cd "$(mktemp -d)"
 remax walkthrough
 remax recipes
-remax results list
 ```
 
-`walkthrough` grades three saved Countdown responses, retains two verified modes, applies a small CPU replay update, and restores bank state. Expect `statuses: ["correct", "correct", "incorrect"]`, `retained_modes: 2`, `prompt_tokens_scored: 0`, and both `parameters_updated` and `bank_restored` to be `true`. It illustrates the [public API](docs/method.md#public-api-walkthrough); it is not a complete RL run. `remax demo` gives an even smaller score-gradient example.
+`remax walkthrough` grades three saved Countdown responses, retains two verified modes, applies a CPU replay update, and restores bank state. Expect two `correct` responses, one `incorrect`, zero prompt tokens scored, and `parameters_updated` / `bank_restored` both `true`. It needs no model weights or GPU. `remax demo` is a smaller score-gradient example.
 
-The core install requires Git/network access for pinned ModeBench, but no model weights or training dependencies. GPU training uses a separate Python 3.10 / CUDA 12.4 environment; follow the [training guide](docs/training.md). [Wheel and sdist CI](https://github.com/liv-daliberti/remax/actions/workflows/check.yml) tests both artifacts outside the checkout. No PyPI release is claimed.
+The core requires PyTorch 2.6.x, NumPy >=1.26.4,<3, and ModeBench pinned to commit `33cfc3fd1732bd500fe13f13555419557aa248e2`. Git and network access are needed during installation. Commands work outside the checkout without `PYTHONPATH`. To build wheel and sdist artifacts, install `build` and run `python -m build`; no PyPI release is implied.
 
-## Four matched methods
+## Train and resume
 
-| Recipe prefix | Fresh objective | Applied replay derivative |
-| --- | --- | --- |
-| `drgrpo` | Dr.GRPO | Exactly zero; replay still executes |
-| `redr` | Dr.GRPO | Uniform verified replay |
-| `maxrl` | Binary MaxRL | Exactly zero; replay still executes |
-| `remax` | Binary MaxRL | Uniform verified replay |
+Use a **separate training environment**. The qualified configuration is Linux x86_64, Python 3.10, CUDA 12.4, one 48 GB RTX A6000, eight CPU cores and 64 GB RAM. Allow about 60 GB of disk for dependencies, weights and checkpoints. Run the following from the checkout, with training commands inside a GPU allocation.
 
-The 20 maintained recipes cover all five Level-1 domains with pinned Qwen2.5-0.5B-Instruct. Controls retain bank bookkeeping, scheduling, and replay computation. See [method and API](docs/method.md) for objective weighting and [recipe inventory](docs/training.md#recipe-inventory) for settings.
-
-## Results and evidence
+### Prepare the environment and inputs
 
 ```sh
+PYTHON=python3.10 bash ops/setup_gpu_environment.sh .venv-train
+source .venv-train/bin/activate
+remax environment --training
+
+git clone https://github.com/liv-daliberti/modeBench.git ../modeBench
+git -C ../modeBench checkout 33cfc3fd1732bd500fe13f13555419557aa248e2
+python ../modeBench/ops/verify_data.py
+python ../modeBench/ops/materialize_training_data.py \
+  --config level1_pantry_plan --output outputs/data/pantry_plan
+```
+
+The setup script installs the [GPU dependency lock](requirements-gpu-py310-cu124.txt). The data materializer creates all 384 training and 128 evaluation rows; keep the full splits even when a short recipe selects fewer training rows. The launcher authenticates their contents independently.
+
+Download the recipe's pinned Qwen2.5-0.5B-Instruct snapshot:
+
+```sh
+python - <<'PY'
+import json
+from pathlib import Path
+from huggingface_hub import snapshot_download
+recipe = json.loads(Path("configs/remax_pantry_plan_05b.json").read_text())
+model = snapshot_download(repo_id=recipe["model_id"], revision=recipe["model_revision"])
+Path("outputs/model-path.txt").write_text(model + "\n")
+PY
+model_path="$(cat outputs/model-path.txt)"
+```
+
+### Run a short example
+
+This recipe uses three training prompts for two passes, saves checkpoints every two updates, and evaluates the full held-out split with K=2 and one sampled draw. It demonstrates execution, not paper-level performance.
+
+```sh
+python examples/prepare_training_walkthrough.py outputs/walkthrough.json
+remax-run outputs/walkthrough.json --data-root outputs/data/pantry_plan \
+  --model "$model_path" --output outputs/preflight --validate-only
+remax-run outputs/walkthrough.json --data-root outputs/data/pantry_plan \
+  --model "$model_path" --output outputs/train --execute
+```
+
+Preflight resolves the complete configuration before creating models or workers. Use a fresh output directory for each attempt. `--render-only` offers an explicitly unverified preview on CPU. Wrong inputs, incompatible settings, unknown recipe fields and conflicting inherited environment variables fail before training. Put changes in the recipe JSON.
+
+### Resume explicitly
+
+To demonstrate recovery, even after the first run finishes, continue from its committed step-2 checkpoint in a fresh process:
+
+```sh
+checkpoint_path="$(python - <<'PY'
+from pathlib import Path
+matches = list(Path("outputs/train").glob("*/checkpoints/step_00002"))
+assert len(matches) == 1, matches
+print(matches[0])
+PY
+)"
+remax-run outputs/walkthrough.json --data-root outputs/data/pantry_plan \
+  --model "$model_path" --output outputs/resumed \
+  --resume "$checkpoint_path" --execute
+```
+
+Keep the original recipe, total horizon, seed, installed source, dependencies, hardware and input bytes. Checkpoints restore model, optimizer, scheduler, RNG, data position, bank, replay cursor and evaluation cadence. Never use an incomplete `.pending-*` directory, a `latest` symlink, or an untrusted checkpoint. There is no automatic resume discovery. Source edits—including formatting—change resume identity, so retain the old environment for existing runs.
+
+### Read the evaluation
+
+Greedy and sampled evaluation run automatically during training. Inspect the saved summaries:
+
+```sh
+python - <<'PY'
+import json
+from pathlib import Path
+root = Path("outputs/train")
+assert not any(p.stat().st_size for p in root.rglob("evaluation_failures.jsonl")), "Evaluation failed"
+logs = list(root.rglob("train_metrics.jsonl"))
+assert len(logs) == 1, logs
+fields = ["misc/policy_sgd_step", "eval/multi_answer/accuracy",
+          "eval/multi_answer/sampled_any_correct_at_2",
+          "eval/multi_answer/sampled_distinct_correct_at_2"]
+with logs[0].open() as stream:
+    for line in stream:
+        row = json.loads(line)
+        if "eval/multi_answer/accuracy" in row:
+            print({key: row.get(key) for key in fields})
+PY
+```
+
+These fields mean optimizer step, greedy correctness, pass@2, and mean distinct verified modes among two samples. Missing evaluations are not zero scores. Keep `launch_request.json`, `effective_config.json`, checkpoints and `eval_mode_coverage_draws.jsonl` with each result. When joining resumed attempts, use the original prefix through the checkpoint and the resumed suffix; do not count duplicate evaluations.
+
+Verifier timeouts or broken workers raise `EvaluationFailure`. Preserve diagnostics and reject partial scores. For dependency errors, check the active environment; for cache quota errors, set `XDG_CACHE_HOME` to writable scratch space; for input mismatches, restore the pinned inputs instead of changing expected hashes.
+
+## Public API
+
+| Method | Fresh objective | Replay |
+| --- | --- | --- |
+| `drgrpo` | Dr.GRPO | Executes with exactly zero applied gradient |
+| `redr` | Dr.GRPO | Uniform verified replay |
+| `maxrl` | Binary MaxRL | Executes with exactly zero applied gradient |
+| `remax` | Binary MaxRL | Uniform verified replay |
+
+The [20 recipes](configs) cover all five Level-1 domains. Full recipes use 384 prompts, eight passes and 16 fresh samples; the walkthrough deliberately reduces the budget. Controls preserve bank bookkeeping and replay computation. Evaluation answers never initialize the bank.
+
+The [executable API example](src/remax/walkthrough.py) uses `remax.benchmark.grade_task`, then these `remax.core` interfaces:
+
+- `OnlineCanonicalBank.score_and_update(...)` admits active, verified discoveries.
+- `bank.scheduled_global_replay_groups(min_modes=1)` selects retained banks deterministically.
+- `materialize_canonical_replay_batch(...)` creates causal response masks excluding prompt/padding tokens.
+- `canonical_replay_uniform_verified_likelihood_loss(...)` averages negative response-token-normalized log scores over modes, then banks. Singletons participate.
+- `bank.state_dict()` / `load_state_dict(...)` restore the bank; full training recovery also needs the other learner state.
+
+The OAT adapter combines fresh RL loss with replay coefficient and accumulation scaling. Start in [`src/remax/core`](src/remax/core); training plumbing lives in [`integrations/oat`](src/remax/integrations/oat), with historical comparators isolated in [`experiments`](src/remax/experiments).
+
+## Reproduce results
+
+```sh
+remax results list
 remax results show level2/qwen05b/countdown/replay_maxrl
 remax results reproduce level2/qwen05b/countdown/replay_maxrl
 remax results verify
 ```
 
-The installed catalog binds 95 arms and all 475 archived cells, including two excluded from the 473-record analysis. `reproduce` recomputes saved-key numerical results; `verify` checks integrity and bindings only. Six retained summaries are explicitly labeled snapshots. Neither command retrains a model. Historical Level-2/3 and larger-model training exports remain unqualified; the [audit](docs/reproducibility.md#result-packages-and-training-export-audit) records the missing or changed evidence.
+The installed result catalog contains 95 runnable saved-key analysis arms and six labeled summary snapshots. Numerical reproduction checks 473 included seed records across 95 arms; the catalog also records the two excluded cells. `verify` checks integrity and bindings only. Neither command retrains models, regrades all original responses, or validates the numbers in summary-only snapshots. Missing historical training evidence is recorded explicitly.
 
-## Documentation and ownership
+Current GPU qualification covers bounded Pantry training/resume for all four methods and Countdown sampling continuity. Full-budget historical scores, other hardware and distributed GPU recovery remain unqualified. To reproduce the full-state comparison, run `python ops/resume_gpu.py run --workdir outputs/resume-proof --data-root outputs/data/pantry_plan --model "$model_path"`; it runs both trajectories and audits automatically. GPU tolerances are `atol=1e-6, rtol=1e-6` for model tensors and `atol=1e-8, rtol=1e-5` for optimizer tensors, with exact bank, RNG, scheduling and evaluation decisions.
 
-| Guide | Purpose |
-| --- | --- |
-| [Training workflow](docs/training.md) | Install, authenticate inputs, train, resume, evaluate, read outputs |
-| [Method and public API](docs/method.md) | Objectives, executable example, module map, scaling |
-| [Reproducibility](docs/reproducibility.md) | Protocols, provenance, results, exclusions |
-| [Contributing](CONTRIBUTING.md) | Ownership, quality checks, scientific compatibility policy |
-| [Changelog](CHANGELOG.md) | Software and protocol changes |
-| [Release scope](RELEASE_STATUS.md) / [validation](VALIDATION.md) | Supported claims and checks actually run |
+## Contributing
 
-Repository steward: [Liv G. d'Aliberti](https://github.com/liv-daliberti). Use [issues](https://github.com/liv-daliberti/remax/issues) for software and scientific-contract questions. Code is [Apache-2.0](LICENSE); ModeBench records dataset terms separately.
+Repository steward: [Liv G. d'Aliberti](https://github.com/liv-daliberti), also listed in [CODEOWNERS](.github/CODEOWNERS). Use [issues](https://github.com/liv-daliberti/remax/issues) with the commit, recipe, environment and minimal reproduction. Code is [Apache-2.0](LICENSE); ModeBench owns benchmark semantics and dataset terms.
+
+From the checkout in the CPU environment, install `.[dev]`, then run `make quality` and `make check`. Focused checks are `make conformance boundary resume scaling`. Reinstall after code/asset changes. CI tests wheel and sdist installations outside the checkout on Python 3.10–3.12. Ruff covers all maintained core modules; strict mypy initially covers the six numerical/type/scoring/execution modules listed in `pyproject.toml`, not bank mixins or checkpoint dictionaries.
+
+Preserve frozen fixtures, input registries and result identities. Changes to rewards, canonicalization, admission, normalization, replay weighting, sampling, evaluation or exclusions require an explicit scientific compatibility explanation and a new versioned identity. Benchmark changes belong in ModeBench first. Never turn evaluator failures into incorrect answers or change expected results merely to pass a test. Record exact commits, input hashes, recipe, runtime, seeds and exclusions when reporting results.
 
 ## Citation
 
-The paper is **accepted at [MATH-AI 2026](https://mathai-2026.github.io/)** and **under review at ICLR 2027**. Please use the approved citation and record your exact Re:Max/ModeBench commits, recipe, model revision, and dataset hashes. Machine-readable metadata is in [CITATION.cff](CITATION.cff).
+The paper is **accepted at [MATH-AI 2026](https://mathai-2026.github.io/)** and **under review at ICLR 2027**. Please cite the paper and record the exact Re:Max/ModeBench commits and input identities used. Machine-readable metadata is in [CITATION.cff](CITATION.cff).
 
 ```bibtex
 @inproceedings{dAliberti:etal:ModeCollapse:2027,

@@ -6,6 +6,7 @@ import os
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+MANIFEST = ROOT / '.github/release-manifest.json'
 EXCLUDED = {'.git', '__pycache__', '.pytest_cache', '.ruff_cache', '.mypy_cache', 'build', 'dist', '.cache', '.venv', 'outputs'}
 
 
@@ -14,7 +15,7 @@ def digest(path):
 
 
 def included(path):
-    return path.name != 'RELEASE_MANIFEST.json' and not any(
+    return path != MANIFEST and not any(
         part in EXCLUDED or part.endswith('.egg-info')
         for part in path.relative_to(ROOT).parts
     )
@@ -34,23 +35,15 @@ def release_files():
 
 
 def refresh():
-    path = ROOT / 'PROVENANCE.json'
-    provenance = json.loads(path.read_text())
-    for record in provenance['files']:
-        source = ROOT / record['path']
-        if source.is_file():
-            record.setdefault('extracted_sha256', record['sha256'])
-            record['sha256'] = digest(source)
-    path.write_text(json.dumps(provenance, indent=2) + '\n')
     files = [
         {'path': str(path.relative_to(ROOT)), 'sha256': digest(path), 'bytes': path.stat().st_size}
         for path in sorted(release_files())
     ]
-    (ROOT / 'RELEASE_MANIFEST.json').write_text(json.dumps({'schema': 'local-release-files-v1', 'files': files}, indent=2) + '\n')
+    MANIFEST.write_text(json.dumps({'schema': 'local-release-files-v1', 'files': files}, indent=2) + '\n')
 
 
 def verify():
-    manifest = json.loads((ROOT / 'RELEASE_MANIFEST.json').read_text())
+    manifest = json.loads(MANIFEST.read_text())
     expected = set()
     for record in manifest['files']:
         path = ROOT / record['path']
@@ -60,6 +53,9 @@ def verify():
         if not path.is_file() or path.stat().st_size != record['bytes'] or digest(path) != record['sha256']:
             raise ValueError(f"release file missing or changed: {record['path']}")
     actual = {str(p.relative_to(ROOT)) for p in release_files()}
+    extra_markdown = sorted(p for p in actual if Path(p).suffix.lower() == '.md' and p != 'README.md')
+    if extra_markdown:
+        raise ValueError(f'consolidate release documentation into README.md: {extra_markdown}')
     if actual != expected:
         raise ValueError(f'release file inventory differs: {sorted(actual ^ expected)}')
     return {'verified_release_files': len(expected)}
