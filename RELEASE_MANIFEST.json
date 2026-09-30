@@ -48,13 +48,13 @@
     },
     {
       "path": "PROVENANCE.json",
-      "sha256": "82fb6498feed0aca0f5b7a4b774e8cf9e8b8e93fa5c00df77d45ecf801da0fdc",
-      "bytes": 29218
+      "sha256": "4f103ceea0802bb0aa9c2a4a11e35642c3bf4c5909cc2047dc494a5602ee3d75",
+      "bytes": 29780
     },
     {
       "path": "README.md",
-      "sha256": "526f070adbf7ab7c3624171b4e84987eec0dfffe142a4b536a03232002e97d2c",
-      "bytes": 4997
+      "sha256": "8cfa092019280347869b86a93771e630db0214ee452ce8126e0ea700ee496fb5",
+      "bytes": 5035
     },
     {
       "path": "RELEASE_STATUS.md",
@@ -212,9 +212,9 @@
       "bytes": 447
     },
     {
-      "path": "docs/assets/verified-replay.png",
-      "sha256": "1eae223fd977dc9cd872e4f0802500ef85bc799499ead5ce03d6a567475abe69",
-      "bytes": 165118
+      "path": "docs/assets/verified-support-story.png",
+      "sha256": "804d06e65fd2409d12053b197d42120d971589cf4dcb8a5c67ee1aa2b446534f",
+      "bytes": 216608
     },
     {
       "path": "docs/method.md",

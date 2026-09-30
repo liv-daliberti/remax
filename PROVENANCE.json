@@ -492,12 +492,20 @@
       "extracted_sha256": "8f705f40cc7bdfc8eea108fcd6258562e177d13f171dd505705bb8740bb52b39"
     },
     {
-      "path": "docs/assets/verified-replay.png",
-      "source": "paper/figures/verified_replay_mechanism.png",
-      "source_sha256": "1eae223fd977dc9cd872e4f0802500ef85bc799499ead5ce03d6a567475abe69",
-      "sha256": "1eae223fd977dc9cd872e4f0802500ef85bc799499ead5ce03d6a567475abe69",
-      "extracted_sha256": "1eae223fd977dc9cd872e4f0802500ef85bc799499ead5ce03d6a567475abe69",
-      "transformation": "Unmodified paper verified-replay schematic for the public README."
+      "path": "docs/assets/verified-support-story.png",
+      "source": "paper/figures/verified_support_story.png",
+      "source_sha256": "804d06e65fd2409d12053b197d42120d971589cf4dcb8a5c67ee1aa2b446534f",
+      "sha256": "804d06e65fd2409d12053b197d42120d971589cf4dcb8a5c67ee1aa2b446534f",
+      "extracted_sha256": "804d06e65fd2409d12053b197d42120d971589cf4dcb8a5c67ee1aa2b446534f",
+      "transformation": "Unmodified PNG counterpart of the verified_support_story.pdf figure referenced by the ICLR 2027 manuscript.",
+      "supersedes": {
+        "path": "docs/assets/verified-replay.png",
+        "source": "paper/figures/verified_replay_mechanism.png",
+        "source_sha256": "1eae223fd977dc9cd872e4f0802500ef85bc799499ead5ce03d6a567475abe69",
+        "sha256": "1eae223fd977dc9cd872e4f0802500ef85bc799499ead5ce03d6a567475abe69",
+        "extracted_sha256": "1eae223fd977dc9cd872e4f0802500ef85bc799499ead5ce03d6a567475abe69",
+        "transformation": "Unmodified paper verified-replay schematic for the public README."
+      }
     },
     {
       "path": "evidence/snapshots/level3_comparison_20260917.json",

@@ -2,7 +2,7 @@
 
 **Retain and rehearse the correct solution modes a policy discovers.** Re:Dr adds verified replay to Dr.GRPO; Re:Max adds it to MaxRL. The bank admits only validator-positive responses generated during training, then revisits retained exemplars with a uniform teacher-forced likelihood objective.
 
-[![Verified replay: verify responses, retain discovered modes, and rehearse their exemplars.](docs/assets/verified-replay.png)](docs/assets/verified-replay.png)
+[![Re:Max combines fresh MaxRL learning with verified-mode replay to retain discovered modes while finding new ones.](docs/assets/verified-support-story.png)](docs/assets/verified-support-story.png)
 
 **Start here:** [install → train → resume → evaluate → interpret](docs/training.md). The walkthrough uses the qualified one-GPU environment and a short PantryPlan run. [ModeBench](https://github.com/liv-daliberti/modeBench) separately owns datasets, validators, and canonical identities.
 
