@@ -67,7 +67,33 @@ class OatUpdateMixin:
             getattr(args, "canonical_graph_learner_sampling", False)
             or getattr(args, "replicated_freeform_sampling", False)
         )
-        learner_world_size = dist.get_world_size() if replicated_group else 1
+        from ...core.execution import validate_update_partition, replay_contract_digest
+
+        actual_world_size = dist.get_world_size() if dist.is_initialized() else 1
+        if actual_world_size > 1:
+            signature = replay_contract_digest(
+                groups=canonical_replay_groups or [],
+                settings={
+                    "replicated": replicated_group,
+                    "samples": args.num_samples,
+                    "batch": args.train_batch_size,
+                    "microbatch": args.train_batch_size_per_device,
+                    "accumulation": self.strategy.grad_acc_step,
+                    "alpha": args.online_canonical_replay_alpha,
+                    "objective": args.online_canonical_replay_objective,
+                    "control": args.online_canonical_replay_compute_only,
+                    "temperature": args.temperature,
+                    "epochs": args.num_ppo_epochs,
+                },
+                tensors=(input_ids, att_mask, response_masks, loss_masks, advantages, logps),
+            )
+            signatures = [None] * actual_world_size
+            dist.all_gather_object(signatures, signature)
+            if len(set(signatures)) != 1:
+                raise RuntimeError("replicated learner inputs, replay groups or execution settings differ across ranks")
+            if not replicated_group:
+                raise RuntimeError("maintained multi-rank updates require replicated candidate groups")
+        learner_world_size = actual_world_size if replicated_group else 1
         if replicated_group:
             if len(input_ids) != int(args.num_samples):
                 raise RuntimeError(
@@ -93,6 +119,13 @@ class OatUpdateMixin:
                 )
         else:
             local_candidate_count = len(input_ids)
+        validate_update_partition(
+            local_rows=local_candidate_count,
+            microbatch=args.train_batch_size_per_device,
+            accumulation=self.strategy.grad_acc_step,
+            global_batch=args.train_batch_size,
+            world_size=actual_world_size,
+        )
         total_micro_batches = args.num_ppo_epochs * math.ceil(
             local_candidate_count / max(args.train_batch_size_per_device, 1)
         )

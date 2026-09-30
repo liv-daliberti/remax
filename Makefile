@@ -21,3 +21,7 @@ boundary:
 .PHONY: resume
 resume:
 	$(PYTHON) -m pytest -q tests/test_resume_equivalence.py tests/test_resume_audit.py
+
+.PHONY: scaling
+scaling:
+	$(PYTHON) -m pytest -q tests/test_execution_resources.py

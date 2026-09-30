@@ -172,6 +172,51 @@ The `remax.core` API imports without OAT, vLLM, DeepSpeed, Transformers, or comp
 
 Replay runs once at each optimizer boundary, **after fresh backward and before optimizer step**. Both replay score passes temporarily use eval mode and restore the previous model mode. The detached pass obtains the score derivative; the live pass applies it in bounded chunks. OAT divides every backward by the accumulation width, so the replay adapter compensates by that width after applying `alpha * (N-1)/N²`. Compute-only controls traverse the same scoring/backward calls with exactly zero score derivatives. These details are covered by frozen conformance and exact historical/extracted-path comparisons.
 
+
+### Rank count, accumulation and resource costs
+
+For a fixed logical candidate group of `N` fresh responses, `W` learner ranks, physical microbatch `B`, and accumulation width `A`, require **`W × B × A = N`**. Each rank sees the complete group for advantages and admission, then optimizes a deterministic shard. Averaging gradients across ranks and dividing each backward by `A` gives the same fresh-response weighting as one learner.
+
+Replay is replicated across ranks. Each rank scores the same selected exemplars and applies the registered coefficient **`alpha × (N−1)/N²`** to the group-mean, mode-mean negative response-token log likelihood. Multiplying the replay backward by `A` cancels the strategy's accumulation division; the mean of `W` identical replay gradients needs **no additional factor of `W`**. At `N=16, alpha=0.1`, the coefficient is `0.005859375`, independent of rank count or microbatch size. Changing the logical batch or number of fresh samples is a method/configuration change, not this invariance claim.
+
+The maintained adapter rejects partial microbatches/accumulation windows and disagreement with the configured global batch. Before multi-rank backward, it compares ordered trajectories, advantages, behavior scores, replay membership/tokens/weights, and replay execution settings. Divergent replicas and unreplicated rank-local groups fail explicitly. This is an equality check, not a mechanism for synchronizing independently discovered banks.
+
+`make scaling` runs real Gloo/DDP processes at **1, 2 and 4 ranks**. All four methods, microbatches 1/2/4 and accumulation widths 1–16 are checked against the independent scalar gradient oracle over three updates: **36 configurations / 108 logical updates**. Model/gradient tolerances are `atol=3e-7, rtol=3e-6`; bank state and scheduling agree exactly. Controls perform replay backward with exactly zero replay gradient. Rank-dependent coefficients, differing selected bank membership and unreplicated updates are rejected before backward. This checks the learner arithmetic and real gradient collectives; it does not newly qualify multi-GPU DeepSpeed/NCCL, actor scheduling, or distributed checkpoint recovery. Registered recipes and full-run checkpoint support remain single-learner configurations.
+
+Replicating replay preserves its coefficient but duplicates its work: cluster-wide replay forwards score `2 × W × M` rows for `M` selected exemplars, rather than `2 × M`. Each rank also holds a discovery ledger and exemplar bank. Extra workers therefore do not promise linear throughput gains.
+
+The [resource audit](../VALIDATED_SCALING_RUN.json) measures the production two-pass replay scorer/backward with frozen Qwen2.5-0.5B-Instruct weights, BF16 eager attention and one 48 GB A6000. Each case uses two warmups and six measurements. These are synthetic full-vocabulary token shapes, **not end-to-end training or benchmark scores**. Incremental peak allocation includes replay gradients/activations above the model baseline, and excludes optimizer state, fresh generation, verification and communication.
+
+| Replay rows | Microbatch | Prompt / response tokens | Median replay time | Incremental peak GPU allocation |
+| ---: | ---: | ---: | ---: | ---: |
+| 1 | 1 | 64 / 16 | 0.099 s | 1.44 GiB |
+| 16 | 1 | 64 / 16 | 1.568 s | 1.69 GiB |
+| 16 | 4 | 64 / 16 | 0.417 s | 2.10 GiB |
+| 16 | 4 | 256 / 64 | 0.764 s | 4.97 GiB |
+| 64 | 4 | 64 / 16 | 1.664 s | 2.10 GiB |
+
+The 16-row compute-only control costs about 0.405 seconds at microbatch 4 and executes the same two passes. Post-cleanup live GPU allocation is identical across all six measured repetitions in every case. CUDA **reserved** memory keeps earlier large-shape allocations: it reaches 6.96 GiB and remains there for later smaller cases. That allocator cache is distinct from live tensors; the profiler deliberately does not call `empty_cache` between cases. More bank rows primarily add scoring work; larger microbatches and token lengths raise the activation peak. The materialized token/mask batch still scales with all selected rows, even though logits and backward graphs are chunked.
+
+### Discovery ledger versus retained exemplars
+
+`bank.resource_counts()` separates discovered prompts/modes and ledger observation counts from retained exemplars and token counts. Ledger observations are fresh-only in maintained recipes; historical proposal branches may add pseudo-observations. Historical `tracked_outcomes` and `bank_size_*` diagnostics describe **discovered support**, not retained replay exemplars. Capacity is **per prompt**, not a total-memory bound. Exact mode identities/frequencies remain in the discovery ledger after the exemplar slots fill; replay never increments fresh discovery counts.
+
+With one synthetic prompt, 16 exemplar slots and fixed token lengths, serialized bank state grows from **2.1 KiB at 16 discovered modes** to **6.3 KiB at 256** and **73.8 KiB at 4,096**, while retained exemplars stay at 16. The warmed fixed-support test adds 256 repeated admissions/scheduling calls without new identities: retained storage stays fixed and traced live Python allocation changes by less than 1 KiB. Absolute memory depends on canonical-key lengths, prompt count and token lengths. Discovery admission/telemetry scans growing support, so admission cost also rises; the exemplar cap does not bound ledger traversal time. Silently evicting discovery identities would change the benchmark/method history and is not part of this audit.
+
+The existing installed three-update Re:Max smoke has a **6.44 GiB** full checkpoint: about **0.92 GiB model/client state** and **5.52 GiB optimizer state**, plus its manifest. Its logged checkpoint write takes about **18.2 seconds**, followed by about **17.7 seconds** for integrity/commit work on shared storage. The entire cold-start run took 354 seconds, including evaluation and shutdown; this is not steady-state training throughput. Reserve room for retained checkpoints, one new staged checkpoint, and terminal model exports. Bank-only pickle sizes are not substitutes for full checkpoint sizing.
+
+Reproduce the audits from an installed checkout/sdist environment:
+
+```sh
+make scaling
+python ops/profile_replay.py --output outputs/bank-resources.json
+# In the qualified one-GPU environment:
+python ops/profile_replay.py --model /path/to/pinned/model/snapshot \
+  --output outputs/replay-resources.json
+```
+
+The report records scoring and backward time separately, row throughput, allocated/reserved GPU peaks, fixed-support memory measurements, and bank serialization cost. No measured model update or benchmark reference was changed to obtain these results.
+
 ### Historical implementations and compatibility
 
 [`experiments/`](../src/remax/experiments) owns comparator objectives and [`experiments/oat/`](../src/remax/experiments/oat) owns their historical integration, proposal generation and controller initialization. The maintained OAT update does not import them. [`selection.py`](../src/remax/integrations/oat/selection.py) lists the settings/state that require the historical adapter; dispatch records its selection and reasons on the learner. Strict identity-bound recipes reject a historical fallback. Legacy direct invocations can still select the retained implementation.

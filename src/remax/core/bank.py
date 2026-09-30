@@ -285,6 +285,24 @@ class OnlineCanonicalBank(BankAdmissionMixin, ReplaySchedulingMixin, BankStateMi
         self._apply_retention_priority_requests(requests)
         return tracker.diagnostics()
 
+    def resource_counts(self) -> dict[str, int]:
+        """Logical storage, distinct from process RSS and allocator reservation.
+
+        Capacity bounds exemplars per prompt, not the discovery ledger or the
+        number of prompts. Exact cumulative identities are deliberately retained.
+        Ledger observations are fresh-only in maintained recipes; historical
+        proposal admission may also add pseudo-observations.
+        """
+        return {
+            "discovered_prompts": len(self._counts),
+            "discovered_modes": sum(len(v) for v in self._counts.values()),
+            "ledger_observations": sum(sum(v.values()) for v in self._counts.values()),
+            "retained_exemplars": sum(len(v) for v in self._exemplars.values()),
+            "retained_response_tokens": sum(len(tokens) for v in self._exemplars.values() for tokens in v.values()),
+            "retained_prompt_tokens": sum(len(v) for v in self._prompt_token_ids.values()),
+            "capacity_per_prompt": self.replay_capacity,
+        }
+
     @property
     def tracked_prompt_count(self) -> int:
         return len(self._counts)

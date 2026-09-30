@@ -123,6 +123,15 @@ All six artifact CI jobs passed on the implementation commit. A wheel installed 
 
 The first GPU attempt stopped before training because the home cache quota was full; the successful run uses the tested `XDG_CACHE_HOME` override on writable scratch storage. [VALIDATED_PACKAGE_RUN.json](VALIDATED_PACKAGE_RUN.json) records artifact hashes, CI coverage, runtime identities, measurements and scope. This qualifies installed execution on the existing pinned training stack, not additional hardware/CUDA versions or full-budget scores.
 
+
+## Distributed weighting and resource audit
+
+The expanded suite passes **703 tests**, including real Gloo/DDP execution at **1, 2 and 4 learner ranks**. Four methods × three microbatch sizes × three rank counts give **36 configurations / 108 logical updates**, each compared with the independent scalar gradient oracle. Accumulation widths span 1–16. Gradients and parameters meet `atol=3e-7, rtol=3e-6`; banks/scheduling match exactly, and compute-only replay gradients are exactly zero. Invalid accumulation/global-batch combinations and inconsistent rank coefficients or selected membership fail before backward. The frozen 473-record/95-arm reproduction and all eight protected references/registries remain unchanged.
+
+The GPU profiling allocation completed successfully on one **48 GB A6000**. Six shapes/control cases use the production replay scorer/backward, frozen BF16 Qwen2.5-0.5B-Instruct weights, two warmups and six measurements each. All cases return to exactly the same live GPU allocation after each measured repetition. Larger shapes raise allocator reservation, which persists for later smaller cases; the audit reports allocated and reserved bytes separately. The bounded exemplar bank is also separated from the exact discovery ledger: at 4,096 discovered modes and capacity 16, the bank still retains only 16 exemplars while its serialized state reaches roughly 74 KiB. After warmup, 256 fixed-support admission/scheduling repetitions add less than 1 KiB of traced live Python allocation in each measured case.
+
+[VALIDATED_SCALING_RUN.json](VALIDATED_SCALING_RUN.json) records the full matrix, timings, memory, throughput, source hashes and measurements from the prior 6.44 GiB full training checkpoint. The [method guide](docs/method.md#rank-count-accumulation-and-resource-costs) explains the coefficient cancellation, replicated compute cost and storage boundaries. This audit does **not** newly qualify multi-GPU DeepSpeed/NCCL, distributed checkpoint recovery or full-budget trajectories. It adds execution guards and observability; it does not evict discoveries or change replay coefficients.
+
 ## What remains untested
 
 Full-budget historical trajectories and scores, other GPU types, multiple learner GPUs, and nontrivial learning in the other four domains remain unqualified. The bounded Countdown run checks free-form sampling and restore continuity but admitted no correct training responses. CPU CI checks the software and frozen numerical contracts; the GPU validation above was a separate manual run. Newer result snapshots remain outside the frozen-core numerical reproduction check.

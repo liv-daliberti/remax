@@ -13,8 +13,8 @@
     },
     {
       "path": "CONTRIBUTING.md",
-      "sha256": "b0c7e33f18cd81386710a6d460100335bb7c6efa5d01ca3512f074a31aa74b3e",
-      "bytes": 5435
+      "sha256": "79e02eb9bba46fa5ec2c3f01e1c689cb80f970b0b73ca0eb3f449f8fed8c2bd7",
+      "bytes": 5942
     },
     {
       "path": "LICENSE",
@@ -28,8 +28,8 @@
     },
     {
       "path": "Makefile",
-      "sha256": "e5cba8128f635fcaf9868ad883fa2aab31c87c8fd5617b52c5191bb15497b7ec",
-      "bytes": 740
+      "sha256": "840804b45023ea3dda043fbf3fa352b49660f786a3a6b295c756361e2474f34f",
+      "bytes": 824
     },
     {
       "path": "PROVENANCE.json",
@@ -77,9 +77,14 @@
       "bytes": 37873
     },
     {
+      "path": "VALIDATED_SCALING_RUN.json",
+      "sha256": "0c3e306a5290341f18f465c53ac51b4f3d5c1319c790852a7312421bc62b2fdd",
+      "bytes": 12406
+    },
+    {
       "path": "VALIDATION.md",
-      "sha256": "04b8dc35f23ba2f0c5cc4ae3c9bf69f4efce1bb051bd483c37fa8bedd66b5b33",
-      "bytes": 21433
+      "sha256": "b552965fa6a9e01ad1aae479ff42fb3cea311d8279761a791743d19c388af0ff",
+      "bytes": 23560
     },
     {
       "path": "configs/drgrpo_countdown_05b.json",
@@ -198,8 +203,8 @@
     },
     {
       "path": "docs/method.md",
-      "sha256": "9ce3d9db415a1e45bf41184ae7b53433ff5d2194a203a4df168cd5834a9590c6",
-      "bytes": 22075
+      "sha256": "c1d981298e25335e875c3315ea904eb173360dff93d9985c74e5bf5aebf03b13",
+      "bytes": 28754
     },
     {
       "path": "docs/reproducibility.md",
@@ -285,6 +290,11 @@
       "path": "ops/gpu_smoke.py",
       "sha256": "477a200173959e4d6c0726b69b9b4146555c957b883c90aac23db7483af995b4",
       "bytes": 10888
+    },
+    {
+      "path": "ops/profile_replay.py",
+      "sha256": "dedff4a7a7285654ebc9154b1930ecf0224c701838c5e623a1c6db7ead26ce86",
+      "bytes": 9664
     },
     {
       "path": "ops/repo_env.sh",
@@ -423,8 +433,8 @@
     },
     {
       "path": "src/remax/core/bank.py",
-      "sha256": "03d4690a894830340a607c857adc7516fcb864cace28c28ecced3f0ffaffe7ea",
-      "bytes": 15213
+      "sha256": "f19d9d02894682da0029cf150815dea9431233c342a8d04027b9ccacd95c443d",
+      "bytes": 16246
     },
     {
       "path": "src/remax/core/bank_state.py",
@@ -440,6 +450,11 @@
       "path": "src/remax/core/checkpoints.py",
       "sha256": "254d764f559bf729d07f6f3686f8b0149ee2b255bb717b83dd64117c2ee36369",
       "bytes": 11124
+    },
+    {
+      "path": "src/remax/core/execution.py",
+      "sha256": "f32d24e1637956e7907d13098b3e0502f743b89bb83df6bddbe4d2a9cb3170c8",
+      "bytes": 1768
     },
     {
       "path": "src/remax/core/metrics.py",
@@ -678,8 +693,8 @@
     },
     {
       "path": "src/remax/integrations/oat/update.py",
-      "sha256": "f25f5556347c28e534143f9cd85b15afdfebd9045f586c331274cfe0f447722d",
-      "bytes": 17587
+      "sha256": "4f6c6ea764c825e1297a657198b3b609538a1de338563971fe6af0f6c9365da8",
+      "bytes": 19352
     },
     {
       "path": "src/remax/launch_record.py",
@@ -932,6 +947,11 @@
       "bytes": 75
     },
     {
+      "path": "tests/distributed_harness.py",
+      "sha256": "92e1a9183ecbe39487a977597acf7331eb36f3ac9b476c052a20c760609c4e7f",
+      "bytes": 6460
+    },
+    {
       "path": "tests/fixtures/benchmark_boundary_v1.json",
       "sha256": "2cb6cd37265e080c8a804212c8986d51b820afe506bdbd0a9790f9d9478dc81c",
       "bytes": 277308
@@ -1000,6 +1020,11 @@
       "path": "tests/test_evaluation_failure_boundary.py",
       "sha256": "8cc86c791a07a10431508d776a44f3c9fd5c983f37c81b06942ba7f09ea17e0d",
       "bytes": 8677
+    },
+    {
+      "path": "tests/test_execution_resources.py",
+      "sha256": "29e8d37ea32bd4c9ccd14020e05097d123b5aaf4fe44173489fd081a4d0d4404",
+      "bytes": 2236
     },
     {
       "path": "tests/test_gpu_workflow.py",

@@ -7,6 +7,7 @@ make check
 make conformance
 make boundary
 make resume
+make scaling
 python examples/replay_loss.py
 ```
 
@@ -37,6 +38,8 @@ Keep frozen evidence immutable. New analyses, recipes, exclusions, or protocol r
 The public package should support CPU objective testing without installing OAT, vLLM, or DeepSpeed. Keep GPU integration dependencies in the `train` extra. Treat removed historical learner branches as scientific refactors requiring equivalence checks, not automatic cleanup.
 
 Resume changes must preserve model/optimizer/scheduler state, RNG streams, data and replay cursors, and evaluation cadence. Run `make resume`; changes to supported GPU recovery additionally need the real-runtime comparison in `ops/resume_gpu.py`. Declare tolerances before running, and keep decision/bank comparisons exact. Changing sampling protocol, identity normalization, or checkpoint boundaries needs an explicit compatibility explanation.
+
+Changes to gradient accumulation, rank sharding or replay selection must preserve the configured logical batch and pass `make scaling` (real Gloo/DDP at 1/2/4 ranks). Report replay scoring separately from fresh training, and distinguish discovered identities from bounded exemplars. Use `ops/profile_replay.py` for measured memory/scoring costs; do not infer a leak from CUDA reserved memory alone. This CPU distributed proof does not qualify a new GPU backend or distributed resume protocol.
 
 ## Changes and issues
 
