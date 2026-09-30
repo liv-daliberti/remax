@@ -58,14 +58,20 @@ def check(root=ROOT, base_ref=None):
             .strip()
         )
         paths = (
-            git(root, "ls-tree", "-r", "--name-only", commit, "--", PREFIX)
+            git(root, "ls-tree", "-r", "--name-only", commit, "--", PREFIX, "src/remax")
             .decode()
             .splitlines()
         )
         for relative in paths:
             parts = Path(relative).parts
-            if len(parts) < 3 or not parts[2].startswith(
-                ("training_v", "benchmark_boundary_v", "gpu_historical_")
+            input_registry = relative.startswith(
+                "src/remax/input_registry_v"
+            ) and relative.endswith(".json")
+            if not input_registry and (
+                len(parts) < 3
+                or not parts[2].startswith(
+                    ("training_v", "benchmark_boundary_v", "gpu_historical_")
+                )
             ):
                 continue
             original = git(root, "show", f"{commit}:{relative}")

@@ -90,7 +90,7 @@ python ../modeBench/ops/materialize_training_data.py \
 
 The frozen source files are organized as `data/level1/<domain>/<split>.parquet` in ModeBench; configuration names remain unchanged.
 
-The result has `train/` (DatasetDict subset `train`, 384 rows) and `eval/` (subset `multi_answer`, 128 rows). The materializer verifies the frozen source hashes and refuses an existing destination. Use the config matching the selected recipe domain; do not feed evaluation rows into training.
+The result has `train/` (DatasetDict subset `train`, 384 rows) and `eval/` (subset `multi_answer`, 128 rows). The materializer verifies source hashes and refuses an existing destination. The strict Re:Max launcher independently authenticates every ordered row, column, prompt, and reference against its release-owned registry, derived from the pinned frozen Parquet files. Renaming a directory or rewriting a local manifest cannot satisfy that check. All 384/128 rows must be present, even when a copied recipe selects fewer training rows. Use the config matching the selected recipe domain; do not feed evaluation rows into training.
 
 For another domain, replace `level1_countdown` with `level1_graph_coloring`, `level1_python_factors`, `level1_mathir`, or `level1_pantry_plan`. The single-answer graph diagnostic is not a training recipe input.
 
@@ -111,18 +111,33 @@ model_path = snapshot_download(
 print(model_path)
 ```
 
-This step downloads model weights and requires network/storage. Pass the returned local directory to `--model`. The launcher checks for `config.json` before executing but does not authenticate that the directory matches the recipe revision; preserve the snapshot identity in your run records.
+This step downloads model weights and requires network/storage. Pass the returned directory to `--model`. The launcher checks all seven model/configuration/tokenizer files against release-owned SHA-256 identities, independently verified against the immutable Hub commit's Git/LFS metadata. Missing, modified, or unexpected model inputs (including adapter files) fail. Authentication works offline; a snapshot directory name is not evidence of identity.
 
-## Render, then execute
+## Validate, then execute
+
+For a configuration-only preview that needs no weights or training dependencies:
 
 ```sh
 python ops/run_recipe.py configs/remax_countdown_05b.json \
   --data-root outputs/data/countdown \
   --model /path/returned/by/snapshot_download \
-  --output outputs/remax-countdown-s43
+  --output outputs/remax-countdown-s43 \
+  --render-only
 ```
 
-The default only prints the OAT command. Data `train/` and `eval/` directories must exist even for command rendering. `--execute` additionally requires both DatasetDict metadata files and the model's `config.json`, then starts local training:
+This preview is explicitly **UNVERIFIED**. The `train/` and `eval/` directories must exist for the shell renderer. It validates recipe types and compatibility but does not authenticate inputs or write run records. This option cannot be combined with execution.
+
+Omitting `--render-only` authenticates both inputs, prints the command, and writes `launch_request.json` under a fresh output directory. To also resolve every runtime default and validate the actual training environment, run this inside a GPU allocation:
+
+```sh
+python ops/run_recipe.py configs/remax_countdown_05b.json \
+  --data-root outputs/data/countdown \
+  --model /path/returned/by/snapshot_download \
+  --output outputs/validate-countdown-s43 \
+  --validate-only
+```
+
+Expect `validated complete effective configuration: .../effective_config.json`. This uses the real training parser and both argument validators, including available-GPU checks, then exits **before models or workers are built**. For training, use a separate fresh output directory and replace the last option with `--execute`:
 
 ```sh
 python ops/run_recipe.py configs/remax_countdown_05b.json \
@@ -132,9 +147,13 @@ python ops/run_recipe.py configs/remax_countdown_05b.json \
   --execute
 ```
 
-Use `--seed 44` for another seed from the registered set `[43, 44, 45, 46, 47]`. Other seeds are accepted by the launcher but are new experimental runs, not members of the retained cohort.
+Use `--seed 44` for another registered seed from `[43, 44, 45, 46, 47]`. Seeds outside that set fail. No Slurm submission, automatic requeue, or external message is performed by this command.
 
-The wrapper replaces inherited `OAT_ZERO_*` configuration with the recipe and explicit path/seed arguments. Change a copied recipe to make a deliberate scientific override. It selects the calling Python interpreter, so activate the intended GPU environment before execution. No Slurm submission, automatic scheduler requeue, or external message is performed.
+Recipes use a frozen typed configuration. Existing JSON strings remain supported, but unknown top-level or environment fields, duplicate JSON keys, missing required fields, malformed numbers/booleans, incompatible batch/context budgets, and mismatched method/prompt/domain controls fail. The maintained contract supports the five Level 1 domains and the pinned Qwen model. To change supported numerical settings, edit a copied recipe explicitly; the resulting settings are recorded. New models, prompt interfaces, levels, or methods require a reviewed contract/identity-registry update.
+
+Inherited `OAT_ZERO_*`, `SAVE_PATH`, Python import overrides, shell startup hooks, and conflicting evaluator/backend settings fail with the offending variable's name. Unset that variable rather than relying on silent precedence. The child receives an allowlist of infrastructure variables (paths, visible GPUs, caches, compiler locations), fixed runtime flags, and explicit recipe settings; unrelated variables and credentials are not copied into launch records. The launcher uses the calling interpreter and checks the maintained Linux x86_64/Python 3.10 runtime's principal dependency versions and ModeBench commit before execution.
+
+Historical `AUTO_RESUME` is explicitly recorded as **unimplemented metadata**. `EVAL_PROMPT_INTERVAL` is checked against effective optimizer-step cadence and batch size. Missing historical objective/critic flags get explicit typed defaults; missing required scientific settings cannot silently fall back to shell defaults.
 
 ## Recipe inventory
 
@@ -156,11 +175,13 @@ The exact environment in each JSON file is authoritative. The fresh-sample objec
 
 ## Outputs and resume
 
-`--output` sets the training save root. OAT may create a run-specific subdirectory beneath it. The configs retain historical resume settings and a terminal model export. **The portable launcher does not implement automatic checkpoint discovery**: `OAT_ZERO_AUTO_RESUME` is retained metadata. Recovery writes require `OAT_ZERO_SAVE_CKPT=1` in a copied recipe; a resumed launch requires explicit `OAT_ZERO_RESUME_DIR` and optionally `OAT_ZERO_RESUME_TAG`. The smoke runner sets these directly and retains its checkpoints for the reload audit.
+`--output` sets the training save root. OAT may create a run-specific subdirectory beneath it. The configs retain historical resume settings and a terminal model export. **The portable launcher does not implement automatic checkpoint discovery**: `OAT_ZERO_AUTO_RESUME` is retained metadata. Recovery writes require `OAT_ZERO_SAVE_CKPT=1` in a copied recipe. The strict recipe launcher refuses existing outputs and does not accept resume paths: checkpoint identity authentication is not implemented yet. The separate bounded GPU smoke runner uses the low-level shell interface with explicit `OAT_ZERO_RESUME_DIR`/`OAT_ZERO_RESUME_TAG` and retains checkpoints for its reload audit. Direct shell launches and smoke overrides are outside the strict registered-recipe input contract.
 
 Use a new output root for every method/domain/seed unless you intend to resume that same run. Preserve config, code, dataset, model, bank state, and schedule identity across a resume. Never infer cohort membership from a directory name alone; match the recorded seed and protocol.
 
-The launcher validates basic file existence, not complete dataset/model provenance. Keep the ModeBench file hashes, materialization record, model revision, rendered command, actual environment versions, and evaluation draw identities with the run.
+`launch_request.json` records the original recipe and its hash, typed settings, selected seed, ordered dataset identities, local file hashes, pinned model identity, prompt interface, exact command, controlled launch environment, and source hashes. Immediately before entering the training runtime, source/input bytes and resolved recipe settings are checked again. `effective_config.json` adds **every validated dataclass argument**, including inherited OAT defaults, installed dependency versions, and the runtime environment. Infinite numerical settings use the JSON string `"inf"`; JSON NaN is rejected. Both files are written atomically. A validation failure prevents training; existing records are never overwritten. A record with `status: validated` proves configuration validation, not training completion. Preserve it alongside metrics, checkpoints, and evaluation diagnostics.
+
+The trust anchors are the versioned registry shipped with Re:Max and its pinned ModeBench source, not a user-editable dataset receipt. Model hashes were checked against upstream Git/LFS identities; materialized-row hashes were derived only after verifying frozen Parquet bytes. The PR-base guard rejects rewrites of an existing input registry. This protects against accidental input substitution and configuration drift; it does not isolate a run from someone who can modify installed code or files during execution.
 
 ## Troubleshooting
 
@@ -171,6 +192,8 @@ The launcher validates basic file existence, not complete dataset/model provenan
 | Missing dataset directory | Materialize the matching frozen config first and point `--data-root` to its parent directory. |
 | Dataset/PyArrow import errors | Check the recorded Datasets, NumPy, and PyArrow versions together. |
 | Canonical actions require vLLM V0 | Use the recipe wrapper, which sets the required runtime flag for Pantry. |
+| Inherited-setting rejection | Unset the named variable; put supported scientific settings in a copied recipe. |
+| Model/dataset identity mismatch | Restore the pinned snapshot and matching full frozen splits. Do not regenerate expected hashes from the mismatched input. |
 | Unexpected resume behavior | Inspect the selected save root and retained state; use a new root for a new run. |
 | Frozen numerical reproduction fails | Restore the matching evidence and code revision; do not overwrite expected results to silence a mismatch. |
 

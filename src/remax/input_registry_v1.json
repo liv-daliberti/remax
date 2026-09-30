@@ -1,0 +1,216 @@
+{
+  "modebench_commit": "33cfc3fd1732bd500fe13f13555419557aa248e2",
+  "model": {
+    "authentication": "Hugging Face model_info immutable commit; Git blob SHA-1 for small files and LFS SHA-256 for weights, checked 2026-09-29",
+    "id": "Qwen/Qwen2.5-0.5B-Instruct",
+    "revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+    "sha256": {
+      "config.json": "18e18afcaccafade98daf13a54092927904649e1dd4eba8299ab717d5d94ff45",
+      "generation_config.json": "e558847a8b4402616f1273797b015104dc266fe4b520056fca88823ba8f8ebe6",
+      "merges.txt": "599bab54075088774b1733fde865d5bd747cbcc7a547c5bc12610e874e26f5e3",
+      "model.safetensors": "fdf756fa7fcbe7404d5c60e26bff1a0c8b8aa1f72ced49e7dd0210fe288fb7fe",
+      "tokenizer.json": "c0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539",
+      "tokenizer_config.json": "5b5d4f65d0acd3b2d56a35b56d374a36cbc1c8fa5cf3b3febbbfabf22f359583",
+      "vocab.json": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+    }
+  },
+  "schema": "remax-authenticated-inputs-v1",
+  "splits": [
+    {
+      "config_name": "level1_countdown",
+      "data_file": "data/level1/countdown/eval.parquet",
+      "domain": "countdown",
+      "level": 1,
+      "materialized_rows_sha256": "9909c3663c39ab659bdea5ccac69d8fe9bc6b5dbc72d57ad801ecd2210202ab5",
+      "original_datasetdict_split": "multi_answer",
+      "parquet_sha256": "a1da95c1b5997a0c8d804c8bf7b607817b11bb8c7982b3d04bd4c345da7b9c33",
+      "rows": 128,
+      "rows_sha256": "2262c3386fb7145408c2b65e3a54b2ffd95f19805f2310044615e4c954506903",
+      "source_column_order": [
+        "problem",
+        "answer",
+        "modebench_task",
+        "answer_mode_count",
+        "answer_mode_split"
+      ],
+      "split": "eval"
+    },
+    {
+      "config_name": "level1_countdown",
+      "data_file": "data/level1/countdown/train.parquet",
+      "domain": "countdown",
+      "level": 1,
+      "materialized_rows_sha256": "cd63646275794ad37a6fe14de0d7663819006c63ce0aa9e2082c25b969ac1c54",
+      "original_datasetdict_split": "train",
+      "parquet_sha256": "00054c212d28ccb103b982cb56de7c381691b91a8ee3af7d984c5e0d57fe74f1",
+      "rows": 384,
+      "rows_sha256": "75532b08ab6c59fbea35b8a40af5f00cf2b4c0c5e1ac6b0d73c96dd592b38c8a",
+      "source_column_order": [
+        "problem",
+        "answer",
+        "modebench_task",
+        "answer_mode_count",
+        "answer_mode_split"
+      ],
+      "split": "train"
+    },
+    {
+      "config_name": "level1_graph_coloring",
+      "data_file": "data/level1/graph_coloring/eval.parquet",
+      "domain": "graph_coloring",
+      "level": 1,
+      "materialized_rows_sha256": "51ddbe9c3afd29da140240351d49fdf04be74c57af1a8cf53818dc78eccd314d",
+      "original_datasetdict_split": "multi_answer",
+      "parquet_sha256": "5c009576b979ac78b9bf73c80790e0048a75f4c27c400569907f096e18a220fb",
+      "rows": 128,
+      "rows_sha256": "294fe31133cd90fa2b27f5fb6b8b020f811d4525012c2c4624f4776d0b4fd05d",
+      "source_column_order": [
+        "problem",
+        "answer",
+        "modebench_task",
+        "answer_mode_count",
+        "answer_mode_split"
+      ],
+      "split": "eval"
+    },
+    {
+      "config_name": "level1_graph_coloring",
+      "data_file": "data/level1/graph_coloring/train.parquet",
+      "domain": "graph_coloring",
+      "level": 1,
+      "materialized_rows_sha256": "9273f924aed86b0568a5e7238f741681da876354c692815afdb379c6eba2e4c5",
+      "original_datasetdict_split": "train",
+      "parquet_sha256": "56266083798c5e86223e7705d3ed2b97d22dc8aba56814402a0c09afc9eddf30",
+      "rows": 384,
+      "rows_sha256": "8f4b2a34eaaf3661cdac1b465e3c074aeacd9e647ec1da63ea1fb543f9359c7a",
+      "source_column_order": [
+        "problem",
+        "answer",
+        "modebench_task",
+        "answer_mode_count",
+        "answer_mode_split"
+      ],
+      "split": "train"
+    },
+    {
+      "config_name": "level1_mathir",
+      "data_file": "data/level1/mathir/eval.parquet",
+      "domain": "mathir",
+      "level": 1,
+      "materialized_rows_sha256": "df5783ddc9d2a70dd27a237450ce6467884d5ba371032ba8c2cb037bbf328b96",
+      "original_datasetdict_split": "multi_answer",
+      "parquet_sha256": "fc0280c144e5c9c54624303cd508612dbbb3a0ef130dfee9a42fb8f9413e9902",
+      "rows": 128,
+      "rows_sha256": "93a85d5ac62e06c4c78fd4e0710b3a4470aa7b75cd8641b5eae68caa1be932b2",
+      "source_column_order": [
+        "problem",
+        "answer",
+        "modebench_task",
+        "answer_mode_count",
+        "answer_mode_split",
+        "mathir_family"
+      ],
+      "split": "eval"
+    },
+    {
+      "config_name": "level1_mathir",
+      "data_file": "data/level1/mathir/train.parquet",
+      "domain": "mathir",
+      "level": 1,
+      "materialized_rows_sha256": "bfc9836206b6e7ed10b42d53ea0c0615559a2a4446cd15f67476b5b0d45d3835",
+      "original_datasetdict_split": "train",
+      "parquet_sha256": "aac7f11f814eb85769cd16fe8464d886cef3daade22d3d61de50385de9c0662a",
+      "rows": 384,
+      "rows_sha256": "b9feb2db0f51730caaa320745f216a9945d930b6422de96289dcc13eacf4b2c2",
+      "source_column_order": [
+        "problem",
+        "answer",
+        "modebench_task",
+        "answer_mode_count",
+        "answer_mode_split",
+        "mathir_family"
+      ],
+      "split": "train"
+    },
+    {
+      "config_name": "level1_pantry_plan",
+      "data_file": "data/level1/pantry_plan/eval.parquet",
+      "domain": "pantry_plan",
+      "level": 1,
+      "materialized_rows_sha256": "f51aa748bcce23353c0c92cce16c716334a5fd616a429c173c21fa5462876cb2",
+      "original_datasetdict_split": "multi_answer",
+      "parquet_sha256": "2807515694c01108c5b8a616eded485a6ffded07fd1f9eb5fa0155cfeb7c2c34",
+      "rows": 128,
+      "rows_sha256": "5d81ba8dd00894a1e1ed029b63723ef657089c72c3122307d5255af409505923",
+      "source_column_order": [
+        "problem",
+        "answer",
+        "modebench_task",
+        "answer_mode_family",
+        "answer_mode_count",
+        "answer_mode_split",
+        "instance_fingerprint"
+      ],
+      "split": "eval"
+    },
+    {
+      "config_name": "level1_pantry_plan",
+      "data_file": "data/level1/pantry_plan/train.parquet",
+      "domain": "pantry_plan",
+      "level": 1,
+      "materialized_rows_sha256": "6a533f5b40640fdcd27d40ec5cc27cba7c8d3138936f2959221b03e8248c486d",
+      "original_datasetdict_split": "train",
+      "parquet_sha256": "eced2be5ca3fb8194703e8f9d7cfd5d29a1ee701369be14cd388d2004b80a8a3",
+      "rows": 384,
+      "rows_sha256": "a4883c5e38c0b03e216fbb7f1b85d42541bb2896aa3a7fd7ff05330d266a757f",
+      "source_column_order": [
+        "problem",
+        "answer",
+        "modebench_task",
+        "answer_mode_family",
+        "answer_mode_count",
+        "answer_mode_split",
+        "instance_fingerprint"
+      ],
+      "split": "train"
+    },
+    {
+      "config_name": "level1_python_factors",
+      "data_file": "data/level1/python_factors/eval.parquet",
+      "domain": "python_factors",
+      "level": 1,
+      "materialized_rows_sha256": "be0f621c5a0ae84ca45ef4ab866ae12f4c64472eeed1a0ae4666918ab794d183",
+      "original_datasetdict_split": "multi_answer",
+      "parquet_sha256": "88a3f35b0f3e8e9b8ec4da5151ca7697afc79894c0507d00c258d4154983cea0",
+      "rows": 128,
+      "rows_sha256": "4d4c574718505756a234235181176675b927b7268a86e34112c5dc1d1cbca31b",
+      "source_column_order": [
+        "problem",
+        "answer",
+        "modebench_task",
+        "answer_mode_count",
+        "answer_mode_split"
+      ],
+      "split": "eval"
+    },
+    {
+      "config_name": "level1_python_factors",
+      "data_file": "data/level1/python_factors/train.parquet",
+      "domain": "python_factors",
+      "level": 1,
+      "materialized_rows_sha256": "bcfa9accfa3b5c7dd312c85683157af070e7f2741385e9b5a882fd57da037cf7",
+      "original_datasetdict_split": "train",
+      "parquet_sha256": "86e4abc2ff3f2efff47c67aaa3263af2fcb226adefcb8fa52e94ff3c15a94948",
+      "rows": 384,
+      "rows_sha256": "494c3827b344ff5f52964ab0392a7f5b0feb30f0ff3b2015f8741b61edd7b905",
+      "source_column_order": [
+        "problem",
+        "answer",
+        "modebench_task",
+        "answer_mode_count",
+        "answer_mode_split"
+      ],
+      "split": "train"
+    }
+  ]
+}

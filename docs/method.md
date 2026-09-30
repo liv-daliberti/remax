@@ -149,7 +149,7 @@ The PR-base guard protects both training and boundary fixtures from rewriting, i
 | `src/remax/benchmark.py` | Supported `modebench.api` integration, structured verdicts, fatal failure policy |
 | `src/remax/math_grader.py` | Reward/identity compatibility surface and ordinary MATH grading |
 | `src/remax/legacy_modebench.py` | Quarantined helpers for historical proposal/route experiments |
-| `ops/run_recipe.py` | Translate an exported recipe into a portable command |
+| `ops/run_recipe.py` | Validate typed recipes, authenticate inputs, and record the resolved launch |
 | `ops/train.sh` | OAT CLI construction and local execution |
 
 The package is `remax`, while the distribution name is `remax-rl`. The shared benchmark is imported as the installed `modebench` package; runtime imports do not reach into a parent or sibling repository.

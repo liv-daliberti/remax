@@ -39,4 +39,8 @@ if __name__ == "__main__":
     args = default_args_validation(args)
     if requested_max_queries > 0:
         args.max_queries = requested_max_queries
-    run_zero_math_rl(validate_zero_math_args(args))
+    args = validate_zero_math_args(args)
+    from .launch_record import finalize_launch
+
+    if not finalize_launch(args):
+        run_zero_math_rl(args)

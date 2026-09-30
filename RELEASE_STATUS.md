@@ -4,10 +4,13 @@ This initial standalone release includes verified replay losses and bank state, 
 
 ModeBench is a separate public dependency pinned to commit `33cfc3fd1732bd500fe13f13555419557aa248e2`. See [validation](VALIDATION.md) for checks actually completed.
 
+The maintained recipe launcher now validates typed configuration and method/domain/prompt compatibility, authenticates local model and full frozen dataset contents offline, rejects conflicting inherited settings, and records every validated runtime argument before training. See [the strict launch workflow](docs/training.md#validate-then-execute). Historical shell entry points remain available outside that strict contract.
+
 ## Known gaps and follow-up work
 
 - A clean one-GPU PantryPlan workflow now covers all four methods through checkpoint reload and evaluation. Full-budget historical score/trajectory reproduction and GPU qualification of the other domains remain open.
 - The selected pantry recipe matches 85 recorded settings. Its historical wrapper actually evaluated every 96 steps, versus the public recipe's explicit 192; the checked comparison records this difference and the portable launcher's opt-in recovery writes. Automatic recovery discovery is not implemented by the portable launcher. A complete audit across all historical wrappers remains open.
+- Strict-launch checkpoint identity authentication and resume are not implemented; the launcher requires a fresh output directory. The bounded GPU smoke retains its separate explicit reload audit.
 - Comparator and historical branches remain in the learner's integration graph. Removing them requires numerical equivalence checks.
 - Falcon, 3B, Level 2, newer tuned-control, RLEP, mechanism, and additional application reproduction chains are not fully exported as runnable recipes. Newer summary snapshots alone are not complete reproduction packages.
 - Each additional headline result still needs a complete binding to source runtime, model, dataset/prompt, evaluation seeds, exclusion policy, and raw evidence.

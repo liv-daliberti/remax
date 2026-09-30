@@ -59,16 +59,17 @@ This is saved-key numerical reproduction. It does not retrain a policy or regrad
 
 ## Training entry point
 
-After preparing the exact data and model snapshot described in the [training guide](docs/training.md), render a command:
+After preparing the exact data and model snapshot described in the [training guide](docs/training.md), preview a command:
 
 ```sh
 python ops/run_recipe.py configs/remax_countdown_05b.json \
   --data-root /path/to/materialized/countdown \
   --model /path/to/pinned/model/snapshot \
-  --output outputs/remax-countdown-s43
+  --output outputs/remax-countdown-s43 \
+  --render-only
 ```
 
-The default prints the command. Add `--execute` to train locally or `--seed 44` to select another registered seed. The launcher does not require Slurm. A clean installation completed the [four-method GPU walkthrough](docs/training.md#complete-gpu-smoke-workflow) on one 48 GB A6000, including checkpoint reload and identical evaluation records. See [measured results](VALIDATED_GPU_RUN.json) and [release scope](RELEASE_STATUS.md).
+The preview is explicitly unverified. Replace `--render-only` with `--execute` to authenticate inputs and train locally, or `--validate-only` to save the complete effective configuration and exit before training. Use a fresh output directory for either; `--seed 44` selects another registered seed. Unknown fields, incompatible settings, wrong input identities, and conflicting inherited settings fail before training. The launcher does not require Slurm. A clean installation completed the [four-method GPU walkthrough](docs/training.md#complete-gpu-smoke-workflow) on one 48 GB A6000, including checkpoint reload and identical evaluation records. See [measured results](VALIDATED_GPU_RUN.json) and [release scope](RELEASE_STATUS.md).
 
 ## Documentation
 

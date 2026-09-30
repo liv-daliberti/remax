@@ -21,6 +21,8 @@ Run `make boundary` for dependency or grading changes. Preserve the historical r
 
 Preserve the ModeBench admission boundary: correctness and canonical mode identity must derive from the executable benchmark validator. Training support must not be initialized from evaluation answers or a certified solution catalogue.
 
+The strict recipe contract is in `src/remax/recipes.py` and `recipe_types.py`. Run `python -m pytest -q tests/test_strict_recipes.py tests/test_release_recipes.py` for configuration/input changes. Preserve existing `input_registry_v*.json` bytes: derive a new version from hash-verified frozen Parquet and immutable model Git/LFS identities, explain prompt/method compatibility, and update the consumer explicitly. Never authenticate a new input by copying the hash of an unverified local file into the registry. The PR-base guard protects these registries alongside training fixtures.
+
 Keep frozen evidence immutable. New analyses, recipes, exclusions, or protocol revisions need their own identities. Do not update expected result files simply to make a numerical check pass. Preserve original copyright notices and source attribution.
 
 The public package should support CPU objective testing without installing OAT, vLLM, or DeepSpeed. Keep GPU integration dependencies in the `train` extra. Treat removed historical learner branches as scientific refactors requiring equivalence checks, not automatic cleanup.
