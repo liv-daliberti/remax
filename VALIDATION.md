@@ -132,6 +132,12 @@ The GPU profiling allocation completed successfully on one **48 GB A6000**. Six 
 
 [VALIDATED_SCALING_RUN.json](VALIDATED_SCALING_RUN.json) records the full matrix, timings, memory, throughput, source hashes and measurements from the prior 6.44 GiB full training checkpoint. The [method guide](docs/method.md#rank-count-accumulation-and-resource-costs) explains the coefficient cancellation, replicated compute cost and storage boundaries. This audit does **not** newly qualify multi-GPU DeepSpeed/NCCL, distributed checkpoint recovery or full-budget trajectories. It adds execution guards and observability; it does not evict discoveries or change replay coefficients.
 
+## Installed result packages
+
+The result-package change passes the 719-test full regression suite plus the additional frozen-catalog PR-guard test (720 cases in total). The original 473-cell / 95-arm numerical analysis and all eight pre-existing protected reference files remain unchanged. New conformance cases cover complete 475-cell accounting, seed exclusions, Level-2 numerical reproduction, Qwen-3B model/prompt records, E122 versus E123 qualification, changed runtime hashes, and rejection of unsupported reproduction claims or altered artifacts.
+
+The wheel passes all five core-only installed smoke cases from `/tmp`, without source-path overrides. A separately installed sdist runs the documented `remax results reproduce` command outside the checkout using NumPy 2.x; summary-only reproduction returns a nonzero exit status. Both distribution formats include the analysis archive and authenticated result catalog. These checks qualify installed saved-key analysis, not fresh historical training. The audit records six missing runtime snapshot identities and two changed snapshot trees; no additional historical training recipe is presented as verified.
+
 ## What remains untested
 
 Full-budget historical trajectories and scores, other GPU types, multiple learner GPUs, and nontrivial learning in the other four domains remain unqualified. The bounded Countdown run checks free-form sampling and restore continuity but admitted no correct training responses. CPU CI checks the software and frozen numerical contracts; the GPU validation above was a separate manual run. Newer result snapshots remain outside the frozen-core numerical reproduction check.

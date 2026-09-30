@@ -86,6 +86,20 @@ class InstalledWorkflow(unittest.TestCase):
             or "missing training dependency" in result.stderr
         )
 
+    def test_result_packages_without_checkout(self):
+        rows = command("remax", "results", "list").splitlines()
+        self.assertEqual(len(rows), 101)
+        self.assertEqual(
+            sum(row.startswith("saved_key_reproducible\t") for row in rows), 95
+        )
+        report = json.loads(command("remax", "results", "verify"))
+        self.assertFalse(report["numerical_reproduction_performed"])
+        package = json.loads(
+            command("remax", "results", "show", "level2/qwen05b/countdown/replay_maxrl")
+        )
+        self.assertEqual(len(package["cells"]), 5)
+        self.assertIsNone(package["recipe"]["path"])
+
     def test_all_bundled_recipe_commands(self):
         names = recipe_names()
         self.assertEqual(len(names), 20)

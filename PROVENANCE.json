@@ -498,6 +498,14 @@
       "sha256": "1eae223fd977dc9cd872e4f0802500ef85bc799499ead5ce03d6a567475abe69",
       "extracted_sha256": "1eae223fd977dc9cd872e4f0802500ef85bc799499ead5ce03d6a567475abe69",
       "transformation": "Unmodified paper verified-replay schematic for the public README."
+    },
+    {
+      "path": "evidence/snapshots/level3_comparison_20260917.json",
+      "sha256": "6f1cde21f7a2e12ef2a840f7186d23ce4aace03a01f659757c6b5c3b2d96e8ca",
+      "source": "paper/results/modebench_level3_comparison_snapshot.json",
+      "source_sha256": "6f1cde21f7a2e12ef2a840f7186d23ce4aace03a01f659757c6b5c3b2d96e8ca",
+      "transformation": "Unchanged E122 Level-3 Qwen-0.5B summary snapshot; not a raw-data numerical reproduction package.",
+      "extracted_sha256": "6f1cde21f7a2e12ef2a840f7186d23ce4aace03a01f659757c6b5c3b2d96e8ca"
     }
   ],
   "scope": "Initial source extraction map. RELEASE_MANIFEST.json covers all final files, including new interfaces and evidence."

@@ -46,6 +46,15 @@ def main(argv=None):
         action="store_true",
         help="also check the qualified training dependency set",
     )
+    results = commands.add_parser(
+        "results", help="inspect result provenance and reproduce saved-key analysis"
+    )
+    actions = results.add_subparsers(dest="action", required=True)
+    actions.add_parser("list", help="list result qualifications")
+    actions.add_parser("verify", help="check artifact integrity and result bindings")
+    for action in ("show", "reproduce"):
+        sub = actions.add_parser(action)
+        sub.add_argument("identifier")
     args = parser.parse_args(argv)
     try:
         if args.command == "demo":
@@ -57,6 +66,31 @@ def main(argv=None):
                 print(resolve_recipe(args.name).read_text(), end="")
             else:
                 print("\n".join(recipe_names()))
+        elif args.command == "results":
+            from . import results as result_api
+
+            if args.action in ("list", "verify"):
+                catalog = result_api.load_catalog()
+                if args.action == "list":
+                    for package in catalog["packages"]:
+                        print(f"{package['status']}\t{package['id']}")
+                else:
+                    print(
+                        json.dumps(
+                            {
+                                "status": "integrity_verified",
+                                "packages": len(catalog["packages"]),
+                                "numerical_reproduction_performed": False,
+                            }
+                        )
+                    )
+            else:
+                operation = (
+                    result_api.inspect
+                    if args.action == "show"
+                    else result_api.reproduce
+                )
+                print(json.dumps(operation(args.identifier), indent=2))
         else:
             versions = {
                 name: metadata.version(name)

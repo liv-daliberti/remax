@@ -133,3 +133,39 @@ def test_input_registry_cannot_be_rewritten(tmp_path):
     registry.write_text("{}\n")
     with pytest.raises(ValueError, match="changes frozen training reference"):
         check(tmp_path, base)
+
+
+def test_result_catalog_cannot_be_rewritten_and_rehashed(tmp_path):
+    import shutil
+    from pathlib import Path
+    from remax.results import ASSETS, CATALOG
+
+    shutil.copytree(Path(__file__).parent / "fixtures", tmp_path / "tests/fixtures")
+    target = tmp_path / CATALOG
+    target.parent.mkdir(parents=True)
+    shutil.copy(ASSETS / CATALOG, target)
+    target.with_suffix(".sha256").write_text(
+        hashlib.sha256(target.read_bytes()).hexdigest() + "\n"
+    )
+    command(tmp_path, "init", "-q")
+    command(tmp_path, "add", ".")
+    command(
+        tmp_path,
+        "-c",
+        "user.name=Test",
+        "-c",
+        "user.email=test@example.invalid",
+        "-c",
+        "commit.gpgsign=false",
+        "commit",
+        "-qm",
+        "Freeze result catalog",
+    )
+    base = command(tmp_path, "rev-parse", "HEAD").decode().strip()
+    assert check(tmp_path, base)["preserved_base_files"] == 9
+    target.write_text("{}\n")
+    target.with_suffix(".sha256").write_text(
+        hashlib.sha256(target.read_bytes()).hexdigest() + "\n"
+    )
+    with pytest.raises(ValueError, match="PR changes frozen training reference"):
+        check(tmp_path, base)

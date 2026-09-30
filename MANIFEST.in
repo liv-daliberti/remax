@@ -5,7 +5,7 @@ recursive-include configs *.json
 recursive-include ops *.py *.sh
 recursive-include tests *.py *.json *.sha256
 recursive-include examples *.py
-recursive-include evidence *.json *.gz
+recursive-include evidence *.json *.gz *.sha256
 recursive-include protocols *.json
 prune outputs
 prune build

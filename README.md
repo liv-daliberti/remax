@@ -53,13 +53,20 @@ The public recipes cover graph coloring, Countdown, Python factors, MathIR, and 
 
 ## Reproduce the retained analysis
 
+The installed package includes a result catalog and the frozen analysis inputs:
+
 ```sh
-python ops/reproduce_training.py
+remax results list
+remax results show level2/qwen05b/countdown/replay_maxrl
+remax results reproduce level2/qwen05b/countdown/replay_maxrl
+remax results verify
 ```
+
+`reproduce` recomputes saved-key results; `verify` checks file identities and bindings only. Each entry distinguishes a runnable analysis from a retained summary and shows its seeds, exclusions, recorded launch settings, model path/revision, dataset paths, prompt condition, evaluation certificates, and runtime gaps. Historical `replay_maxrl` means Re:Max; `replay_drgrpo` means Re:Dr. The repository command `python ops/reproduce_training.py` still checks the full frozen analysis.
 
 This checks the unchanged verified-key archive against the frozen summary, including seed records, arm aggregates, support eligibility, and missing-checkpoint decisions. Expected coverage is 473 records and 95 arms, of which 84 are terminal-reportable under the retained rules.
 
-This is saved-key numerical reproduction. It does not retrain a policy or regrade every original response. Newer summaries under `evidence/snapshots/` are separately labeled provenance snapshots; their complete raw-source reproduction chains are not included. See [reproducibility](docs/reproducibility.md).
+This is saved-key numerical reproduction. It does not retrain a policy or regrade every original response. Six summaries under `evidence/snapshots/`, including Level 3, remain explicitly labeled snapshots. The [experiment audit](docs/reproducibility.md#result-packages-and-training-export-audit) explains why Level-2/3 and larger-model historical training recipes have not been promoted: runtime identities are missing or changed, and launch exports do not establish complete effective configurations. See [reproducibility](docs/reproducibility.md).
 
 ## Training entry point
 

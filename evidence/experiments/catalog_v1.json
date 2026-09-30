@@ -1,0 +1,4838 @@
+{
+  "artifacts": {
+    "configs/drgrpo_countdown_05b.json": "f594268f9c576ab09e38991e8ef6668f78348255f576e18060fd27c761074e78",
+    "configs/drgrpo_graph_coloring_05b.json": "9058081bbe28eb84d765a2889970ff1a3bb2e962c87055c55398602b2fa60557",
+    "configs/drgrpo_mathir_05b.json": "dca8045b3118f8ba698a31efd360d25a53b091483954dc85898460303068c0fe",
+    "configs/drgrpo_pantry_plan_05b.json": "7037ab88ec0d96e0393691af0e6ebf9039625f64f153f7b13deb57e56e7abdbf",
+    "configs/drgrpo_python_factors_05b.json": "af83153c76faacde4f277b4ed5e13415bec21c4dcce6f4062df1e7e4149d4c1e",
+    "configs/maxrl_countdown_05b.json": "4db6554e085b87245473d45d4be671017d1e277db6d9e17cd6dd07ccac1c5e6c",
+    "configs/maxrl_graph_coloring_05b.json": "2faa3e8df5d0e78af8459d99bce0e6178eb4f9960fcc3277ea433fe9182e65de",
+    "configs/maxrl_mathir_05b.json": "6f842011bf3aa6f3824cf8d9973940ba8fb635e454d7ba0d2eecac68a565e2f6",
+    "configs/maxrl_pantry_plan_05b.json": "d614fe0c266c51d30d45ecd73006f14aecb50e1f73ecd888e752ae0712f21805",
+    "configs/maxrl_python_factors_05b.json": "7f4f8be12fcaa4f2527b50808e24688c585957af3e3e8d75b26c779c3e57931e",
+    "configs/redr_countdown_05b.json": "332f96bb1967f8ac0b5af2f423444b1cdccee9db01b8f7f5b1ba43d4056038c9",
+    "configs/redr_graph_coloring_05b.json": "c95e6d95eaa62facbf350cfce22150b888db30e987a44c5e523959bc8ecbd23c",
+    "configs/redr_mathir_05b.json": "bbc01706dd38e828f8344ffa6a54fa897c70c417e41bcc10945e1e93e9fc62ba",
+    "configs/redr_pantry_plan_05b.json": "0dfe27dacc5933b96a170d77b6f6a65cc8728569619054ff4ae7039490199e7a",
+    "configs/redr_python_factors_05b.json": "7908d7074651396c05736edf1aa023a105ccb64b08609a9ae1119510c25ba1a0",
+    "configs/remax_countdown_05b.json": "9e870f13f853c1e9622498810585b6e587a23c7cb9bbcca9200959a51765a6c0",
+    "configs/remax_graph_coloring_05b.json": "f029c1cc5d17c265d2ea885546b757e922055393b5a70a3bd9ea11edd93aa365",
+    "configs/remax_mathir_05b.json": "10e283c0f0da637d17528f26d01f6b019eae3dd485d48b2e8f16687eec3e683a",
+    "configs/remax_pantry_plan_05b.json": "8de161d8807839b4f4a8d7e088053e0183f477b8469172749a4424422f9fed34",
+    "configs/remax_python_factors_05b.json": "a8aba40cd2229a50ce08c03894a31448ee71efabe4a1dc3282b92db2387fd5d6",
+    "evidence/experiments/historical_bindings_v1.json": "95fce7819f90194726e52b6462289710e441be6a526e0980e9654c86b1be224b",
+    "evidence/mode_diversity_training.json": "0997008ca95a1a1473af527cba6b76ba321376769380ea32c4ed9f1063dea131",
+    "evidence/snapshots/level3_comparison_20260917.json": "6f1cde21f7a2e12ef2a840f7186d23ce4aace03a01f659757c6b5c3b2d96e8ca",
+    "evidence/snapshots/matched_redr_20260924.json": "52ea85f974abce86665f66117ac1a7fea616ca0c188a2f9e8a63a99847083973",
+    "evidence/snapshots/online_rlep_20260927.json": "78e975f5c2b69e8124c5cafcbbbddc4f9c699cec1e3603d8123c9ac918a4b1dc",
+    "evidence/snapshots/replay_mechanism_ladder_20260924.json": "9a9bdbaf8b2861e8548460737b5bfdb10d4b0bef88d16522e5c625793a98fc79",
+    "evidence/snapshots/tuned_control_stage2_20260927.json": "275a178643deeb0034c906161099300df3963a14b6bdf1aa33236070db83d4b1",
+    "evidence/snapshots/tuned_control_sweep_20260927.json": "00b8345b6e74fbe758e43c9f2802247fe392e909c6a3de087f489a09d621cc4a",
+    "evidence/verified_samples_completed_cohort.jsonl.gz": "c54aaa1bc4ccc086af6a2f2f7b09eae3ea31c17094f249f412dea6ba5dba9179",
+    "ops/build_mode_diversity_training.py": "56dfe9f1086d31a56025aacd4462555969e11edb876b01ef3eb84a7a12943f80",
+    "ops/export_experiment_packages.py": "668084b1e19820d74ded87191802a79c4433e1dbf08cbbc7afc317e338b9c02a",
+    "ops/followup_metrics.py": "17b8d70440cdc02f62a82e3afa5db3dcd834d3d8f7d6dbeb6b2d50c4bb4a9782"
+  },
+  "evaluation_protocol": {
+    "aggregation": "pooled over a cell's four draws, unweighted mean over defined prompts, then over seeds",
+    "equals": "one minus the registered conditional-concentration collision U-statistic",
+    "estimator": "PCMD = 1 - sum_m n_m (n_m - 1) / (K (K - 1)) over a prompt's verified responses",
+    "metric": "pairwise correct-mode diversity (PCMD)",
+    "min_defined_prompts": 30
+  },
+  "packages": [
+    {
+      "cell_ids": [
+        "level1/falcon1b/countdown/drgrpo/s55",
+        "level1/falcon1b/countdown/drgrpo/s56",
+        "level1/falcon1b/countdown/drgrpo/s57",
+        "level1/falcon1b/countdown/drgrpo/s58",
+        "level1/falcon1b/countdown/drgrpo/s59"
+      ],
+      "id": "level1/falcon1b/countdown/drgrpo",
+      "recipe": {
+        "path": null,
+        "relationship": "no_qualified_training_recipe"
+      },
+      "reproduce_command": "remax results reproduce level1/falcon1b/countdown/drgrpo",
+      "result": {
+        "distinct8_after": 0.41953125,
+        "distinct8_before": 0.23046875,
+        "domain": "countdown",
+        "effective_modes_after": 1.1156034351453423,
+        "effective_modes_before": 1.0344827586206897,
+        "level": "level1",
+        "method": "drgrpo",
+        "pass8_after": 0.327734375,
+        "pass8_before": 0.224609375,
+        "pmd_after": 0.10362412977894908,
+        "pmd_after_paired": 0.10362412977894908,
+        "pmd_before": 0.03333333333333333,
+        "pmd_delta": 0.07029079644561577,
+        "pmd_delta_seed_range": [
+          0.028938844086021515,
+          0.12237804350243076
+        ],
+        "reportable": true,
+        "reportable_seeds": 5,
+        "scale": "falcon1b",
+        "seeds": 5,
+        "seeds_improving": 5,
+        "terminal_only_seeds": 0,
+        "terminal_reportable": true,
+        "terminal_seeds": 5
+      },
+      "status": "saved_key_reproducible",
+      "training_gaps": [
+        "No per-attempt authenticated effective configuration and dependency lock in this export.",
+        "Registered launch settings are not resolved wrapper/recovery settings.",
+        "Historical model/dataset paths do not authenticate their bytes for a fresh launch.",
+        "Saved keys do not contain original responses or trained weights."
+      ],
+      "training_reproduction_verified": false
+    },
+    {
+      "cell_ids": [
+        "level1/falcon1b/countdown/grpo/s55",
+        "level1/falcon1b/countdown/grpo/s56",
+        "level1/falcon1b/countdown/grpo/s57",
+        "level1/falcon1b/countdown/grpo/s58",
+        "level1/falcon1b/countdown/grpo/s59"
+      ],
+      "id": "level1/falcon1b/countdown/grpo",
+      "recipe": {
+        "path": null,
+        "relationship": "no_qualified_training_recipe"
+      },
+      "reproduce_command": "remax results reproduce level1/falcon1b/countdown/grpo",
+      "result": {
+        "distinct8_after": 0.558203125,
+        "distinct8_before": 0.23046875,
+        "domain": "countdown",
+        "effective_modes_after": 1.0075752213050604,
+        "effective_modes_before": 1.0344827586206897,
+        "level": "level1",
+        "method": "grpo",
+        "pass8_after": 0.549609375,
+        "pass8_before": 0.224609375,
+        "pmd_after": 0.0075182687554072435,
+        "pmd_after_paired": 0.0075182687554072435,
+        "pmd_before": 0.03333333333333333,
+        "pmd_delta": -0.025815064577926088,
+        "pmd_delta_seed_range": [
+          -0.03333333333333333,
+          0.001192876344086026
+        ],
+        "reportable": true,
+        "reportable_seeds": 5,
+        "scale": "falcon1b",
+        "seeds": 5,
+        "seeds_improving": 1,
+        "terminal_only_seeds": 0,
+        "terminal_reportable": true,
+        "terminal_seeds": 5
+      },
+      "status": "saved_key_reproducible",
+      "training_gaps": [
+        "No per-attempt authenticated effective configuration and dependency lock in this export.",
+        "Registered launch settings are not resolved wrapper/recovery settings.",
+        "Historical model/dataset paths do not authenticate their bytes for a fresh launch.",
+        "Saved keys do not contain original responses or trained weights."
+      ],
+      "training_reproduction_verified": false
+    },
+    {
+      "cell_ids": [
+        "level1/falcon1b/countdown/maxrl/s55",
+        "level1/falcon1b/countdown/maxrl/s56",
+        "level1/falcon1b/countdown/maxrl/s57",
+        "level1/falcon1b/countdown/maxrl/s58",
+        "level1/falcon1b/countdown/maxrl/s59"
+      ],
+      "id": "level1/falcon1b/countdown/maxrl",
+      "recipe": {
+        "path": null,
+        "relationship": "no_qualified_training_recipe"
+      },
+      "reproduce_command": "remax results reproduce level1/falcon1b/countdown/maxrl",
+      "result": {
+        "distinct8_after": 0.65390625,
+        "distinct8_before": 0.240234375,
+        "domain": "countdown",
+        "effective_modes_after": 1.0,
+        "effective_modes_before": 1.039272030651341,
+        "level": "level1",
+        "method": "maxrl",
+        "pass8_after": 0.65390625,
+        "pass8_before": 0.228515625,
+        "pmd_after": 0.0,
+        "pmd_after_paired": 0.0,
+        "pmd_before": 0.03778801843317972,
+        "pmd_delta": -0.03778801843317972,
+        "pmd_delta_seed_range": [
+          -0.03778801843317972,
+          -0.03778801843317972
+        ],
+        "reportable": true,
+        "reportable_seeds": 2,
+        "scale": "falcon1b",
+        "seeds": 5,
+        "seeds_improving": 0,
+        "terminal_only_seeds": 3,
+        "terminal_reportable": true,
+        "terminal_seeds": 5
+      },
+      "status": "saved_key_reproducible",
+      "training_gaps": [
+        "No per-attempt authenticated effective configuration and dependency lock in this export.",
+        "Registered launch settings are not resolved wrapper/recovery settings.",
+        "Historical model/dataset paths do not authenticate their bytes for a fresh launch.",
+        "Saved keys do not contain original responses or trained weights."
+      ],
+      "training_reproduction_verified": false
+    },
+    {
+      "cell_ids": [
+        "level1/falcon1b/countdown/replay_drgrpo/s55",
+        "level1/falcon1b/countdown/replay_drgrpo/s56",
+        "level1/falcon1b/countdown/replay_drgrpo/s57",
+        "level1/falcon1b/countdown/replay_drgrpo/s58",
+        "level1/falcon1b/countdown/replay_drgrpo/s59"
+      ],
+      "id": "level1/falcon1b/countdown/replay_drgrpo",
+      "recipe": {
+        "path": null,
+        "relationship": "no_qualified_training_recipe"
+      },
+      "reproduce_command": "remax results reproduce level1/falcon1b/countdown/replay_drgrpo",
+      "result": {
+        "distinct8_after": 0.83837890625,
+        "distinct8_before": 0.23046875,
+        "domain": "countdown",
+        "effective_modes_after": 1.1548923835314806,
+        "effective_modes_before": 1.0344827586206897,
+        "level": "level1",
+        "method": "replay_drgrpo",
+        "pass8_after": 0.63232421875,
+        "pass8_before": 0.224609375,
+        "pmd_after": 0.13411845617843965,
+        "pmd_after_paired": 0.13411845617843965,
+        "pmd_before": 0.03333333333333333,
+        "pmd_delta": 0.10078512284510631,
+        "pmd_delta_seed_range": [
+          0.0945358720339606,
+          0.1055938951250193
+        ],
+        "reportable": true,
+        "reportable_seeds": 4,
+        "scale": "falcon1b",
+        "seeds": 4,
+        "seeds_improving": 4,
+        "terminal_only_seeds": 0,
+        "terminal_reportable": true,
+        "terminal_seeds": 4
+      },
+      "status": "saved_key_reproducible",
+      "training_gaps": [
+        "No per-attempt authenticated effective configuration and dependency lock in this export.",
+        "Registered launch settings are not resolved wrapper/recovery settings.",
+        "Historical model/dataset paths do not authenticate their bytes for a fresh launch.",
+        "Saved keys do not contain original responses or trained weights."
+      ],
+      "training_reproduction_verified": false
+    },
+    {
+      "cell_ids": [
+        "level1/falcon1b/countdown/replay_maxrl/s55",
+        "level1/falcon1b/countdown/replay_maxrl/s56",
+        "level1/falcon1b/countdown/replay_maxrl/s57",
+        "level1/falcon1b/countdown/replay_maxrl/s58",
+        "level1/falcon1b/countdown/replay_maxrl/s59"
+      ],
+      "id": "level1/falcon1b/countdown/replay_maxrl",
+      "recipe": {
+        "path": null,
+        "relationship": "no_qualified_training_recipe"
+      },
+      "reproduce_command": "remax results reproduce level1/falcon1b/countdown/replay_maxrl",
+      "result": {
+        "distinct8_after": 0.787109375,
+        "distinct8_before": 0.240234375,
+        "domain": "countdown",
+        "effective_modes_after": 1.0603348312600958,
+        "effective_modes_before": 1.039272030651341,
+        "level": "level1",
+        "method": "replay_maxrl",
+        "pass8_after": 0.679296875,
+        "pass8_before": 0.228515625,
+        "pmd_after": 0.05690167811274678,
+        "pmd_after_paired": 0.06077073706468269,
+        "pmd_before": 0.03778801843317972,
+        "pmd_delta": 0.022982718631502967,
+        "pmd_delta_seed_range": [
+          0.022982718631502967,
+          0.022982718631502967
+        ],
+        "reportable": true,
+        "reportable_seeds": 1,
+        "scale": "falcon1b",
+        "seeds": 5,
+        "seeds_improving": 1,
+        "terminal_only_seeds": 4,
+        "terminal_reportable": true,
+        "terminal_seeds": 5
+      },
+      "status": "saved_key_reproducible",
+      "training_gaps": [
+        "No per-attempt authenticated effective configuration and dependency lock in this export.",
+        "Registered launch settings are not resolved wrapper/recovery settings.",
+        "Historical model/dataset paths do not authenticate their bytes for a fresh launch.",
+        "Saved keys do not contain original responses or trained weights."
+      ],
+      "training_reproduction_verified": false
+    },
+    {
+      "cell_ids": [
+        "level1/falcon1b/graph_coloring/drgrpo/s55",
+        "level1/falcon1b/graph_coloring/drgrpo/s56",
+        "level1/falcon1b/graph_coloring/drgrpo/s57",
+        "level1/falcon1b/graph_coloring/drgrpo/s58",
+        "level1/falcon1b/graph_coloring/drgrpo/s59"
+      ],
+      "id": "level1/falcon1b/graph_coloring/drgrpo",
+      "recipe": {
+        "path": null,
+        "relationship": "no_qualified_training_recipe"
+      },
+      "reproduce_command": "remax results reproduce level1/falcon1b/graph_coloring/drgrpo",
+      "result": {
+        "distinct8_after": 1.033984375,
+        "distinct8_before": 1.0703125,
+        "domain": "graph_coloring",
+        "effective_modes_after": 1.2566528723761892,
+        "effective_modes_before": 1.4377400041319706,
+        "level": "level1",
+        "method": "drgrpo",
+        "pass8_after": 0.655859375,
+        "pass8_before": 0.693359375,
+        "pmd_after": 0.20423529680944236,
+        "pmd_after_paired": 0.20423529680944236,
+        "pmd_before": 0.3044639523654725,
+        "pmd_delta": -0.1002286555560302,
+        "pmd_delta_seed_range": [
+          -0.19341981383620588,
+          0.02557953639860111
+        ],
+        "reportable": true,
+        "reportable_seeds": 5,
+        "scale": "falcon1b",
+        "seeds": 5,
+        "seeds_improving": 1,
+        "terminal_only_seeds": 0,
+        "terminal_reportable": true,
+        "terminal_seeds": 5
+      },
+      "status": "saved_key_reproducible",
+      "training_gaps": [
+        "No per-attempt authenticated effective configuration and dependency lock in this export.",
+        "Registered launch settings are not resolved wrapper/recovery settings.",
+        "Historical model/dataset paths do not authenticate their bytes for a fresh launch.",
+        "Saved keys do not contain original responses or trained weights."
+      ],
+      "training_reproduction_verified": false
+    },
+    {
+      "cell_ids": [
+        "level1/falcon1b/graph_coloring/grpo/s55",
+        "level1/falcon1b/graph_coloring/grpo/s56",
+        "level1/falcon1b/graph_coloring/grpo/s57",
+        "level1/falcon1b/graph_coloring/grpo/s58",
+        "level1/falcon1b/graph_coloring/grpo/s59"
+      ],
+      "id": "level1/falcon1b/graph_coloring/grpo",
+      "recipe": {
+        "path": null,
+        "relationship": "no_qualified_training_recipe"
+      },
+      "reproduce_command": "remax results reproduce level1/falcon1b/graph_coloring/grpo",
+      "result": {
+        "distinct8_after": 1.384765625,
+        "distinct8_before": 1.0703125,
+        "domain": "graph_coloring",
+        "effective_modes_after": 1.471187781394082,
+        "effective_modes_before": 1.4377400041319706,
+        "level": "level1",
+        "method": "grpo",
+        "pass8_after": 0.769140625,
+        "pass8_before": 0.693359375,
+        "pmd_after": 0.3202771171383638,
+        "pmd_after_paired": 0.3202771171383638,
+        "pmd_before": 0.3044639523654725,
+        "pmd_delta": 0.015813164772891297,
+        "pmd_delta_seed_range": [
+          -0.04700990922529191,
+          0.09542887978849934
+        ],
+        "reportable": true,
+        "reportable_seeds": 5,
+        "scale": "falcon1b",
+        "seeds": 5,
+        "seeds_improving": 3,
+        "terminal_only_seeds": 0,
+        "terminal_reportable": true,
+        "terminal_seeds": 5
+      },
+      "status": "saved_key_reproducible",
+      "training_gaps": [
+        "No per-attempt authenticated effective configuration and dependency lock in this export.",
+        "Registered launch settings are not resolved wrapper/recovery settings.",
+        "Historical model/dataset paths do not authenticate their bytes for a fresh launch.",
+        "Saved keys do not contain original responses or trained weights."
+      ],
+      "training_reproduction_verified": false
+    },
+    {
+      "cell_ids": [
+        "level1/falcon1b/graph_coloring/maxrl/s55",
+        "level1/falcon1b/graph_coloring/maxrl/s56",
+        "level1/falcon1b/graph_coloring/maxrl/s57",
+        "level1/falcon1b/graph_coloring/maxrl/s58",
+        "level1/falcon1b/graph_coloring/maxrl/s59"
+      ],
+      "id": "level1/falcon1b/graph_coloring/maxrl",
+      "recipe": {
+        "path": null,
+        "relationship": "no_qualified_training_recipe"
+      },
+      "reproduce_command": "remax results reproduce level1/falcon1b/graph_coloring/maxrl",
+      "result": {
+        "distinct8_after": 2.094921875,
+        "distinct8_before": 1.080078125,
+        "domain": "graph_coloring",
+        "effective_modes_after": 1.9351097450380106,
+        "effective_modes_before": 1.395108561391164,
+        "level": "level1",
+        "method": "maxrl",
+        "pass8_after": 0.921875,
+        "pass8_before": 0.701171875,
+        "pmd_after": 0.4832334431862636,
+        "pmd_after_paired": 0.4789254811851122,
+        "pmd_before": 0.2832099037491194,
+        "pmd_delta": 0.1957155774359928,
+        "pmd_delta_seed_range": [
+          0.16461821210282968,
+          0.2249029064046118
+        ],
+        "reportable": true,
+        "reportable_seeds": 3,
+        "scale": "falcon1b",
+        "seeds": 5,
+        "seeds_improving": 3,
+        "terminal_only_seeds": 2,
+        "terminal_reportable": true,
+        "terminal_seeds": 5
+      },
+      "status": "saved_key_reproducible",
+      "training_gaps": [
+        "No per-attempt authenticated effective configuration and dependency lock in this export.",
+        "Registered launch settings are not resolved wrapper/recovery settings.",
+        "Historical model/dataset paths do not authenticate their bytes for a fresh launch.",
+        "Saved keys do not contain original responses or trained weights."
+      ],
+      "training_reproduction_verified": false
+    },
+    {
+      "cell_ids": [
+        "level1/falcon1b/graph_coloring/replay_drgrpo/s55",
+        "level1/falcon1b/graph_coloring/replay_drgrpo/s56",
+        "level1/falcon1b/graph_coloring/replay_drgrpo/s57",
+        "level1/falcon1b/graph_coloring/replay_drgrpo/s58",
+        "level1/falcon1b/graph_coloring/replay_drgrpo/s59"
+      ],
+      "id": "level1/falcon1b/graph_coloring/replay_drgrpo",
+      "recipe": {
+        "path": null,
+        "relationship": "no_qualified_training_recipe"
+      },
+      "reproduce_command": "remax results reproduce level1/falcon1b/graph_coloring/replay_drgrpo",
+      "result": {
+        "distinct8_after": 1.716796875,
+        "distinct8_before": 1.0703125,
+        "domain": "graph_coloring",
+        "effective_modes_after": 1.7497391785711414,
+        "effective_modes_before": 1.4377400041319706,
+        "level": "level1",
+        "method": "replay_drgrpo",
+        "pass8_after": 0.80859375,
+        "pass8_before": 0.693359375,
+        "pmd_after": 0.4284862496954475,
+        "pmd_after_paired": 0.4284862496954475,
+        "pmd_before": 0.3044639523654725,
+        "pmd_delta": 0.12402229732997502,
+        "pmd_delta_seed_range": [
+          0.08711740289817843,
+          0.1558525684137218
+        ],
+        "reportable": true,
+        "reportable_seeds": 5,
+        "scale": "falcon1b",
+        "seeds": 5,
+        "seeds_improving": 5,
+        "terminal_only_seeds": 0,
+        "terminal_reportable": true,
+        "terminal_seeds": 5
+      },
+      "status": "saved_key_reproducible",
+      "training_gaps": [
+        "No per-attempt authenticated effective configuration and dependency lock in this export.",
+        "Registered launch settings are not resolved wrapper/recovery settings.",
+        "Historical model/dataset paths do not authenticate their bytes for a fresh launch.",
+        "Saved keys do not contain original responses or trained weights."
+      ],
+      "training_reproduction_verified": false
+    },
+    {
+      "cell_ids": [
+        "level1/falcon1b/graph_coloring/replay_maxrl/s55",
+        "level1/falcon1b/graph_coloring/replay_maxrl/s56",
+        "level1/falcon1b/graph_coloring/replay_maxrl/s57",
+        "level1/falcon1b/graph_coloring/replay_maxrl/s58",
+        "level1/falcon1b/graph_coloring/replay_maxrl/s59"
+      ],
+      "id": "level1/falcon1b/graph_coloring/replay_maxrl",
+      "recipe": {
+        "path": null,
+        "relationship": "no_qualified_training_recipe"
+      },
+      "reproduce_command": "remax results reproduce level1/falcon1b/graph_coloring/replay_maxrl",
+      "result": {
+        "distinct8_after": 2.001953125,
+        "distinct8_before": 1.0830078125,
+        "domain": "graph_coloring",
+        "effective_modes_after": 1.9025381980922245,
+        "effective_modes_before": 1.399911287622201,
+        "level": "level1",
+        "method": "replay_maxrl",
+        "pass8_after": 0.9359375,
+        "pass8_before": 0.701171875,
+        "pmd_after": 0.4743863744745031,
+        "pmd_after_paired": 0.46853356144949687,
+        "pmd_before": 0.28566902142882533,
+        "pmd_delta": 0.1828645400206715,
+        "pmd_delta_seed_range": [
+          0.1793649373805027,
+          0.18636414266084034
+        ],
+        "reportable": true,
+        "reportable_seeds": 2,
+        "scale": "falcon1b",
+        "seeds": 5,
+        "seeds_improving": 2,
+        "terminal_only_seeds": 3,
+        "terminal_reportable": true,
+        "terminal_seeds": 5
+      },
+      "status": "saved_key_reproducible",
+      "training_gaps": [
+        "No per-attempt authenticated effective configuration and dependency lock in this export.",
+        "Registered launch settings are not resolved wrapper/recovery settings.",
+        "Historical model/dataset paths do not authenticate their bytes for a fresh launch.",
+        "Saved keys do not contain original responses or trained weights."
+      ],
+      "training_reproduction_verified": false
+    },
+    {
+      "cell_ids": [
+        "level1/falcon1b/mathir/drgrpo/s55",
+        "level1/falcon1b/mathir/drgrpo/s56",
+        "level1/falcon1b/mathir/drgrpo/s57",
+        "level1/falcon1b/mathir/drgrpo/s58",
+        "level1/falcon1b/mathir/drgrpo/s59"
+      ],
+      "id": "level1/falcon1b/mathir/drgrpo",
+      "recipe": {
+        "path": null,
+        "relationship": "no_qualified_training_recipe"
+      },
+      "reproduce_command": "remax results reproduce level1/falcon1b/mathir/drgrpo",
+      "result": {
+        "distinct8_after": null,
+        "distinct8_before": null,
+        "domain": "mathir",
+        "effective_modes_after": null,
+        "effective_modes_before": null,
+        "level": "level1",
+        "method": "drgrpo",
+        "pass8_after": null,
+        "pass8_before": null,
+        "pmd_after": null,
+        "pmd_after_paired": null,
+        "pmd_before": null,
+        "pmd_delta": null,
+        "pmd_delta_seed_range": null,
+        "reportable": false,
+        "reportable_seeds": 0,
+        "scale": "falcon1b",
+        "seeds": 5,
+        "seeds_improving": 0,
+        "terminal_only_seeds": 0,
+        "terminal_reportable": false,
+        "terminal_seeds": 0
+      },
+      "status": "saved_key_reproducible",
+      "training_gaps": [
+        "No per-attempt authenticated effective configuration and dependency lock in this export.",
+        "Registered launch settings are not resolved wrapper/recovery settings.",
+        "Historical model/dataset paths do not authenticate their bytes for a fresh launch.",
+        "Saved keys do not contain original responses or trained weights."
+      ],
+      "training_reproduction_verified": false
+    },
+    {
+      "cell_ids": [
+        "level1/falcon1b/mathir/grpo/s55",
+        "level1/falcon1b/mathir/grpo/s56",
+        "level1/falcon1b/mathir/grpo/s57",
+        "level1/falcon1b/mathir/grpo/s58",
+        "level1/falcon1b/mathir/grpo/s59"
+      ],
+      "id": "level1/falcon1b/mathir/grpo",
+      "recipe": {
+        "path": null,
+        "relationship": "no_qualified_training_recipe"
+      },
+      "reproduce_command": "remax results reproduce level1/falcon1b/mathir/grpo",
+      "result": {
+        "distinct8_after": 0.353515625,
+        "distinct8_before": null,
+        "domain": "mathir",
+        "effective_modes_after": 1.019701715143672,
+        "effective_modes_before": null,
+        "level": "level1",
+        "method": "grpo",
+        "pass8_after": 0.341796875,
+        "pass8_before": null,
+        "pmd_after": 0.01932105717885958,
+        "pmd_after_paired": null,
+        "pmd_before": null,
+        "pmd_delta": null,
+        "pmd_delta_seed_range": null,
+        "reportable": false,
+        "reportable_seeds": 0,
+        "scale": "falcon1b",
+        "seeds": 5,
+        "seeds_improving": 0,
+        "terminal_only_seeds": 0,
+        "terminal_reportable": true,
+        "terminal_seeds": 3
+      },
+      "status": "saved_key_reproducible",
+      "training_gaps": [
+        "No per-attempt authenticated effective configuration and dependency lock in this export.",
+        "Registered launch settings are not resolved wrapper/recovery settings.",
+        "Historical model/dataset paths do not authenticate their bytes for a fresh launch.",
+        "Saved keys do not contain original responses or trained weights."
+      ],
+      "training_reproduction_verified": false
+    },
+    {
+      "cell_ids": [
+        "level1/falcon1b/mathir/maxrl/s55",
+        "level1/falcon1b/mathir/maxrl/s56",
+        "level1/falcon1b/mathir/maxrl/s57",
+        "level1/falcon1b/mathir/maxrl/s58",
+        "level1/falcon1b/mathir/maxrl/s59"
+      ],
+      "id": "level1/falcon1b/mathir/maxrl",
+      "recipe": {
+        "path": null,
+        "relationship": "no_qualified_training_recipe"
+      },
+      "reproduce_command": "remax results reproduce level1/falcon1b/mathir/maxrl",
+      "result": {
+        "distinct8_after": 0.455859375,
+        "distinct8_before": null,
+        "domain": "mathir",
+        "effective_modes_after": 1.0013568521031206,
+        "effective_modes_before": null,
+        "level": "level1",
+        "method": "maxrl",
+        "pass8_after": 0.4546875,
+        "pass8_before": null,
+        "pmd_after": 0.0013550135501355014,
+        "pmd_after_paired": null,
+        "pmd_before": null,
+        "pmd_delta": null,
+        "pmd_delta_seed_range": null,
+        "reportable": false,
+        "reportable_seeds": 0,
+        "scale": "falcon1b",
+        "seeds": 5,
+        "seeds_improving": 0,
+        "terminal_only_seeds": 4,
+        "terminal_reportable": true,
+        "terminal_seeds": 5
+      },
+      "status": "saved_key_reproducible",
+      "training_gaps": [
+        "No per-attempt authenticated effective configuration and dependency lock in this export.",
+        "Registered launch settings are not resolved wrapper/recovery settings.",
+        "Historical model/dataset paths do not authenticate their bytes for a fresh launch.",
+        "Saved keys do not contain original responses or trained weights."
+      ],
+      "training_reproduction_verified": false
+    },
+    {
+      "cell_ids": [
+        "level1/falcon1b/mathir/replay_drgrpo/s55",
+        "level1/falcon1b/mathir/replay_drgrpo/s56",
+        "level1/falcon1b/mathir/replay_drgrpo/s57",
+        "level1/falcon1b/mathir/replay_drgrpo/s58",
+        "level1/falcon1b/mathir/replay_drgrpo/s59"
+      ],
+      "id": "level1/falcon1b/mathir/replay_drgrpo",
+      "recipe": {
+        "path": null,
+        "relationship": "no_qualified_training_recipe"
+      },
+      "reproduce_command": "remax results reproduce level1/falcon1b/mathir/replay_drgrpo",
+      "result": {
+        "distinct8_after": 0.75625,
+        "distinct8_before": null,
+        "domain": "mathir",
+        "effective_modes_after": 1.0220202835227958,
+        "effective_modes_before": null,
+        "level": "level1",
+        "method": "replay_drgrpo",
+        "pass8_after": 0.735546875,
+        "pass8_before": null,
+        "pmd_after": 0.0215458380599789,
+        "pmd_after_paired": null,
+        "pmd_before": null,
+        "pmd_delta": null,
+        "pmd_delta_seed_range": null,
+        "reportable": false,
+        "reportable_seeds": 0,
+        "scale": "falcon1b",
+        "seeds": 5,
+        "seeds_improving": 0,
+        "terminal_only_seeds": 0,
+        "terminal_reportable": true,
+        "terminal_seeds": 5
+      },
+      "status": "saved_key_reproducible",
+      "training_gaps": [
+        "No per-attempt authenticated effective configuration and dependency lock in this export.",
+        "Registered launch settings are not resolved wrapper/recovery settings.",
+        "Historical model/dataset paths do not authenticate their bytes for a fresh launch.",
+        "Saved keys do not contain original responses or trained weights."
+      ],
+      "training_reproduction_verified": false
+    },
+    {
+      "cell_ids": [
+        "level1/falcon1b/mathir/replay_maxrl/s55",
+        "level1/falcon1b/mathir/replay_maxrl/s56",
+        "level1/falcon1b/mathir/replay_maxrl/s57",
+        "level1/falcon1b/mathir/replay_maxrl/s58",
+        "level1/falcon1b/mathir/replay_maxrl/s59"
+      ],
+      "id": "level1/falcon1b/mathir/replay_maxrl",
+      "recipe": {
+        "path": null,
+        "relationship": "no_qualified_training_recipe"
+      },
+      "reproduce_command": "remax results reproduce level1/falcon1b/mathir/replay_maxrl",
+      "result": {
+        "distinct8_after": 0.898828125,
+        "distinct8_before": null,
+        "domain": "mathir",
+        "effective_modes_after": 1.011270887002349,
+        "effective_modes_before": null,
+        "level": "level1",
+        "method": "replay_maxrl",
+        "pass8_after": 0.87890625,
+        "pass8_before": null,
+        "pmd_after": 0.01114526992442018,
+        "pmd_after_paired": null,
+        "pmd_before": null,
+        "pmd_delta": null,
+        "pmd_delta_seed_range": null,
+        "reportable": false,
+        "reportable_seeds": 0,
+        "scale": "falcon1b",
+        "seeds": 5,
+        "seeds_improving": 0,
+        "terminal_only_seeds": 3,
+        "terminal_reportable": true,
+        "terminal_seeds": 5
+      },
+      "status": "saved_key_reproducible",
+      "training_gaps": [
+        "No per-attempt authenticated effective configuration and dependency lock in this export.",
+        "Registered launch settings are not resolved wrapper/recovery settings.",
+        "Historical model/dataset paths do not authenticate their bytes for a fresh launch.",
+        "Saved keys do not contain original responses or trained weights."
+      ],
+      "training_reproduction_verified": false
+    },
+    {
+      "cell_ids": [
+        "level1/falcon1b/pantry_plan/drgrpo/s55",
+        "level1/falcon1b/pantry_plan/drgrpo/s56",
+        "level1/falcon1b/pantry_plan/drgrpo/s57",
+        "level1/falcon1b/pantry_plan/drgrpo/s58",
+        "level1/falcon1b/pantry_plan/drgrpo/s59"
+      ],
+      "id": "level1/falcon1b/pantry_plan/drgrpo",
+      "recipe": {
+        "path": null,
+        "relationship": "no_qualified_training_recipe"
+      },
+      "reproduce_command": "remax results reproduce level1/falcon1b/pantry_plan/drgrpo",
+      "result": {
+        "distinct8_after": 0.6328125,
+        "distinct8_before": 2.162109375,
+        "domain": "pantry_plan",
+        "effective_modes_after": 1.0,
+        "effective_modes_before": 2.193388238288655,
+        "level": "level1",
+        "method": "drgrpo",
+        "pass8_after": 0.6328125,
+        "pass8_before": 0.890625,
+        "pmd_after": 0.0,
+        "pmd_after_paired": 0.0,
+        "pmd_before": 0.5440843611068924,
+        "pmd_delta": -0.5440843611068924,
+        "pmd_delta_seed_range": [
+          -0.5440843611068924,
+          -0.5440843611068924
+        ],
+        "reportable": true,
+        "reportable_seeds": 5,
+        "scale": "falcon1b",
+        "seeds": 5,
+        "seeds_improving": 0,
+        "terminal_only_seeds": 0,
+        "terminal_reportable": true,
+        "terminal_seeds": 5
+      },
+      "status": "saved_key_reproducible",
+      "training_gaps": [
+        "No per-attempt authenticated effective configuration and dependency lock in this export.",
+        "Registered launch settings are not resolved wrapper/recovery settings.",
+        "Historical model/dataset paths do not authenticate their bytes for a fresh launch.",
+        "Saved keys do not contain original responses or trained weights."
+      ],
+      "training_reproduction_verified": false
+    },
+    {
+      "cell_ids": [
+        "level1/falcon1b/pantry_plan/grpo/s55",
+        "level1/falcon1b/pantry_plan/grpo/s56",
+        "level1/falcon1b/pantry_plan/grpo/s57",
+        "level1/falcon1b/pantry_plan/grpo/s58",
+        "level1/falcon1b/pantry_plan/grpo/s59"
+      ],
+      "id": "level1/falcon1b/pantry_plan/grpo",
+      "recipe": {
+        "path": null,
+        "relationship": "no_qualified_training_recipe"
+      },
+      "reproduce_command": "remax results reproduce level1/falcon1b/pantry_plan/grpo",
+      "result": {
+        "distinct8_after": 0.68515625,
+        "distinct8_before": 2.162109375,
+        "domain": "pantry_plan",
+        "effective_modes_after": 1.0134205092911217,
+        "effective_modes_before": 2.193388238288655,
+        "level": "level1",
+        "method": "grpo",
+        "pass8_after": 0.64453125,
+        "pass8_before": 0.890625,
+        "pmd_after": 0.013242784380305603,
+        "pmd_after_paired": 0.013242784380305603,
+        "pmd_before": 0.5440843611068924,
+        "pmd_delta": -0.5308415767265868,
+        "pmd_delta_seed_range": [
+          -0.5440843611068924,
+          -0.4778704392053644
+        ],
+        "reportable": true,
+        "reportable_seeds": 5,
+        "scale": "falcon1b",
+        "seeds": 5,
+        "seeds_improving": 0,
+        "terminal_only_seeds": 0,
+        "terminal_reportable": true,
+        "terminal_seeds": 5
+      },
+      "status": "saved_key_reproducible",
+      "training_gaps": [
+        "No per-attempt authenticated effective configuration and dependency lock in this export.",
+        "Registered launch settings are not resolved wrapper/recovery settings.",
+        "Historical model/dataset paths do not authenticate their bytes for a fresh launch.",
+        "Saved keys do not contain original responses or trained weights."
+      ],
+      "training_reproduction_verified": false
+    },
+    {
+      "cell_ids": [
+        "level1/falcon1b/pantry_plan/maxrl/s55",
+        "level1/falcon1b/pantry_plan/maxrl/s56",
+        "level1/falcon1b/pantry_plan/maxrl/s57",
+        "level1/falcon1b/pantry_plan/maxrl/s58",
+        "level1/falcon1b/pantry_plan/maxrl/s59"
+      ],
+      "id": "level1/falcon1b/pantry_plan/maxrl",
+      "recipe": {
+        "path": null,
+        "relationship": "no_qualified_training_recipe"
+      },
+      "reproduce_command": "remax results reproduce level1/falcon1b/pantry_plan/maxrl",
+      "result": {
+        "distinct8_after": 0.6328125,
+        "distinct8_before": 2.162109375,
+        "domain": "pantry_plan",
+        "effective_modes_after": 1.0,
+        "effective_modes_before": 2.193388238288655,
+        "level": "level1",
+        "method": "maxrl",
+        "pass8_after": 0.6328125,
+        "pass8_before": 0.890625,
+        "pmd_after": 0.0,
+        "pmd_after_paired": 0.0,
+        "pmd_before": 0.5440843611068924,
+        "pmd_delta": -0.5440843611068924,
+        "pmd_delta_seed_range": [
+          -0.5440843611068924,
+          -0.5440843611068924
+        ],
+        "reportable": true,
+        "reportable_seeds": 1,
+        "scale": "falcon1b",
+        "seeds": 5,
+        "seeds_improving": 0,
+        "terminal_only_seeds": 4,
+        "terminal_reportable": true,
+        "terminal_seeds": 5
+      },
+      "status": "saved_key_reproducible",
+      "training_gaps": [
+        "No per-attempt authenticated effective configuration and dependency lock in this export.",
+        "Registered launch settings are not resolved wrapper/recovery settings.",
+        "Historical model/dataset paths do not authenticate their bytes for a fresh launch.",
+        "Saved keys do not contain original responses or trained weights."
+      ],
+      "training_reproduction_verified": false
+    },
+    {
+      "cell_ids": [
+        "level1/falcon1b/pantry_plan/replay_drgrpo/s55",
+        "level1/falcon1b/pantry_plan/replay_drgrpo/s56",
+        "level1/falcon1b/pantry_plan/replay_drgrpo/s57",
+        "level1/falcon1b/pantry_plan/replay_drgrpo/s58",
+        "level1/falcon1b/pantry_plan/replay_drgrpo/s59"
+      ],
+      "id": "level1/falcon1b/pantry_plan/replay_drgrpo",
+      "recipe": {
+        "path": null,
+        "relationship": "no_qualified_training_recipe"
+      },
+      "reproduce_command": "remax results reproduce level1/falcon1b/pantry_plan/replay_drgrpo",
+      "result": {
+        "distinct8_after": 1.57578125,
+        "distinct8_before": 2.162109375,
+        "domain": "pantry_plan",
+        "effective_modes_after": 1.4645610166462564,
+        "effective_modes_before": 2.193388238288655,
+        "level": "level1",
+        "method": "replay_drgrpo",
+        "pass8_after": 0.75078125,
+        "pass8_before": 0.890625,
+        "pmd_after": 0.31720154460349426,
+        "pmd_after_paired": 0.3636103162899531,
+        "pmd_before": 0.5440843611068924,
+        "pmd_delta": -0.1804740448169393,
+        "pmd_delta_seed_range": [
+          -0.29561551133880026,
+          -0.08067752118477134
+        ],
+        "reportable": true,
+        "reportable_seeds": 4,
+        "scale": "falcon1b",
+        "seeds": 5,
+        "seeds_improving": 0,
+        "terminal_only_seeds": 1,
+        "terminal_reportable": true,
+        "terminal_seeds": 5
+      },
+      "status": "saved_key_reproducible",
+      "training_gaps": [
+        "No per-attempt authenticated effective configuration and dependency lock in this export.",
+        "Registered launch settings are not resolved wrapper/recovery settings.",
+        "Historical model/dataset paths do not authenticate their bytes for a fresh launch.",
+        "Saved keys do not contain original responses or trained weights."
+      ],
+      "training_reproduction_verified": false
+    },
+    {
+      "cell_ids": [
+        "level1/falcon1b/pantry_plan/replay_maxrl/s55",
+        "level1/falcon1b/pantry_plan/replay_maxrl/s56",
+        "level1/falcon1b/pantry_plan/replay_maxrl/s57",
+        "level1/falcon1b/pantry_plan/replay_maxrl/s58",
+        "level1/falcon1b/pantry_plan/replay_maxrl/s59"
+      ],
+      "id": "level1/falcon1b/pantry_plan/replay_maxrl",
+      "recipe": {
+        "path": null,
+        "relationship": "no_qualified_training_recipe"
+      },
+      "reproduce_command": "remax results reproduce level1/falcon1b/pantry_plan/replay_maxrl",
+      "result": {
+        "distinct8_after": 1.0078125,
+        "distinct8_before": 2.162109375,
+        "domain": "pantry_plan",
+        "effective_modes_after": 1.1160441490193336,
+        "effective_modes_before": 2.193388238288655,
+        "level": "level1",
+        "method": "replay_maxrl",
+        "pass8_after": 0.70625,
+        "pass8_before": 0.890625,
+        "pmd_after": 0.10397809900379067,
+        "pmd_after_paired": 0.11126745996807419,
+        "pmd_before": 0.5440843611068924,
+        "pmd_delta": -0.4328169011388182,
+        "pmd_delta_seed_range": [
+          -0.5087359063020368,
+          -0.3568978959755997
+        ],
+        "reportable": true,
+        "reportable_seeds": 2,
+        "scale": "falcon1b",
+        "seeds": 5,
+        "seeds_improving": 0,
+        "terminal_only_seeds": 3,
+        "terminal_reportable": true,
+        "terminal_seeds": 5
+      },
+      "status": "saved_key_reproducible",
+      "training_gaps": [
+        "No per-attempt authenticated effective configuration and dependency lock in this export.",
+        "Registered launch settings are not resolved wrapper/recovery settings.",
+        "Historical model/dataset paths do not authenticate their bytes for a fresh launch.",
+        "Saved keys do not contain original responses or trained weights."
+      ],
+      "training_reproduction_verified": false
+    },
+    {
+      "cell_ids": [
+        "level1/falcon1b/python_factors/drgrpo/s55",
+        "level1/falcon1b/python_factors/drgrpo/s56",
+        "level1/falcon1b/python_factors/drgrpo/s57",
+        "level1/falcon1b/python_factors/drgrpo/s58",
+        "level1/falcon1b/python_factors/drgrpo/s59"
+      ],
+      "id": "level1/falcon1b/python_factors/drgrpo",
+      "recipe": {
+        "path": null,
+        "relationship": "no_qualified_training_recipe"
+      },
+      "reproduce_command": "remax results reproduce level1/falcon1b/python_factors/drgrpo",
+      "result": {
+        "distinct8_after": null,
+        "distinct8_before": null,
+        "domain": "python_factors",
+        "effective_modes_after": null,
+        "effective_modes_before": null,
+        "level": "level1",
+        "method": "drgrpo",
+        "pass8_after": null,
+        "pass8_before": null,
+        "pmd_after": null,
+        "pmd_after_paired": null,
+        "pmd_before": null,
+        "pmd_delta": null,
+        "pmd_delta_seed_range": null,
+        "reportable": false,
+        "reportable_seeds": 0,
+        "scale": "falcon1b",
+        "seeds": 5,
+        "seeds_improving": 0,
+        "terminal_only_seeds": 0,
+        "terminal_reportable": false,
+        "terminal_seeds": 0
+      },
+      "status": "saved_key_reproducible",
+      "training_gaps": [
+        "No per-attempt authenticated effective configuration and dependency lock in this export.",
+        "Registered launch settings are not resolved wrapper/recovery settings.",
+        "Historical model/dataset paths do not authenticate their bytes for a fresh launch.",
+        "Saved keys do not contain original responses or trained weights."
+      ],
+      "training_reproduction_verified": false
+    },
+    {
+      "cell_ids": [
+        "level1/falcon1b/python_factors/grpo/s55",
+        "level1/falcon1b/python_factors/grpo/s56",
+        "level1/falcon1b/python_factors/grpo/s57",
+        "level1/falcon1b/python_factors/grpo/s58",
+        "level1/falcon1b/python_factors/grpo/s59"
+      ],
+      "id": "level1/falcon1b/python_factors/grpo",
+      "recipe": {
+        "path": null,
+        "relationship": "no_qualified_training_recipe"
+      },
+      "reproduce_command": "remax results reproduce level1/falcon1b/python_factors/grpo",
+      "result": {
+        "distinct8_after": null,
+        "distinct8_before": null,
+        "domain": "python_factors",
+        "effective_modes_after": null,
+        "effective_modes_before": null,
+        "level": "level1",
+        "method": "grpo",
+        "pass8_after": null,
+        "pass8_before": null,
+        "pmd_after": null,
+        "pmd_after_paired": null,
+        "pmd_before": null,
+        "pmd_delta": null,
+        "pmd_delta_seed_range": null,
+        "reportable": false,
+        "reportable_seeds": 0,
+        "scale": "falcon1b",
+        "seeds": 5,
+        "seeds_improving": 0,
+        "terminal_only_seeds": 0,
+        "terminal_reportable": false,
+        "terminal_seeds": 0
+      },
+      "status": "saved_key_reproducible",
+      "training_gaps": [
+        "No per-attempt authenticated effective configuration and dependency lock in this export.",
+        "Registered launch settings are not resolved wrapper/recovery settings.",
+        "Historical model/dataset paths do not authenticate their bytes for a fresh launch.",
+        "Saved keys do not contain original responses or trained weights."
+      ],
+      "training_reproduction_verified": false
+    },
+    {
+      "cell_ids": [
+        "level1/falcon1b/python_factors/maxrl/s55",
+        "level1/falcon1b/python_factors/maxrl/s56",
+        "level1/falcon1b/python_factors/maxrl/s57",
+        "level1/falcon1b/python_factors/maxrl/s58",
+        "level1/falcon1b/python_factors/maxrl/s59"
+      ],
+      "id": "level1/falcon1b/python_factors/maxrl",
+      "recipe": {
+        "path": null,
+        "relationship": "no_qualified_training_recipe"
+      },
+      "reproduce_command": "remax results reproduce level1/falcon1b/python_factors/maxrl",
+      "result": {
+        "distinct8_after": 1.0,
+        "distinct8_before": null,
+        "domain": "python_factors",
+        "effective_modes_after": 1.0,
+        "effective_modes_before": null,
+        "level": "level1",
+        "method": "maxrl",
+        "pass8_after": 1.0,
+        "pass8_before": null,
+        "pmd_after": 0.0,
+        "pmd_after_paired": null,
+        "pmd_before": null,
+        "pmd_delta": null,
+        "pmd_delta_seed_range": null,
+        "reportable": false,
+        "reportable_seeds": 0,
+        "scale": "falcon1b",
+        "seeds": 5,
+        "seeds_improving": 0,
+        "terminal_only_seeds": 4,
+        "terminal_reportable": true,
+        "terminal_seeds": 4
+      },
+      "status": "saved_key_reproducible",
+      "training_gaps": [
+        "No per-attempt authenticated effective configuration and dependency lock in this export.",
+        "Registered launch settings are not resolved wrapper/recovery settings.",
+        "Historical model/dataset paths do not authenticate their bytes for a fresh launch.",
+        "Saved keys do not contain original responses or trained weights."
+      ],
+      "training_reproduction_verified": false
+    },
+    {
+      "cell_ids": [
+        "level1/falcon1b/python_factors/replay_drgrpo/s55",
+        "level1/falcon1b/python_factors/replay_drgrpo/s56",
+        "level1/falcon1b/python_factors/replay_drgrpo/s57",
+        "level1/falcon1b/python_factors/replay_drgrpo/s58",
+        "level1/falcon1b/python_factors/replay_drgrpo/s59"
+      ],
+      "id": "level1/falcon1b/python_factors/replay_drgrpo",
+      "recipe": {
+        "path": null,
+        "relationship": "no_qualified_training_recipe"
+      },
+      "reproduce_command": "remax results reproduce level1/falcon1b/python_factors/replay_drgrpo",
+      "result": {
+        "distinct8_after": 1.10703125,
+        "distinct8_before": null,
+        "domain": "python_factors",
+        "effective_modes_after": 1.0635288639792815,
+        "effective_modes_before": null,
+        "level": "level1",
+        "method": "replay_drgrpo",
+        "pass8_after": 0.979296875,
+        "pass8_before": null,
+        "pmd_after": 0.05973402897743927,
+        "pmd_after_paired": null,
+        "pmd_before": null,
+        "pmd_delta": null,
+        "pmd_delta_seed_range": null,
+        "reportable": false,
+        "reportable_seeds": 0,
+        "scale": "falcon1b",
+        "seeds": 5,
+        "seeds_improving": 0,
+        "terminal_only_seeds": 0,
+        "terminal_reportable": true,
+        "terminal_seeds": 5
+      },
+      "status": "saved_key_reproducible",
+      "training_gaps": [
+        "No per-attempt authenticated effective configuration and dependency lock in this export.",
+        "Registered launch settings are not resolved wrapper/recovery settings.",
+        "Historical model/dataset paths do not authenticate their bytes for a fresh launch.",
+        "Saved keys do not contain original responses or trained weights."
+      ],
+      "training_reproduction_verified": false
+    },
+    {
+      "cell_ids": [
+        "level1/falcon1b/python_factors/replay_maxrl/s55",
+        "level1/falcon1b/python_factors/replay_maxrl/s56",
+        "level1/falcon1b/python_factors/replay_maxrl/s57",
+        "level1/falcon1b/python_factors/replay_maxrl/s58",
+        "level1/falcon1b/python_factors/replay_maxrl/s59"
+      ],
+      "id": "level1/falcon1b/python_factors/replay_maxrl",
+      "recipe": {
+        "path": null,
+        "relationship": "no_qualified_training_recipe"
+      },
+      "reproduce_command": "remax results reproduce level1/falcon1b/python_factors/replay_maxrl",
+      "result": {
+        "distinct8_after": 1.1140625,
+        "distinct8_before": null,
+        "domain": "python_factors",
+        "effective_modes_after": 1.0883093496750524,
+        "effective_modes_before": null,
+        "level": "level1",
+        "method": "replay_maxrl",
+        "pass8_after": 0.9609375,
+        "pass8_before": null,
+        "pmd_after": 0.08114361022573208,
+        "pmd_after_paired": null,
+        "pmd_before": null,
+        "pmd_delta": null,
+        "pmd_delta_seed_range": null,
+        "reportable": false,
+        "reportable_seeds": 0,
+        "scale": "falcon1b",
+        "seeds": 5,
+        "seeds_improving": 0,
+        "terminal_only_seeds": 5,
+        "terminal_reportable": true,
+        "terminal_seeds": 5
+      },
+      "status": "saved_key_reproducible",
+      "training_gaps": [
+        "No per-attempt authenticated effective configuration and dependency lock in this export.",
+        "Registered launch settings are not resolved wrapper/recovery settings.",
+        "Historical model/dataset paths do not authenticate their bytes for a fresh launch.",
+        "Saved keys do not contain original responses or trained weights."
+      ],
+      "training_reproduction_verified": false
+    },
+    {
+      "cell_ids": [
+        "level1/qwen05b/countdown/drgrpo/s43",
+        "level1/qwen05b/countdown/drgrpo/s44",
+        "level1/qwen05b/countdown/drgrpo/s45",
+        "level1/qwen05b/countdown/drgrpo/s46",
+        "level1/qwen05b/countdown/drgrpo/s47"
+      ],
+      "id": "level1/qwen05b/countdown/drgrpo",
+      "recipe": {
+        "path": "configs/drgrpo_countdown_05b.json",
+        "relationship": "related_maintained_method_not_historical_equivalence"
+      },
+      "reproduce_command": "remax results reproduce level1/qwen05b/countdown/drgrpo",
+      "result": {
+        "distinct8_after": 0.48671875,
+        "distinct8_before": null,
+        "domain": "countdown",
+        "effective_modes_after": 1.0072477214370206,
+        "effective_modes_before": null,
+        "level": "level1",
+        "method": "drgrpo",
+        "pass8_after": 0.48046875,
+        "pass8_before": null,
+        "pmd_after": 0.007195569950439093,
+        "pmd_after_paired": null,
+        "pmd_before": null,
+        "pmd_delta": null,
+        "pmd_delta_seed_range": null,
+        "reportable": false,
+        "reportable_seeds": 0,
+        "scale": "qwen05b",
+        "seeds": 5,
+        "seeds_improving": 0,
+        "terminal_only_seeds": 0,
+        "terminal_reportable": true,
+        "terminal_seeds": 5
+      },
+      "status": "saved_key_reproducible",
+      "training_gaps": [
+        "No per-attempt authenticated effective configuration and dependency lock in this export.",
+        "Registered launch settings are not resolved wrapper/recovery settings.",
+        "Historical model/dataset paths do not authenticate their bytes for a fresh launch.",
+        "Saved keys do not contain original responses or trained weights."
+      ],
+      "training_reproduction_verified": false
+    },
+    {
+      "cell_ids": [
+        "level1/qwen05b/countdown/grpo/s43",
+        "level1/qwen05b/countdown/grpo/s44",
+        "level1/qwen05b/countdown/grpo/s45",
+        "level1/qwen05b/countdown/grpo/s46",
+        "level1/qwen05b/countdown/grpo/s47"
+      ],
+      "id": "level1/qwen05b/countdown/grpo",
+      "recipe": {
+        "path": null,
+        "relationship": "no_qualified_training_recipe"
+      },
+      "reproduce_command": "remax results reproduce level1/qwen05b/countdown/grpo",
+      "result": {
+        "distinct8_after": 0.655859375,
+        "distinct8_before": null,
+        "domain": "countdown",
+        "effective_modes_after": 1.0080731931372475,
+        "effective_modes_before": null,
+        "level": "level1",
+        "method": "grpo",
+        "pass8_after": 0.6390625,
+        "pass8_before": null,
+        "pmd_after": 0.008008538657915102,
+        "pmd_after_paired": null,
+        "pmd_before": null,
+        "pmd_delta": null,
+        "pmd_delta_seed_range": null,
+        "reportable": false,
+        "reportable_seeds": 0,
+        "scale": "qwen05b",
+        "seeds": 5,
+        "seeds_improving": 0,
+        "terminal_only_seeds": 0,
+        "terminal_reportable": true,
+        "terminal_seeds": 5
+      },
+      "status": "saved_key_reproducible",
+      "training_gaps": [
+        "No per-attempt authenticated effective configuration and dependency lock in this export.",
+        "Registered launch settings are not resolved wrapper/recovery settings.",
+        "Historical model/dataset paths do not authenticate their bytes for a fresh launch.",
+        "Saved keys do not contain original responses or trained weights."
+      ],
+      "training_reproduction_verified": false
+    },
+    {
+      "cell_ids": [
+        "level1/qwen05b/countdown/maxrl/s43",
+        "level1/qwen05b/countdown/maxrl/s44",
+        "level1/qwen05b/countdown/maxrl/s45",
+        "level1/qwen05b/countdown/maxrl/s46",
+        "level1/qwen05b/countdown/maxrl/s47"
+      ],
+      "id": "level1/qwen05b/countdown/maxrl",
+      "recipe": {
+        "path": "configs/maxrl_countdown_05b.json",
+        "relationship": "related_maintained_method_not_historical_equivalence"
+      },
+      "reproduce_command": "remax results reproduce level1/qwen05b/countdown/maxrl",
+      "result": {
+        "distinct8_after": 0.620703125,
+        "distinct8_before": null,
+        "domain": "countdown",
+        "effective_modes_after": 1.0225141541095177,
+        "effective_modes_before": null,
+        "level": "level1",
+        "method": "maxrl",
+        "pass8_after": 0.581640625,
+        "pass8_before": null,
+        "pmd_after": 0.022018427832057482,
+        "pmd_after_paired": null,
+        "pmd_before": null,
+        "pmd_delta": null,
+        "pmd_delta_seed_range": null,
+        "reportable": false,
+        "reportable_seeds": 0,
+        "scale": "qwen05b",
+        "seeds": 5,
+        "seeds_improving": 0,
+        "terminal_only_seeds": 0,
+        "terminal_reportable": true,
+        "terminal_seeds": 5
+      },
+      "status": "saved_key_reproducible",
+      "training_gaps": [
+        "No per-attempt authenticated effective configuration and dependency lock in this export.",
+        "Registered launch settings are not resolved wrapper/recovery settings.",
+        "Historical model/dataset paths do not authenticate their bytes for a fresh launch.",
+        "Saved keys do not contain original responses or trained weights."
+      ],
+      "training_reproduction_verified": false
+    },
+    {
+      "cell_ids": [
+        "level1/qwen05b/countdown/replay_drgrpo/s43",
+        "level1/qwen05b/countdown/replay_drgrpo/s44",
+        "level1/qwen05b/countdown/replay_drgrpo/s45",
+        "level1/qwen05b/countdown/replay_drgrpo/s46",
+        "level1/qwen05b/countdown/replay_drgrpo/s47"
+      ],
+      "id": "level1/qwen05b/countdown/replay_drgrpo",
+      "recipe": {
+        "path": "configs/redr_countdown_05b.json",
+        "relationship": "related_maintained_method_not_historical_equivalence"
+      },
+      "reproduce_command": "remax results reproduce level1/qwen05b/countdown/replay_drgrpo",
+      "result": {
+        "distinct8_after": 1.63671875,
+        "distinct8_before": null,
+        "domain": "countdown",
+        "effective_modes_after": 1.9511756022958855,
+        "effective_modes_before": null,
+        "level": "level1",
+        "method": "replay_drgrpo",
+        "pass8_after": 0.671875,
+        "pass8_before": null,
+        "pmd_after": 0.4874884665309816,
+        "pmd_after_paired": null,
+        "pmd_before": null,
+        "pmd_delta": null,
+        "pmd_delta_seed_range": null,
+        "reportable": false,
+        "reportable_seeds": 0,
+        "scale": "qwen05b",
+        "seeds": 5,
+        "seeds_improving": 0,
+        "terminal_only_seeds": 0,
+        "terminal_reportable": true,
+        "terminal_seeds": 5
+      },
+      "status": "saved_key_reproducible",
+      "training_gaps": [
+        "No per-attempt authenticated effective configuration and dependency lock in this export.",
+        "Registered launch settings are not resolved wrapper/recovery settings.",
+        "Historical model/dataset paths do not authenticate their bytes for a fresh launch.",
+        "Saved keys do not contain original responses or trained weights."
+      ],
+      "training_reproduction_verified": false
+    },
+    {
+      "cell_ids": [
+        "level1/qwen05b/countdown/replay_maxrl/s43",
+        "level1/qwen05b/countdown/replay_maxrl/s44",
+        "level1/qwen05b/countdown/replay_maxrl/s45",
+        "level1/qwen05b/countdown/replay_maxrl/s46",
+        "level1/qwen05b/countdown/replay_maxrl/s47"
+      ],
+      "id": "level1/qwen05b/countdown/replay_maxrl",
+      "recipe": {
+        "path": "configs/remax_countdown_05b.json",
+        "relationship": "related_maintained_method_not_historical_equivalence"
+      },
+      "reproduce_command": "remax results reproduce level1/qwen05b/countdown/replay_maxrl",
+      "result": {
+        "distinct8_after": 1.69453125,
+        "distinct8_before": null,
+        "domain": "countdown",
+        "effective_modes_after": 2.044387745897597,
+        "effective_modes_before": null,
+        "level": "level1",
+        "method": "replay_maxrl",
+        "pass8_after": 0.665625,
+        "pass8_before": null,
+        "pmd_after": 0.5108559997942338,
+        "pmd_after_paired": null,
+        "pmd_before": null,
+        "pmd_delta": null,
+        "pmd_delta_seed_range": null,
+        "reportable": false,
+        "reportable_seeds": 0,
+        "scale": "qwen05b",
+        "seeds": 5,
+        "seeds_improving": 0,
+        "terminal_only_seeds": 0,
+        "terminal_reportable": true,
+        "terminal_seeds": 5
+      },
+      "status": "saved_key_reproducible",
+      "training_gaps": [
+        "No per-attempt authenticated effective configuration and dependency lock in this export.",
+        "Registered launch settings are not resolved wrapper/recovery settings.",
+        "Historical model/dataset paths do not authenticate their bytes for a fresh launch.",
+        "Saved keys do not contain original responses or trained weights."
+      ],
+      "training_reproduction_verified": false
+    },
+    {
+      "cell_ids": [
+        "level1/qwen05b/graph_coloring/drgrpo/s43",
+        "level1/qwen05b/graph_coloring/drgrpo/s44",
+        "level1/qwen05b/graph_coloring/drgrpo/s45",
+        "level1/qwen05b/graph_coloring/drgrpo/s46",
+        "level1/qwen05b/graph_coloring/drgrpo/s47"
+      ],
+      "id": "level1/qwen05b/graph_coloring/drgrpo",
+      "recipe": {
+        "path": "configs/drgrpo_graph_coloring_05b.json",
+        "relationship": "related_maintained_method_not_historical_equivalence"
+      },
+      "reproduce_command": "remax results reproduce level1/qwen05b/graph_coloring/drgrpo",
+      "result": {
+        "distinct8_after": 0.325,
+        "distinct8_before": 0.561328125,
+        "domain": "graph_coloring",
+        "effective_modes_after": 1.0010045924225028,
+        "effective_modes_before": 1.1222747559347712,
+        "level": "level1",
+        "method": "drgrpo",
+        "pass8_after": 0.3234375,
+        "pass8_before": 0.455859375,
+        "pmd_after": 0.0010035842293906812,
+        "pmd_after_paired": 0.0010035842293906812,
+        "pmd_before": 0.10895260299508877,
+        "pmd_delta": -0.1079490187656981,
+        "pmd_delta_seed_range": [
+          -0.14592090515860529,
+          -0.09845604716747129
+        ],
+        "reportable": true,
+        "reportable_seeds": 5,
+        "scale": "qwen05b",
+        "seeds": 5,
+        "seeds_improving": 0,
+        "terminal_only_seeds": 0,
+        "terminal_reportable": true,
+        "terminal_seeds": 5
+      },
+      "status": "saved_key_reproducible",
+      "training_gaps": [
+        "No per-attempt authenticated effective configuration and dependency lock in this export.",
+        "Registered launch settings are not resolved wrapper/recovery settings.",
+        "Historical model/dataset paths do not authenticate their bytes for a fresh launch.",
+        "Saved keys do not contain original responses or trained weights."
+      ],
+      "training_reproduction_verified": false
+    },
+    {
+      "cell_ids": [
+        "level1/qwen05b/graph_coloring/grpo/s43",
+        "level1/qwen05b/graph_coloring/grpo/s44",
+        "level1/qwen05b/graph_coloring/grpo/s45",
+        "level1/qwen05b/graph_coloring/grpo/s46",
+        "level1/qwen05b/graph_coloring/grpo/s47"
+      ],
+      "id": "level1/qwen05b/graph_coloring/grpo",
+      "recipe": {
+        "path": null,
+        "relationship": "no_qualified_training_recipe"
+      },
+      "reproduce_command": "remax results reproduce level1/qwen05b/graph_coloring/grpo",
+      "result": {
+        "distinct8_after": 0.371875,
+        "distinct8_before": 0.561328125,
+        "domain": "graph_coloring",
+        "effective_modes_after": 1.0088529744339336,
+        "effective_modes_before": 1.1222747559347712,
+        "level": "level1",
+        "method": "grpo",
+        "pass8_after": 0.3609375,
+        "pass8_before": 0.455859375,
+        "pmd_after": 0.008775287042099508,
+        "pmd_after_paired": 0.008775287042099508,
+        "pmd_before": 0.10895260299508877,
+        "pmd_delta": -0.10017731595298926,
+        "pmd_delta_seed_range": [
+          -0.1509388263055587,
+          -0.05457961195697375
+        ],
+        "reportable": true,
+        "reportable_seeds": 5,
+        "scale": "qwen05b",
+        "seeds": 5,
+        "seeds_improving": 0,
+        "terminal_only_seeds": 0,
+        "terminal_reportable": true,
+        "terminal_seeds": 5
+      },
+      "status": "saved_key_reproducible",
+      "training_gaps": [
+        "No per-attempt authenticated effective configuration and dependency lock in this export.",
+        "Registered launch settings are not resolved wrapper/recovery settings.",
+        "Historical model/dataset paths do not authenticate their bytes for a fresh launch.",
+        "Saved keys do not contain original responses or trained weights."
+      ],
+      "training_reproduction_verified": false
+    },
+    {
+      "cell_ids": [
+        "level1/qwen05b/graph_coloring/maxrl/s43",
+        "level1/qwen05b/graph_coloring/maxrl/s44",
+        "level1/qwen05b/graph_coloring/maxrl/s45",
+        "level1/qwen05b/graph_coloring/maxrl/s46",
+        "level1/qwen05b/graph_coloring/maxrl/s47"
+      ],
+      "id": "level1/qwen05b/graph_coloring/maxrl",
+      "recipe": {
+        "path": "configs/maxrl_graph_coloring_05b.json",
+        "relationship": "related_maintained_method_not_historical_equivalence"
+      },
+      "reproduce_command": "remax results reproduce level1/qwen05b/graph_coloring/maxrl",
+      "result": {
+        "distinct8_after": 0.678515625,
+        "distinct8_before": 0.65390625,
+        "domain": "graph_coloring",
+        "effective_modes_after": 1.0950760934767774,
+        "effective_modes_before": 1.141214158682283,
+        "level": "level1",
+        "method": "maxrl",
+        "pass8_after": 0.53671875,
+        "pass8_before": 0.5125,
+        "pmd_after": 0.08682144925191311,
+        "pmd_after_paired": 0.08682144925191311,
+        "pmd_before": 0.12374027925252669,
+        "pmd_delta": -0.03691883000061358,
+        "pmd_delta_seed_range": [
+          -0.1140168400838467,
+          0.05558324916483895
+        ],
+        "reportable": true,
+        "reportable_seeds": 5,
+        "scale": "qwen05b",
+        "seeds": 5,
+        "seeds_improving": 1,
+        "terminal_only_seeds": 0,
+        "terminal_reportable": true,
+        "terminal_seeds": 5
+      },
+      "status": "saved_key_reproducible",
+      "training_gaps": [
+        "No per-attempt authenticated effective configuration and dependency lock in this export.",
+        "Registered launch settings are not resolved wrapper/recovery settings.",
+        "Historical model/dataset paths do not authenticate their bytes for a fresh launch.",
+        "Saved keys do not contain original responses or trained weights."
+      ],
+      "training_reproduction_verified": false
+    },
+    {
+      "cell_ids": [
+        "level1/qwen05b/graph_coloring/replay_drgrpo/s43",
+        "level1/qwen05b/graph_coloring/replay_drgrpo/s44",
+        "level1/qwen05b/graph_coloring/replay_drgrpo/s45",
+        "level1/qwen05b/graph_coloring/replay_drgrpo/s46",
+        "level1/qwen05b/graph_coloring/replay_drgrpo/s47"
+      ],
+      "id": "level1/qwen05b/graph_coloring/replay_drgrpo",
+      "recipe": {
+        "path": "configs/redr_graph_coloring_05b.json",
+        "relationship": "related_maintained_method_not_historical_equivalence"
+      },
+      "reproduce_command": "remax results reproduce level1/qwen05b/graph_coloring/replay_drgrpo",
+      "result": {
+        "distinct8_after": 2.4375,
+        "distinct8_before": 0.561328125,
+        "domain": "graph_coloring",
+        "effective_modes_after": 2.2714233121959295,
+        "effective_modes_before": 1.1222747559347712,
+        "level": "level1",
+        "method": "replay_drgrpo",
+        "pass8_after": 0.969140625,
+        "pass8_before": 0.455859375,
+        "pmd_after": 0.5597474083185153,
+        "pmd_after_paired": 0.5597474083185153,
+        "pmd_before": 0.10895260299508877,
+        "pmd_delta": 0.4507948053234265,
+        "pmd_delta_seed_range": [
+          0.3998454865091299,
+          0.48162973191155495
+        ],
+        "reportable": true,
+        "reportable_seeds": 5,
+        "scale": "qwen05b",
+        "seeds": 5,
+        "seeds_improving": 5,
+        "terminal_only_seeds": 0,
+        "terminal_reportable": true,
+        "terminal_seeds": 5
+      },
+      "status": "saved_key_reproducible",
+      "training_gaps": [
+        "No per-attempt authenticated effective configuration and dependency lock in this export.",
+        "Registered launch settings are not resolved wrapper/recovery settings.",
+        "Historical model/dataset paths do not authenticate their bytes for a fresh launch.",
+        "Saved keys do not contain original responses or trained weights."
+      ],
+      "training_reproduction_verified": false
+    },
+    {
+      "cell_ids": [
+        "level1/qwen05b/graph_coloring/replay_maxrl/s43",
+        "level1/qwen05b/graph_coloring/replay_maxrl/s44",
+        "level1/qwen05b/graph_coloring/replay_maxrl/s45",
+        "level1/qwen05b/graph_coloring/replay_maxrl/s46",
+        "level1/qwen05b/graph_coloring/replay_maxrl/s47"
+      ],
+      "id": "level1/qwen05b/graph_coloring/replay_maxrl",
+      "recipe": {
+        "path": "configs/remax_graph_coloring_05b.json",
+        "relationship": "related_maintained_method_not_historical_equivalence"
+      },
+      "reproduce_command": "remax results reproduce level1/qwen05b/graph_coloring/replay_maxrl",
+      "result": {
+        "distinct8_after": 2.308203125,
+        "distinct8_before": 0.65390625,
+        "domain": "graph_coloring",
+        "effective_modes_after": 2.110911045761031,
+        "effective_modes_before": 1.141214158682283,
+        "level": "level1",
+        "method": "replay_maxrl",
+        "pass8_after": 0.944921875,
+        "pass8_before": 0.5125,
+        "pmd_after": 0.526270895209856,
+        "pmd_after_paired": 0.526270895209856,
+        "pmd_before": 0.12374027925252669,
+        "pmd_delta": 0.40253061595732936,
+        "pmd_delta_seed_range": [
+          0.3330168425930534,
+          0.4521432372845986
+        ],
+        "reportable": true,
+        "reportable_seeds": 5,
+        "scale": "qwen05b",
+        "seeds": 5,
+        "seeds_improving": 5,
+        "terminal_only_seeds": 0,
+        "terminal_reportable": true,
+        "terminal_seeds": 5
+      },
+      "status": "saved_key_reproducible",
+      "training_gaps": [
+        "No per-attempt authenticated effective configuration and dependency lock in this export.",
+        "Registered launch settings are not resolved wrapper/recovery settings.",
+        "Historical model/dataset paths do not authenticate their bytes for a fresh launch.",
+        "Saved keys do not contain original responses or trained weights."
+      ],
+      "training_reproduction_verified": false
+    },
+    {
+      "cell_ids": [
+        "level1/qwen05b/mathir/drgrpo/s43",
+        "level1/qwen05b/mathir/drgrpo/s44",
+        "level1/qwen05b/mathir/drgrpo/s45",
+        "level1/qwen05b/mathir/drgrpo/s46",
+        "level1/qwen05b/mathir/drgrpo/s47"
+      ],
+      "id": "level1/qwen05b/mathir/drgrpo",
+      "recipe": {
+        "path": "configs/drgrpo_mathir_05b.json",
+        "relationship": "related_maintained_method_not_historical_equivalence"
+      },
+      "reproduce_command": "remax results reproduce level1/qwen05b/mathir/drgrpo",
+      "result": {
+        "distinct8_after": 0.51328125,
+        "distinct8_before": 0.22265625,
+        "domain": "mathir",
+        "effective_modes_after": 1.000839583114692,
+        "effective_modes_before": 1.0289217472796377,
+        "level": "level1",
+        "method": "drgrpo",
+        "pass8_after": 0.51171875,
+        "pass8_before": 0.21953125,
+        "pmd_after": 0.0008388788062109297,
+        "pmd_after_paired": 0.0008388788062109297,
+        "pmd_before": 0.028108791903858323,
+        "pmd_delta": -0.02726991309764739,
+        "pmd_delta_seed_range": [
+          -0.04607843137254902,
+          -0.016129032258064516
+        ],
+        "reportable": true,
+        "reportable_seeds": 5,
+        "scale": "qwen05b",
+        "seeds": 5,
+        "seeds_improving": 0,
+        "terminal_only_seeds": 0,
+        "terminal_reportable": true,
+        "terminal_seeds": 5
+      },
+      "status": "saved_key_reproducible",
+      "training_gaps": [
+        "No per-attempt authenticated effective configuration and dependency lock in this export.",
+        "Registered launch settings are not resolved wrapper/recovery settings.",
+        "Historical model/dataset paths do not authenticate their bytes for a fresh launch.",
+        "Saved keys do not contain original responses or trained weights."
+      ],
+      "training_reproduction_verified": false
+    },
+    {
+      "cell_ids": [
+        "level1/qwen05b/mathir/grpo/s43",
+        "level1/qwen05b/mathir/grpo/s44",
+        "level1/qwen05b/mathir/grpo/s45",
+        "level1/qwen05b/mathir/grpo/s46",
+        "level1/qwen05b/mathir/grpo/s47"
+      ],
+      "id": "level1/qwen05b/mathir/grpo",
+      "recipe": {
+        "path": null,
+        "relationship": "no_qualified_training_recipe"
+      },
+      "reproduce_command": "remax results reproduce level1/qwen05b/mathir/grpo",
+      "result": {
+        "distinct8_after": 0.461328125,
+        "distinct8_before": 0.22265625,
+        "domain": "mathir",
+        "effective_modes_after": 1.0021708690054412,
+        "effective_modes_before": 1.0289217472796377,
+        "level": "level1",
+        "method": "grpo",
+        "pass8_after": 0.459765625,
+        "pass8_before": 0.21953125,
+        "pmd_after": 0.0021661665416354086,
+        "pmd_after_paired": 0.0021661665416354086,
+        "pmd_before": 0.028108791903858323,
+        "pmd_delta": -0.02594262536222291,
+        "pmd_delta_seed_range": [
+          -0.04607843137254902,
+          -0.005298199549887472
+        ],
+        "reportable": true,
+        "reportable_seeds": 5,
+        "scale": "qwen05b",
+        "seeds": 5,
+        "seeds_improving": 0,
+        "terminal_only_seeds": 0,
+        "terminal_reportable": true,
+        "terminal_seeds": 5
+      },
+      "status": "saved_key_reproducible",
+      "training_gaps": [
+        "No per-attempt authenticated effective configuration and dependency lock in this export.",
+        "Registered launch settings are not resolved wrapper/recovery settings.",
+        "Historical model/dataset paths do not authenticate their bytes for a fresh launch.",
+        "Saved keys do not contain original responses or trained weights."
+      ],
+      "training_reproduction_verified": false
+    },
+    {
+      "cell_ids": [
+        "level1/qwen05b/mathir/maxrl/s43",
+        "level1/qwen05b/mathir/maxrl/s44",
+        "level1/qwen05b/mathir/maxrl/s45",
+        "level1/qwen05b/mathir/maxrl/s46",
+        "level1/qwen05b/mathir/maxrl/s47"
+      ],
+      "id": "level1/qwen05b/mathir/maxrl",
+      "recipe": {
+        "path": "configs/maxrl_mathir_05b.json",
+        "relationship": "related_maintained_method_not_historical_equivalence"
+      },
+      "reproduce_command": "remax results reproduce level1/qwen05b/mathir/maxrl",
+      "result": {
+        "distinct8_after": 0.44609375,
+        "distinct8_before": 0.242578125,
+        "domain": "mathir",
+        "effective_modes_after": 1.000384172109105,
+        "effective_modes_before": 1.036681689355573,
+        "level": "level1",
+        "method": "maxrl",
+        "pass8_after": 0.4453125,
+        "pass8_before": 0.2375,
+        "pmd_after": 0.00038402457757296467,
+        "pmd_after_paired": 0.00038402457757296467,
+        "pmd_before": 0.035383753501400564,
+        "pmd_delta": -0.03499972892382759,
+        "pmd_delta_seed_range": [
+          -0.04607843137254902,
+          -0.025714285714285714
+        ],
+        "reportable": true,
+        "reportable_seeds": 5,
+        "scale": "qwen05b",
+        "seeds": 5,
+        "seeds_improving": 0,
+        "terminal_only_seeds": 0,
+        "terminal_reportable": true,
+        "terminal_seeds": 5
+      },
+      "status": "saved_key_reproducible",
+      "training_gaps": [
+        "No per-attempt authenticated effective configuration and dependency lock in this export.",
+        "Registered launch settings are not resolved wrapper/recovery settings.",
+        "Historical model/dataset paths do not authenticate their bytes for a fresh launch.",
+        "Saved keys do not contain original responses or trained weights."
+      ],
+      "training_reproduction_verified": false
+    },
+    {
+      "cell_ids": [
+        "level1/qwen05b/mathir/replay_drgrpo/s43",
+        "level1/qwen05b/mathir/replay_drgrpo/s44",
+        "level1/qwen05b/mathir/replay_drgrpo/s45",
+        "level1/qwen05b/mathir/replay_drgrpo/s46",
+        "level1/qwen05b/mathir/replay_drgrpo/s47"
+      ],
+      "id": "level1/qwen05b/mathir/replay_drgrpo",
+      "recipe": {
+        "path": "configs/redr_mathir_05b.json",
+        "relationship": "related_maintained_method_not_historical_equivalence"
+      },
+      "reproduce_command": "remax results reproduce level1/qwen05b/mathir/replay_drgrpo",
+      "result": {
+        "distinct8_after": 0.828515625,
+        "distinct8_before": 0.22265625,
+        "domain": "mathir",
+        "effective_modes_after": 1.0181176483893242,
+        "effective_modes_before": 1.0289217472796377,
+        "level": "level1",
+        "method": "replay_drgrpo",
+        "pass8_after": 0.796484375,
+        "pass8_before": 0.21953125,
+        "pmd_after": 0.017795240479316438,
+        "pmd_after_paired": 0.017795240479316438,
+        "pmd_before": 0.028108791903858323,
+        "pmd_delta": -0.010313551424541881,
+        "pmd_delta_seed_range": [
+          -0.042748428042545694,
+          0.01048536956422881
+        ],
+        "reportable": true,
+        "reportable_seeds": 5,
+        "scale": "qwen05b",
+        "seeds": 5,
+        "seeds_improving": 2,
+        "terminal_only_seeds": 0,
+        "terminal_reportable": true,
+        "terminal_seeds": 5
+      },
+      "status": "saved_key_reproducible",
+      "training_gaps": [
+        "No per-attempt authenticated effective configuration and dependency lock in this export.",
+        "Registered launch settings are not resolved wrapper/recovery settings.",
+        "Historical model/dataset paths do not authenticate their bytes for a fresh launch.",
+        "Saved keys do not contain original responses or trained weights."
+      ],
+      "training_reproduction_verified": false
+    },
+    {
+      "cell_ids": [
+        "level1/qwen05b/mathir/replay_maxrl/s43",
+        "level1/qwen05b/mathir/replay_maxrl/s44",
+        "level1/qwen05b/mathir/replay_maxrl/s45",
+        "level1/qwen05b/mathir/replay_maxrl/s46",
+        "level1/qwen05b/mathir/replay_maxrl/s47"
+      ],
+      "id": "level1/qwen05b/mathir/replay_maxrl",
+      "recipe": {
+        "path": "configs/remax_mathir_05b.json",
+        "relationship": "related_maintained_method_not_historical_equivalence"
+      },
+      "reproduce_command": "remax results reproduce level1/qwen05b/mathir/replay_maxrl",
+      "result": {
+        "distinct8_after": 0.801953125,
+        "distinct8_before": 0.24609375,
+        "domain": "mathir",
+        "effective_modes_after": 1.006218822368697,
+        "effective_modes_before": 1.0331355809578933,
+        "level": "level1",
+        "method": "replay_maxrl",
+        "pass8_after": 0.788671875,
+        "pass8_before": 0.241796875,
+        "pmd_after": 0.006180387635820028,
+        "pmd_after_paired": 0.006180387635820028,
+        "pmd_before": 0.03207282913165266,
+        "pmd_delta": -0.02589244149583263,
+        "pmd_delta_seed_range": [
+          -0.04382036685641999,
+          -0.01812082777036048
+        ],
+        "reportable": true,
+        "reportable_seeds": 5,
+        "scale": "qwen05b",
+        "seeds": 5,
+        "seeds_improving": 0,
+        "terminal_only_seeds": 0,
+        "terminal_reportable": true,
+        "terminal_seeds": 5
+      },
+      "status": "saved_key_reproducible",
+      "training_gaps": [
+        "No per-attempt authenticated effective configuration and dependency lock in this export.",
+        "Registered launch settings are not resolved wrapper/recovery settings.",
+        "Historical model/dataset paths do not authenticate their bytes for a fresh launch.",
+        "Saved keys do not contain original responses or trained weights."
+      ],
+      "training_reproduction_verified": false
+    },
+    {
+      "cell_ids": [
+        "level1/qwen05b/pantry_plan/drgrpo/s43",
+        "level1/qwen05b/pantry_plan/drgrpo/s44",
+        "level1/qwen05b/pantry_plan/drgrpo/s45",
+        "level1/qwen05b/pantry_plan/drgrpo/s46",
+        "level1/qwen05b/pantry_plan/drgrpo/s47"
+      ],
+      "id": "level1/qwen05b/pantry_plan/drgrpo",
+      "recipe": {
+        "path": "configs/drgrpo_pantry_plan_05b.json",
+        "relationship": "related_maintained_method_not_historical_equivalence"
+      },
+      "reproduce_command": "remax results reproduce level1/qwen05b/pantry_plan/drgrpo",
+      "result": {
+        "distinct8_after": 0.521875,
+        "distinct8_before": 2.426171875,
+        "domain": "pantry_plan",
+        "effective_modes_after": 1.0,
+        "effective_modes_before": 2.4458853656305553,
+        "level": "level1",
+        "method": "drgrpo",
+        "pass8_after": 0.521875,
+        "pass8_before": 0.9015625,
+        "pmd_after": 0.0,
+        "pmd_after_paired": 0.0,
+        "pmd_before": 0.5911500947460808,
+        "pmd_delta": -0.5911500947460808,
+        "pmd_delta_seed_range": [
+          -0.6004071548554559,
+          -0.5849787213398306
+        ],
+        "reportable": true,
+        "reportable_seeds": 5,
+        "scale": "qwen05b",
+        "seeds": 5,
+        "seeds_improving": 0,
+        "terminal_only_seeds": 0,
+        "terminal_reportable": true,
+        "terminal_seeds": 5
+      },
+      "status": "saved_key_reproducible",
+      "training_gaps": [
+        "No per-attempt authenticated effective configuration and dependency lock in this export.",
+        "Registered launch settings are not resolved wrapper/recovery settings.",
+        "Historical model/dataset paths do not authenticate their bytes for a fresh launch.",
+        "Saved keys do not contain original responses or trained weights."
+      ],
+      "training_reproduction_verified": false
+    },
+    {
+      "cell_ids": [
+        "level1/qwen05b/pantry_plan/grpo/s43",
+        "level1/qwen05b/pantry_plan/grpo/s44",
+        "level1/qwen05b/pantry_plan/grpo/s45",
+        "level1/qwen05b/pantry_plan/grpo/s46",
+        "level1/qwen05b/pantry_plan/grpo/s47"
+      ],
+      "id": "level1/qwen05b/pantry_plan/grpo",
+      "recipe": {
+        "path": null,
+        "relationship": "no_qualified_training_recipe"
+      },
+      "reproduce_command": "remax results reproduce level1/qwen05b/pantry_plan/grpo",
+      "result": {
+        "distinct8_after": 0.5453125,
+        "distinct8_before": 2.426171875,
+        "domain": "pantry_plan",
+        "effective_modes_after": 1.0,
+        "effective_modes_before": 2.4458853656305553,
+        "level": "level1",
+        "method": "grpo",
+        "pass8_after": 0.5453125,
+        "pass8_before": 0.9015625,
+        "pmd_after": 0.0,
+        "pmd_after_paired": 0.0,
+        "pmd_before": 0.5911500947460808,
+        "pmd_delta": -0.5911500947460808,
+        "pmd_delta_seed_range": [
+          -0.6004071548554559,
+          -0.5849787213398306
+        ],
+        "reportable": true,
+        "reportable_seeds": 5,
+        "scale": "qwen05b",
+        "seeds": 5,
+        "seeds_improving": 0,
+        "terminal_only_seeds": 0,
+        "terminal_reportable": true,
+        "terminal_seeds": 5
+      },
+      "status": "saved_key_reproducible",
+      "training_gaps": [
+        "No per-attempt authenticated effective configuration and dependency lock in this export.",
+        "Registered launch settings are not resolved wrapper/recovery settings.",
+        "Historical model/dataset paths do not authenticate their bytes for a fresh launch.",
+        "Saved keys do not contain original responses or trained weights."
+      ],
+      "training_reproduction_verified": false
+    },
+    {
+      "cell_ids": [
+        "level1/qwen05b/pantry_plan/maxrl/s43",
+        "level1/qwen05b/pantry_plan/maxrl/s44",
+        "level1/qwen05b/pantry_plan/maxrl/s45",
+        "level1/qwen05b/pantry_plan/maxrl/s46",
+        "level1/qwen05b/pantry_plan/maxrl/s47"
+      ],
+      "id": "level1/qwen05b/pantry_plan/maxrl",
+      "recipe": {
+        "path": "configs/maxrl_pantry_plan_05b.json",
+        "relationship": "related_maintained_method_not_historical_equivalence"
+      },
+      "reproduce_command": "remax results reproduce level1/qwen05b/pantry_plan/maxrl",
+      "result": {
+        "distinct8_after": 0.53125,
+        "distinct8_before": 2.43515625,
+        "domain": "pantry_plan",
+        "effective_modes_after": 1.0,
+        "effective_modes_before": 2.4845371235191043,
+        "level": "level1",
+        "method": "maxrl",
+        "pass8_after": 0.53125,
+        "pass8_before": 0.90078125,
+        "pmd_after": 0.0,
+        "pmd_after_paired": 0.0,
+        "pmd_before": 0.5975105420909962,
+        "pmd_delta": -0.5975105420909962,
+        "pmd_delta_seed_range": [
+          -0.6004071548554559,
+          -0.5897150975490064
+        ],
+        "reportable": true,
+        "reportable_seeds": 5,
+        "scale": "qwen05b",
+        "seeds": 5,
+        "seeds_improving": 0,
+        "terminal_only_seeds": 0,
+        "terminal_reportable": true,
+        "terminal_seeds": 5
+      },
+      "status": "saved_key_reproducible",
+      "training_gaps": [
+        "No per-attempt authenticated effective configuration and dependency lock in this export.",
+        "Registered launch settings are not resolved wrapper/recovery settings.",
+        "Historical model/dataset paths do not authenticate their bytes for a fresh launch.",
+        "Saved keys do not contain original responses or trained weights."
+      ],
+      "training_reproduction_verified": false
+    },
+    {
+      "cell_ids": [
+        "level1/qwen05b/pantry_plan/replay_drgrpo/s43",
+        "level1/qwen05b/pantry_plan/replay_drgrpo/s44",
+        "level1/qwen05b/pantry_plan/replay_drgrpo/s45",
+        "level1/qwen05b/pantry_plan/replay_drgrpo/s46",
+        "level1/qwen05b/pantry_plan/replay_drgrpo/s47"
+      ],
+      "id": "level1/qwen05b/pantry_plan/replay_drgrpo",
+      "recipe": {
+        "path": "configs/redr_pantry_plan_05b.json",
+        "relationship": "related_maintained_method_not_historical_equivalence"
+      },
+      "reproduce_command": "remax results reproduce level1/qwen05b/pantry_plan/replay_drgrpo",
+      "result": {
+        "distinct8_after": 1.539453125,
+        "distinct8_before": 2.426171875,
+        "domain": "pantry_plan",
+        "effective_modes_after": 1.5009882210617296,
+        "effective_modes_before": 2.4458853656305553,
+        "level": "level1",
+        "method": "replay_drgrpo",
+        "pass8_after": 0.728515625,
+        "pass8_before": 0.9015625,
+        "pmd_after": 0.3337722535273154,
+        "pmd_after_paired": 0.3337722535273154,
+        "pmd_before": 0.5911500947460808,
+        "pmd_delta": -0.2573778412187654,
+        "pmd_delta_seed_range": [
+          -0.3150252616977352,
+          -0.20779794123994838
+        ],
+        "reportable": true,
+        "reportable_seeds": 5,
+        "scale": "qwen05b",
+        "seeds": 5,
+        "seeds_improving": 0,
+        "terminal_only_seeds": 0,
+        "terminal_reportable": true,
+        "terminal_seeds": 5
+      },
+      "status": "saved_key_reproducible",
+      "training_gaps": [
+        "No per-attempt authenticated effective configuration and dependency lock in this export.",
+        "Registered launch settings are not resolved wrapper/recovery settings.",
+        "Historical model/dataset paths do not authenticate their bytes for a fresh launch.",
+        "Saved keys do not contain original responses or trained weights."
+      ],
+      "training_reproduction_verified": false
+    },
+    {
+      "cell_ids": [
+        "level1/qwen05b/pantry_plan/replay_maxrl/s43",
+        "level1/qwen05b/pantry_plan/replay_maxrl/s44",
+        "level1/qwen05b/pantry_plan/replay_maxrl/s45",
+        "level1/qwen05b/pantry_plan/replay_maxrl/s46",
+        "level1/qwen05b/pantry_plan/replay_maxrl/s47"
+      ],
+      "id": "level1/qwen05b/pantry_plan/replay_maxrl",
+      "recipe": {
+        "path": "configs/remax_pantry_plan_05b.json",
+        "relationship": "related_maintained_method_not_historical_equivalence"
+      },
+      "reproduce_command": "remax results reproduce level1/qwen05b/pantry_plan/replay_maxrl",
+      "result": {
+        "distinct8_after": 1.471875,
+        "distinct8_before": 2.436328125,
+        "domain": "pantry_plan",
+        "effective_modes_after": 1.4649881734960861,
+        "effective_modes_before": 2.4978078835385293,
+        "level": "level1",
+        "method": "replay_maxrl",
+        "pass8_after": 0.720703125,
+        "pass8_before": 0.900390625,
+        "pmd_after": 0.3174006329255384,
+        "pmd_after_paired": 0.3174006329255384,
+        "pmd_before": 0.599648953552286,
+        "pmd_delta": -0.2822483206267477,
+        "pmd_delta_seed_range": [
+          -0.32756114645431444,
+          -0.20918690506501453
+        ],
+        "reportable": true,
+        "reportable_seeds": 5,
+        "scale": "qwen05b",
+        "seeds": 5,
+        "seeds_improving": 0,
+        "terminal_only_seeds": 0,
+        "terminal_reportable": true,
+        "terminal_seeds": 5
+      },
+      "status": "saved_key_reproducible",
+      "training_gaps": [
+        "No per-attempt authenticated effective configuration and dependency lock in this export.",
+        "Registered launch settings are not resolved wrapper/recovery settings.",
+        "Historical model/dataset paths do not authenticate their bytes for a fresh launch.",
+        "Saved keys do not contain original responses or trained weights."
+      ],
+      "training_reproduction_verified": false
+    },
+    {
+      "cell_ids": [
+        "level1/qwen05b/python_factors/drgrpo/s43",
+        "level1/qwen05b/python_factors/drgrpo/s44",
+        "level1/qwen05b/python_factors/drgrpo/s45",
+        "level1/qwen05b/python_factors/drgrpo/s46",
+        "level1/qwen05b/python_factors/drgrpo/s47"
+      ],
+      "id": "level1/qwen05b/python_factors/drgrpo",
+      "recipe": {
+        "path": "configs/drgrpo_python_factors_05b.json",
+        "relationship": "related_maintained_method_not_historical_equivalence"
+      },
+      "reproduce_command": "remax results reproduce level1/qwen05b/python_factors/drgrpo",
+      "result": {
+        "distinct8_after": null,
+        "distinct8_before": null,
+        "domain": "python_factors",
+        "effective_modes_after": null,
+        "effective_modes_before": null,
+        "level": "level1",
+        "method": "drgrpo",
+        "pass8_after": null,
+        "pass8_before": null,
+        "pmd_after": null,
+        "pmd_after_paired": null,
+        "pmd_before": null,
+        "pmd_delta": null,
+        "pmd_delta_seed_range": null,
+        "reportable": false,
+        "reportable_seeds": 0,
+        "scale": "qwen05b",
+        "seeds": 5,
+        "seeds_improving": 0,
+        "terminal_only_seeds": 0,
+        "terminal_reportable": false,
+        "terminal_seeds": 0
+      },
+      "status": "saved_key_reproducible",
+      "training_gaps": [
+        "No per-attempt authenticated effective configuration and dependency lock in this export.",
+        "Registered launch settings are not resolved wrapper/recovery settings.",
+        "Historical model/dataset paths do not authenticate their bytes for a fresh launch.",
+        "Saved keys do not contain original responses or trained weights."
+      ],
+      "training_reproduction_verified": false
+    },
+    {
+      "cell_ids": [
+        "level1/qwen05b/python_factors/grpo/s43",
+        "level1/qwen05b/python_factors/grpo/s44",
+        "level1/qwen05b/python_factors/grpo/s45",
+        "level1/qwen05b/python_factors/grpo/s46",
+        "level1/qwen05b/python_factors/grpo/s47"
+      ],
+      "id": "level1/qwen05b/python_factors/grpo",
+      "recipe": {
+        "path": null,
+        "relationship": "no_qualified_training_recipe"
+      },
+      "reproduce_command": "remax results reproduce level1/qwen05b/python_factors/grpo",
+      "result": {
+        "distinct8_after": null,
+        "distinct8_before": null,
+        "domain": "python_factors",
+        "effective_modes_after": null,
+        "effective_modes_before": null,
+        "level": "level1",
+        "method": "grpo",
+        "pass8_after": null,
+        "pass8_before": null,
+        "pmd_after": null,
+        "pmd_after_paired": null,
+        "pmd_before": null,
+        "pmd_delta": null,
+        "pmd_delta_seed_range": null,
+        "reportable": false,
+        "reportable_seeds": 0,
+        "scale": "qwen05b",
+        "seeds": 5,
+        "seeds_improving": 0,
+        "terminal_only_seeds": 0,
+        "terminal_reportable": false,
+        "terminal_seeds": 0
+      },
+      "status": "saved_key_reproducible",
+      "training_gaps": [
+        "No per-attempt authenticated effective configuration and dependency lock in this export.",
+        "Registered launch settings are not resolved wrapper/recovery settings.",
+        "Historical model/dataset paths do not authenticate their bytes for a fresh launch.",
+        "Saved keys do not contain original responses or trained weights."
+      ],
+      "training_reproduction_verified": false
+    },
+    {
+      "cell_ids": [
+        "level1/qwen05b/python_factors/maxrl/s43",
+        "level1/qwen05b/python_factors/maxrl/s44",
+        "level1/qwen05b/python_factors/maxrl/s45",
+        "level1/qwen05b/python_factors/maxrl/s46",
+        "level1/qwen05b/python_factors/maxrl/s47"
+      ],
+      "id": "level1/qwen05b/python_factors/maxrl",
+      "recipe": {
+        "path": "configs/maxrl_python_factors_05b.json",
+        "relationship": "related_maintained_method_not_historical_equivalence"
+      },
+      "reproduce_command": "remax results reproduce level1/qwen05b/python_factors/maxrl",
+      "result": {
+        "distinct8_after": null,
+        "distinct8_before": null,
+        "domain": "python_factors",
+        "effective_modes_after": null,
+        "effective_modes_before": null,
+        "level": "level1",
+        "method": "maxrl",
+        "pass8_after": null,
+        "pass8_before": null,
+        "pmd_after": null,
+        "pmd_after_paired": null,
+        "pmd_before": null,
+        "pmd_delta": null,
+        "pmd_delta_seed_range": null,
+        "reportable": false,
+        "reportable_seeds": 0,
+        "scale": "qwen05b",
+        "seeds": 5,
+        "seeds_improving": 0,
+        "terminal_only_seeds": 0,
+        "terminal_reportable": false,
+        "terminal_seeds": 0
+      },
+      "status": "saved_key_reproducible",
+      "training_gaps": [
+        "No per-attempt authenticated effective configuration and dependency lock in this export.",
+        "Registered launch settings are not resolved wrapper/recovery settings.",
+        "Historical model/dataset paths do not authenticate their bytes for a fresh launch.",
+        "Saved keys do not contain original responses or trained weights."
+      ],
+      "training_reproduction_verified": false
+    },
+    {
+      "cell_ids": [
+        "level1/qwen05b/python_factors/replay_drgrpo/s43",
+        "level1/qwen05b/python_factors/replay_drgrpo/s44",
+        "level1/qwen05b/python_factors/replay_drgrpo/s45",
+        "level1/qwen05b/python_factors/replay_drgrpo/s46",
+        "level1/qwen05b/python_factors/replay_drgrpo/s47"
+      ],
+      "id": "level1/qwen05b/python_factors/replay_drgrpo",
+      "recipe": {
+        "path": "configs/redr_python_factors_05b.json",
+        "relationship": "related_maintained_method_not_historical_equivalence"
+      },
+      "reproduce_command": "remax results reproduce level1/qwen05b/python_factors/replay_drgrpo",
+      "result": {
+        "distinct8_after": 0.9990234375,
+        "distinct8_before": null,
+        "domain": "python_factors",
+        "effective_modes_after": 1.0,
+        "effective_modes_before": null,
+        "level": "level1",
+        "method": "replay_drgrpo",
+        "pass8_after": 0.9990234375,
+        "pass8_before": null,
+        "pmd_after": 0.0,
+        "pmd_after_paired": null,
+        "pmd_before": null,
+        "pmd_delta": null,
+        "pmd_delta_seed_range": null,
+        "reportable": false,
+        "reportable_seeds": 0,
+        "scale": "qwen05b",
+        "seeds": 5,
+        "seeds_improving": 0,
+        "terminal_only_seeds": 0,
+        "terminal_reportable": true,
+        "terminal_seeds": 2
+      },
+      "status": "saved_key_reproducible",
+      "training_gaps": [
+        "No per-attempt authenticated effective configuration and dependency lock in this export.",
+        "Registered launch settings are not resolved wrapper/recovery settings.",
+        "Historical model/dataset paths do not authenticate their bytes for a fresh launch.",
+        "Saved keys do not contain original responses or trained weights."
+      ],
+      "training_reproduction_verified": false
+    },
+    {
+      "cell_ids": [
+        "level1/qwen05b/python_factors/replay_maxrl/s43",
+        "level1/qwen05b/python_factors/replay_maxrl/s44",
+        "level1/qwen05b/python_factors/replay_maxrl/s45",
+        "level1/qwen05b/python_factors/replay_maxrl/s46",
+        "level1/qwen05b/python_factors/replay_maxrl/s47"
+      ],
+      "id": "level1/qwen05b/python_factors/replay_maxrl",
+      "recipe": {
+        "path": "configs/remax_python_factors_05b.json",
+        "relationship": "related_maintained_method_not_historical_equivalence"
+      },
+      "reproduce_command": "remax results reproduce level1/qwen05b/python_factors/replay_maxrl",
+      "result": {
+        "distinct8_after": 1.3662109375,
+        "distinct8_before": null,
+        "domain": "python_factors",
+        "effective_modes_after": 1.4527217565088628,
+        "effective_modes_before": null,
+        "level": "level1",
+        "method": "replay_maxrl",
+        "pass8_after": 0.80859375,
+        "pass8_before": null,
+        "pmd_after": 0.31163693562133327,
+        "pmd_after_paired": null,
+        "pmd_before": null,
+        "pmd_delta": null,
+        "pmd_delta_seed_range": null,
+        "reportable": false,
+        "reportable_seeds": 0,
+        "scale": "qwen05b",
+        "seeds": 5,
+        "seeds_improving": 0,
+        "terminal_only_seeds": 0,
+        "terminal_reportable": true,
+        "terminal_seeds": 4
+      },
+      "status": "saved_key_reproducible",
+      "training_gaps": [
+        "No per-attempt authenticated effective configuration and dependency lock in this export.",
+        "Registered launch settings are not resolved wrapper/recovery settings.",
+        "Historical model/dataset paths do not authenticate their bytes for a fresh launch.",
+        "Saved keys do not contain original responses or trained weights."
+      ],
+      "training_reproduction_verified": false
+    },
+    {
+      "cell_ids": [
+        "level1/qwen3b/countdown/drgrpo/s70",
+        "level1/qwen3b/countdown/drgrpo/s71",
+        "level1/qwen3b/countdown/drgrpo/s72",
+        "level1/qwen3b/countdown/drgrpo/s73",
+        "level1/qwen3b/countdown/drgrpo/s74"
+      ],
+      "id": "level1/qwen3b/countdown/drgrpo",
+      "recipe": {
+        "path": null,
+        "relationship": "no_qualified_training_recipe"
+      },
+      "reproduce_command": "remax results reproduce level1/qwen3b/countdown/drgrpo",
+      "result": {
+        "distinct8_after": 0.628125,
+        "distinct8_before": null,
+        "domain": "countdown",
+        "effective_modes_after": 1.0123732101205545,
+        "effective_modes_before": null,
+        "level": "level1",
+        "method": "drgrpo",
+        "pass8_after": 0.609375,
+        "pass8_before": null,
+        "pmd_after": 0.01222198493288956,
+        "pmd_after_paired": null,
+        "pmd_before": null,
+        "pmd_delta": null,
+        "pmd_delta_seed_range": null,
+        "reportable": false,
+        "reportable_seeds": 0,
+        "scale": "qwen3b",
+        "seeds": 5,
+        "seeds_improving": 0,
+        "terminal_only_seeds": 0,
+        "terminal_reportable": true,
+        "terminal_seeds": 5
+      },
+      "status": "saved_key_reproducible",
+      "training_gaps": [
+        "No per-attempt authenticated effective configuration and dependency lock in this export.",
+        "Registered launch settings are not resolved wrapper/recovery settings.",
+        "Historical model/dataset paths do not authenticate their bytes for a fresh launch.",
+        "Saved keys do not contain original responses or trained weights."
+      ],
+      "training_reproduction_verified": false
+    },
+    {
+      "cell_ids": [
+        "level1/qwen3b/countdown/grpo/s70",
+        "level1/qwen3b/countdown/grpo/s71",
+        "level1/qwen3b/countdown/grpo/s72",
+        "level1/qwen3b/countdown/grpo/s73",
+        "level1/qwen3b/countdown/grpo/s74"
+      ],
+      "id": "level1/qwen3b/countdown/grpo",
+      "recipe": {
+        "path": null,
+        "relationship": "no_qualified_training_recipe"
+      },
+      "reproduce_command": "remax results reproduce level1/qwen3b/countdown/grpo",
+      "result": {
+        "distinct8_after": 0.622265625,
+        "distinct8_before": null,
+        "domain": "countdown",
+        "effective_modes_after": 1.008164046711688,
+        "effective_modes_before": null,
+        "level": "level1",
+        "method": "grpo",
+        "pass8_after": 0.611328125,
+        "pass8_before": null,
+        "pmd_after": 0.008097934793763464,
+        "pmd_after_paired": null,
+        "pmd_before": null,
+        "pmd_delta": null,
+        "pmd_delta_seed_range": null,
+        "reportable": false,
+        "reportable_seeds": 0,
+        "scale": "qwen3b",
+        "seeds": 5,
+        "seeds_improving": 0,
+        "terminal_only_seeds": 0,
+        "terminal_reportable": true,
+        "terminal_seeds": 5
+      },
+      "status": "saved_key_reproducible",
+      "training_gaps": [
+        "No per-attempt authenticated effective configuration and dependency lock in this export.",
+        "Registered launch settings are not resolved wrapper/recovery settings.",
+        "Historical model/dataset paths do not authenticate their bytes for a fresh launch.",
+        "Saved keys do not contain original responses or trained weights."
+      ],
+      "training_reproduction_verified": false
+    },
+    {
+      "cell_ids": [
+        "level1/qwen3b/countdown/maxrl/s70",
+        "level1/qwen3b/countdown/maxrl/s71",
+        "level1/qwen3b/countdown/maxrl/s72",
+        "level1/qwen3b/countdown/maxrl/s73",
+        "level1/qwen3b/countdown/maxrl/s74"
+      ],
+      "id": "level1/qwen3b/countdown/maxrl",
+      "recipe": {
+        "path": null,
+        "relationship": "no_qualified_training_recipe"
+      },
+      "reproduce_command": "remax results reproduce level1/qwen3b/countdown/maxrl",
+      "result": {
+        "distinct8_after": 0.62578125,
+        "distinct8_before": null,
+        "domain": "countdown",
+        "effective_modes_after": 1.0157237527180152,
+        "effective_modes_before": null,
+        "level": "level1",
+        "method": "maxrl",
+        "pass8_after": 0.604296875,
+        "pass8_before": null,
+        "pmd_after": 0.015480343622898745,
+        "pmd_after_paired": null,
+        "pmd_before": null,
+        "pmd_delta": null,
+        "pmd_delta_seed_range": null,
+        "reportable": false,
+        "reportable_seeds": 0,
+        "scale": "qwen3b",
+        "seeds": 5,
+        "seeds_improving": 0,
+        "terminal_only_seeds": 0,
+        "terminal_reportable": true,
+        "terminal_seeds": 5
+      },
+      "status": "saved_key_reproducible",
+      "training_gaps": [
+        "No per-attempt authenticated effective configuration and dependency lock in this export.",
+        "Registered launch settings are not resolved wrapper/recovery settings.",
+        "Historical model/dataset paths do not authenticate their bytes for a fresh launch.",
+        "Saved keys do not contain original responses or trained weights."
+      ],
+      "training_reproduction_verified": false
+    },
+    {
+      "cell_ids": [
+        "level1/qwen3b/countdown/replay_drgrpo/s70",
+        "level1/qwen3b/countdown/replay_drgrpo/s71",
+        "level1/qwen3b/countdown/replay_drgrpo/s72",
+        "level1/qwen3b/countdown/replay_drgrpo/s73",
+        "level1/qwen3b/countdown/replay_drgrpo/s74"
+      ],
+      "id": "level1/qwen3b/countdown/replay_drgrpo",
+      "recipe": {
+        "path": null,
+        "relationship": "no_qualified_training_recipe"
+      },
+      "reproduce_command": "remax results reproduce level1/qwen3b/countdown/replay_drgrpo",
+      "result": {
+        "distinct8_after": 0.962109375,
+        "distinct8_before": null,
+        "domain": "countdown",
+        "effective_modes_after": 1.1266419309467826,
+        "effective_modes_before": null,
+        "level": "level1",
+        "method": "replay_drgrpo",
+        "pass8_after": 0.74609375,
+        "pass8_before": null,
+        "pmd_after": 0.11240654858314922,
+        "pmd_after_paired": null,
+        "pmd_before": null,
+        "pmd_delta": null,
+        "pmd_delta_seed_range": null,
+        "reportable": false,
+        "reportable_seeds": 0,
+        "scale": "qwen3b",
+        "seeds": 5,
+        "seeds_improving": 0,
+        "terminal_only_seeds": 0,
+        "terminal_reportable": true,
+        "terminal_seeds": 5
+      },
+      "status": "saved_key_reproducible",
+      "training_gaps": [
+        "No per-attempt authenticated effective configuration and dependency lock in this export.",
+        "Registered launch settings are not resolved wrapper/recovery settings.",
+        "Historical model/dataset paths do not authenticate their bytes for a fresh launch.",
+        "Saved keys do not contain original responses or trained weights."
+      ],
+      "training_reproduction_verified": false
+    },
+    {
+      "cell_ids": [
+        "level1/qwen3b/countdown/replay_maxrl/s70",
+        "level1/qwen3b/countdown/replay_maxrl/s71",
+        "level1/qwen3b/countdown/replay_maxrl/s72",
+        "level1/qwen3b/countdown/replay_maxrl/s73",
+        "level1/qwen3b/countdown/replay_maxrl/s74"
+      ],
+      "id": "level1/qwen3b/countdown/replay_maxrl",
+      "recipe": {
+        "path": null,
+        "relationship": "no_qualified_training_recipe"
+      },
+      "reproduce_command": "remax results reproduce level1/qwen3b/countdown/replay_maxrl",
+      "result": {
+        "distinct8_after": 0.92734375,
+        "distinct8_before": null,
+        "domain": "countdown",
+        "effective_modes_after": 1.1021941073677508,
+        "effective_modes_before": null,
+        "level": "level1",
+        "method": "replay_maxrl",
+        "pass8_after": 0.75390625,
+        "pass8_before": null,
+        "pmd_after": 0.0927187930733995,
+        "pmd_after_paired": null,
+        "pmd_before": null,
+        "pmd_delta": null,
+        "pmd_delta_seed_range": null,
+        "reportable": false,
+        "reportable_seeds": 0,
+        "scale": "qwen3b",
+        "seeds": 5,
+        "seeds_improving": 0,
+        "terminal_only_seeds": 0,
+        "terminal_reportable": true,
+        "terminal_seeds": 5
+      },
+      "status": "saved_key_reproducible",
+      "training_gaps": [
+        "No per-attempt authenticated effective configuration and dependency lock in this export.",
+        "Registered launch settings are not resolved wrapper/recovery settings.",
+        "Historical model/dataset paths do not authenticate their bytes for a fresh launch.",
+        "Saved keys do not contain original responses or trained weights."
+      ],
+      "training_reproduction_verified": false
+    },
+    {
+      "cell_ids": [
+        "level1/qwen3b/graph_coloring/drgrpo/s70",
+        "level1/qwen3b/graph_coloring/drgrpo/s71",
+        "level1/qwen3b/graph_coloring/drgrpo/s72",
+        "level1/qwen3b/graph_coloring/drgrpo/s73",
+        "level1/qwen3b/graph_coloring/drgrpo/s74"
+      ],
+      "id": "level1/qwen3b/graph_coloring/drgrpo",
+      "recipe": {
+        "path": null,
+        "relationship": "no_qualified_training_recipe"
+      },
+      "reproduce_command": "remax results reproduce level1/qwen3b/graph_coloring/drgrpo",
+      "result": {
+        "distinct8_after": 1.06015625,
+        "distinct8_before": 1.01171875,
+        "domain": "graph_coloring",
+        "effective_modes_after": 1.288300688809626,
+        "effective_modes_before": 1.4403964288140376,
+        "level": "level1",
+        "method": "drgrpo",
+        "pass8_after": 0.68203125,
+        "pass8_before": 0.607421875,
+        "pmd_after": 0.22378369530797376,
+        "pmd_after_paired": 0.22378369530797376,
+        "pmd_before": 0.30574668195799515,
+        "pmd_delta": -0.08196298665002137,
+        "pmd_delta_seed_range": [
+          -0.10837611957055607,
+          -0.052907341682532416
+        ],
+        "reportable": true,
+        "reportable_seeds": 5,
+        "scale": "qwen3b",
+        "seeds": 5,
+        "seeds_improving": 0,
+        "terminal_only_seeds": 0,
+        "terminal_reportable": true,
+        "terminal_seeds": 5
+      },
+      "status": "saved_key_reproducible",
+      "training_gaps": [
+        "No per-attempt authenticated effective configuration and dependency lock in this export.",
+        "Registered launch settings are not resolved wrapper/recovery settings.",
+        "Historical model/dataset paths do not authenticate their bytes for a fresh launch.",
+        "Saved keys do not contain original responses or trained weights."
+      ],
+      "training_reproduction_verified": false
+    },
+    {
+      "cell_ids": [
+        "level1/qwen3b/graph_coloring/grpo/s70",
+        "level1/qwen3b/graph_coloring/grpo/s71",
+        "level1/qwen3b/graph_coloring/grpo/s72",
+        "level1/qwen3b/graph_coloring/grpo/s73",
+        "level1/qwen3b/graph_coloring/grpo/s74"
+      ],
+      "id": "level1/qwen3b/graph_coloring/grpo",
+      "recipe": {
+        "path": null,
+        "relationship": "no_qualified_training_recipe"
+      },
+      "reproduce_command": "remax results reproduce level1/qwen3b/graph_coloring/grpo",
+      "result": {
+        "distinct8_after": 1.067578125,
+        "distinct8_before": 1.01171875,
+        "domain": "graph_coloring",
+        "effective_modes_after": 1.2595719199913706,
+        "effective_modes_before": 1.4403964288140376,
+        "level": "level1",
+        "method": "grpo",
+        "pass8_after": 0.7046875,
+        "pass8_before": 0.607421875,
+        "pmd_after": 0.20607947499587712,
+        "pmd_after_paired": 0.20607947499587712,
+        "pmd_before": 0.30574668195799515,
+        "pmd_delta": -0.09966720696211803,
+        "pmd_delta_seed_range": [
+          -0.13569372533618307,
+          -0.04977424659950219
+        ],
+        "reportable": true,
+        "reportable_seeds": 5,
+        "scale": "qwen3b",
+        "seeds": 5,
+        "seeds_improving": 0,
+        "terminal_only_seeds": 0,
+        "terminal_reportable": true,
+        "terminal_seeds": 5
+      },
+      "status": "saved_key_reproducible",
+      "training_gaps": [
+        "No per-attempt authenticated effective configuration and dependency lock in this export.",
+        "Registered launch settings are not resolved wrapper/recovery settings.",
+        "Historical model/dataset paths do not authenticate their bytes for a fresh launch.",
+        "Saved keys do not contain original responses or trained weights."
+      ],
+      "training_reproduction_verified": false
+    },
+    {
+      "cell_ids": [
+        "level1/qwen3b/graph_coloring/maxrl/s70",
+        "level1/qwen3b/graph_coloring/maxrl/s71",
+        "level1/qwen3b/graph_coloring/maxrl/s72",
+        "level1/qwen3b/graph_coloring/maxrl/s73",
+        "level1/qwen3b/graph_coloring/maxrl/s74"
+      ],
+      "id": "level1/qwen3b/graph_coloring/maxrl",
+      "recipe": {
+        "path": null,
+        "relationship": "no_qualified_training_recipe"
+      },
+      "reproduce_command": "remax results reproduce level1/qwen3b/graph_coloring/maxrl",
+      "result": {
+        "distinct8_after": 1.513671875,
+        "distinct8_before": 0.98203125,
+        "domain": "graph_coloring",
+        "effective_modes_after": 1.498029065264898,
+        "effective_modes_before": 1.3773031389201018,
+        "level": "level1",
+        "method": "maxrl",
+        "pass8_after": 0.82421875,
+        "pass8_before": 0.593359375,
+        "pmd_after": 0.33245620983784524,
+        "pmd_after_paired": 0.33245620983784524,
+        "pmd_before": 0.2739434248410505,
+        "pmd_delta": 0.05851278499679476,
+        "pmd_delta_seed_range": [
+          0.0015757764511523664,
+          0.08541910666324443
+        ],
+        "reportable": true,
+        "reportable_seeds": 5,
+        "scale": "qwen3b",
+        "seeds": 5,
+        "seeds_improving": 5,
+        "terminal_only_seeds": 0,
+        "terminal_reportable": true,
+        "terminal_seeds": 5
+      },
+      "status": "saved_key_reproducible",
+      "training_gaps": [
+        "No per-attempt authenticated effective configuration and dependency lock in this export.",
+        "Registered launch settings are not resolved wrapper/recovery settings.",
+        "Historical model/dataset paths do not authenticate their bytes for a fresh launch.",
+        "Saved keys do not contain original responses or trained weights."
+      ],
+      "training_reproduction_verified": false
+    },
+    {
+      "cell_ids": [
+        "level1/qwen3b/graph_coloring/replay_drgrpo/s70",
+        "level1/qwen3b/graph_coloring/replay_drgrpo/s71",
+        "level1/qwen3b/graph_coloring/replay_drgrpo/s72",
+        "level1/qwen3b/graph_coloring/replay_drgrpo/s73",
+        "level1/qwen3b/graph_coloring/replay_drgrpo/s74"
+      ],
+      "id": "level1/qwen3b/graph_coloring/replay_drgrpo",
+      "recipe": {
+        "path": null,
+        "relationship": "no_qualified_training_recipe"
+      },
+      "reproduce_command": "remax results reproduce level1/qwen3b/graph_coloring/replay_drgrpo",
+      "result": {
+        "distinct8_after": 1.637109375,
+        "distinct8_before": 1.01171875,
+        "domain": "graph_coloring",
+        "effective_modes_after": 1.665122869590912,
+        "effective_modes_before": 1.4403964288140376,
+        "level": "level1",
+        "method": "replay_drgrpo",
+        "pass8_after": 0.836328125,
+        "pass8_before": 0.607421875,
+        "pmd_after": 0.39944371778061016,
+        "pmd_after_paired": 0.39944371778061016,
+        "pmd_before": 0.30574668195799515,
+        "pmd_delta": 0.093697035822615,
+        "pmd_delta_seed_range": [
+          0.07678941668819611,
+          0.10447466065917488
+        ],
+        "reportable": true,
+        "reportable_seeds": 5,
+        "scale": "qwen3b",
+        "seeds": 5,
+        "seeds_improving": 5,
+        "terminal_only_seeds": 0,
+        "terminal_reportable": true,
+        "terminal_seeds": 5
+      },
+      "status": "saved_key_reproducible",
+      "training_gaps": [
+        "No per-attempt authenticated effective configuration and dependency lock in this export.",
+        "Registered launch settings are not resolved wrapper/recovery settings.",
+        "Historical model/dataset paths do not authenticate their bytes for a fresh launch.",
+        "Saved keys do not contain original responses or trained weights."
+      ],
+      "training_reproduction_verified": false
+    },
+    {
+      "cell_ids": [
+        "level1/qwen3b/graph_coloring/replay_maxrl/s70",
+        "level1/qwen3b/graph_coloring/replay_maxrl/s71",
+        "level1/qwen3b/graph_coloring/replay_maxrl/s72",
+        "level1/qwen3b/graph_coloring/replay_maxrl/s73",
+        "level1/qwen3b/graph_coloring/replay_maxrl/s74"
+      ],
+      "id": "level1/qwen3b/graph_coloring/replay_maxrl",
+      "recipe": {
+        "path": null,
+        "relationship": "no_qualified_training_recipe"
+      },
+      "reproduce_command": "remax results reproduce level1/qwen3b/graph_coloring/replay_maxrl",
+      "result": {
+        "distinct8_after": 1.7,
+        "distinct8_before": 0.98203125,
+        "domain": "graph_coloring",
+        "effective_modes_after": 1.690845099375085,
+        "effective_modes_before": 1.3773031389201018,
+        "level": "level1",
+        "method": "replay_maxrl",
+        "pass8_after": 0.84765625,
+        "pass8_before": 0.593359375,
+        "pmd_after": 0.4085797685609478,
+        "pmd_after_paired": 0.4085797685609478,
+        "pmd_before": 0.2739434248410505,
+        "pmd_delta": 0.1346363437198973,
+        "pmd_delta_seed_range": [
+          0.09909917304023247,
+          0.14959828824989718
+        ],
+        "reportable": true,
+        "reportable_seeds": 5,
+        "scale": "qwen3b",
+        "seeds": 5,
+        "seeds_improving": 5,
+        "terminal_only_seeds": 0,
+        "terminal_reportable": true,
+        "terminal_seeds": 5
+      },
+      "status": "saved_key_reproducible",
+      "training_gaps": [
+        "No per-attempt authenticated effective configuration and dependency lock in this export.",
+        "Registered launch settings are not resolved wrapper/recovery settings.",
+        "Historical model/dataset paths do not authenticate their bytes for a fresh launch.",
+        "Saved keys do not contain original responses or trained weights."
+      ],
+      "training_reproduction_verified": false
+    },
+    {
+      "cell_ids": [
+        "level1/qwen3b/mathir/drgrpo/s70",
+        "level1/qwen3b/mathir/drgrpo/s71",
+        "level1/qwen3b/mathir/drgrpo/s72",
+        "level1/qwen3b/mathir/drgrpo/s73",
+        "level1/qwen3b/mathir/drgrpo/s74"
+      ],
+      "id": "level1/qwen3b/mathir/drgrpo",
+      "recipe": {
+        "path": null,
+        "relationship": "no_qualified_training_recipe"
+      },
+      "reproduce_command": "remax results reproduce level1/qwen3b/mathir/drgrpo",
+      "result": {
+        "distinct8_after": 0.278515625,
+        "distinct8_before": null,
+        "domain": "mathir",
+        "effective_modes_after": 1.0014934551524202,
+        "effective_modes_before": null,
+        "level": "level1",
+        "method": "drgrpo",
+        "pass8_after": 0.277734375,
+        "pass8_before": null,
+        "pmd_after": 0.0014912280701754384,
+        "pmd_after_paired": null,
+        "pmd_before": null,
+        "pmd_delta": null,
+        "pmd_delta_seed_range": null,
+        "reportable": false,
+        "reportable_seeds": 0,
+        "scale": "qwen3b",
+        "seeds": 5,
+        "seeds_improving": 0,
+        "terminal_only_seeds": 0,
+        "terminal_reportable": true,
+        "terminal_seeds": 5
+      },
+      "status": "saved_key_reproducible",
+      "training_gaps": [
+        "No per-attempt authenticated effective configuration and dependency lock in this export.",
+        "Registered launch settings are not resolved wrapper/recovery settings.",
+        "Historical model/dataset paths do not authenticate their bytes for a fresh launch.",
+        "Saved keys do not contain original responses or trained weights."
+      ],
+      "training_reproduction_verified": false
+    },
+    {
+      "cell_ids": [
+        "level1/qwen3b/mathir/grpo/s70",
+        "level1/qwen3b/mathir/grpo/s71",
+        "level1/qwen3b/mathir/grpo/s72",
+        "level1/qwen3b/mathir/grpo/s73",
+        "level1/qwen3b/mathir/grpo/s74"
+      ],
+      "id": "level1/qwen3b/mathir/grpo",
+      "recipe": {
+        "path": null,
+        "relationship": "no_qualified_training_recipe"
+      },
+      "reproduce_command": "remax results reproduce level1/qwen3b/mathir/grpo",
+      "result": {
+        "distinct8_after": 0.298046875,
+        "distinct8_before": null,
+        "domain": "mathir",
+        "effective_modes_after": 1.0,
+        "effective_modes_before": null,
+        "level": "level1",
+        "method": "grpo",
+        "pass8_after": 0.298046875,
+        "pass8_before": null,
+        "pmd_after": 0.0,
+        "pmd_after_paired": null,
+        "pmd_before": null,
+        "pmd_delta": null,
+        "pmd_delta_seed_range": null,
+        "reportable": false,
+        "reportable_seeds": 0,
+        "scale": "qwen3b",
+        "seeds": 5,
+        "seeds_improving": 0,
+        "terminal_only_seeds": 0,
+        "terminal_reportable": true,
+        "terminal_seeds": 5
+      },
+      "status": "saved_key_reproducible",
+      "training_gaps": [
+        "No per-attempt authenticated effective configuration and dependency lock in this export.",
+        "Registered launch settings are not resolved wrapper/recovery settings.",
+        "Historical model/dataset paths do not authenticate their bytes for a fresh launch.",
+        "Saved keys do not contain original responses or trained weights."
+      ],
+      "training_reproduction_verified": false
+    },
+    {
+      "cell_ids": [
+        "level1/qwen3b/mathir/maxrl/s70",
+        "level1/qwen3b/mathir/maxrl/s71",
+        "level1/qwen3b/mathir/maxrl/s72",
+        "level1/qwen3b/mathir/maxrl/s73",
+        "level1/qwen3b/mathir/maxrl/s74"
+      ],
+      "id": "level1/qwen3b/mathir/maxrl",
+      "recipe": {
+        "path": null,
+        "relationship": "no_qualified_training_recipe"
+      },
+      "reproduce_command": "remax results reproduce level1/qwen3b/mathir/maxrl",
+      "result": {
+        "distinct8_after": 0.27685546875,
+        "distinct8_before": null,
+        "domain": "mathir",
+        "effective_modes_after": 1.0,
+        "effective_modes_before": null,
+        "level": "level1",
+        "method": "maxrl",
+        "pass8_after": 0.27685546875,
+        "pass8_before": null,
+        "pmd_after": 0.0,
+        "pmd_after_paired": null,
+        "pmd_before": null,
+        "pmd_delta": null,
+        "pmd_delta_seed_range": null,
+        "reportable": false,
+        "reportable_seeds": 0,
+        "scale": "qwen3b",
+        "seeds": 5,
+        "seeds_improving": 0,
+        "terminal_only_seeds": 0,
+        "terminal_reportable": true,
+        "terminal_seeds": 4
+      },
+      "status": "saved_key_reproducible",
+      "training_gaps": [
+        "No per-attempt authenticated effective configuration and dependency lock in this export.",
+        "Registered launch settings are not resolved wrapper/recovery settings.",
+        "Historical model/dataset paths do not authenticate their bytes for a fresh launch.",
+        "Saved keys do not contain original responses or trained weights."
+      ],
+      "training_reproduction_verified": false
+    },
+    {
+      "cell_ids": [
+        "level1/qwen3b/mathir/replay_drgrpo/s70",
+        "level1/qwen3b/mathir/replay_drgrpo/s71",
+        "level1/qwen3b/mathir/replay_drgrpo/s72",
+        "level1/qwen3b/mathir/replay_drgrpo/s73",
+        "level1/qwen3b/mathir/replay_drgrpo/s74"
+      ],
+      "id": "level1/qwen3b/mathir/replay_drgrpo",
+      "recipe": {
+        "path": null,
+        "relationship": "no_qualified_training_recipe"
+      },
+      "reproduce_command": "remax results reproduce level1/qwen3b/mathir/replay_drgrpo",
+      "result": {
+        "distinct8_after": 0.70625,
+        "distinct8_before": null,
+        "domain": "mathir",
+        "effective_modes_after": 1.0143057976770629,
+        "effective_modes_before": null,
+        "level": "level1",
+        "method": "replay_drgrpo",
+        "pass8_after": 0.686328125,
+        "pass8_before": null,
+        "pmd_after": 0.014104028301746497,
+        "pmd_after_paired": null,
+        "pmd_before": null,
+        "pmd_delta": null,
+        "pmd_delta_seed_range": null,
+        "reportable": false,
+        "reportable_seeds": 0,
+        "scale": "qwen3b",
+        "seeds": 5,
+        "seeds_improving": 0,
+        "terminal_only_seeds": 1,
+        "terminal_reportable": true,
+        "terminal_seeds": 5
+      },
+      "status": "saved_key_reproducible",
+      "training_gaps": [
+        "No per-attempt authenticated effective configuration and dependency lock in this export.",
+        "Registered launch settings are not resolved wrapper/recovery settings.",
+        "Historical model/dataset paths do not authenticate their bytes for a fresh launch.",
+        "Saved keys do not contain original responses or trained weights."
+      ],
+      "training_reproduction_verified": false
+    },
+    {
+      "cell_ids": [
+        "level1/qwen3b/mathir/replay_maxrl/s70",
+        "level1/qwen3b/mathir/replay_maxrl/s71",
+        "level1/qwen3b/mathir/replay_maxrl/s72",
+        "level1/qwen3b/mathir/replay_maxrl/s73",
+        "level1/qwen3b/mathir/replay_maxrl/s74"
+      ],
+      "id": "level1/qwen3b/mathir/replay_maxrl",
+      "recipe": {
+        "path": null,
+        "relationship": "no_qualified_training_recipe"
+      },
+      "reproduce_command": "remax results reproduce level1/qwen3b/mathir/replay_maxrl",
+      "result": {
+        "distinct8_after": 0.51875,
+        "distinct8_before": null,
+        "domain": "mathir",
+        "effective_modes_after": 1.0063354059770917,
+        "effective_modes_before": null,
+        "level": "level1",
+        "method": "replay_maxrl",
+        "pass8_after": 0.512890625,
+        "pass8_before": null,
+        "pmd_after": 0.006295521293857685,
+        "pmd_after_paired": null,
+        "pmd_before": null,
+        "pmd_delta": null,
+        "pmd_delta_seed_range": null,
+        "reportable": false,
+        "reportable_seeds": 0,
+        "scale": "qwen3b",
+        "seeds": 5,
+        "seeds_improving": 0,
+        "terminal_only_seeds": 0,
+        "terminal_reportable": true,
+        "terminal_seeds": 5
+      },
+      "status": "saved_key_reproducible",
+      "training_gaps": [
+        "No per-attempt authenticated effective configuration and dependency lock in this export.",
+        "Registered launch settings are not resolved wrapper/recovery settings.",
+        "Historical model/dataset paths do not authenticate their bytes for a fresh launch.",
+        "Saved keys do not contain original responses or trained weights."
+      ],
+      "training_reproduction_verified": false
+    },
+    {
+      "cell_ids": [
+        "level1/qwen3b/pantry_plan/drgrpo/s70",
+        "level1/qwen3b/pantry_plan/drgrpo/s71",
+        "level1/qwen3b/pantry_plan/drgrpo/s72",
+        "level1/qwen3b/pantry_plan/drgrpo/s73",
+        "level1/qwen3b/pantry_plan/drgrpo/s74"
+      ],
+      "id": "level1/qwen3b/pantry_plan/drgrpo",
+      "recipe": {
+        "path": null,
+        "relationship": "no_qualified_training_recipe"
+      },
+      "reproduce_command": "remax results reproduce level1/qwen3b/pantry_plan/drgrpo",
+      "result": {
+        "distinct8_after": 0.840625,
+        "distinct8_before": 1.444921875,
+        "domain": "pantry_plan",
+        "effective_modes_after": 1.1169215917991566,
+        "effective_modes_before": 1.567147007936961,
+        "level": "level1",
+        "method": "drgrpo",
+        "pass8_after": 0.637890625,
+        "pass8_before": 0.83125,
+        "pmd_after": 0.1046820051269823,
+        "pmd_after_paired": 0.1046820051269823,
+        "pmd_before": 0.3618977703205841,
+        "pmd_delta": -0.2572157651936018,
+        "pmd_delta_seed_range": [
+          -0.36661146731433847,
+          -0.08744421862337742
+        ],
+        "reportable": true,
+        "reportable_seeds": 5,
+        "scale": "qwen3b",
+        "seeds": 5,
+        "seeds_improving": 0,
+        "terminal_only_seeds": 0,
+        "terminal_reportable": true,
+        "terminal_seeds": 5
+      },
+      "status": "saved_key_reproducible",
+      "training_gaps": [
+        "No per-attempt authenticated effective configuration and dependency lock in this export.",
+        "Registered launch settings are not resolved wrapper/recovery settings.",
+        "Historical model/dataset paths do not authenticate their bytes for a fresh launch.",
+        "Saved keys do not contain original responses or trained weights."
+      ],
+      "training_reproduction_verified": false
+    },
+    {
+      "cell_ids": [
+        "level1/qwen3b/pantry_plan/grpo/s70",
+        "level1/qwen3b/pantry_plan/grpo/s71",
+        "level1/qwen3b/pantry_plan/grpo/s72",
+        "level1/qwen3b/pantry_plan/grpo/s73",
+        "level1/qwen3b/pantry_plan/grpo/s74"
+      ],
+      "id": "level1/qwen3b/pantry_plan/grpo",
+      "recipe": {
+        "path": null,
+        "relationship": "no_qualified_training_recipe"
+      },
+      "reproduce_command": "remax results reproduce level1/qwen3b/pantry_plan/grpo",
+      "result": {
+        "distinct8_after": 0.769140625,
+        "distinct8_before": 1.412109375,
+        "domain": "pantry_plan",
+        "effective_modes_after": 1.0848716424552909,
+        "effective_modes_before": 1.52216959881234,
+        "level": "level1",
+        "method": "grpo",
+        "pass8_after": 0.638671875,
+        "pass8_before": 0.828125,
+        "pmd_after": 0.07823196692947806,
+        "pmd_after_paired": 0.07823196692947806,
+        "pmd_before": 0.3430429823455667,
+        "pmd_delta": -0.26481101541608865,
+        "pmd_delta_seed_range": [
+          -0.3430429823455667,
+          -0.21129855070194148
+        ],
+        "reportable": true,
+        "reportable_seeds": 5,
+        "scale": "qwen3b",
+        "seeds": 5,
+        "seeds_improving": 0,
+        "terminal_only_seeds": 0,
+        "terminal_reportable": true,
+        "terminal_seeds": 5
+      },
+      "status": "saved_key_reproducible",
+      "training_gaps": [
+        "No per-attempt authenticated effective configuration and dependency lock in this export.",
+        "Registered launch settings are not resolved wrapper/recovery settings.",
+        "Historical model/dataset paths do not authenticate their bytes for a fresh launch.",
+        "Saved keys do not contain original responses or trained weights."
+      ],
+      "training_reproduction_verified": false
+    },
+    {
+      "cell_ids": [
+        "level1/qwen3b/pantry_plan/maxrl/s70",
+        "level1/qwen3b/pantry_plan/maxrl/s71",
+        "level1/qwen3b/pantry_plan/maxrl/s72",
+        "level1/qwen3b/pantry_plan/maxrl/s73",
+        "level1/qwen3b/pantry_plan/maxrl/s74"
+      ],
+      "id": "level1/qwen3b/pantry_plan/maxrl",
+      "recipe": {
+        "path": null,
+        "relationship": "no_qualified_training_recipe"
+      },
+      "reproduce_command": "remax results reproduce level1/qwen3b/pantry_plan/maxrl",
+      "result": {
+        "distinct8_after": 0.9625,
+        "distinct8_before": 1.453125,
+        "domain": "pantry_plan",
+        "effective_modes_after": 1.1883838287540103,
+        "effective_modes_before": 1.5788097643003598,
+        "level": "level1",
+        "method": "maxrl",
+        "pass8_after": 0.6875,
+        "pass8_before": 0.83203125,
+        "pmd_after": 0.1585210301553209,
+        "pmd_after_paired": 0.1585210301553209,
+        "pmd_before": 0.36661146731433847,
+        "pmd_delta": -0.20809043715901754,
+        "pmd_delta_seed_range": [
+          -0.28152110586855533,
+          -0.11112677722288627
+        ],
+        "reportable": true,
+        "reportable_seeds": 5,
+        "scale": "qwen3b",
+        "seeds": 5,
+        "seeds_improving": 0,
+        "terminal_only_seeds": 0,
+        "terminal_reportable": true,
+        "terminal_seeds": 5
+      },
+      "status": "saved_key_reproducible",
+      "training_gaps": [
+        "No per-attempt authenticated effective configuration and dependency lock in this export.",
+        "Registered launch settings are not resolved wrapper/recovery settings.",
+        "Historical model/dataset paths do not authenticate their bytes for a fresh launch.",
+        "Saved keys do not contain original responses or trained weights."
+      ],
+      "training_reproduction_verified": false
+    },
+    {
+      "cell_ids": [
+        "level1/qwen3b/pantry_plan/replay_drgrpo/s70",
+        "level1/qwen3b/pantry_plan/replay_drgrpo/s71",
+        "level1/qwen3b/pantry_plan/replay_drgrpo/s72",
+        "level1/qwen3b/pantry_plan/replay_drgrpo/s73",
+        "level1/qwen3b/pantry_plan/replay_drgrpo/s74"
+      ],
+      "id": "level1/qwen3b/pantry_plan/replay_drgrpo",
+      "recipe": {
+        "path": null,
+        "relationship": "no_qualified_training_recipe"
+      },
+      "reproduce_command": "remax results reproduce level1/qwen3b/pantry_plan/replay_drgrpo",
+      "result": {
+        "distinct8_after": 1.5140625,
+        "distinct8_before": 1.444921875,
+        "domain": "pantry_plan",
+        "effective_modes_after": 1.541806478356944,
+        "effective_modes_before": 1.567147007936961,
+        "level": "level1",
+        "method": "replay_drgrpo",
+        "pass8_after": 0.744140625,
+        "pass8_before": 0.83125,
+        "pmd_after": 0.3514101710963951,
+        "pmd_after_paired": 0.3514101710963951,
+        "pmd_before": 0.3618977703205841,
+        "pmd_delta": -0.010487599224189004,
+        "pmd_delta_seed_range": [
+          -0.07817785688750545,
+          0.07207078197499406
+        ],
+        "reportable": true,
+        "reportable_seeds": 5,
+        "scale": "qwen3b",
+        "seeds": 5,
+        "seeds_improving": 2,
+        "terminal_only_seeds": 0,
+        "terminal_reportable": true,
+        "terminal_seeds": 5
+      },
+      "status": "saved_key_reproducible",
+      "training_gaps": [
+        "No per-attempt authenticated effective configuration and dependency lock in this export.",
+        "Registered launch settings are not resolved wrapper/recovery settings.",
+        "Historical model/dataset paths do not authenticate their bytes for a fresh launch.",
+        "Saved keys do not contain original responses or trained weights."
+      ],
+      "training_reproduction_verified": false
+    },
+    {
+      "cell_ids": [
+        "level1/qwen3b/pantry_plan/replay_maxrl/s70",
+        "level1/qwen3b/pantry_plan/replay_maxrl/s71",
+        "level1/qwen3b/pantry_plan/replay_maxrl/s72",
+        "level1/qwen3b/pantry_plan/replay_maxrl/s73",
+        "level1/qwen3b/pantry_plan/replay_maxrl/s74"
+      ],
+      "id": "level1/qwen3b/pantry_plan/replay_maxrl",
+      "recipe": {
+        "path": null,
+        "relationship": "no_qualified_training_recipe"
+      },
+      "reproduce_command": "remax results reproduce level1/qwen3b/pantry_plan/replay_maxrl",
+      "result": {
+        "distinct8_after": 1.641796875,
+        "distinct8_before": 1.453125,
+        "domain": "pantry_plan",
+        "effective_modes_after": 1.619290945350207,
+        "effective_modes_before": 1.5788097643003598,
+        "level": "level1",
+        "method": "replay_maxrl",
+        "pass8_after": 0.7578125,
+        "pass8_before": 0.83203125,
+        "pmd_after": 0.38244575326534164,
+        "pmd_after_paired": 0.38244575326534164,
+        "pmd_before": 0.36661146731433847,
+        "pmd_delta": 0.015834285951003158,
+        "pmd_delta_seed_range": [
+          -0.036886186374969154,
+          0.10006780827805173
+        ],
+        "reportable": true,
+        "reportable_seeds": 5,
+        "scale": "qwen3b",
+        "seeds": 5,
+        "seeds_improving": 2,
+        "terminal_only_seeds": 0,
+        "terminal_reportable": true,
+        "terminal_seeds": 5
+      },
+      "status": "saved_key_reproducible",
+      "training_gaps": [
+        "No per-attempt authenticated effective configuration and dependency lock in this export.",
+        "Registered launch settings are not resolved wrapper/recovery settings.",
+        "Historical model/dataset paths do not authenticate their bytes for a fresh launch.",
+        "Saved keys do not contain original responses or trained weights."
+      ],
+      "training_reproduction_verified": false
+    },
+    {
+      "cell_ids": [
+        "level1/qwen3b/python_factors/drgrpo/s70",
+        "level1/qwen3b/python_factors/drgrpo/s71",
+        "level1/qwen3b/python_factors/drgrpo/s72",
+        "level1/qwen3b/python_factors/drgrpo/s73",
+        "level1/qwen3b/python_factors/drgrpo/s74"
+      ],
+      "id": "level1/qwen3b/python_factors/drgrpo",
+      "recipe": {
+        "path": null,
+        "relationship": "no_qualified_training_recipe"
+      },
+      "reproduce_command": "remax results reproduce level1/qwen3b/python_factors/drgrpo",
+      "result": {
+        "distinct8_after": null,
+        "distinct8_before": null,
+        "domain": "python_factors",
+        "effective_modes_after": null,
+        "effective_modes_before": null,
+        "level": "level1",
+        "method": "drgrpo",
+        "pass8_after": null,
+        "pass8_before": null,
+        "pmd_after": null,
+        "pmd_after_paired": null,
+        "pmd_before": null,
+        "pmd_delta": null,
+        "pmd_delta_seed_range": null,
+        "reportable": false,
+        "reportable_seeds": 0,
+        "scale": "qwen3b",
+        "seeds": 5,
+        "seeds_improving": 0,
+        "terminal_only_seeds": 0,
+        "terminal_reportable": false,
+        "terminal_seeds": 0
+      },
+      "status": "saved_key_reproducible",
+      "training_gaps": [
+        "No per-attempt authenticated effective configuration and dependency lock in this export.",
+        "Registered launch settings are not resolved wrapper/recovery settings.",
+        "Historical model/dataset paths do not authenticate their bytes for a fresh launch.",
+        "Saved keys do not contain original responses or trained weights."
+      ],
+      "training_reproduction_verified": false
+    },
+    {
+      "cell_ids": [
+        "level1/qwen3b/python_factors/grpo/s70",
+        "level1/qwen3b/python_factors/grpo/s71",
+        "level1/qwen3b/python_factors/grpo/s72",
+        "level1/qwen3b/python_factors/grpo/s73",
+        "level1/qwen3b/python_factors/grpo/s74"
+      ],
+      "id": "level1/qwen3b/python_factors/grpo",
+      "recipe": {
+        "path": null,
+        "relationship": "no_qualified_training_recipe"
+      },
+      "reproduce_command": "remax results reproduce level1/qwen3b/python_factors/grpo",
+      "result": {
+        "distinct8_after": 0.6328125,
+        "distinct8_before": null,
+        "domain": "python_factors",
+        "effective_modes_after": 1.0,
+        "effective_modes_before": null,
+        "level": "level1",
+        "method": "grpo",
+        "pass8_after": 0.6328125,
+        "pass8_before": null,
+        "pmd_after": 0.0,
+        "pmd_after_paired": null,
+        "pmd_before": null,
+        "pmd_delta": null,
+        "pmd_delta_seed_range": null,
+        "reportable": false,
+        "reportable_seeds": 0,
+        "scale": "qwen3b",
+        "seeds": 5,
+        "seeds_improving": 0,
+        "terminal_only_seeds": 0,
+        "terminal_reportable": true,
+        "terminal_seeds": 1
+      },
+      "status": "saved_key_reproducible",
+      "training_gaps": [
+        "No per-attempt authenticated effective configuration and dependency lock in this export.",
+        "Registered launch settings are not resolved wrapper/recovery settings.",
+        "Historical model/dataset paths do not authenticate their bytes for a fresh launch.",
+        "Saved keys do not contain original responses or trained weights."
+      ],
+      "training_reproduction_verified": false
+    },
+    {
+      "cell_ids": [
+        "level1/qwen3b/python_factors/maxrl/s70",
+        "level1/qwen3b/python_factors/maxrl/s71",
+        "level1/qwen3b/python_factors/maxrl/s72",
+        "level1/qwen3b/python_factors/maxrl/s73",
+        "level1/qwen3b/python_factors/maxrl/s74"
+      ],
+      "id": "level1/qwen3b/python_factors/maxrl",
+      "recipe": {
+        "path": null,
+        "relationship": "no_qualified_training_recipe"
+      },
+      "reproduce_command": "remax results reproduce level1/qwen3b/python_factors/maxrl",
+      "result": {
+        "distinct8_after": 0.6328125,
+        "distinct8_before": null,
+        "domain": "python_factors",
+        "effective_modes_after": 1.0,
+        "effective_modes_before": null,
+        "level": "level1",
+        "method": "maxrl",
+        "pass8_after": 0.6328125,
+        "pass8_before": null,
+        "pmd_after": 0.0,
+        "pmd_after_paired": null,
+        "pmd_before": null,
+        "pmd_delta": null,
+        "pmd_delta_seed_range": null,
+        "reportable": false,
+        "reportable_seeds": 0,
+        "scale": "qwen3b",
+        "seeds": 5,
+        "seeds_improving": 0,
+        "terminal_only_seeds": 0,
+        "terminal_reportable": true,
+        "terminal_seeds": 2
+      },
+      "status": "saved_key_reproducible",
+      "training_gaps": [
+        "No per-attempt authenticated effective configuration and dependency lock in this export.",
+        "Registered launch settings are not resolved wrapper/recovery settings.",
+        "Historical model/dataset paths do not authenticate their bytes for a fresh launch.",
+        "Saved keys do not contain original responses or trained weights."
+      ],
+      "training_reproduction_verified": false
+    },
+    {
+      "cell_ids": [
+        "level1/qwen3b/python_factors/replay_drgrpo/s70",
+        "level1/qwen3b/python_factors/replay_drgrpo/s71",
+        "level1/qwen3b/python_factors/replay_drgrpo/s72",
+        "level1/qwen3b/python_factors/replay_drgrpo/s73",
+        "level1/qwen3b/python_factors/replay_drgrpo/s74"
+      ],
+      "id": "level1/qwen3b/python_factors/replay_drgrpo",
+      "recipe": {
+        "path": null,
+        "relationship": "no_qualified_training_recipe"
+      },
+      "reproduce_command": "remax results reproduce level1/qwen3b/python_factors/replay_drgrpo",
+      "result": {
+        "distinct8_after": 0.85234375,
+        "distinct8_before": null,
+        "domain": "python_factors",
+        "effective_modes_after": 1.108290499258237,
+        "effective_modes_before": null,
+        "level": "level1",
+        "method": "replay_drgrpo",
+        "pass8_after": 0.65859375,
+        "pass8_before": null,
+        "pmd_after": 0.09770948982303304,
+        "pmd_after_paired": null,
+        "pmd_before": null,
+        "pmd_delta": null,
+        "pmd_delta_seed_range": null,
+        "reportable": false,
+        "reportable_seeds": 0,
+        "scale": "qwen3b",
+        "seeds": 5,
+        "seeds_improving": 0,
+        "terminal_only_seeds": 0,
+        "terminal_reportable": true,
+        "terminal_seeds": 5
+      },
+      "status": "saved_key_reproducible",
+      "training_gaps": [
+        "No per-attempt authenticated effective configuration and dependency lock in this export.",
+        "Registered launch settings are not resolved wrapper/recovery settings.",
+        "Historical model/dataset paths do not authenticate their bytes for a fresh launch.",
+        "Saved keys do not contain original responses or trained weights."
+      ],
+      "training_reproduction_verified": false
+    },
+    {
+      "cell_ids": [
+        "level1/qwen3b/python_factors/replay_maxrl/s70",
+        "level1/qwen3b/python_factors/replay_maxrl/s71",
+        "level1/qwen3b/python_factors/replay_maxrl/s72",
+        "level1/qwen3b/python_factors/replay_maxrl/s73",
+        "level1/qwen3b/python_factors/replay_maxrl/s74"
+      ],
+      "id": "level1/qwen3b/python_factors/replay_maxrl",
+      "recipe": {
+        "path": null,
+        "relationship": "no_qualified_training_recipe"
+      },
+      "reproduce_command": "remax results reproduce level1/qwen3b/python_factors/replay_maxrl",
+      "result": {
+        "distinct8_after": 0.74765625,
+        "distinct8_before": null,
+        "domain": "python_factors",
+        "effective_modes_after": 1.0614873833828171,
+        "effective_modes_before": null,
+        "level": "level1",
+        "method": "replay_maxrl",
+        "pass8_after": 0.6328125,
+        "pass8_before": null,
+        "pmd_after": 0.05792568460575109,
+        "pmd_after_paired": null,
+        "pmd_before": null,
+        "pmd_delta": null,
+        "pmd_delta_seed_range": null,
+        "reportable": false,
+        "reportable_seeds": 0,
+        "scale": "qwen3b",
+        "seeds": 5,
+        "seeds_improving": 0,
+        "terminal_only_seeds": 0,
+        "terminal_reportable": true,
+        "terminal_seeds": 5
+      },
+      "status": "saved_key_reproducible",
+      "training_gaps": [
+        "No per-attempt authenticated effective configuration and dependency lock in this export.",
+        "Registered launch settings are not resolved wrapper/recovery settings.",
+        "Historical model/dataset paths do not authenticate their bytes for a fresh launch.",
+        "Saved keys do not contain original responses or trained weights."
+      ],
+      "training_reproduction_verified": false
+    },
+    {
+      "cell_ids": [
+        "level2/qwen05b/countdown/drgrpo/s43",
+        "level2/qwen05b/countdown/drgrpo/s44",
+        "level2/qwen05b/countdown/drgrpo/s45",
+        "level2/qwen05b/countdown/drgrpo/s46",
+        "level2/qwen05b/countdown/drgrpo/s47"
+      ],
+      "id": "level2/qwen05b/countdown/drgrpo",
+      "recipe": {
+        "path": null,
+        "relationship": "no_qualified_training_recipe"
+      },
+      "reproduce_command": "remax results reproduce level2/qwen05b/countdown/drgrpo",
+      "result": {
+        "distinct8_after": null,
+        "distinct8_before": null,
+        "domain": "countdown",
+        "effective_modes_after": null,
+        "effective_modes_before": null,
+        "level": "level2",
+        "method": "drgrpo",
+        "pass8_after": null,
+        "pass8_before": null,
+        "pmd_after": null,
+        "pmd_after_paired": null,
+        "pmd_before": null,
+        "pmd_delta": null,
+        "pmd_delta_seed_range": null,
+        "reportable": false,
+        "reportable_seeds": 0,
+        "scale": "qwen05b",
+        "seeds": 5,
+        "seeds_improving": 0,
+        "terminal_only_seeds": 0,
+        "terminal_reportable": false,
+        "terminal_seeds": 0
+      },
+      "status": "saved_key_reproducible",
+      "training_gaps": [
+        "No per-attempt authenticated effective configuration and dependency lock in this export.",
+        "Registered launch settings are not resolved wrapper/recovery settings.",
+        "Historical model/dataset paths do not authenticate their bytes for a fresh launch.",
+        "Saved keys do not contain original responses or trained weights."
+      ],
+      "training_reproduction_verified": false
+    },
+    {
+      "cell_ids": [
+        "level2/qwen05b/countdown/maxrl/s43",
+        "level2/qwen05b/countdown/maxrl/s44",
+        "level2/qwen05b/countdown/maxrl/s45",
+        "level2/qwen05b/countdown/maxrl/s46",
+        "level2/qwen05b/countdown/maxrl/s47"
+      ],
+      "id": "level2/qwen05b/countdown/maxrl",
+      "recipe": {
+        "path": null,
+        "relationship": "no_qualified_training_recipe"
+      },
+      "reproduce_command": "remax results reproduce level2/qwen05b/countdown/maxrl",
+      "result": {
+        "distinct8_after": null,
+        "distinct8_before": null,
+        "domain": "countdown",
+        "effective_modes_after": null,
+        "effective_modes_before": null,
+        "level": "level2",
+        "method": "maxrl",
+        "pass8_after": null,
+        "pass8_before": null,
+        "pmd_after": null,
+        "pmd_after_paired": null,
+        "pmd_before": null,
+        "pmd_delta": null,
+        "pmd_delta_seed_range": null,
+        "reportable": false,
+        "reportable_seeds": 0,
+        "scale": "qwen05b",
+        "seeds": 5,
+        "seeds_improving": 0,
+        "terminal_only_seeds": 0,
+        "terminal_reportable": false,
+        "terminal_seeds": 0
+      },
+      "status": "saved_key_reproducible",
+      "training_gaps": [
+        "No per-attempt authenticated effective configuration and dependency lock in this export.",
+        "Registered launch settings are not resolved wrapper/recovery settings.",
+        "Historical model/dataset paths do not authenticate their bytes for a fresh launch.",
+        "Saved keys do not contain original responses or trained weights."
+      ],
+      "training_reproduction_verified": false
+    },
+    {
+      "cell_ids": [
+        "level2/qwen05b/countdown/replay_drgrpo/s43",
+        "level2/qwen05b/countdown/replay_drgrpo/s44",
+        "level2/qwen05b/countdown/replay_drgrpo/s45",
+        "level2/qwen05b/countdown/replay_drgrpo/s46",
+        "level2/qwen05b/countdown/replay_drgrpo/s47"
+      ],
+      "id": "level2/qwen05b/countdown/replay_drgrpo",
+      "recipe": {
+        "path": null,
+        "relationship": "no_qualified_training_recipe"
+      },
+      "reproduce_command": "remax results reproduce level2/qwen05b/countdown/replay_drgrpo",
+      "result": {
+        "distinct8_after": null,
+        "distinct8_before": null,
+        "domain": "countdown",
+        "effective_modes_after": null,
+        "effective_modes_before": null,
+        "level": "level2",
+        "method": "replay_drgrpo",
+        "pass8_after": null,
+        "pass8_before": null,
+        "pmd_after": null,
+        "pmd_after_paired": null,
+        "pmd_before": null,
+        "pmd_delta": null,
+        "pmd_delta_seed_range": null,
+        "reportable": false,
+        "reportable_seeds": 0,
+        "scale": "qwen05b",
+        "seeds": 5,
+        "seeds_improving": 0,
+        "terminal_only_seeds": 0,
+        "terminal_reportable": false,
+        "terminal_seeds": 0
+      },
+      "status": "saved_key_reproducible",
+      "training_gaps": [
+        "No per-attempt authenticated effective configuration and dependency lock in this export.",
+        "Registered launch settings are not resolved wrapper/recovery settings.",
+        "Historical model/dataset paths do not authenticate their bytes for a fresh launch.",
+        "Saved keys do not contain original responses or trained weights."
+      ],
+      "training_reproduction_verified": false
+    },
+    {
+      "cell_ids": [
+        "level2/qwen05b/countdown/replay_maxrl/s43",
+        "level2/qwen05b/countdown/replay_maxrl/s44",
+        "level2/qwen05b/countdown/replay_maxrl/s45",
+        "level2/qwen05b/countdown/replay_maxrl/s46",
+        "level2/qwen05b/countdown/replay_maxrl/s47"
+      ],
+      "id": "level2/qwen05b/countdown/replay_maxrl",
+      "recipe": {
+        "path": null,
+        "relationship": "no_qualified_training_recipe"
+      },
+      "reproduce_command": "remax results reproduce level2/qwen05b/countdown/replay_maxrl",
+      "result": {
+        "distinct8_after": null,
+        "distinct8_before": null,
+        "domain": "countdown",
+        "effective_modes_after": null,
+        "effective_modes_before": null,
+        "level": "level2",
+        "method": "replay_maxrl",
+        "pass8_after": null,
+        "pass8_before": null,
+        "pmd_after": null,
+        "pmd_after_paired": null,
+        "pmd_before": null,
+        "pmd_delta": null,
+        "pmd_delta_seed_range": null,
+        "reportable": false,
+        "reportable_seeds": 0,
+        "scale": "qwen05b",
+        "seeds": 5,
+        "seeds_improving": 0,
+        "terminal_only_seeds": 0,
+        "terminal_reportable": false,
+        "terminal_seeds": 0
+      },
+      "status": "saved_key_reproducible",
+      "training_gaps": [
+        "No per-attempt authenticated effective configuration and dependency lock in this export.",
+        "Registered launch settings are not resolved wrapper/recovery settings.",
+        "Historical model/dataset paths do not authenticate their bytes for a fresh launch.",
+        "Saved keys do not contain original responses or trained weights."
+      ],
+      "training_reproduction_verified": false
+    },
+    {
+      "cell_ids": [
+        "level2/qwen05b/graph_coloring/drgrpo/s43",
+        "level2/qwen05b/graph_coloring/drgrpo/s44",
+        "level2/qwen05b/graph_coloring/drgrpo/s45",
+        "level2/qwen05b/graph_coloring/drgrpo/s46",
+        "level2/qwen05b/graph_coloring/drgrpo/s47"
+      ],
+      "id": "level2/qwen05b/graph_coloring/drgrpo",
+      "recipe": {
+        "path": null,
+        "relationship": "no_qualified_training_recipe"
+      },
+      "reproduce_command": "remax results reproduce level2/qwen05b/graph_coloring/drgrpo",
+      "result": {
+        "distinct8_after": 0.484375,
+        "distinct8_before": null,
+        "domain": "graph_coloring",
+        "effective_modes_after": 1.1245479819459951,
+        "effective_modes_before": null,
+        "level": "level2",
+        "method": "drgrpo",
+        "pass8_after": 0.375,
+        "pass8_before": null,
+        "pmd_after": 0.11075381748537647,
+        "pmd_after_paired": null,
+        "pmd_before": null,
+        "pmd_delta": null,
+        "pmd_delta_seed_range": null,
+        "reportable": false,
+        "reportable_seeds": 0,
+        "scale": "qwen05b",
+        "seeds": 5,
+        "seeds_improving": 0,
+        "terminal_only_seeds": 0,
+        "terminal_reportable": true,
+        "terminal_seeds": 1
+      },
+      "status": "saved_key_reproducible",
+      "training_gaps": [
+        "No per-attempt authenticated effective configuration and dependency lock in this export.",
+        "Registered launch settings are not resolved wrapper/recovery settings.",
+        "Historical model/dataset paths do not authenticate their bytes for a fresh launch.",
+        "Saved keys do not contain original responses or trained weights."
+      ],
+      "training_reproduction_verified": false
+    },
+    {
+      "cell_ids": [
+        "level2/qwen05b/graph_coloring/maxrl/s43",
+        "level2/qwen05b/graph_coloring/maxrl/s44",
+        "level2/qwen05b/graph_coloring/maxrl/s45",
+        "level2/qwen05b/graph_coloring/maxrl/s46",
+        "level2/qwen05b/graph_coloring/maxrl/s47"
+      ],
+      "id": "level2/qwen05b/graph_coloring/maxrl",
+      "recipe": {
+        "path": null,
+        "relationship": "no_qualified_training_recipe"
+      },
+      "reproduce_command": "remax results reproduce level2/qwen05b/graph_coloring/maxrl",
+      "result": {
+        "distinct8_after": 0.54609375,
+        "distinct8_before": null,
+        "domain": "graph_coloring",
+        "effective_modes_after": 1.1263118167495847,
+        "effective_modes_before": null,
+        "level": "level2",
+        "method": "maxrl",
+        "pass8_after": 0.434375,
+        "pass8_before": null,
+        "pmd_after": 0.11214640108643018,
+        "pmd_after_paired": null,
+        "pmd_before": null,
+        "pmd_delta": null,
+        "pmd_delta_seed_range": null,
+        "reportable": false,
+        "reportable_seeds": 0,
+        "scale": "qwen05b",
+        "seeds": 5,
+        "seeds_improving": 0,
+        "terminal_only_seeds": 0,
+        "terminal_reportable": true,
+        "terminal_seeds": 5
+      },
+      "status": "saved_key_reproducible",
+      "training_gaps": [
+        "No per-attempt authenticated effective configuration and dependency lock in this export.",
+        "Registered launch settings are not resolved wrapper/recovery settings.",
+        "Historical model/dataset paths do not authenticate their bytes for a fresh launch.",
+        "Saved keys do not contain original responses or trained weights."
+      ],
+      "training_reproduction_verified": false
+    },
+    {
+      "cell_ids": [
+        "level2/qwen05b/graph_coloring/replay_drgrpo/s43",
+        "level2/qwen05b/graph_coloring/replay_drgrpo/s44",
+        "level2/qwen05b/graph_coloring/replay_drgrpo/s45",
+        "level2/qwen05b/graph_coloring/replay_drgrpo/s46",
+        "level2/qwen05b/graph_coloring/replay_drgrpo/s47"
+      ],
+      "id": "level2/qwen05b/graph_coloring/replay_drgrpo",
+      "recipe": {
+        "path": null,
+        "relationship": "no_qualified_training_recipe"
+      },
+      "reproduce_command": "remax results reproduce level2/qwen05b/graph_coloring/replay_drgrpo",
+      "result": {
+        "distinct8_after": 1.24296875,
+        "distinct8_before": null,
+        "domain": "graph_coloring",
+        "effective_modes_after": 1.5301776653004895,
+        "effective_modes_before": null,
+        "level": "level2",
+        "method": "replay_drgrpo",
+        "pass8_after": 0.7625,
+        "pass8_before": null,
+        "pmd_after": 0.3464811160973099,
+        "pmd_after_paired": null,
+        "pmd_before": null,
+        "pmd_delta": null,
+        "pmd_delta_seed_range": null,
+        "reportable": false,
+        "reportable_seeds": 0,
+        "scale": "qwen05b",
+        "seeds": 5,
+        "seeds_improving": 0,
+        "terminal_only_seeds": 0,
+        "terminal_reportable": true,
+        "terminal_seeds": 5
+      },
+      "status": "saved_key_reproducible",
+      "training_gaps": [
+        "No per-attempt authenticated effective configuration and dependency lock in this export.",
+        "Registered launch settings are not resolved wrapper/recovery settings.",
+        "Historical model/dataset paths do not authenticate their bytes for a fresh launch.",
+        "Saved keys do not contain original responses or trained weights."
+      ],
+      "training_reproduction_verified": false
+    },
+    {
+      "cell_ids": [
+        "level2/qwen05b/graph_coloring/replay_maxrl/s43",
+        "level2/qwen05b/graph_coloring/replay_maxrl/s44",
+        "level2/qwen05b/graph_coloring/replay_maxrl/s45",
+        "level2/qwen05b/graph_coloring/replay_maxrl/s46",
+        "level2/qwen05b/graph_coloring/replay_maxrl/s47"
+      ],
+      "id": "level2/qwen05b/graph_coloring/replay_maxrl",
+      "recipe": {
+        "path": null,
+        "relationship": "no_qualified_training_recipe"
+      },
+      "reproduce_command": "remax results reproduce level2/qwen05b/graph_coloring/replay_maxrl",
+      "result": {
+        "distinct8_after": 1.2140625,
+        "distinct8_before": null,
+        "domain": "graph_coloring",
+        "effective_modes_after": 1.4804662629573146,
+        "effective_modes_before": null,
+        "level": "level2",
+        "method": "replay_maxrl",
+        "pass8_after": 0.739453125,
+        "pass8_before": null,
+        "pmd_after": 0.32453712386363753,
+        "pmd_after_paired": null,
+        "pmd_before": null,
+        "pmd_delta": null,
+        "pmd_delta_seed_range": null,
+        "reportable": false,
+        "reportable_seeds": 0,
+        "scale": "qwen05b",
+        "seeds": 5,
+        "seeds_improving": 0,
+        "terminal_only_seeds": 0,
+        "terminal_reportable": true,
+        "terminal_seeds": 5
+      },
+      "status": "saved_key_reproducible",
+      "training_gaps": [
+        "No per-attempt authenticated effective configuration and dependency lock in this export.",
+        "Registered launch settings are not resolved wrapper/recovery settings.",
+        "Historical model/dataset paths do not authenticate their bytes for a fresh launch.",
+        "Saved keys do not contain original responses or trained weights."
+      ],
+      "training_reproduction_verified": false
+    },
+    {
+      "cell_ids": [
+        "level2/qwen05b/mathir/drgrpo/s43",
+        "level2/qwen05b/mathir/drgrpo/s44",
+        "level2/qwen05b/mathir/drgrpo/s45",
+        "level2/qwen05b/mathir/drgrpo/s46",
+        "level2/qwen05b/mathir/drgrpo/s47"
+      ],
+      "id": "level2/qwen05b/mathir/drgrpo",
+      "recipe": {
+        "path": null,
+        "relationship": "no_qualified_training_recipe"
+      },
+      "reproduce_command": "remax results reproduce level2/qwen05b/mathir/drgrpo",
+      "result": {
+        "distinct8_after": 0.7389322916666666,
+        "distinct8_before": null,
+        "domain": "mathir",
+        "effective_modes_after": 1.0,
+        "effective_modes_before": null,
+        "level": "level2",
+        "method": "drgrpo",
+        "pass8_after": 0.7389322916666666,
+        "pass8_before": null,
+        "pmd_after": 0.0,
+        "pmd_after_paired": null,
+        "pmd_before": null,
+        "pmd_delta": null,
+        "pmd_delta_seed_range": null,
+        "reportable": false,
+        "reportable_seeds": 0,
+        "scale": "qwen05b",
+        "seeds": 5,
+        "seeds_improving": 0,
+        "terminal_only_seeds": 0,
+        "terminal_reportable": true,
+        "terminal_seeds": 3
+      },
+      "status": "saved_key_reproducible",
+      "training_gaps": [
+        "No per-attempt authenticated effective configuration and dependency lock in this export.",
+        "Registered launch settings are not resolved wrapper/recovery settings.",
+        "Historical model/dataset paths do not authenticate their bytes for a fresh launch.",
+        "Saved keys do not contain original responses or trained weights."
+      ],
+      "training_reproduction_verified": false
+    },
+    {
+      "cell_ids": [
+        "level2/qwen05b/mathir/maxrl/s43",
+        "level2/qwen05b/mathir/maxrl/s44",
+        "level2/qwen05b/mathir/maxrl/s45",
+        "level2/qwen05b/mathir/maxrl/s46",
+        "level2/qwen05b/mathir/maxrl/s47"
+      ],
+      "id": "level2/qwen05b/mathir/maxrl",
+      "recipe": {
+        "path": null,
+        "relationship": "no_qualified_training_recipe"
+      },
+      "reproduce_command": "remax results reproduce level2/qwen05b/mathir/maxrl",
+      "result": {
+        "distinct8_after": 0.784765625,
+        "distinct8_before": null,
+        "domain": "mathir",
+        "effective_modes_after": 1.0,
+        "effective_modes_before": null,
+        "level": "level2",
+        "method": "maxrl",
+        "pass8_after": 0.784765625,
+        "pass8_before": null,
+        "pmd_after": 0.0,
+        "pmd_after_paired": null,
+        "pmd_before": null,
+        "pmd_delta": null,
+        "pmd_delta_seed_range": null,
+        "reportable": false,
+        "reportable_seeds": 0,
+        "scale": "qwen05b",
+        "seeds": 5,
+        "seeds_improving": 0,
+        "terminal_only_seeds": 0,
+        "terminal_reportable": true,
+        "terminal_seeds": 5
+      },
+      "status": "saved_key_reproducible",
+      "training_gaps": [
+        "No per-attempt authenticated effective configuration and dependency lock in this export.",
+        "Registered launch settings are not resolved wrapper/recovery settings.",
+        "Historical model/dataset paths do not authenticate their bytes for a fresh launch.",
+        "Saved keys do not contain original responses or trained weights."
+      ],
+      "training_reproduction_verified": false
+    },
+    {
+      "cell_ids": [
+        "level2/qwen05b/mathir/replay_drgrpo/s43",
+        "level2/qwen05b/mathir/replay_drgrpo/s44",
+        "level2/qwen05b/mathir/replay_drgrpo/s45",
+        "level2/qwen05b/mathir/replay_drgrpo/s46",
+        "level2/qwen05b/mathir/replay_drgrpo/s47"
+      ],
+      "id": "level2/qwen05b/mathir/replay_drgrpo",
+      "recipe": {
+        "path": null,
+        "relationship": "no_qualified_training_recipe"
+      },
+      "reproduce_command": "remax results reproduce level2/qwen05b/mathir/replay_drgrpo",
+      "result": {
+        "distinct8_after": 0.994140625,
+        "distinct8_before": null,
+        "domain": "mathir",
+        "effective_modes_after": 1.0,
+        "effective_modes_before": null,
+        "level": "level2",
+        "method": "replay_drgrpo",
+        "pass8_after": 0.994140625,
+        "pass8_before": null,
+        "pmd_after": 0.0,
+        "pmd_after_paired": null,
+        "pmd_before": null,
+        "pmd_delta": null,
+        "pmd_delta_seed_range": null,
+        "reportable": false,
+        "reportable_seeds": 0,
+        "scale": "qwen05b",
+        "seeds": 5,
+        "seeds_improving": 0,
+        "terminal_only_seeds": 0,
+        "terminal_reportable": true,
+        "terminal_seeds": 5
+      },
+      "status": "saved_key_reproducible",
+      "training_gaps": [
+        "No per-attempt authenticated effective configuration and dependency lock in this export.",
+        "Registered launch settings are not resolved wrapper/recovery settings.",
+        "Historical model/dataset paths do not authenticate their bytes for a fresh launch.",
+        "Saved keys do not contain original responses or trained weights."
+      ],
+      "training_reproduction_verified": false
+    },
+    {
+      "cell_ids": [
+        "level2/qwen05b/mathir/replay_maxrl/s43",
+        "level2/qwen05b/mathir/replay_maxrl/s44",
+        "level2/qwen05b/mathir/replay_maxrl/s45",
+        "level2/qwen05b/mathir/replay_maxrl/s46",
+        "level2/qwen05b/mathir/replay_maxrl/s47"
+      ],
+      "id": "level2/qwen05b/mathir/replay_maxrl",
+      "recipe": {
+        "path": null,
+        "relationship": "no_qualified_training_recipe"
+      },
+      "reproduce_command": "remax results reproduce level2/qwen05b/mathir/replay_maxrl",
+      "result": {
+        "distinct8_after": 0.959375,
+        "distinct8_before": null,
+        "domain": "mathir",
+        "effective_modes_after": 1.0007625884872247,
+        "effective_modes_before": null,
+        "level": "level2",
+        "method": "replay_maxrl",
+        "pass8_after": 0.9578125,
+        "pass8_before": null,
+        "pmd_after": 0.0007620073891625615,
+        "pmd_after_paired": null,
+        "pmd_before": null,
+        "pmd_delta": null,
+        "pmd_delta_seed_range": null,
+        "reportable": false,
+        "reportable_seeds": 0,
+        "scale": "qwen05b",
+        "seeds": 5,
+        "seeds_improving": 0,
+        "terminal_only_seeds": 1,
+        "terminal_reportable": true,
+        "terminal_seeds": 5
+      },
+      "status": "saved_key_reproducible",
+      "training_gaps": [
+        "No per-attempt authenticated effective configuration and dependency lock in this export.",
+        "Registered launch settings are not resolved wrapper/recovery settings.",
+        "Historical model/dataset paths do not authenticate their bytes for a fresh launch.",
+        "Saved keys do not contain original responses or trained weights."
+      ],
+      "training_reproduction_verified": false
+    },
+    {
+      "cell_ids": [
+        "level2/qwen05b/pantry_plan/drgrpo/s43",
+        "level2/qwen05b/pantry_plan/drgrpo/s44",
+        "level2/qwen05b/pantry_plan/drgrpo/s45",
+        "level2/qwen05b/pantry_plan/drgrpo/s46",
+        "level2/qwen05b/pantry_plan/drgrpo/s47"
+      ],
+      "id": "level2/qwen05b/pantry_plan/drgrpo",
+      "recipe": {
+        "path": null,
+        "relationship": "no_qualified_training_recipe"
+      },
+      "reproduce_command": "remax results reproduce level2/qwen05b/pantry_plan/drgrpo",
+      "result": {
+        "distinct8_after": 0.431640625,
+        "distinct8_before": null,
+        "domain": "pantry_plan",
+        "effective_modes_after": 1.3171717869855202,
+        "effective_modes_before": null,
+        "level": "level2",
+        "method": "drgrpo",
+        "pass8_after": 0.314453125,
+        "pass8_before": null,
+        "pmd_after": 0.2407975862521317,
+        "pmd_after_paired": null,
+        "pmd_before": null,
+        "pmd_delta": null,
+        "pmd_delta_seed_range": null,
+        "reportable": false,
+        "reportable_seeds": 0,
+        "scale": "qwen05b",
+        "seeds": 5,
+        "seeds_improving": 0,
+        "terminal_only_seeds": 1,
+        "terminal_reportable": true,
+        "terminal_seeds": 1
+      },
+      "status": "saved_key_reproducible",
+      "training_gaps": [
+        "No per-attempt authenticated effective configuration and dependency lock in this export.",
+        "Registered launch settings are not resolved wrapper/recovery settings.",
+        "Historical model/dataset paths do not authenticate their bytes for a fresh launch.",
+        "Saved keys do not contain original responses or trained weights."
+      ],
+      "training_reproduction_verified": false
+    },
+    {
+      "cell_ids": [
+        "level2/qwen05b/pantry_plan/maxrl/s43",
+        "level2/qwen05b/pantry_plan/maxrl/s44",
+        "level2/qwen05b/pantry_plan/maxrl/s45",
+        "level2/qwen05b/pantry_plan/maxrl/s46",
+        "level2/qwen05b/pantry_plan/maxrl/s47"
+      ],
+      "id": "level2/qwen05b/pantry_plan/maxrl",
+      "recipe": {
+        "path": null,
+        "relationship": "no_qualified_training_recipe"
+      },
+      "reproduce_command": "remax results reproduce level2/qwen05b/pantry_plan/maxrl",
+      "result": {
+        "distinct8_after": 0.3564453125,
+        "distinct8_before": 0.33984375,
+        "domain": "pantry_plan",
+        "effective_modes_after": 1.185208104258932,
+        "effective_modes_before": 1.1463860592911992,
+        "level": "level2",
+        "method": "maxrl",
+        "pass8_after": 0.2861328125,
+        "pass8_before": 0.27734375,
+        "pmd_after": 0.15626631609537972,
+        "pmd_after_paired": 0.1303921568627451,
+        "pmd_before": 0.1276935096207542,
+        "pmd_delta": 0.002698647241990898,
+        "pmd_delta_seed_range": [
+          0.002698647241990898,
+          0.002698647241990898
+        ],
+        "reportable": true,
+        "reportable_seeds": 1,
+        "scale": "qwen05b",
+        "seeds": 5,
+        "seeds_improving": 1,
+        "terminal_only_seeds": 2,
+        "terminal_reportable": true,
+        "terminal_seeds": 2
+      },
+      "status": "saved_key_reproducible",
+      "training_gaps": [
+        "No per-attempt authenticated effective configuration and dependency lock in this export.",
+        "Registered launch settings are not resolved wrapper/recovery settings.",
+        "Historical model/dataset paths do not authenticate their bytes for a fresh launch.",
+        "Saved keys do not contain original responses or trained weights."
+      ],
+      "training_reproduction_verified": false
+    },
+    {
+      "cell_ids": [
+        "level2/qwen05b/pantry_plan/replay_drgrpo/s43",
+        "level2/qwen05b/pantry_plan/replay_drgrpo/s44",
+        "level2/qwen05b/pantry_plan/replay_drgrpo/s45",
+        "level2/qwen05b/pantry_plan/replay_drgrpo/s46",
+        "level2/qwen05b/pantry_plan/replay_drgrpo/s47"
+      ],
+      "id": "level2/qwen05b/pantry_plan/replay_drgrpo",
+      "recipe": {
+        "path": null,
+        "relationship": "no_qualified_training_recipe"
+      },
+      "reproduce_command": "remax results reproduce level2/qwen05b/pantry_plan/replay_drgrpo",
+      "result": {
+        "distinct8_after": 0.697265625,
+        "distinct8_before": 0.33984375,
+        "domain": "pantry_plan",
+        "effective_modes_after": 1.2336674177841982,
+        "effective_modes_before": 1.1463860592911992,
+        "level": "level2",
+        "method": "replay_drgrpo",
+        "pass8_after": 0.475,
+        "pass8_before": 0.27734375,
+        "pmd_after": 0.18940876156386666,
+        "pmd_after_paired": 0.16815840039263294,
+        "pmd_before": 0.1276935096207542,
+        "pmd_delta": 0.04046489077187873,
+        "pmd_delta_seed_range": [
+          0.015730535975519544,
+          0.06519924556823792
+        ],
+        "reportable": true,
+        "reportable_seeds": 2,
+        "scale": "qwen05b",
+        "seeds": 5,
+        "seeds_improving": 2,
+        "terminal_only_seeds": 3,
+        "terminal_reportable": true,
+        "terminal_seeds": 5
+      },
+      "status": "saved_key_reproducible",
+      "training_gaps": [
+        "No per-attempt authenticated effective configuration and dependency lock in this export.",
+        "Registered launch settings are not resolved wrapper/recovery settings.",
+        "Historical model/dataset paths do not authenticate their bytes for a fresh launch.",
+        "Saved keys do not contain original responses or trained weights."
+      ],
+      "training_reproduction_verified": false
+    },
+    {
+      "cell_ids": [
+        "level2/qwen05b/pantry_plan/replay_maxrl/s43",
+        "level2/qwen05b/pantry_plan/replay_maxrl/s44",
+        "level2/qwen05b/pantry_plan/replay_maxrl/s45",
+        "level2/qwen05b/pantry_plan/replay_maxrl/s46",
+        "level2/qwen05b/pantry_plan/replay_maxrl/s47"
+      ],
+      "id": "level2/qwen05b/pantry_plan/replay_maxrl",
+      "recipe": {
+        "path": null,
+        "relationship": "no_qualified_training_recipe"
+      },
+      "reproduce_command": "remax results reproduce level2/qwen05b/pantry_plan/replay_maxrl",
+      "result": {
+        "distinct8_after": 0.6494140625,
+        "distinct8_before": 0.33984375,
+        "domain": "pantry_plan",
+        "effective_modes_after": 1.3103436954790204,
+        "effective_modes_before": 1.1463860592911992,
+        "level": "level2",
+        "method": "replay_maxrl",
+        "pass8_after": 0.421875,
+        "pass8_before": 0.27734375,
+        "pmd_after": 0.23684144591207315,
+        "pmd_after_paired": 0.21675935966973378,
+        "pmd_before": 0.1276935096207542,
+        "pmd_delta": 0.08906585004897956,
+        "pmd_delta_seed_range": [
+          0.038255131094202394,
+          0.11966090993543602
+        ],
+        "reportable": true,
+        "reportable_seeds": 3,
+        "scale": "qwen05b",
+        "seeds": 4,
+        "seeds_improving": 3,
+        "terminal_only_seeds": 1,
+        "terminal_reportable": true,
+        "terminal_seeds": 4
+      },
+      "status": "saved_key_reproducible",
+      "training_gaps": [
+        "No per-attempt authenticated effective configuration and dependency lock in this export.",
+        "Registered launch settings are not resolved wrapper/recovery settings.",
+        "Historical model/dataset paths do not authenticate their bytes for a fresh launch.",
+        "Saved keys do not contain original responses or trained weights."
+      ],
+      "training_reproduction_verified": false
+    },
+    {
+      "cell_ids": [
+        "level2/qwen05b/python_factors/drgrpo/s43",
+        "level2/qwen05b/python_factors/drgrpo/s44",
+        "level2/qwen05b/python_factors/drgrpo/s45",
+        "level2/qwen05b/python_factors/drgrpo/s46",
+        "level2/qwen05b/python_factors/drgrpo/s47"
+      ],
+      "id": "level2/qwen05b/python_factors/drgrpo",
+      "recipe": {
+        "path": null,
+        "relationship": "no_qualified_training_recipe"
+      },
+      "reproduce_command": "remax results reproduce level2/qwen05b/python_factors/drgrpo",
+      "result": {
+        "distinct8_after": 0.8125,
+        "distinct8_before": 0.45703125,
+        "domain": "python_factors",
+        "effective_modes_after": 1.0,
+        "effective_modes_before": 1.1350127409138244,
+        "level": "level2",
+        "method": "drgrpo",
+        "pass8_after": 0.8125,
+        "pass8_before": 0.416015625,
+        "pmd_after": 0.0,
+        "pmd_after_paired": 0.0,
+        "pmd_before": 0.11895262145262145,
+        "pmd_delta": -0.11895262145262145,
+        "pmd_delta_seed_range": [
+          -0.11895262145262145,
+          -0.11895262145262145
+        ],
+        "reportable": true,
+        "reportable_seeds": 5,
+        "scale": "qwen05b",
+        "seeds": 5,
+        "seeds_improving": 0,
+        "terminal_only_seeds": 0,
+        "terminal_reportable": true,
+        "terminal_seeds": 5
+      },
+      "status": "saved_key_reproducible",
+      "training_gaps": [
+        "No per-attempt authenticated effective configuration and dependency lock in this export.",
+        "Registered launch settings are not resolved wrapper/recovery settings.",
+        "Historical model/dataset paths do not authenticate their bytes for a fresh launch.",
+        "Saved keys do not contain original responses or trained weights."
+      ],
+      "training_reproduction_verified": false
+    },
+    {
+      "cell_ids": [
+        "level2/qwen05b/python_factors/maxrl/s43",
+        "level2/qwen05b/python_factors/maxrl/s44",
+        "level2/qwen05b/python_factors/maxrl/s45",
+        "level2/qwen05b/python_factors/maxrl/s46",
+        "level2/qwen05b/python_factors/maxrl/s47"
+      ],
+      "id": "level2/qwen05b/python_factors/maxrl",
+      "recipe": {
+        "path": null,
+        "relationship": "no_qualified_training_recipe"
+      },
+      "reproduce_command": "remax results reproduce level2/qwen05b/python_factors/maxrl",
+      "result": {
+        "distinct8_after": 0.8125,
+        "distinct8_before": 0.45703125,
+        "domain": "python_factors",
+        "effective_modes_after": 1.0,
+        "effective_modes_before": 1.1350127409138244,
+        "level": "level2",
+        "method": "maxrl",
+        "pass8_after": 0.8125,
+        "pass8_before": 0.416015625,
+        "pmd_after": 0.0,
+        "pmd_after_paired": 0.0,
+        "pmd_before": 0.11895262145262145,
+        "pmd_delta": -0.11895262145262145,
+        "pmd_delta_seed_range": [
+          -0.11895262145262145,
+          -0.11895262145262145
+        ],
+        "reportable": true,
+        "reportable_seeds": 5,
+        "scale": "qwen05b",
+        "seeds": 5,
+        "seeds_improving": 0,
+        "terminal_only_seeds": 0,
+        "terminal_reportable": true,
+        "terminal_seeds": 5
+      },
+      "status": "saved_key_reproducible",
+      "training_gaps": [
+        "No per-attempt authenticated effective configuration and dependency lock in this export.",
+        "Registered launch settings are not resolved wrapper/recovery settings.",
+        "Historical model/dataset paths do not authenticate their bytes for a fresh launch.",
+        "Saved keys do not contain original responses or trained weights."
+      ],
+      "training_reproduction_verified": false
+    },
+    {
+      "cell_ids": [
+        "level2/qwen05b/python_factors/replay_drgrpo/s43",
+        "level2/qwen05b/python_factors/replay_drgrpo/s44",
+        "level2/qwen05b/python_factors/replay_drgrpo/s45",
+        "level2/qwen05b/python_factors/replay_drgrpo/s46",
+        "level2/qwen05b/python_factors/replay_drgrpo/s47"
+      ],
+      "id": "level2/qwen05b/python_factors/replay_drgrpo",
+      "recipe": {
+        "path": null,
+        "relationship": "no_qualified_training_recipe"
+      },
+      "reproduce_command": "remax results reproduce level2/qwen05b/python_factors/replay_drgrpo",
+      "result": {
+        "distinct8_after": 1.2125,
+        "distinct8_before": 0.45703125,
+        "domain": "python_factors",
+        "effective_modes_after": 1.221073362875431,
+        "effective_modes_before": 1.1350127409138244,
+        "level": "level2",
+        "method": "replay_drgrpo",
+        "pass8_after": 0.8875,
+        "pass8_before": 0.416015625,
+        "pmd_after": 0.1810483870967742,
+        "pmd_after_paired": 0.1810483870967742,
+        "pmd_before": 0.11895262145262145,
+        "pmd_delta": 0.062095765644152756,
+        "pmd_delta_seed_range": [
+          -0.11895262145262145,
+          0.3689506043538302
+        ],
+        "reportable": true,
+        "reportable_seeds": 5,
+        "scale": "qwen05b",
+        "seeds": 5,
+        "seeds_improving": 2,
+        "terminal_only_seeds": 0,
+        "terminal_reportable": true,
+        "terminal_seeds": 5
+      },
+      "status": "saved_key_reproducible",
+      "training_gaps": [
+        "No per-attempt authenticated effective configuration and dependency lock in this export.",
+        "Registered launch settings are not resolved wrapper/recovery settings.",
+        "Historical model/dataset paths do not authenticate their bytes for a fresh launch.",
+        "Saved keys do not contain original responses or trained weights."
+      ],
+      "training_reproduction_verified": false
+    },
+    {
+      "cell_ids": [
+        "level2/qwen05b/python_factors/replay_maxrl/s43",
+        "level2/qwen05b/python_factors/replay_maxrl/s44",
+        "level2/qwen05b/python_factors/replay_maxrl/s45",
+        "level2/qwen05b/python_factors/replay_maxrl/s46",
+        "level2/qwen05b/python_factors/replay_maxrl/s47"
+      ],
+      "id": "level2/qwen05b/python_factors/replay_maxrl",
+      "recipe": {
+        "path": null,
+        "relationship": "no_qualified_training_recipe"
+      },
+      "reproduce_command": "remax results reproduce level2/qwen05b/python_factors/replay_maxrl",
+      "result": {
+        "distinct8_after": 1.024609375,
+        "distinct8_before": 0.45703125,
+        "domain": "python_factors",
+        "effective_modes_after": 1.096874533268927,
+        "effective_modes_before": 1.1350127409138244,
+        "level": "level2",
+        "method": "replay_maxrl",
+        "pass8_after": 0.85,
+        "pass8_before": 0.416015625,
+        "pmd_after": 0.08831870038975156,
+        "pmd_after_paired": 0.08831870038975156,
+        "pmd_before": 0.11895262145262145,
+        "pmd_delta": -0.030633921062869884,
+        "pmd_delta_seed_range": [
+          -0.11895262145262145,
+          0.31562320059539195
+        ],
+        "reportable": true,
+        "reportable_seeds": 5,
+        "scale": "qwen05b",
+        "seeds": 5,
+        "seeds_improving": 1,
+        "terminal_only_seeds": 0,
+        "terminal_reportable": true,
+        "terminal_seeds": 5
+      },
+      "status": "saved_key_reproducible",
+      "training_gaps": [
+        "No per-attempt authenticated effective configuration and dependency lock in this export.",
+        "Registered launch settings are not resolved wrapper/recovery settings.",
+        "Historical model/dataset paths do not authenticate their bytes for a fresh launch.",
+        "Saved keys do not contain original responses or trained weights."
+      ],
+      "training_reproduction_verified": false
+    },
+    {
+      "id": "snapshot/level3_comparison_20260917",
+      "limitations": [
+        "Integrity checking preserves this summary; it does not recompute its numerical results.",
+        "Runtime, dataset/model byte identities, seed selection and exclusions are recorded only to the extent present in the snapshot; missing fields are unknown."
+      ],
+      "path": "evidence/snapshots/level3_comparison_20260917.json",
+      "recipe": null,
+      "reproduce_command": null,
+      "schema": "modebench-level3-comparison-frozen-snapshot-v1",
+      "sources": {
+        "ops/exp_scaling/freeze_paper_modebench_level3.py": "ad811369564bff15701f4e19fbf806ab382a57f73b0a26791dfcdb14e686e98d",
+        "ops/exp_scaling/snapshot_evaluation_coverage.py": "879cb4e1eac2d0f13b2f6c58e681e4cc2109ee4ba0a6660c6df2fe765b0984e2",
+        "var/artifacts/e122_level3_factorial_jobs.json": "0647de37c4f09c5c59e8c6ee8b59f1b634eb9d2870d68534c353abc2ccc5b16d",
+        "var/artifacts/python_level3_cli_recovery_20260912/committed.json": "2f1eb0ed77b5681b7b814a72a1ba17914788f0cc3a63b153c50375b1b1d6c523"
+      },
+      "status": "summary_snapshot",
+      "training_reproduction_verified": false
+    },
+    {
+      "id": "snapshot/matched_redr_20260924",
+      "limitations": [
+        "Integrity checking preserves this summary; it does not recompute its numerical results.",
+        "Runtime, dataset/model byte identities, seed selection and exclusions are recorded only to the extent present in the snapshot; missing fields are unknown."
+      ],
+      "path": "evidence/snapshots/matched_redr_20260924.json",
+      "recipe": null,
+      "reproduce_command": null,
+      "schema": "paper-matched-redr-v1",
+      "sources": {
+        "e128_control": {
+          "path": "paper/results/mode_diversity_comparators_diversity_05b.json",
+          "sha256": "3ff6b133a1571bf0bba5476bbc2795ca70d5d53dcd3a5d97665abc973ea9ddb8"
+        },
+        "e130": {
+          "path": "paper/results/mode_agnostic_replay_20260923.json",
+          "sha256": "b277cd06f1bc77f013a61d4fe5a4b2f7603a669b96791cc5ad9927a178ce3774"
+        },
+        "e132_ledger": {
+          "path": "var/artifacts/e132_matched_redr_05b_jobs.json",
+          "sha256": "fc8573fad06025ecc43e6ff0da4f5b482196a00001489f38b03d88e8e083fc4c"
+        },
+        "extractor": {
+          "path": "ops/extract_diversity_comparator_mode_diversity.py",
+          "sha256": "c9b7e90c732b16de4a399a4c8f75023cb3d91d92742ace98af7214ecd1a5392f"
+        },
+        "preregistration": {
+          "path": "paper/preregistration/e132_matched_redr_05b_20260923.md",
+          "sha256": "6396a434cd0a3bab3cde486869a78825490dd8e8c35a39ea34ccdd95fb7e3834"
+        },
+        "published_e78": {
+          "path": "paper/results/reference_kl_comparison.json",
+          "sha256": "4a56ac67242af8fed9372e6c5f7ed8396bc7d53a40d1f5fec405283a4eb613d0"
+        }
+      },
+      "status": "summary_snapshot",
+      "training_reproduction_verified": false
+    },
+    {
+      "id": "snapshot/online_rlep_20260927",
+      "limitations": [
+        "Integrity checking preserves this summary; it does not recompute its numerical results.",
+        "Runtime, dataset/model byte identities, seed selection and exclusions are recorded only to the extent present in the snapshot; missing fields are unknown."
+      ],
+      "path": "evidence/snapshots/online_rlep_20260927.json",
+      "recipe": null,
+      "reproduce_command": null,
+      "schema": "paper-online-rlep-v1",
+      "sources": {
+        "e128_payload": "/n/fs/similarity/maxent-grpo/paper/results/mode_diversity_comparators_diversity_05b.json",
+        "e128_payload_sha256": "3ff6b133a1571bf0bba5476bbc2795ca70d5d53dcd3a5d97665abc973ea9ddb8",
+        "e132_payload": "/n/fs/similarity/maxent-grpo/paper/results/matched_redr_20260924.json",
+        "e132_payload_sha256": "52ea85f974abce86665f66117ac1a7fea616ca0c188a2f9e8a63a99847083973",
+        "extractor_sha256": "c9b7e90c732b16de4a399a4c8f75023cb3d91d92742ace98af7214ecd1a5392f",
+        "ledger": "/n/fs/similarity/maxent-grpo/var/artifacts/e135_online_rlep_05b_jobs.json",
+        "ledger_sha256": "d6178214748ecef171eeb86f2288f133d2f93f74fa8e706b9dd00701fd2e9542",
+        "pantry_resubmit_ledger": "/n/fs/similarity/maxent-grpo/var/artifacts/e135_online_rlep_05b_pantry_resubmit_jobs.json",
+        "pantry_resubmit_ledger_sha256": "074f7c38501be2b521c79fe77b8d021d3bad0a180c2c677dc7e5ed235bc7a52f",
+        "preregistration_sha256": "5f9b26b98777a8c3d2a7fa6fde6cc149956aa297669c5d9ffd95e692b0d93c36"
+      },
+      "status": "summary_snapshot",
+      "training_reproduction_verified": false
+    },
+    {
+      "id": "snapshot/replay_mechanism_ladder_20260924",
+      "limitations": [
+        "Integrity checking preserves this summary; it does not recompute its numerical results.",
+        "Runtime, dataset/model byte identities, seed selection and exclusions are recorded only to the extent present in the snapshot; missing fields are unknown."
+      ],
+      "path": "evidence/snapshots/replay_mechanism_ladder_20260924.json",
+      "recipe": null,
+      "reproduce_command": null,
+      "schema": "paper-replay-mechanism-ladder-v1",
+      "sources": {
+        "comparators": {
+          "path": "paper/results/mode_diversity_comparators_diversity_05b.json",
+          "sha256": "3ff6b133a1571bf0bba5476bbc2795ca70d5d53dcd3a5d97665abc973ea9ddb8"
+        },
+        "e120r1_ledger": {
+          "path": "var/artifacts/e120r1_frequency_weighted_replay_jobs.json",
+          "sha256": "5302ba26da3f67d0b57e9eef1e8f528c6a56aef5faeb543a3adbfe32e721d8e7"
+        },
+        "e130": {
+          "path": "paper/results/mode_agnostic_replay_20260923.json",
+          "sha256": "b277cd06f1bc77f013a61d4fe5a4b2f7603a669b96791cc5ad9927a178ce3774"
+        },
+        "extractor": {
+          "path": "ops/extract_diversity_comparator_mode_diversity.py",
+          "sha256": "c9b7e90c732b16de4a399a4c8f75023cb3d91d92742ace98af7214ecd1a5392f"
+        },
+        "redr": {
+          "path": "paper/results/matched_redr_20260924.json",
+          "sha256": "52ea85f974abce86665f66117ac1a7fea616ca0c188a2f9e8a63a99847083973"
+        }
+      },
+      "status": "summary_snapshot",
+      "training_reproduction_verified": false
+    },
+    {
+      "id": "snapshot/tuned_control_stage2_20260927",
+      "limitations": [
+        "Integrity checking preserves this summary; it does not recompute its numerical results.",
+        "Runtime, dataset/model byte identities, seed selection and exclusions are recorded only to the extent present in the snapshot; missing fields are unknown."
+      ],
+      "path": "evidence/snapshots/tuned_control_stage2_20260927.json",
+      "recipe": null,
+      "reproduce_command": null,
+      "schema": "paper-tuned-control-stage2-v1",
+      "sources": {
+        "paper/preregistration/e134_tuned_control_05b_20260924.md": "3cd37a29f0f0d16f9f60d60b6040160686e36685df3120bf58ff44f08bab0cf1",
+        "paper/results/matched_redr_20260924.json": "52ea85f974abce86665f66117ac1a7fea616ca0c188a2f9e8a63a99847083973",
+        "paper/results/tuned_control_sweep_20260927.json": "00b8345b6e74fbe758e43c9f2802247fe392e909c6a3de087f489a09d621cc4a",
+        "var/artifacts/e128_matched_control_05b_jobs.json": "4d588857cc282880db7fd9995df1389163fb16161691d7d5404c0b3d2d895378",
+        "var/artifacts/e132_matched_redr_05b_jobs.json": "fc8573fad06025ecc43e6ff0da4f5b482196a00001489f38b03d88e8e083fc4c",
+        "var/artifacts/e134_tuned_control_05b_stage1_entropy_rerun_jobs.json": "f32761fee22c55d210e0c819267710533fee307c465dc9a22ce18eae59f892da",
+        "var/artifacts/e134_tuned_control_05b_stage1_jobs.json": "bedb4fe806e07b7b2c18b0414612c79cd8b48b7aff9891bc35632ad9f070266f",
+        "var/artifacts/e134_tuned_control_05b_stage2_jobs.json": "ec32e248affdf9eae7ccaae9a54eac45ba4f9b59d00e51ca4a3c600ea95f1a8a",
+        "var/artifacts/e134_tuned_control_05b_stage2b_jobs.json": "42c5bb1e90a576a554c8b147d3d800ea03d1642de36283b12b03897acd54a372"
+      },
+      "status": "summary_snapshot",
+      "training_reproduction_verified": false
+    },
+    {
+      "id": "snapshot/tuned_control_sweep_20260927",
+      "limitations": [
+        "Integrity checking preserves this summary; it does not recompute its numerical results.",
+        "Runtime, dataset/model byte identities, seed selection and exclusions are recorded only to the extent present in the snapshot; missing fields are unknown."
+      ],
+      "path": "evidence/snapshots/tuned_control_sweep_20260927.json",
+      "recipe": null,
+      "reproduce_command": null,
+      "schema": "paper-tuned-control-sweep-v1",
+      "sources": {
+        "e128_payload": "/n/fs/similarity/maxent-grpo/paper/results/mode_diversity_comparators_diversity_05b.json",
+        "e128_payload_sha256": "3ff6b133a1571bf0bba5476bbc2795ca70d5d53dcd3a5d97665abc973ea9ddb8",
+        "entropy_rerun_ledger": "/n/fs/similarity/maxent-grpo/var/artifacts/e134_tuned_control_05b_stage1_entropy_rerun_jobs.json",
+        "entropy_rerun_ledger_sha256": "f32761fee22c55d210e0c819267710533fee307c465dc9a22ce18eae59f892da",
+        "extractor_sha256": "c9b7e90c732b16de4a399a4c8f75023cb3d91d92742ace98af7214ecd1a5392f",
+        "preregistration_sha256": "4956f0eebb34ca067ae0802b39f9c3db4b57ccbcfea9ce4ecad7c5bceaeb17fd",
+        "stage1_ledger": "/n/fs/similarity/maxent-grpo/var/artifacts/e134_tuned_control_05b_stage1_jobs.json",
+        "stage1_ledger_sha256": "bedb4fe806e07b7b2c18b0414612c79cd8b48b7aff9891bc35632ad9f070266f"
+      },
+      "status": "summary_snapshot",
+      "training_reproduction_verified": false
+    }
+  ],
+  "schema": "remax-result-packages-v1",
+  "scope": "Saved-key analysis is runnable on CPU. No historical training score is claimed reproduced by a maintained recipe.",
+  "training_export_audit": {
+    "decision": "Do not promote incomplete or changed historical training chains; retain separately runnable analysis packages and explicit gaps.",
+    "level3_qwen3b_plan": {
+      "admission": {
+        "reason": "Level-3 dataset admission passed; replacement A100 benchmark 31170074 PENDING; awaiting measured runtime and checkpoint/evaluation qualification",
+        "status": "matched_fixed_reference"
+      },
+      "launched_runs": 0,
+      "path": "var/artifacts/e123_level3_factorial_jobs.json",
+      "sha256": "71983bffed5a77beafcc0df3b8a0ae13bae5128c7cbd334dbcb959b95e83d9c0",
+      "status": "prospective"
+    },
+    "level3_summary_source": {
+      "campaign": "e122",
+      "model": "Qwen2.5-0.5B-Instruct",
+      "path": "paper/results/modebench_level3_comparison_snapshot.json",
+      "sha256": "6f1cde21f7a2e12ef2a840f7186d23ce4aace03a01f659757c6b5c3b2d96e8ca"
+    },
+    "promoted_training_recipes": []
+  }
+}

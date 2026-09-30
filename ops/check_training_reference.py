@@ -39,6 +39,7 @@ def check(root=ROOT, base_ref=None):
         [
             *(root / PREFIX).glob("benchmark_boundary_v*.json"),
             *(root / PREFIX).glob("gpu_historical_*_v*.json"),
+            *(root / "evidence/experiments").glob("catalog_v*.json"),
         ]
     ):
         lock = path.with_suffix(".sha256")
@@ -58,7 +59,17 @@ def check(root=ROOT, base_ref=None):
             .strip()
         )
         paths = (
-            git(root, "ls-tree", "-r", "--name-only", commit, "--", PREFIX, "src/remax")
+            git(
+                root,
+                "ls-tree",
+                "-r",
+                "--name-only",
+                commit,
+                "--",
+                PREFIX,
+                "src/remax",
+                "evidence/experiments",
+            )
             .decode()
             .splitlines()
         )
@@ -67,10 +78,15 @@ def check(root=ROOT, base_ref=None):
             input_registry = relative.startswith(
                 "src/remax/input_registry_v"
             ) and relative.endswith(".json")
-            if not input_registry and (
-                len(parts) < 3
-                or not parts[2].startswith(
-                    ("training_v", "benchmark_boundary_v", "gpu_historical_")
+            result_catalog = relative.startswith("evidence/experiments/catalog_v")
+            if (
+                not input_registry
+                and not result_catalog
+                and (
+                    len(parts) < 3
+                    or not parts[2].startswith(
+                        ("training_v", "benchmark_boundary_v", "gpu_historical_")
+                    )
                 )
             ):
                 continue

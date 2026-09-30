@@ -79,3 +79,52 @@ Software version 0.1.0; Git commit: <the commit used for the experiment>.
 ```
 
 Cite the associated scientific work when its final bibliographic metadata are available, and cite ModeBench separately when reporting benchmark results. This repository does not assign an unverified DOI or paper author list.
+
+
+## Result packages and training export audit
+
+Installed users can inspect and reproduce individual frozen result arms without the research checkout, training dependencies, a model download, or a GPU:
+
+```sh
+remax results list
+remax results show level1/qwen3b/countdown/replay_maxrl
+remax results reproduce level2/qwen05b/countdown/replay_maxrl
+remax results verify
+```
+
+`list` returns 101 entries: 95 `saved_key_reproducible` arms and six `summary_snapshot` files. `show` emits JSON with the result and available bindings. `reproduce` validates the catalog, recomputes the entire frozen archive against every expected arm and seed, then returns the selected arm with its seed results and excluded cells. Its status is `saved_key_reproduced`, with `training_reproduction_verified: false`. Expected whole-archive coverage remains 473 cells, 95 arms, 47 before/after-reportable arms, and 84 terminal-reportable arms. `verify` authenticates artifact bytes and checks catalog coverage; it explicitly reports `numerical_reproduction_performed: false`.
+
+| Frozen result stratum | Runnable saved-key arms | Training recipe relationship |
+| --- | ---: | --- |
+| Level 1, Qwen2.5-0.5B | 25 | 20 related maintained recipes; five plain-GRPO arms have none |
+| Level 1, Qwen2.5-3B | 25 | No qualified historical training export |
+| Level 1, Falcon3-1B | 25 | No qualified historical training export |
+| Level 2, Qwen2.5-0.5B | 20 | No qualified historical training export |
+| Level 3, Qwen2.5-0.5B | 0 | E122 summary snapshot, with 100 registered launches and explicit admission gaps |
+
+The historical method names `replay_drgrpo` and `replay_maxrl` mean Re:Dr and Re:Max. Plain `grpo` is a separate comparator. Neither a matching method name nor a related maintained recipe implies that historical scores have been reproduced. In particular, the previously checked Pantry recipe differs from historical evaluation cadence and checkpoint defaults.
+
+### What is bound
+
+[`catalog_v1.json`](../evidence/experiments/catalog_v1.json) pins the analysis archive, expected numerical results, original analysis code, all related recipes, six snapshots, and [`historical_bindings_v1.json`](../evidence/experiments/historical_bindings_v1.json) by SHA-256. Its 95 arm entries account for all **475 archived cells**, including the two omitted by the frozen analysis rules. Per-cell records preserve analysis inclusion, terminal-only decisions, support/reportability, paired-cohort membership, sample issues, approved exclusions, evaluation certificates, draw seeds, and original source locations/hashes. Missing values remain unknown; they are never replaced with zero scores or fabricated seeds.
+
+Where retained ledgers exist, each cell also records the ledger digest, registered run/job identity, full registered environment, model cache identity, dataset paths, prompt/syntax condition, and runtime snapshot reference. Ledger metadata retains available protocol and dataset identity pins. Model IDs/revisions extracted from historical paths are **recorded claims, not byte authentication**. The 75 plain-GRPO cells have saved-key provenance but no launch-ledger binding in this archive; their `launch` field is null. Source paths are provenance identifiers, never paths readers need to recreate, and recorded shell strings are never executed.
+
+### Why no additional training recipe is called verified
+
+The audit used the original E76 tree-hash algorithm against the runtime snapshots referenced by the frozen launch records:
+
+- Six referenced snapshots have no surviving `SNAPSHOT_IDENTITY.json` at the recorded location.
+- The surviving `50d36295558a8958` (Level 2) and `089bcea44b44cc70` snapshots differ from their recorded full tree hashes. Both expected and observed hashes are retained. A mismatch establishes that the tree changed; it does not establish whether a numerical method changed.
+- Registered scheduler exports omit resolved wrapper defaults and do not authenticate every recovery attempt. The surviving Level-2 wrapper contains campaign-specific recovery overrides, including Pantry checkpoint settings. Larger-model launch records also include optimizer/offloading settings beyond the current strict recipe surface.
+- This export has no per-attempt historical dependency lock or complete model/dataset byte authentication. The current qualified GPU lock describes the maintained runtime, not every historical run.
+
+The Level-3 snapshot is **E122 / Qwen2.5-0.5B**, with one excluded terminal cell (MathIR / MaxRL / seed 45: conflicted or invalid terminal draws). Baseline admission is separate and has its own gaps. Its snapshot retains all seed decisions and source hashes; `show snapshot/level3_comparison_20260917` also exposes the current retained E122 launch ledger and whether its digest matches the snapshot's source pin. The separate **E123 / Qwen2.5-3B** ledger contains zero launched runs. Dataset admission and a planned campaign are not training results.
+
+Consequently this release adds runnable **analysis packages**, not falsely qualified training recipes. To promote a training package, recover an authenticated runtime for every relevant attempt (including recovery changes), its dependency environment, exact model/dataset bytes, effective prompt/optimizer/evaluation configuration, seed and exclusion policy, and raw evaluation evidence. Then export a strict portable recipe and validate the installed training workflow. Matching old numerical scores is a further claim and must be checked separately.
+
+### Snapshots and maintenance
+
+`remax results reproduce snapshot/level3_comparison_20260917` fails with an explicit “summary snapshot only” error. The same rule applies to matched Re:Dr, tuned-control sweep/stage 2, online RLEP, and the replay-mechanism ladder. Their integrity checks preserve the retained summaries and their source metadata; they do not validate the numerical analysis behind them.
+
+Release authors can re-run the read-only extraction from a retained research checkout with `python ops/export_experiment_packages.py --source-root /path/to/research-checkout`. It reads historical scripts as data and recomputes available runtime identities; it does not launch jobs. The versioned catalog and its hash are frozen references. A new audit should receive a new catalog version rather than overwrite the released evidence. CI checks artifact installation outside the checkout, numerical reproduction, complete cell coverage, and rejection of altered artifacts, removed seed bindings, unsafe paths, or unsupported qualification claims.
