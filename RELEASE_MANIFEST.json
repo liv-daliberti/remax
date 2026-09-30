@@ -28,13 +28,13 @@
     },
     {
       "path": "PROVENANCE.json",
-      "sha256": "c49302a40d0749d07487b392b0244261618ec3eae7a8dff550407bca46c6c748",
+      "sha256": "4690ab199d81c2751a2b4faf7d60564841e5a76007211bc7dc1af28ab3ae3c8a",
       "bytes": 28669
     },
     {
       "path": "README.md",
-      "sha256": "797819afe689735d4f0f60bebfaf3e794b2186ef51d2d0b518140ca9e59ebc64",
-      "bytes": 7062
+      "sha256": "ac5dee721717bd4dd00d9c7387138de7b28be5cbca52ee53bd14cf75e00a490d",
+      "bytes": 7124
     },
     {
       "path": "RELEASE_STATUS.md",
@@ -63,8 +63,8 @@
     },
     {
       "path": "VALIDATION.md",
-      "sha256": "0eb041806a865abd0f406154295cd1cebcf5400bb99f2e91b0e5a2b60d464c35",
-      "bytes": 14446
+      "sha256": "bc3f7c166539593a6bafe05ba7ae4515f42a8f9799e68047cbffa9441e878c5c",
+      "bytes": 16570
     },
     {
       "path": "configs/drgrpo_countdown_05b.json",
@@ -183,8 +183,8 @@
     },
     {
       "path": "docs/method.md",
-      "sha256": "328f0949fd5d5aa8cf3da737867b5811fc61dd609bb3785b4c8dbef5ccfc4fe9",
-      "bytes": 15706
+      "sha256": "c3e871c76023f7c56a96b3e1102818de36257f39f753e24a9ff779c052f0ef9d",
+      "bytes": 21790
     },
     {
       "path": "docs/reproducibility.md",
@@ -233,8 +233,8 @@
     },
     {
       "path": "examples/replay_loss.py",
-      "sha256": "d485e09b1f6763ab03cd9bf759eaa87dc87d08842d9d57a1b72e35cb27b07dc1",
-      "bytes": 937
+      "sha256": "77b4209856d6c3fd9760a1f8e762e9060acc47d7a3d548d5168eb3cd651944ab",
+      "bytes": 924
     },
     {
       "path": "ops/audit_gpu_smoke.py",
@@ -368,18 +368,158 @@
     },
     {
       "path": "src/remax/canonical_replay.py",
-      "sha256": "14fea9577d1f5677a5270dc3c6f922ff96d807d80b2f6a32ee4431efda36c2ec",
-      "bytes": 23357
+      "sha256": "25658d9efd56ba12a8a57456093338ac2b236612e5f72f84062abd9532934904",
+      "bytes": 1104
     },
     {
       "path": "src/remax/checkpointing.py",
-      "sha256": "907e05ce7a952fd23dc61c395a2fb8d14b88e645d864dfacc743ccb13a0ac2e6",
-      "bytes": 11121
+      "sha256": "11d39821cc361928f500a03dda159edca231e74d98e54f8d33a5044b9e8b8591",
+      "bytes": 224
+    },
+    {
+      "path": "src/remax/core/__init__.py",
+      "sha256": "17b782ead3a3c36436c26b6b1dc48acf5ba13e6ae1dfd3eac9ab7d405d3aabcd",
+      "bytes": 1016
+    },
+    {
+      "path": "src/remax/core/admission.py",
+      "sha256": "dd0c4e635fc670d7abd0fd7dbbc964df6bc0f1c9b874dab5ef60649306cc5057",
+      "bytes": 18512
+    },
+    {
+      "path": "src/remax/core/bank.py",
+      "sha256": "03d4690a894830340a607c857adc7516fcb864cace28c28ecced3f0ffaffe7ea",
+      "bytes": 15213
+    },
+    {
+      "path": "src/remax/core/bank_state.py",
+      "sha256": "564b2ed117b0a021df03cd4c2d2ad8046e85f87889bebdc0bbe029164538069c",
+      "bytes": 21062
+    },
+    {
+      "path": "src/remax/core/bank_types.py",
+      "sha256": "85dd00d817374447459c19aa7d8b683c68a70587199681845dbcb2dfc4f8ae3f",
+      "bytes": 3272
+    },
+    {
+      "path": "src/remax/core/checkpoints.py",
+      "sha256": "254d764f559bf729d07f6f3686f8b0149ee2b255bb717b83dd64117c2ee36369",
+      "bytes": 11124
+    },
+    {
+      "path": "src/remax/core/metrics.py",
+      "sha256": "7b0dc5d9518615ce58b29397f02cb3412f5f24f24536dc61a533d2600b8c59b7",
+      "bytes": 1666
+    },
+    {
+      "path": "src/remax/core/objectives.py",
+      "sha256": "eec77984c1e44bea2f45e6ae312b944950c045fdc52e9baa9ed2a172ea378497",
+      "bytes": 5561
+    },
+    {
+      "path": "src/remax/core/replay_types.py",
+      "sha256": "232f77c4a63da900540819eb2755e043f40e14586d280889f27f607f17b84537",
+      "bytes": 1282
+    },
+    {
+      "path": "src/remax/core/scheduling.py",
+      "sha256": "2a977929c776fe11d455fb5f0e18ae94344576952d95a7ccb7435b314bee00e1",
+      "bytes": 6304
+    },
+    {
+      "path": "src/remax/core/scoring.py",
+      "sha256": "c682cfd8addb0cb271207b40162d1a6681107171d0fe10110e7b5b0dbfb7fd44",
+      "bytes": 5077
     },
     {
       "path": "src/remax/dapo.py",
+      "sha256": "943cb4c99a74e23cb19799bf0394b8ebe461b6b602748fb3acfe5e21e1b37b7b",
+      "bytes": 166
+    },
+    {
+      "path": "src/remax/experiments/__init__.py",
+      "sha256": "eb7104387404c2b5ede21854525ffac0058ea201656589f0adb004e4d9f00f6c",
+      "bytes": 58
+    },
+    {
+      "path": "src/remax/experiments/dapo.py",
       "sha256": "53eea2a5061cd96b2151c02fa7f20ef4875856a03746d8287c4b0fd2a52de3f2",
       "bytes": 6823
+    },
+    {
+      "path": "src/remax/experiments/gapo.py",
+      "sha256": "9713b1b84afa2ee264cfc894e7a37fc7a1284954fcc66a71b26353f309910eac",
+      "bytes": 10007
+    },
+    {
+      "path": "src/remax/experiments/oat/__init__.py",
+      "sha256": "099dace9deeeaeee3445e8dce71fdd374c7f9abc042fb4d9363e26df002cdeaf",
+      "bytes": 70
+    },
+    {
+      "path": "src/remax/experiments/oat/grpo.py",
+      "sha256": "12cd6fc3de152c47092fd349865c349645fe4c14998561d23b77983f156252e1",
+      "bytes": 214853
+    },
+    {
+      "path": "src/remax/experiments/oat/initialization.py",
+      "sha256": "845b39adc50c07dc6965a964749f466385cd331f3f8facb17c5f712ec33aa6f2",
+      "bytes": 28859
+    },
+    {
+      "path": "src/remax/experiments/oat/run.py",
+      "sha256": "7a376c541b2b8291a25bee830796836cf1d89c2d1e3e4d500be1f64702418934",
+      "bytes": 84598
+    },
+    {
+      "path": "src/remax/experiments/on_policy_maxent.py",
+      "sha256": "93f7b52fb73a7678336bcd136950639a56f39d7d17e4119af4771e8546cdf926",
+      "bytes": 11929
+    },
+    {
+      "path": "src/remax/experiments/outcome_collision.py",
+      "sha256": "3db2096f73bb2c0bf36269847e06df0daeba7d9b8ecd8e27ce65063b484b9482",
+      "bytes": 4654
+    },
+    {
+      "path": "src/remax/experiments/replay_objectives.py",
+      "sha256": "891cc31b713feb8e7bae5ba36ebfce56232a1a888d0fe88d0df0f33a80dd77d0",
+      "bytes": 12177
+    },
+    {
+      "path": "src/remax/experiments/rlep.py",
+      "sha256": "0ee35952abaff2832b967efdc070d9f0ed4fb58b3964f6cb889d3989ae9b6dbf",
+      "bytes": 12811
+    },
+    {
+      "path": "src/remax/experiments/seed_weights.py",
+      "sha256": "05444f9dff5766b01497827be1c3c79079476ef482e51e9eb6092b95c2f91570",
+      "bytes": 4303
+    },
+    {
+      "path": "src/remax/experiments/semantic_shannon.py",
+      "sha256": "b8a4eba44e8e7445daa1a1233fcb2f9d83534666a21e516c2bc1bb4c1604370a",
+      "bytes": 71612
+    },
+    {
+      "path": "src/remax/experiments/setpo.py",
+      "sha256": "8bcf496cc221268b03f446c178109fb706debcc6613b2dd67f4ee77d4b4c082a",
+      "bytes": 6255
+    },
+    {
+      "path": "src/remax/experiments/setpo_embedder.py",
+      "sha256": "f65442e1efd5c34bdd0082ca48506084c191c995a0e17ee063f4826d482e0495",
+      "bytes": 3865
+    },
+    {
+      "path": "src/remax/experiments/ucpo.py",
+      "sha256": "c52d10df84ab2d5cfcf97420807c7c02d79841714e8d7c56fe59bc1fdffec110",
+      "bytes": 4620
+    },
+    {
+      "path": "src/remax/experiments/xdr.py",
+      "sha256": "36b989cf8c8f1ac79cc7ebe4e7aa2e4426f807861ceb0fea48e0314c31fa2988",
+      "bytes": 6291
     },
     {
       "path": "src/remax/fused_adam_shim.py",
@@ -388,8 +528,8 @@
     },
     {
       "path": "src/remax/gapo.py",
-      "sha256": "86cf123dd6b2da39ad9d698bad04c03261c23c0d918247c7590616952c414a25",
-      "bytes": 10006
+      "sha256": "e5b6dde20e66bb305ad63d4545e28818832febe0972ce73ab2b4b7424d09e15d",
+      "bytes": 166
     },
     {
       "path": "src/remax/input_identity.py",
@@ -400,6 +540,111 @@
       "path": "src/remax/input_registry_v1.json",
       "sha256": "a47844bac4d87ae32d46150e8f66317336796bfa720ec64fbeb3498fc9286ce1",
       "bytes": 8211
+    },
+    {
+      "path": "src/remax/integrations/__init__.py",
+      "sha256": "5a44e249443e0b466701278a05d085443eac172b0cd7c1a5787f1eb5005558ac",
+      "bytes": 39
+    },
+    {
+      "path": "src/remax/integrations/oat/__init__.py",
+      "sha256": "84de32f1f379861e0fdbf7c226443fc89de074fe421b05384339822929f0037a",
+      "bytes": 53
+    },
+    {
+      "path": "src/remax/integrations/oat/admission.py",
+      "sha256": "e66ffda237ab13b4fabb7aaef2f78b6e0684ea1b94908bbed01bba324cb832aa",
+      "bytes": 9372
+    },
+    {
+      "path": "src/remax/integrations/oat/checkpoints.py",
+      "sha256": "11f855fe04221bb0c682014c97dfbbb17f6d4fa594daf72521a84e75730e330c",
+      "bytes": 22003
+    },
+    {
+      "path": "src/remax/integrations/oat/data.py",
+      "sha256": "52bfcff77874097554cb2e173d36e49582479b37791c54241a75cb47d6dcb3f7",
+      "bytes": 4388
+    },
+    {
+      "path": "src/remax/integrations/oat/dispatch.py",
+      "sha256": "c526d15aa5418ddd66ab92fbc10191649f5583a8ea8d026bba5e657fce55e994",
+      "bytes": 2469
+    },
+    {
+      "path": "src/remax/integrations/oat/evaluation.py",
+      "sha256": "a050ee1b0c6c7e0ff2075d7e89738537b5b950cff2a9a3a72576ee076c09da32",
+      "bytes": 30115
+    },
+    {
+      "path": "src/remax/integrations/oat/grpo.py",
+      "sha256": "0eae559bd5a346afc666934f1bbb07896a424b762e34f84df534db43a05cce90",
+      "bytes": 7645
+    },
+    {
+      "path": "src/remax/integrations/oat/initialization.py",
+      "sha256": "8eeb2f23201b27b6ed44ea291e5d01f10cc0fcfca11f748a71f7dcb9587c6e5b",
+      "bytes": 8020
+    },
+    {
+      "path": "src/remax/integrations/oat/lifecycle.py",
+      "sha256": "c052b79dbebaf14200fce069bc04f08070c720cd1dc5cc14e45d07df4a762b9b",
+      "bytes": 19580
+    },
+    {
+      "path": "src/remax/integrations/oat/policy.py",
+      "sha256": "07f6968e98f51aec8595829da865218516f57cfac0d150d3db8f7ec6743bdbea",
+      "bytes": 8071
+    },
+    {
+      "path": "src/remax/integrations/oat/progress.py",
+      "sha256": "1538aac4baef7f92f433bdc7d3d32a20e246f9c3521e0b6bcf81d40764d191ef",
+      "bytes": 22347
+    },
+    {
+      "path": "src/remax/integrations/oat/replay.py",
+      "sha256": "a74749fdc0c70ec7c677b1d3c4398a2ef302bba2934739100c4043ef02c062a1",
+      "bytes": 7745
+    },
+    {
+      "path": "src/remax/integrations/oat/runner.py",
+      "sha256": "b79c6d401d440857e9081f4c14e89d4b5dc4ac909c25223c9764cd5d22f304a5",
+      "bytes": 3683
+    },
+    {
+      "path": "src/remax/integrations/oat/sampling.py",
+      "sha256": "0f9945fd3fe11ff208cf5a758f7a16005f82355b24c20ce003c5c64db42cb12a",
+      "bytes": 24179
+    },
+    {
+      "path": "src/remax/integrations/oat/scoring.py",
+      "sha256": "dad6928d37060004c5c0123fe32125cba69e2824b21f49f6021dd124f3324f2d",
+      "bytes": 14945
+    },
+    {
+      "path": "src/remax/integrations/oat/selection.py",
+      "sha256": "5ea98bc57926bd5424d5a21e1790d7911e1dced710fd87e6a75fd121384812e8",
+      "bytes": 3165
+    },
+    {
+      "path": "src/remax/integrations/oat/support.py",
+      "sha256": "128284e39079a5662d2640ccba1933c9b2c74f65846060aee6864198320cd60d",
+      "bytes": 7681
+    },
+    {
+      "path": "src/remax/integrations/oat/sync.py",
+      "sha256": "1d838ec63a80be735faf4f1f7e64619652f27530f9bc59cbf7f9183771252f8b",
+      "bytes": 5351
+    },
+    {
+      "path": "src/remax/integrations/oat/telemetry.py",
+      "sha256": "81a2dd60ca4db693683d3a7319a7db89748999aeb46193d6bf8f0946ff228fd3",
+      "bytes": 24397
+    },
+    {
+      "path": "src/remax/integrations/oat/update.py",
+      "sha256": "f25f5556347c28e534143f9cd85b15afdfebd9045f586c331274cfe0f447722d",
+      "bytes": 17587
     },
     {
       "path": "src/remax/launch_record.py",
@@ -413,23 +658,23 @@
     },
     {
       "path": "src/remax/learner/base.py",
-      "sha256": "2cc6f6d6d39208c3287fa7eabf3a5537b1b60081a157a60df170ced8f3fd4192",
-      "bytes": 8068
+      "sha256": "d98ec4e3ca09e0936fa895b657abd63ce241460141cf4c9f48bbb78ac72a8ca9",
+      "bytes": 118
     },
     {
       "path": "src/remax/learner/grpo.py",
-      "sha256": "0aa16604604b7d79861751a4f240f92cd236355f3a866391a1abc582433be043",
-      "bytes": 214839
+      "sha256": "1d875bd7e5e9b1b89724fb4e0fd9dff21f26d371c4284d574c9d931cd08acc73",
+      "bytes": 161
     },
     {
       "path": "src/remax/learner/init.py",
-      "sha256": "5ded6bd6ef203c0d8f526b7581b58a065ddd03434851b1432ff72c700bcae523",
-      "bytes": 34327
+      "sha256": "205447e8c29e15a3e207deeb5aa6843600ffbbfaf76f93327cc23aed76dbb913",
+      "bytes": 353
     },
     {
       "path": "src/remax/learner/run.py",
-      "sha256": "64deefdc4128e8f7bc6c8f7709fcd0f0ab5269f96973538e19714b8fa3038e1e",
-      "bytes": 217242
+      "sha256": "5ce5ce79130e0cffc26dac23ecf02f5a79afab59a26525f95e83defb1a111e1f",
+      "bytes": 161
     },
     {
       "path": "src/remax/legacy_modebench.py",
@@ -483,8 +728,8 @@
     },
     {
       "path": "src/remax/maxrl.py",
-      "sha256": "9f2cb94c4df2cce93d5d2b5a96954ffd0eaea3ac01a92168cb93ef4ac9287268",
-      "bytes": 1084
+      "sha256": "41f309bc544ac933934de7475d19c64c8be37549f029d4c0b119fa5ed612daa0",
+      "bytes": 116
     },
     {
       "path": "src/remax/modebench_guided.py",
@@ -493,13 +738,13 @@
     },
     {
       "path": "src/remax/on_policy_maxent.py",
-      "sha256": "93f7b52fb73a7678336bcd136950639a56f39d7d17e4119af4771e8546cdf926",
-      "bytes": 11929
+      "sha256": "091a9256ff2bc64c8e158995f6c43235b7aca52cf945f704e15c952cb7108a9d",
+      "bytes": 190
     },
     {
       "path": "src/remax/online_canonical_bank.py",
-      "sha256": "1700459e95cbfd4bd7c2391884e95c8513554e262d68b80205b1ea65e289eef1",
-      "bytes": 65509
+      "sha256": "91fa69644ebef4df1759de43d9349556607a1d6d72dda0f015699dbfc24f7cdc",
+      "bytes": 315
     },
     {
       "path": "src/remax/online_canonical_controller.py",
@@ -508,8 +753,8 @@
     },
     {
       "path": "src/remax/outcome_collision.py",
-      "sha256": "3db2096f73bb2c0bf36269847e06df0daeba7d9b8ecd8e27ce65063b484b9482",
-      "bytes": 4654
+      "sha256": "c5133e56297f868c62c5aeacfe307bc92dc62c0e87a3c6618a0896ee807bf814",
+      "bytes": 192
     },
     {
       "path": "src/remax/proposal_starvation.py",
@@ -538,8 +783,8 @@
     },
     {
       "path": "src/remax/rlep.py",
-      "sha256": "0ee35952abaff2832b967efdc070d9f0ed4fb58b3964f6cb889d3989ae9b6dbf",
-      "bytes": 12811
+      "sha256": "731b8c1a9269db08ca6cf6d06f871433c51c3f8532c1f71689c1c845772afa68",
+      "bytes": 166
     },
     {
       "path": "src/remax/runtime.py",
@@ -553,8 +798,8 @@
     },
     {
       "path": "src/remax/seed_weights.py",
-      "sha256": "05444f9dff5766b01497827be1c3c79079476ef482e51e9eb6092b95c2f91570",
-      "bytes": 4303
+      "sha256": "91f9365468111a8c570bffe9b9647d205c774978b40232b73a09a0bd670309d2",
+      "bytes": 182
     },
     {
       "path": "src/remax/semantic_rms_controller.py",
@@ -563,18 +808,18 @@
     },
     {
       "path": "src/remax/semantic_shannon.py",
-      "sha256": "9beb17aaf73f6023e5b2bfbbb847f8ebaf0e65721b83eecd45f1979f3d5d2b6d",
-      "bytes": 71611
+      "sha256": "1715271fd48f1393532d8eacd05df6bee086f2a5d6ab83db527efb4ef3a405e5",
+      "bytes": 190
     },
     {
       "path": "src/remax/setpo.py",
-      "sha256": "8bcf496cc221268b03f446c178109fb706debcc6613b2dd67f4ee77d4b4c082a",
-      "bytes": 6255
+      "sha256": "ae0a1dac800a7bd0e2b2d63d2e43498c65ea879d80c25f07129ff05ed78d356e",
+      "bytes": 168
     },
     {
       "path": "src/remax/setpo_embedder.py",
-      "sha256": "f65442e1efd5c34bdd0082ca48506084c191c995a0e17ee063f4826d482e0495",
-      "bytes": 3865
+      "sha256": "bf7d5a2d8fc8f34e16c26cd021bffc8365180c46dcbfe96d5a359cce7c8f489d",
+      "bytes": 186
     },
     {
       "path": "src/remax/tensor_utils.py",
@@ -583,8 +828,8 @@
     },
     {
       "path": "src/remax/train_zero_math.py",
-      "sha256": "09b4606e69aebbe11c57005cf175a6b4fb9ccb56b6c54e3210aff92a4b22119e",
-      "bytes": 1794
+      "sha256": "720a8a865780a5e6e5dcccd5e325437df211e06b4824e911505380e91f101e85",
+      "bytes": 1847
     },
     {
       "path": "src/remax/trajectory_dataset.py",
@@ -593,8 +838,8 @@
     },
     {
       "path": "src/remax/ucpo.py",
-      "sha256": "c52d10df84ab2d5cfcf97420807c7c02d79841714e8d7c56fe59bc1fdffec110",
-      "bytes": 4620
+      "sha256": "d91ad180eda21a6b412dcf489a126be40d1ac7cb49ed53a37955a8382d60ddd4",
+      "bytes": 166
     },
     {
       "path": "src/remax/verified_route_library.py",
@@ -613,8 +858,8 @@
     },
     {
       "path": "src/remax/xdr.py",
-      "sha256": "2ba9bde78ed3f28ccc43cb02e4e408721070f715a9361e32d97fb86bf23b1714",
-      "bytes": 7926
+      "sha256": "e2f7a3a3a2272fd7e5242ccb9ae16fc9a3028b254f616d7a904708833355bcf7",
+      "bytes": 164
     },
     {
       "path": "src/remax/xdr_sac_dual_controller.py",
@@ -630,6 +875,11 @@
       "path": "tests/boundary_runtime_harness.py",
       "sha256": "0c65fca452f92b9b56194464cb2c695e08f14f953ab4d401e490320860b92ecf",
       "bytes": 2976
+    },
+    {
+      "path": "tests/compare_training_runs.py",
+      "sha256": "3a3832c721b4cea9b3916dd37ce2a998e0e5097bb6a44695232ab94e9ed5c51e",
+      "bytes": 5193
     },
     {
       "path": "tests/conftest.py",
@@ -673,8 +923,8 @@
     },
     {
       "path": "tests/resume_harness.py",
-      "sha256": "39bbd4dbbc0ab299409d4a0c9267a99df76f42c8aa201bf48e613a3b86eda716",
-      "bytes": 10189
+      "sha256": "2fb5a03dde105b29fcf7915f0db65cd85a5c0606e52b97fe07ead64686783ebd",
+      "bytes": 10257
     },
     {
       "path": "tests/test_admission_retention.py",
@@ -727,6 +977,11 @@
       "bytes": 1615
     },
     {
+      "path": "tests/test_replay_architecture.py",
+      "sha256": "f88a99825ff2aa3c056c2163a58ef2916c4ebbbe7646518f64cb233fc90d8894",
+      "bytes": 7123
+    },
+    {
       "path": "tests/test_replicated_group.py",
       "sha256": "5d68a491e2125a26956aee74a7756930c33fdbbf843848b02f6125d0faa0daa4",
       "bytes": 2898
@@ -768,8 +1023,8 @@
     },
     {
       "path": "tests/training_harness.py",
-      "sha256": "b50095ffedde359339c15cb5b6080386752340c13b0efcf1829300c79d4ff6fb",
-      "bytes": 12117
+      "sha256": "753bf4fe8b61a2026c57081db24518d4de4b9e1361f1ee1ce7bf333a40a0adc5",
+      "bytes": 12404
     },
     {
       "path": "tests/training_oracle.py",

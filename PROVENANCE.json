@@ -29,7 +29,7 @@
     },
     {
       "path": "src/remax/train_zero_math.py",
-      "sha256": "09b4606e69aebbe11c57005cf175a6b4fb9ccb56b6c54e3210aff92a4b22119e",
+      "sha256": "720a8a865780a5e6e5dcccd5e325437df211e06b4824e911505380e91f101e85",
       "transformation": "namespace relocation; benchmark imports delegate to modebench",
       "source": "src/oat_drgrpo/train_zero_math.py",
       "source_sha256": "91bb36187bd5f2fcf86ceee4eaeebbac084b900dc792491b4ec9d270d9f289ad",
@@ -37,7 +37,7 @@
     },
     {
       "path": "src/remax/learner/grpo.py",
-      "sha256": "0aa16604604b7d79861751a4f240f92cd236355f3a866391a1abc582433be043",
+      "sha256": "1d875bd7e5e9b1b89724fb4e0fd9dff21f26d371c4284d574c9d931cd08acc73",
       "transformation": "namespace relocation; benchmark imports delegate to modebench",
       "source": "src/oat_drgrpo/learner/grpo.py",
       "source_sha256": "4647f2fd3d89aaa949cd1cb4d4cfa17b95ddb0174fb473b0479440c8bf0387f2",
@@ -53,7 +53,7 @@
     },
     {
       "path": "src/remax/semantic_shannon.py",
-      "sha256": "9beb17aaf73f6023e5b2bfbbb847f8ebaf0e65721b83eecd45f1979f3d5d2b6d",
+      "sha256": "1715271fd48f1393532d8eacd05df6bee086f2a5d6ab83db527efb4ef3a405e5",
       "transformation": "namespace relocation; benchmark imports delegate to modebench",
       "source": "src/oat_drgrpo/semantic_shannon.py",
       "source_sha256": "9beb17aaf73f6023e5b2bfbbb847f8ebaf0e65721b83eecd45f1979f3d5d2b6d",
@@ -69,7 +69,7 @@
     },
     {
       "path": "src/remax/gapo.py",
-      "sha256": "86cf123dd6b2da39ad9d698bad04c03261c23c0d918247c7590616952c414a25",
+      "sha256": "e5b6dde20e66bb305ad63d4545e28818832febe0972ce73ab2b4b7424d09e15d",
       "transformation": "namespace relocation; benchmark imports delegate to modebench",
       "source": "src/oat_drgrpo/gapo.py",
       "source_sha256": "86cf123dd6b2da39ad9d698bad04c03261c23c0d918247c7590616952c414a25",
@@ -77,7 +77,7 @@
     },
     {
       "path": "src/remax/xdr.py",
-      "sha256": "2ba9bde78ed3f28ccc43cb02e4e408721070f715a9361e32d97fb86bf23b1714",
+      "sha256": "e2f7a3a3a2272fd7e5242ccb9ae16fc9a3028b254f616d7a904708833355bcf7",
       "transformation": "namespace relocation; benchmark imports delegate to modebench",
       "source": "src/oat_drgrpo/xdr.py",
       "source_sha256": "2ba9bde78ed3f28ccc43cb02e4e408721070f715a9361e32d97fb86bf23b1714",
@@ -101,7 +101,7 @@
     },
     {
       "path": "src/remax/ucpo.py",
-      "sha256": "c52d10df84ab2d5cfcf97420807c7c02d79841714e8d7c56fe59bc1fdffec110",
+      "sha256": "d91ad180eda21a6b412dcf489a126be40d1ac7cb49ed53a37955a8382d60ddd4",
       "transformation": "namespace relocation; benchmark imports delegate to modebench",
       "source": "src/oat_drgrpo/ucpo.py",
       "source_sha256": "c52d10df84ab2d5cfcf97420807c7c02d79841714e8d7c56fe59bc1fdffec110",
@@ -109,7 +109,7 @@
     },
     {
       "path": "src/remax/setpo.py",
-      "sha256": "8bcf496cc221268b03f446c178109fb706debcc6613b2dd67f4ee77d4b4c082a",
+      "sha256": "ae0a1dac800a7bd0e2b2d63d2e43498c65ea879d80c25f07129ff05ed78d356e",
       "transformation": "namespace relocation; benchmark imports delegate to modebench",
       "source": "src/oat_drgrpo/setpo.py",
       "source_sha256": "8bcf496cc221268b03f446c178109fb706debcc6613b2dd67f4ee77d4b4c082a",
@@ -117,7 +117,7 @@
     },
     {
       "path": "src/remax/seed_weights.py",
-      "sha256": "05444f9dff5766b01497827be1c3c79079476ef482e51e9eb6092b95c2f91570",
+      "sha256": "91f9365468111a8c570bffe9b9647d205c774978b40232b73a09a0bd670309d2",
       "transformation": "namespace relocation; benchmark imports delegate to modebench",
       "source": "src/oat_drgrpo/seed_weights.py",
       "source_sha256": "05444f9dff5766b01497827be1c3c79079476ef482e51e9eb6092b95c2f91570",
@@ -133,7 +133,7 @@
     },
     {
       "path": "src/remax/online_canonical_bank.py",
-      "sha256": "1700459e95cbfd4bd7c2391884e95c8513554e262d68b80205b1ea65e289eef1",
+      "sha256": "91fa69644ebef4df1759de43d9349556607a1d6d72dda0f015699dbfc24f7cdc",
       "transformation": "namespace relocation; benchmark imports delegate to modebench",
       "source": "src/oat_drgrpo/online_canonical_bank.py",
       "source_sha256": "453ffdf9a1dc45550057bf7a1152cdac9837360939c693ccaff38e5bc027c26c",
@@ -157,7 +157,7 @@
     },
     {
       "path": "src/remax/learner/init.py",
-      "sha256": "5ded6bd6ef203c0d8f526b7581b58a065ddd03434851b1432ff72c700bcae523",
+      "sha256": "205447e8c29e15a3e207deeb5aa6843600ffbbfaf76f93327cc23aed76dbb913",
       "transformation": "namespace relocation; benchmark imports delegate to modebench",
       "source": "src/oat_drgrpo/learner/init.py",
       "source_sha256": "5ded6bd6ef203c0d8f526b7581b58a065ddd03434851b1432ff72c700bcae523",
@@ -165,7 +165,7 @@
     },
     {
       "path": "src/remax/rlep.py",
-      "sha256": "0ee35952abaff2832b967efdc070d9f0ed4fb58b3964f6cb889d3989ae9b6dbf",
+      "sha256": "731b8c1a9269db08ca6cf6d06f871433c51c3f8532c1f71689c1c845772afa68",
       "transformation": "namespace relocation; benchmark imports delegate to modebench",
       "source": "src/oat_drgrpo/rlep.py",
       "source_sha256": "0ee35952abaff2832b967efdc070d9f0ed4fb58b3964f6cb889d3989ae9b6dbf",
@@ -173,7 +173,7 @@
     },
     {
       "path": "src/remax/learner/base.py",
-      "sha256": "2cc6f6d6d39208c3287fa7eabf3a5537b1b60081a157a60df170ced8f3fd4192",
+      "sha256": "d98ec4e3ca09e0936fa895b657abd63ce241460141cf4c9f48bbb78ac72a8ca9",
       "transformation": "namespace relocation; benchmark imports delegate to modebench",
       "source": "src/oat_drgrpo/learner/base.py",
       "source_sha256": "2cc6f6d6d39208c3287fa7eabf3a5537b1b60081a157a60df170ced8f3fd4192",
@@ -181,7 +181,7 @@
     },
     {
       "path": "src/remax/outcome_collision.py",
-      "sha256": "3db2096f73bb2c0bf36269847e06df0daeba7d9b8ecd8e27ce65063b484b9482",
+      "sha256": "c5133e56297f868c62c5aeacfe307bc92dc62c0e87a3c6618a0896ee807bf814",
       "transformation": "namespace relocation; benchmark imports delegate to modebench",
       "source": "src/oat_drgrpo/outcome_collision.py",
       "source_sha256": "3db2096f73bb2c0bf36269847e06df0daeba7d9b8ecd8e27ce65063b484b9482",
@@ -189,7 +189,7 @@
     },
     {
       "path": "src/remax/canonical_replay.py",
-      "sha256": "14fea9577d1f5677a5270dc3c6f922ff96d807d80b2f6a32ee4431efda36c2ec",
+      "sha256": "25658d9efd56ba12a8a57456093338ac2b236612e5f72f84062abd9532934904",
       "transformation": "namespace relocation; benchmark imports delegate to modebench",
       "source": "src/oat_drgrpo/canonical_replay.py",
       "source_sha256": "14fea9577d1f5677a5270dc3c6f922ff96d807d80b2f6a32ee4431efda36c2ec",
@@ -205,7 +205,7 @@
     },
     {
       "path": "src/remax/on_policy_maxent.py",
-      "sha256": "93f7b52fb73a7678336bcd136950639a56f39d7d17e4119af4771e8546cdf926",
+      "sha256": "091a9256ff2bc64c8e158995f6c43235b7aca52cf945f704e15c952cb7108a9d",
       "transformation": "namespace relocation; benchmark imports delegate to modebench",
       "source": "src/oat_drgrpo/on_policy_maxent.py",
       "source_sha256": "93f7b52fb73a7678336bcd136950639a56f39d7d17e4119af4771e8546cdf926",
@@ -213,7 +213,7 @@
     },
     {
       "path": "src/remax/maxrl.py",
-      "sha256": "9f2cb94c4df2cce93d5d2b5a96954ffd0eaea3ac01a92168cb93ef4ac9287268",
+      "sha256": "41f309bc544ac933934de7475d19c64c8be37549f029d4c0b119fa5ed612daa0",
       "transformation": "namespace relocation; benchmark imports delegate to modebench",
       "source": "src/oat_drgrpo/maxrl.py",
       "source_sha256": "9f2cb94c4df2cce93d5d2b5a96954ffd0eaea3ac01a92168cb93ef4ac9287268",
@@ -237,7 +237,7 @@
     },
     {
       "path": "src/remax/learner/run.py",
-      "sha256": "64deefdc4128e8f7bc6c8f7709fcd0f0ab5269f96973538e19714b8fa3038e1e",
+      "sha256": "5ce5ce79130e0cffc26dac23ecf02f5a79afab59a26525f95e83defb1a111e1f",
       "transformation": "namespace relocation; benchmark imports delegate to modebench",
       "source": "src/oat_drgrpo/learner/run.py",
       "source_sha256": "cea253487d9558f269581ca28b0dff85f0a3e8c9735f4d6f9cf50394c7cacc94",
@@ -253,7 +253,7 @@
     },
     {
       "path": "src/remax/setpo_embedder.py",
-      "sha256": "f65442e1efd5c34bdd0082ca48506084c191c995a0e17ee063f4826d482e0495",
+      "sha256": "bf7d5a2d8fc8f34e16c26cd021bffc8365180c46dcbfe96d5a359cce7c8f489d",
       "transformation": "namespace relocation; benchmark imports delegate to modebench",
       "source": "src/oat_drgrpo/setpo_embedder.py",
       "source_sha256": "f65442e1efd5c34bdd0082ca48506084c191c995a0e17ee063f4826d482e0495",
@@ -269,7 +269,7 @@
     },
     {
       "path": "src/remax/dapo.py",
-      "sha256": "53eea2a5061cd96b2151c02fa7f20ef4875856a03746d8287c4b0fd2a52de3f2",
+      "sha256": "943cb4c99a74e23cb19799bf0394b8ebe461b6b602748fb3acfe5e21e1b37b7b",
       "transformation": "namespace relocation; benchmark imports delegate to modebench",
       "source": "src/oat_drgrpo/dapo.py",
       "source_sha256": "53eea2a5061cd96b2151c02fa7f20ef4875856a03746d8287c4b0fd2a52de3f2",

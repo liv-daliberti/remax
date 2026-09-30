@@ -10,6 +10,7 @@ from contextlib import contextmanager
 from dataclasses import asdict
 import importlib
 import sys
+from pathlib import Path
 from types import ModuleType, SimpleNamespace
 from unittest.mock import patch
 
@@ -38,7 +39,14 @@ def learner_types():
     shims["oat.utils.ops"].entropy_from_logits = lambda x: (
         -(x.softmax(-1) * x.log_softmax(-1)).sum(-1)
     )
-    imported = ("remax.args", "remax.learner.base", "remax.learner.grpo")
+    imported = ("remax.args", "remax.learner.base", "remax.learner.grpo") + tuple(
+        f"remax.{area}.oat.{path.stem}"
+        for area in ("integrations", "experiments")
+        for path in sorted(
+            (Path(__file__).parents[1] / "src/remax" / area / "oat").glob("*.py")
+        )
+        if path.stem != "__init__"
+    )
     missing = object()
     # Restore only touched module entries/parent attributes, not all of
     # sys.modules: PyTorch may lazily import optimizer internals during a test.

@@ -82,7 +82,7 @@ The preview is explicitly unverified. Replace `--render-only` with `--execute` t
 | [Release scope](RELEASE_STATUS.md) | Included work and known limitations |
 | [Validation](VALIDATION.md) | Checks actually performed |
 
-The integrated learner retains comparator and historical branches needed for compatibility. The 20 public recipes select the four methods above; a class or module name alone is not evidence that every historical objective is part of the maintained release.
+The maintained method lives in `remax.core`, with training plumbing in `remax.integrations.oat`. Historical comparator implementations live in `remax.experiments` and load only when selected. Start with the [source map and reading guide](docs/method.md#source-map); the 20 public recipes select the four methods above.
 
 ## License and reference
 

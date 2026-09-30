@@ -4,8 +4,8 @@ The inputs are illustrative scores, not outputs of a trained language model.
 """
 import json
 import torch
-from remax.maxrl import binary_maxrl_advantages
-from remax.canonical_replay import canonical_replay_uniform_verified_likelihood_loss
+from remax.core import binary_maxrl_advantages
+from remax.core import canonical_replay_uniform_verified_likelihood_loss
 
 rewards = torch.tensor([[1.0, 0.0]])
 advantages = binary_maxrl_advantages(rewards)

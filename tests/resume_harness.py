@@ -276,7 +276,9 @@ def run_case(
                 raise Interrupted()
 
         learner._save_resume_checkpoint = save
-        run.tqdm = lambda *a, **kw: SimpleNamespace(update=lambda: None)
+        sys.modules["remax.integrations.oat.lifecycle"].tqdm = (
+            lambda *a, **kw: SimpleNamespace(update=lambda: None)
+        )
         with (
             patch.object(run.dist, "barrier"),
             patch.object(run.dist, "get_world_size", return_value=1),

@@ -84,6 +84,16 @@ A separate six-update Re:Max Countdown pair passes the same state and decision a
 
 [VALIDATED_RESUME_RUN.json](VALIDATED_RESUME_RUN.json) records input/source identities, configuration and checkpoint-manifest hashes, timings, audit outcomes, and limits. The GPU comparison forks a saved checkpoint into a fresh process; CPU tests separately exercise actual writer process death. These are complete bounded runs, not full-budget paper-score reproductions. Historical direct-shell checkpoints, other GPU types, asynchronous execution, multiple learner ranks, and mid-backward recovery are outside this qualification. The [training guide](docs/training.md#reproduce-resume-equivalence) gives commands to reproduce the comparisons.
 
+## Maintained replay-core extraction
+
+`make check` passes **681 tests**, without skips, including **54 architecture/parity checks**. The unchanged frozen reproduction still matches **473 seed records / 95 arms**, and the PR-base guard preserves all eight reference/registry files from the previous commit.
+
+The maintained learner now orchestrates admission, scoring, fresh advantages and optimization in **172 lines**, with separate OAT modules for replay backward, telemetry, sampling, data, synchronization, evaluation and checkpoints. Framework-independent bank/admission/scheduling/scoring/objective/checkpoint code lives in `remax.core`; historical comparator objectives and integrations live in `remax.experiments`. Old import paths remain compatibility surfaces. The retained historical GRPO class is syntax-tree identical to its pre-refactor implementation. Forty-four extracted run-loop methods are also syntax-tree identical; two checkpoint/progress methods defer historical type imports until those states are present.
+
+Twelve direct historical/extracted comparisons cover four methods and three microbatch widths, each over the three frozen trajectory groups. Model calls, complete bank/schedule/mask traces, model parameters, gradients, and all non-timing metrics agree **exactly**. Separate dependency tests block OAT/vLLM/DeepSpeed/Transformers and comparator imports from the core, and execute all four maintained update paths with comparator imports forbidden. Experimental switches are routed explicitly; an identity-bound maintained run cannot silently fall back to the historical adapter. All prior verifier-failure and full-run resume tests remain active.
+
+A wheel installed in a separate Python 3.10 environment with PyTorch **2.6.0+cpu**, NumPy **1.26.4**, and the public ModeBench pin passes an isolated `python -I` smoke from `/tmp`: verified-bank admission, deterministic replay selection, causal masks, replay loss/gradients, and exact bank-state restoration. The import guard rejects training frameworks and comparator packages throughout that smoke. `pip check` reports no broken requirements.
+
 ## What remains untested
 
 Full-budget historical trajectories and scores, other GPU types, multiple learner GPUs, and nontrivial learning in the other four domains remain unqualified. The bounded Countdown run checks free-form sampling and restore continuity but admitted no correct training responses. CPU CI checks the software and frozen numerical contracts; the GPU validation above was a separate manual run. Newer result snapshots remain outside the frozen-core numerical reproduction check.

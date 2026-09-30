@@ -34,7 +34,7 @@ Teacher-forced exemplar scores are not exact canonical-mode sampling probabiliti
 
 ```python
 import torch
-from remax.canonical_replay import canonical_replay_uniform_verified_likelihood_loss
+from remax.core import canonical_replay_uniform_verified_likelihood_loss
 
 scores = torch.tensor([-1.0, -3.0, -2.0], requires_grad=True)
 # Prompt A has two retained modes; prompt B has one.
@@ -58,7 +58,7 @@ A_i = 0                 when K = 0
 `binary_maxrl_advantages` requires a finite, binary tensor of shape `[prompts, samples_per_prompt]`, with at least two samples per prompt.
 
 ```python
-from remax.maxrl import binary_maxrl_advantages
+from remax.core import binary_maxrl_advantages
 
 advantages = binary_maxrl_advantages(torch.tensor([[1.0, 0.0], [0.0, 0.0]]))
 assert advantages.tolist() == [[1.0, -1.0], [0.0, 0.0]]
@@ -138,18 +138,68 @@ The PR-base guard protects both training and boundary fixtures from rewriting, i
 
 ## Source map
 
-| Module | Responsibility |
-| --- | --- |
-| `src/remax/online_canonical_bank.py` | Prompt-local verified banks, exemplar state, scheduling and restore |
-| `src/remax/canonical_replay.py` | Replay materialization, weighting and score-space losses |
-| `src/remax/maxrl.py` | Binary MaxRL advantages |
-| `src/remax/actor.py` | Sampling and reward integration |
-| `src/remax/learner/grpo.py` | Integrated optimization and applied replay/control gradients |
-| `src/remax/learner/run.py` | Training loop and evaluation plumbing |
-| `src/remax/benchmark.py` | Supported `modebench.api` integration, structured verdicts, fatal failure policy |
-| `src/remax/math_grader.py` | Reward/identity compatibility surface and ordinary MATH grading |
-| `src/remax/legacy_modebench.py` | Quarantined helpers for historical proposal/route experiments |
-| `ops/run_recipe.py` | Validate typed recipes, authenticate inputs, and record the resolved launch |
-| `ops/train.sh` | OAT CLI construction and local execution |
+Start with [`integrations/oat/grpo.py`](../src/remax/integrations/oat/grpo.py). Its maintained step checks verifier diagnostics, admits/schedules exemplars, scores the rollout policy, computes fresh advantages, and calls the optimizer adapter. It contains no comparator reward or objective branches.
 
-The package is `remax`, while the distribution name is `remax-rl`. The shared benchmark is imported as the installed `modebench` package; runtime imports do not reach into a parent or sibling repository.
+```text
+ModeBench verdicts + sampled trajectories
+                 ↓
+OAT admission → core bank → core scheduler
+                 ↓
+OAT scoring → core replay objective → OAT backward/optimizer
+                 ↓
+OAT checkpoint adapter → core atomic checkpoint protocol
+```
+
+The `remax.core` API imports without OAT, vLLM, DeepSpeed, Transformers, or comparator implementations. PyTorch is required for tensor objectives and scoring masks. It accepts verified identities and token sequences; a caller must supply trusted verification results before admission. The OAT adapter performs that independent ModeBench check, preserves fatal diagnostics, and intersects verifier-positive identities with active, positive-reward rows.
+
+| Responsibility | Maintained implementation |
+| --- | --- |
+| Fresh MaxRL advantage and verified-likelihood objective | [`core/objectives.py`](../src/remax/core/objectives.py) |
+| Admission and deterministic exemplars | [`core/admission.py`](../src/remax/core/admission.py) |
+| Persistent bank and typed replay groups | [`core/bank.py`](../src/remax/core/bank.py), [`core/bank_types.py`](../src/remax/core/bank_types.py) |
+| Prompt-local/global replay selection and cursor | [`core/scheduling.py`](../src/remax/core/scheduling.py) |
+| Causal teacher-forcing masks and typed tensor results | [`core/scoring.py`](../src/remax/core/scoring.py), [`core/replay_types.py`](../src/remax/core/replay_types.py) |
+| Bank schema and atomic checkpoint protocol | [`core/bank_state.py`](../src/remax/core/bank_state.py), [`core/checkpoints.py`](../src/remax/core/checkpoints.py) |
+| Trajectory admission and replay selection | [`integrations/oat/admission.py`](../src/remax/integrations/oat/admission.py) |
+| Behavior-policy checks and mean response-token scores | [`integrations/oat/scoring.py`](../src/remax/integrations/oat/scoring.py) |
+| Fresh PPO loss, accumulation boundary and optimizer step | [`integrations/oat/update.py`](../src/remax/integrations/oat/update.py) |
+| Detached/live replay scoring and backward scaling | [`integrations/oat/replay.py`](../src/remax/integrations/oat/replay.py) |
+| Historical metric names, detached from method arithmetic | [`integrations/oat/telemetry.py`](../src/remax/integrations/oat/telemetry.py) |
+| Lifecycle, data, generation and actor synchronization | `integrations/oat/{lifecycle,data,sampling,sync}.py` |
+| Evaluation, progress and framework checkpoint state | `integrations/oat/{evaluation,progress,checkpoints}.py` |
+| Supported ModeBench API and failure policy | [`benchmark.py`](../src/remax/benchmark.py) |
+| Authenticated launch and complete effective configuration | [`ops/run_recipe.py`](../ops/run_recipe.py) |
+
+Replay runs once at each optimizer boundary, **after fresh backward and before optimizer step**. Both replay score passes temporarily use eval mode and restore the previous model mode. The detached pass obtains the score derivative; the live pass applies it in bounded chunks. OAT divides every backward by the accumulation width, so the replay adapter compensates by that width after applying `alpha * (N-1)/N²`. Compute-only controls traverse the same scoring/backward calls with exactly zero score derivatives. These details are covered by frozen conformance and exact historical/extracted-path comparisons.
+
+### Historical implementations and compatibility
+
+[`experiments/`](../src/remax/experiments) owns comparator objectives and [`experiments/oat/`](../src/remax/experiments/oat) owns their historical integration, proposal generation and controller initialization. The maintained OAT update does not import them. [`selection.py`](../src/remax/integrations/oat/selection.py) lists the settings/state that require the historical adapter; dispatch records its selection and reasons on the learner. Strict identity-bound recipes reject a historical fallback. Legacy direct invocations can still select the retained implementation.
+
+| Retained implementation | Dependency boundary checked before moving |
+| --- | --- |
+| DAPO, UCPO, xDr, SEED, SetPO, on-policy MaxEnt | Tensor arithmetic and standard library; shared aggregation diagnostics now live in `core/metrics.py` |
+| GAPO and semantic-Shannon tracking | Historical outcome-collision identity sentinel; GAPO additionally consumes its support-index data |
+| Outcome-collision shaping | Standard-library identity/counting helpers |
+| RLEP | Its own frequency-preserving trajectory pool and state; loaded for historical pool updates/restores |
+| SetPO embedder | Transformers/model loading remains lazy and confined to the historical embedder |
+| Alternative replay objectives | Depend on core tensor result types; the core never imports these alternatives |
+| Proposal/route/controller integration | Kept in the historical OAT adapter, with shared verification and checkpoint compatibility surfaces |
+
+The bank retains historical schema fields and optional admission/retention features so old state dictionaries remain readable; the maintained method uses zero bank-entropy shaping and disables proposal interventions. Shared verification, route compatibility helpers, actor interfaces and argument definitions remain available at existing paths. This extraction does not qualify every historical experiment as a maintained method.
+
+Old imports such as `remax.online_canonical_bank`, `remax.canonical_replay`, `remax.maxrl`, comparator root modules, and `remax.learner.*` remain compatibility surfaces. New integrations should import `remax.core`; contributors should edit the implementation module, not the compatibility file. Strict resume identities still include source hashes: a checkpoint from before this refactor is not an authorized continuation under the new source, even though its bank schema is readable.
+
+`tests/test_replay_architecture.py` blocks training-framework/comparator imports from the core, runs all four maintained methods while rejecting comparator imports, checks dispatch guards, and compares complete update traces against the retained historical learner. Existing frozen numerical references are unchanged. `make check` runs these checks together with full-run resume and verifier-failure conformance.
+
+For a GPU refactor audit, run the bounded `ops/resume_gpu.py` workflow at both revisions and compare the whole-run artifacts without restoring across revisions:
+
+```sh
+python tests/compare_training_runs.py outputs/before outputs/after
+# A single-domain subset can use --methods remax.
+```
+
+This requires identical non-source run identities, exact response/replay/evaluation traces, exact bank/RNG/scheduler/progress state, and the declared model/optimizer tensor tolerances at update six. Each checkpoint's own manifest is verified. It is an offline comparison, not permission to bypass source-bound resume checks.
+
+
+The package is `remax`, while the distribution name is `remax-rl`. The benchmark is the installed `modebench` package; runtime imports do not reach into a parent or sibling repository.

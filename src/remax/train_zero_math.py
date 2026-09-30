@@ -1,4 +1,4 @@
-"""Entry point for Dr.GRPO and xDr.GRPO training on exact-answer tasks."""
+"""Entry point for Re:Dr, Re:Max, and their compute-matched controls."""
 
 from . import fused_adam_shim as _fused_adam_shim
 
@@ -8,10 +8,10 @@ from oat.algorithms.ppo import PPOLearner  # noqa: E402
 from oat.args import default_args_validation, get_default_args  # noqa: E402
 
 from .args import ZeroMathArgs, validate_zero_math_args  # noqa: E402
-from .learner.base import ZeroMathLearnerBaseMixin  # noqa: E402
-from .learner.grpo import ZeroMathGrpoMixin  # noqa: E402
-from .learner.init import ZeroMathInitMixin  # noqa: E402
-from .learner.run import ZeroMathRunMixin  # noqa: E402
+from .integrations.oat.policy import ZeroMathLearnerBaseMixin  # noqa: E402
+from .integrations.oat.dispatch import ZeroMathGrpoMixin  # noqa: E402
+from .integrations.oat.initialization import ZeroMathInitMixin  # noqa: E402
+from .integrations.oat.runner import ZeroMathRunMixin  # noqa: E402
 from .runtime import run_zero_math_rl  # noqa: E402
 
 
