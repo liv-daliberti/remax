@@ -47,12 +47,8 @@ class FullMathVerifierProcess:
             self._stop()
             raise OSError("MATH verifier worker exited between requests")
         worker_env = os.environ.copy()
-        source_root = str(Path(__file__).resolve().parents[1])
-        worker_env["PYTHONPATH"] = os.pathsep.join(
-            filter(None, (source_root, worker_env.get("PYTHONPATH")))
-        )
         self._process = subprocess.Popen(
-            [sys.executable, "-m", "remax.math_grader_worker"],
+            [sys.executable, "-I", "-m", "remax.math_grader_worker"],
             stdin=subprocess.PIPE,
             stdout=subprocess.PIPE,
             stderr=None,

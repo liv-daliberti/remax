@@ -16,6 +16,7 @@ from unittest.mock import patch
 
 import numpy as np
 import torch
+import remax
 
 from remax.online_canonical_bank import OnlineCanonicalBank
 
@@ -43,7 +44,7 @@ def learner_types():
         f"remax.{area}.oat.{path.stem}"
         for area in ("integrations", "experiments")
         for path in sorted(
-            (Path(__file__).parents[1] / "src/remax" / area / "oat").glob("*.py")
+            (Path(remax.__file__).parent / area / "oat").glob("*.py")
         )
         if path.stem != "__init__"
     )

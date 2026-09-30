@@ -9,7 +9,7 @@ import shlex
 import subprocess
 import tempfile
 
-from run_recipe import environment
+from remax.launcher import environment
 
 ROOT = Path(__file__).resolve().parents[1]
 REFERENCE = ROOT / "tests/fixtures/gpu_historical_pantry_v1.json"

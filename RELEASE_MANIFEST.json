@@ -3,8 +3,8 @@
   "files": [
     {
       "path": ".github/workflows/check.yml",
-      "sha256": "9f9715b7855468d19ad61495bbf9dd45a5fb2e8d29f434f25ecf0c6cbc98ea24",
-      "bytes": 955
+      "sha256": "11f46a1b262e92751ec93ab2a6edda471838feaf733c2087733f45caac0484af",
+      "bytes": 3231
     },
     {
       "path": ".gitignore",
@@ -13,13 +13,18 @@
     },
     {
       "path": "CONTRIBUTING.md",
-      "sha256": "dc4c98842f3acced666696c343c790d5ff9ccbfcbe9334f5da29423f6188fa2e",
-      "bytes": 4023
+      "sha256": "b0c7e33f18cd81386710a6d460100335bb7c6efa5d01ca3512f074a31aa74b3e",
+      "bytes": 5435
     },
     {
       "path": "LICENSE",
       "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
       "bytes": 11357
+    },
+    {
+      "path": "MANIFEST.in",
+      "sha256": "d52ae8f0166b0ef29365fba12fdb0915fe86f3d442e1e063ad01bd0f0835eee8",
+      "bytes": 376
     },
     {
       "path": "Makefile",
@@ -28,13 +33,13 @@
     },
     {
       "path": "PROVENANCE.json",
-      "sha256": "4690ab199d81c2751a2b4faf7d60564841e5a76007211bc7dc1af28ab3ae3c8a",
+      "sha256": "43ae5a36c5cf3fe03053acb956c4265a6c156d73141f0c1dc2f64a80805a5436",
       "bytes": 28669
     },
     {
       "path": "README.md",
-      "sha256": "ac5dee721717bd4dd00d9c7387138de7b28be5cbca52ee53bd14cf75e00a490d",
-      "bytes": 7124
+      "sha256": "b3b54a2d4a51f2d2e06f7db6a5889dea870cdf06bec032d11fce0d4504c5a318",
+      "bytes": 7483
     },
     {
       "path": "RELEASE_STATUS.md",
@@ -68,8 +73,8 @@
     },
     {
       "path": "VALIDATION.md",
-      "sha256": "bdf31d5379a6c304c871f50d27c825d4abe49429599d0fbc331ccc3d2acece66",
-      "bytes": 18336
+      "sha256": "4869707095d7e6ff3a184801b640419b54598e13a2805fc623a522204abb29c8",
+      "bytes": 20303
     },
     {
       "path": "configs/drgrpo_countdown_05b.json",
@@ -198,8 +203,8 @@
     },
     {
       "path": "docs/training.md",
-      "sha256": "5f8a7029e74d8f564f941f095973d1140d99377c20447d6dd1ba72c036d57028",
-      "bytes": 25320
+      "sha256": "cb1ae4a945b28b2ae925a9e5dd0ecbba45b7663c063fd18fd3124d2532bfd89a",
+      "bytes": 28624
     },
     {
       "path": "evidence/mode_diversity_training.json",
@@ -238,18 +243,23 @@
     },
     {
       "path": "examples/replay_loss.py",
-      "sha256": "77b4209856d6c3fd9760a1f8e762e9060acc47d7a3d548d5168eb3cd651944ab",
-      "bytes": 924
+      "sha256": "1b63e2660e6fccef2c22b5cdf54a63c3030d3f855e625df9cac05cf0d0a9221b",
+      "bytes": 140
+    },
+    {
+      "path": "ops/__init__.py",
+      "sha256": "14fb10f7813b91ae739f2fb5672d82845dd2a5c324870ffc9a9cabaca28bd6ca",
+      "bytes": 79
     },
     {
       "path": "ops/audit_gpu_smoke.py",
-      "sha256": "31a9573f551b84096667ff56e912dfa7a76b4cd851cc86b942b3f9d660540e89",
-      "bytes": 10753
+      "sha256": "c3f07bb7c2c5e025ac65eb9bc8af8bb25dc3c29715e4b9e476e90f1f0da47ce4",
+      "bytes": 10851
     },
     {
       "path": "ops/build_mode_diversity_training.py",
-      "sha256": "cff97f66e9852414121cd759e508bf9476817e9f6ff6841a82ae571d973cd573",
-      "bytes": 9842
+      "sha256": "56dfe9f1086d31a56025aacd4462555969e11edb876b01ef3eb84a7a12943f80",
+      "bytes": 9778
     },
     {
       "path": "ops/check_training_reference.py",
@@ -258,8 +268,8 @@
     },
     {
       "path": "ops/compare_gpu_recipe.py",
-      "sha256": "2e88e909f374c4e1c1ce0b77b85a58a07763ad0dccb135707b7386a0b7f09b94",
-      "bytes": 3744
+      "sha256": "4bc3c1bf150c13fe6595183f11191cc2d75945356373cbeb6962a5f15b4de81a",
+      "bytes": 3748
     },
     {
       "path": "ops/followup_metrics.py",
@@ -268,13 +278,13 @@
     },
     {
       "path": "ops/gpu_smoke.py",
-      "sha256": "40b6bbf1456ea599ee9a38381f81c223c4f4c565187fd165e57c83cce5bb1430",
-      "bytes": 10819
+      "sha256": "477a200173959e4d6c0726b69b9b4146555c957b883c90aac23db7483af995b4",
+      "bytes": 10888
     },
     {
       "path": "ops/repo_env.sh",
-      "sha256": "1f8447ea93cf3ebc5aece0f9f81c83c8d912f00162e2c2010c2484f141cc339d",
-      "bytes": 554
+      "sha256": "0d7a809b8c56af2497a379d46d62b52c32cc247a88af432f3abe19fc1a5db027",
+      "bytes": 435
     },
     {
       "path": "ops/reproduce_training.py",
@@ -288,8 +298,8 @@
     },
     {
       "path": "ops/run_recipe.py",
-      "sha256": "aa539df59c377066528b644c00aaca23ed0c57b3ed77a55034345bd33a7569c8",
-      "bytes": 9739
+      "sha256": "d5c5784f6e2ead4150e71e66f748fe7394f65ce4ee3d6bb7509cf1bce74a4f14",
+      "bytes": 196
     },
     {
       "path": "ops/setup_gpu_environment.sh",
@@ -298,8 +308,8 @@
     },
     {
       "path": "ops/train.sh",
-      "sha256": "74b5c77df3c2be50eed34592cc1f9b568fbffdc3d4f0a996f96555b2c4a267e3",
-      "bytes": 61946
+      "sha256": "1e3e191495c794c658013802419440257e2f11f0c7db2aa68a71d21ef515e046",
+      "bytes": 61981
     },
     {
       "path": "ops/verify_release.py",
@@ -328,8 +338,8 @@
     },
     {
       "path": "pyproject.toml",
-      "sha256": "b20515f6cbeaececed3f34e3220996b19b64a554caa3be7467a91c0261541946",
-      "bytes": 1174
+      "sha256": "5373a42fb0b0ab7dbd5e461d2808711ab71f376142cb4c399a076a1f943ad84e",
+      "bytes": 1566
     },
     {
       "path": "requirements-gpu-py310-cu124.txt",
@@ -337,9 +347,19 @@
       "bytes": 5182
     },
     {
+      "path": "src/build_support.py",
+      "sha256": "3a4c000d71a8f67fd4c92e6386a86239aadf48f98e72e6a70283503829d10890",
+      "bytes": 573
+    },
+    {
       "path": "src/remax/__init__.py",
       "sha256": "b845e5f5f29bc232d7a0a01228c1d3df111f73861fe461c042ec6af284134cd9",
       "bytes": 94
+    },
+    {
+      "path": "src/remax/__main__.py",
+      "sha256": "6d8b7d7846a845059d7a3107143f11131f63c5511d669b44085b15ec5e3d2279",
+      "bytes": 30
     },
     {
       "path": "src/remax/actor.py",
@@ -380,6 +400,11 @@
       "path": "src/remax/checkpointing.py",
       "sha256": "11d39821cc361928f500a03dda159edca231e74d98e54f8d33a5044b9e8b8591",
       "bytes": 224
+    },
+    {
+      "path": "src/remax/cli.py",
+      "sha256": "a409e1b183909f4624717a2253f52bfabd91a823746a241ad44b4e129a336c8d",
+      "bytes": 2659
     },
     {
       "path": "src/remax/core/__init__.py",
@@ -653,8 +678,13 @@
     },
     {
       "path": "src/remax/launch_record.py",
-      "sha256": "0133c19897fe9456e7f78f9895c0be148ac3f4c63fd9be49ee05c549569abf81",
-      "bytes": 8925
+      "sha256": "633581d20a86e73af4b1eb6c7226e8d36384929cc88b53a1ecdc72c2e743dd83",
+      "bytes": 9122
+    },
+    {
+      "path": "src/remax/launcher.py",
+      "sha256": "502a6f5fc452a2f05fdd436409d9334dd8f36191fa4e8a999bd38787ed653132",
+      "bytes": 10261
     },
     {
       "path": "src/remax/learner/__init__.py",
@@ -698,8 +728,8 @@
     },
     {
       "path": "src/remax/math_grader_process.py",
-      "sha256": "74b38d8abba39e8f53a1425928de75c9ab58f0cda191a04d5a00e0d0113450cc",
-      "bytes": 7787
+      "sha256": "80e79b7827d2ebaed93ce657f97a1d4cfd87856acd1668aa6453c92768b6e4e3",
+      "bytes": 7598
     },
     {
       "path": "src/remax/math_grader_worker.py",
@@ -877,19 +907,24 @@
       "bytes": 5315
     },
     {
+      "path": "tests/__init__.py",
+      "sha256": "308482a5141fa31749ae1ccdf30233e68ee89e6f270c9fb2151feb9eff4338a7",
+      "bytes": 70
+    },
+    {
       "path": "tests/boundary_runtime_harness.py",
-      "sha256": "0c65fca452f92b9b56194464cb2c695e08f14f953ab4d401e490320860b92ecf",
-      "bytes": 2976
+      "sha256": "9c2e06e314382c0578b0fe8f2f1c7f8b027cc7e8605c7e9087f3d028bad0b801",
+      "bytes": 2982
     },
     {
       "path": "tests/compare_training_runs.py",
-      "sha256": "3a3832c721b4cea9b3916dd37ce2a998e0e5097bb6a44695232ab94e9ed5c51e",
-      "bytes": 5193
+      "sha256": "78d3bf06887e0a19795cb242805e6718c2b325ef510e9c2246fc33d31ee4e3aa",
+      "bytes": 5155
     },
     {
       "path": "tests/conftest.py",
-      "sha256": "8f705f40cc7bdfc8eea108fcd6258562e177d13f171dd505705bb8740bb52b39",
-      "bytes": 144
+      "sha256": "db7278470110bc2689a8dff31b54c64bd051b984e97b668be89c0839e604e060",
+      "bytes": 75
     },
     {
       "path": "tests/fixtures/benchmark_boundary_v1.json",
@@ -927,9 +962,14 @@
       "bytes": 533
     },
     {
+      "path": "tests/installed/smoke.py",
+      "sha256": "f33497d99666235e8902c6bf39795f192ff2eb5199aa88b760834f18d36a863a",
+      "bytes": 7182
+    },
+    {
       "path": "tests/resume_harness.py",
-      "sha256": "2fb5a03dde105b29fcf7915f0db65cd85a5c0606e52b97fe07ead64686783ebd",
-      "bytes": 10257
+      "sha256": "b33a926d0f8a7b3a8fecc236219e97d22ab31a5e3d7699a0b15bc41f68019379",
+      "bytes": 10269
     },
     {
       "path": "tests/test_admission_retention.py",
@@ -938,8 +978,8 @@
     },
     {
       "path": "tests/test_benchmark_boundary.py",
-      "sha256": "40ced1d847d6dfe11ffd14a0a772077cc2acd954cc581f5a7a20f6fef5e99c96",
-      "bytes": 8628
+      "sha256": "7467da42a1db6c07daae2f2cab36e17e0c1ea6ad998996f07af2071d0cfd3986",
+      "bytes": 8656
     },
     {
       "path": "tests/test_canonical_actions.py",
@@ -953,13 +993,13 @@
     },
     {
       "path": "tests/test_evaluation_failure_boundary.py",
-      "sha256": "15f09e3697bba928aa6bd8e581381a1c9aa8373ca2cd397ee3959e94f5ccba06",
-      "bytes": 8671
+      "sha256": "8cc86c791a07a10431508d776a44f3c9fd5c983f37c81b06942ba7f09ea17e0d",
+      "bytes": 8677
     },
     {
       "path": "tests/test_gpu_workflow.py",
-      "sha256": "3e6f046c7dd1d5c5ab53f56a143f80405694ac8c9cfc3f3ded89d3eeb81abcd1",
-      "bytes": 4458
+      "sha256": "dd39ec153d7c3c29ac619ce7286c14ffd40f000a4ad09aaa1a5f619cce766c2e",
+      "bytes": 4470
     },
     {
       "path": "tests/test_maxrl.py",
@@ -977,9 +1017,14 @@
       "bytes": 33326
     },
     {
+      "path": "tests/test_package_contract.py",
+      "sha256": "e0c9890af441fe6840de54dc0b75a524c12f0854c9ae47185e69d5ae518981ac",
+      "bytes": 3434
+    },
+    {
       "path": "tests/test_refactor_audit.py",
-      "sha256": "1395e48e65e8b833d34223af43f0b6491c5bcd251789143b13b16e3389e6bdb8",
-      "bytes": 2652
+      "sha256": "5acee190d8ce1011da47061af185db73a380960a51d49dbcba085aad58dd5654",
+      "bytes": 2663
     },
     {
       "path": "tests/test_release_recipes.py",
@@ -988,8 +1033,8 @@
     },
     {
       "path": "tests/test_replay_architecture.py",
-      "sha256": "f88a99825ff2aa3c056c2163a58ef2916c4ebbbe7646518f64cb233fc90d8894",
-      "bytes": 7123
+      "sha256": "059ca4982a09658fab768bff02815277eb4f9de8a9e99d4ce63e329a248e65d2",
+      "bytes": 7155
     },
     {
       "path": "tests/test_replicated_group.py",
@@ -1003,8 +1048,8 @@
     },
     {
       "path": "tests/test_resume_equivalence.py",
-      "sha256": "4245a84b4b064526c3750ccc3428e8c7758c51b907b7f10b4fa8408cd2ddaabf",
-      "bytes": 11749
+      "sha256": "3cf646706fec38510822c67892f5f34c8399dbe2b030fc5f21523bba3315c006",
+      "bytes": 11578
     },
     {
       "path": "tests/test_seed_weights.py",
@@ -1013,18 +1058,18 @@
     },
     {
       "path": "tests/test_strict_recipes.py",
-      "sha256": "c7e11f44e41293c1966a95228ecd89c6449a71aae2c57890a743786ea1d00345",
-      "bytes": 17417
+      "sha256": "4395c730581303e9ac8daa073fabfa823b700207abc831466e360a92198642a1",
+      "bytes": 17440
     },
     {
       "path": "tests/test_training_conformance.py",
-      "sha256": "e69ac6cbfc1548086500a57bc2e01b48afd70896e4bef0462305f32ec33cf953",
-      "bytes": 11500
+      "sha256": "a8d574e975d2d107d7a196906c6727a50d0f129c58de29a25dd4f02e9bfc7e46",
+      "bytes": 11512
     },
     {
       "path": "tests/test_training_reference_guard.py",
-      "sha256": "3d06db16e83975bcec8049dc81442334a67f5fccc465e5361ffcd1fe4a231c82",
-      "bytes": 4135
+      "sha256": "2d3fd84f3a21b516a6b492625c64f626275b75fd49677c18f8a7fcc16d4c60a2",
+      "bytes": 4165
     },
     {
       "path": "tests/test_verifier_workers.py",
@@ -1033,8 +1078,8 @@
     },
     {
       "path": "tests/training_harness.py",
-      "sha256": "753bf4fe8b61a2026c57081db24518d4de4b9e1361f1ee1ce7bf333a40a0adc5",
-      "bytes": 12404
+      "sha256": "4a6c5f24736299d05a5661ae6399e7aff17960264a77c8844dfe62adb4b23258",
+      "bytes": 12405
     },
     {
       "path": "tests/training_oracle.py",

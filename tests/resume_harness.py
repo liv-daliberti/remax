@@ -19,8 +19,8 @@ import torch
 import torch._dynamo  # initialize optimizer imports before temporary infrastructure shims
 from torch.utils.data import DataLoader, DistributedSampler
 
-from boundary_runtime_harness import runtime_modules
-from training_harness import AccumulatingSGD, TinyPolicy, make_learner, trajectory
+from tests.boundary_runtime_harness import runtime_modules
+from tests.training_harness import AccumulatingSGD, TinyPolicy, make_learner, trajectory
 
 SPEC = json.loads(
     (Path(__file__).parent / "fixtures/training_v1/inputs.json").read_text()

@@ -10,10 +10,11 @@ from unittest.mock import patch
 
 import pytest
 import torch
+import remax
 from modebench.api import Task
 
 from remax import benchmark, math_grader
-from training_harness import learner_types, make_learner, trajectory
+from tests.training_harness import learner_types, make_learner, trajectory
 
 ROOT = Path(__file__).resolve().parents[1]
 FROZEN = json.loads((ROOT / "tests/fixtures/benchmark_boundary_v1.json").read_text())
@@ -72,7 +73,7 @@ def test_raw_pantry_mask_and_historical_decoded_allocation_agree():
 
 def test_maintained_grading_imports_no_private_helpers():
     for name in ("benchmark.py", "math_grader.py"):
-        tree = ast.parse((ROOT / "src/remax" / name).read_text())
+        tree = ast.parse((Path(remax.__file__).parent / name).read_text())
         for node in ast.walk(tree):
             if isinstance(node, ast.ImportFrom) and (node.module or "").startswith(
                 "modebench"

@@ -5,7 +5,8 @@ import json
 import subprocess
 
 import pytest
-from check_training_reference import check
+import remax
+from ops.check_training_reference import check
 
 
 def command(root, *args):
@@ -112,7 +113,7 @@ def test_input_registry_cannot_be_rewritten(tmp_path):
     shutil.copytree(root / "tests/fixtures", tmp_path / "tests/fixtures")
     registry = tmp_path / "src/remax/input_registry_v1.json"
     registry.parent.mkdir(parents=True)
-    shutil.copy(root / "src/remax/input_registry_v1.json", registry)
+    shutil.copy(Path(remax.__file__).parent / "input_registry_v1.json", registry)
     command(tmp_path, "init", "-q")
     command(tmp_path, "add", ".")
     command(

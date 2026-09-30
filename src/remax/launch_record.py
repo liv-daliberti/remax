@@ -95,11 +95,11 @@ def finalize_launch(args) -> bool:
             if digest(Path(identity["path"]) / name) != expected:
                 raise ValueError(f"authenticated input changed before training: {name}")
     for key, value in request["launch_environment"].items():
-        # The shell prepends the Python libdir and repository source path.
+        # The shell prepends the Python libdir; package imports use the installation.
         if key == "PATH":
             value = str(Path(sys.executable).parent) + os.pathsep + value
         if (
-            key not in ("LD_LIBRARY_PATH", "PYTHONPATH")
+            key not in ("LD_LIBRARY_PATH",)
             and os.environ.get(key) != value
         ):
             raise ValueError(f"inherited setting changed before training: {key}")
@@ -203,6 +203,7 @@ def validate_runtime() -> dict[str, str]:
         sys.version_info[:2] != (3, 10)
         or sys.platform != "linux"
         or platform.machine() != "x86_64"
+        or platform.python_implementation() != "CPython"
     ):
         raise ValueError(
             "maintained training requires Linux x86_64 / Python 3.10; use ops/setup_gpu_environment.sh"
@@ -237,4 +238,8 @@ def validate_runtime() -> dict[str, str]:
         raise ValueError(
             "ModeBench must be installed from the immutable commit in pyproject.toml"
         )
+    import torch
+
+    if torch.version.cuda != "12.4":
+        raise ValueError("maintained training requires the PyTorch CUDA 12.4 runtime")
     return actual

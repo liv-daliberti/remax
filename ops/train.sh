@@ -207,7 +207,7 @@ fi
 export OAT_ZERO_NUM_PROMPT_EPOCH="$PROMPT_EPOCHS"
 
 for path in "$PROMPT_DATA" "$EVAL_DATA"; do
-  if [[ ! -d "$path" ]]; then
+  if [[ ! -d "$path" && "${OAT_ZERO_DRY_RUN:-0}" != "1" ]]; then
     echo "Missing dataset: $path" >&2
     exit 1
   fi

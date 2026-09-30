@@ -6,7 +6,7 @@ from types import SimpleNamespace
 
 import pytest
 from remax import benchmark
-from boundary_runtime_harness import runtime_modules
+from tests.boundary_runtime_harness import runtime_modules
 
 REFERENCE = {
     "verifier": "countdown",

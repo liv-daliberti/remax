@@ -14,7 +14,9 @@ import subprocess
 import sys
 import time
 
-from run_recipe import ROOT, environment
+from remax.launcher import environment
+
+ROOT = Path(__file__).resolve().parents[1]
 
 METHODS = ("drgrpo", "redr", "maxrl", "remax")
 # Method, optimization, sampling, prompt, and replay settings stay registered.
@@ -188,9 +190,8 @@ def launch(method, work, inputs, *, restore=None):
                 if k.startswith("OAT_ZERO_") or k in ("SAVE_PATH", "VLLM_USE_V1")
             },
             "source_sha256": {
-                str(p.relative_to(ROOT)): digest(p)
-                for base in ("src/remax", "ops")
-                for p in sorted((ROOT / base).rglob("*"))
+                str(p.relative_to(Path(env["OAT_ZERO_REPO_ROOT"]))): digest(p)
+                for p in sorted(Path(env["OAT_ZERO_REPO_ROOT"]).rglob("*"))
                 if p.suffix in (".py", ".sh")
             },
         },
@@ -219,7 +220,7 @@ def launch(method, work, inputs, *, restore=None):
             stderr=subprocess.STDOUT,
         )
         try:
-            command = ["bash", str(ROOT / "ops/train.sh")]
+            command = ["bash", str(Path(env["OAT_ZERO_OPS_SNAPSHOT_ROOT"]) / "train.sh")]
             with subprocess.Popen(
                 command,
                 env=env,

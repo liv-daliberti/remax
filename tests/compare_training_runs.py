@@ -7,7 +7,6 @@ from pathlib import Path
 import sys
 
 ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "src"))
 spec = importlib.util.spec_from_file_location("resume_gpu", ROOT / "ops/resume_gpu.py")
 audit = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(audit)

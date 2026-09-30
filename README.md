@@ -8,9 +8,9 @@
 
 This repository contains replay objectives, bank state and scheduling, OAT learner integration, **20 Level 1 training recipes**, and a frozen analysis covering **473 seed records across 95 arms**. [ModeBench](https://github.com/liv-daliberti/modeBench) separately owns the benchmark, datasets, validators, and canonical mode identities.
 
-## Quick start: CPU checks
+## Quick start: installed CPU workflow
 
-Use Linux with Python 3.10–3.12; the historical GPU training stack uses Python 3.10. Check your interpreter version before creating the environment.
+Use Linux x86_64 with CPython 3.10–3.12. This installs a regular package, then runs it outside the source directory:
 
 ```sh
 git clone https://github.com/liv-daliberti/remax.git
@@ -18,21 +18,25 @@ cd remax
 python3.10 -m venv .venv
 source .venv/bin/activate
 python -m pip install --upgrade pip
-python -m pip install 'torch==2.6.0+cpu' --extra-index-url https://download.pytorch.org/whl/cpu
-python -m pip install -e '.[dev]'
-python examples/replay_loss.py
-make check
+python -m pip install 'torch==2.6.0+cpu' --index-url https://download.pytorch.org/whl/cpu
+python -m pip install .
+cd "$(mktemp -d)"
+remax demo
+remax recipes
+remax recipes remax_countdown_05b > recipe.json
+remax-run recipe.json --data-root ./data --model ./model \
+  --output ./run --render-only
 ```
 
-ModeBench is installed from the immutable Git commit declared in `pyproject.toml`; no local ModeBench checkout is needed for these checks. Installation requires network access. The example and checks themselves make no model calls and launch no training jobs.
+`remax demo` prints `{"maxrl_advantages": [[1.0, -1.0]], "replay_loss": 2.0, "score_gradients": [-0.25, -0.25, -0.5]}`. `remax recipes` lists 20 bundled recipes. The final command previews training arguments and labels them **UNVERIFIED**; it does not download inputs or create a run. `remax environment` reports installed versions. Python module equivalents are `python -m remax` and `python -m remax.launcher`.
 
-The example prints a replay loss of `2.0` and score gradients `[-0.25, -0.25, -0.5]` for two illustrative prompt banks. `make check` runs regression tests, verifies the retained training analysis, and checks shell syntax.
+You can instead install a built wheel or source distribution with `python -m pip install /path/to/remax_rl-0.1.0-py3-none-any.whl` or `python -m pip install /path/to/remax_rl-0.1.0.tar.gz`. [CI builds both artifacts](https://github.com/liv-daliberti/remax/actions/workflows/check.yml) and tests them in clean environments outside the checkout. No PyPI release is claimed. The [installation guide](docs/training.md#package-artifacts-and-supported-environments) explains artifact builds and supported dependency combinations.
 
-Run `make conformance` for the training contract alone: frozen admission-to-optimizer cases for Re:Max, Re:Dr, and both compute-matched controls. These execute the production learner on a tiny CPU model and compare every update with an independent gradient calculation. See [training conformance](docs/method.md#training-conformance) for coverage and limits.
+The core install includes PyTorch, NumPy, and ModeBench 0.4.0 from an immutable Git commit. Git and network access are required during installation; no sibling ModeBench checkout is used at runtime. Core commands make no model calls and require no OAT, vLLM, DeepSpeed, Transformers, or Datasets installation.
 
-The maintained grading path uses ModeBench 0.4.0's supported API at the immutable commit in `pyproject.toml`. `make boundary` checks 175 frozen historical reward/key pairs and failure propagation through workers, training, and evaluation. Timeouts, invalid references, resource limits, and broken workers abort the affected work; they are never counted as incorrect answers. See [the verifier boundary](docs/method.md#modebench-boundary-and-failures).
+For contributor checks, return to the checkout, install the development extra with `python -m pip install '.[dev]'`, and run `make check`. `make conformance`, `make boundary`, and `make resume` select training, verifier-failure, and continuation contracts. Reinstall after source edits so tests exercise the new package. See [contributing](CONTRIBUTING.md).
 
-A GPU training environment needs the separate `train` extra and a compatible CUDA/PyTorch stack. Follow the [training guide](docs/training.md) rather than using the CPU wheel above for training.
+GPU training uses a separate, qualified Python 3.10 / CUDA 12.4 environment. Follow the [training guide](docs/training.md); the CPU wheel above cannot train on a GPU.
 
 ## Four matched methods
 
@@ -62,7 +66,7 @@ This is saved-key numerical reproduction. It does not retrain a policy or regrad
 After preparing the exact data and model snapshot described in the [training guide](docs/training.md), preview a command:
 
 ```sh
-python ops/run_recipe.py configs/remax_countdown_05b.json \
+remax-run remax_countdown_05b \
   --data-root /path/to/materialized/countdown \
   --model /path/to/pinned/model/snapshot \
   --output outputs/remax-countdown-s43 \

@@ -4,14 +4,45 @@ The core package and saved-key reproduction work on CPU. Actual policy training 
 
 All commands below assume the Re:Max checkout is the current directory, unless a command explicitly changes it. Use Bash on Linux.
 
+## Package artifacts and supported environments
+
+| Use | Platform / Python | PyTorch / CUDA | Other constraints |
+| --- | --- | --- | --- |
+| Core API, commands and CPU conformance | Linux x86_64, CPython 3.10, 3.11, 3.12 | PyTorch 2.6.x CPU; CUDA not required | NumPy >=1.26.4,<3; immutable ModeBench 0.4.0 pin |
+| Maintained GPU training | Linux x86_64, CPython 3.10 | PyTorch 2.6.0+cu124, CUDA runtime 12.4 | Exact [GPU dependency lock](../requirements-gpu-py310-cu124.txt); one qualified 48 GB RTX A6000 |
+
+The package metadata bounds Python to `>=3.10,<3.13` and PyTorch to `>=2.6,<2.7`. CPU CI exercises the NumPy floor and the newest available NumPy 2.x compatible with each Python version. New PyTorch minor versions, other CUDA runtimes, Python 3.11/3.12 GPU training, Windows, macOS and ARM are not qualified. Installing the `train` extra does not broaden this support matrix or install an NVIDIA driver.
+
+The base install supplies the replay core, ModeBench boundary, CPU example, recipe inspection and command previews. `train` adds OAT, Transformers, vLLM, DeepSpeed, Datasets and legacy MATH grading dependencies; its NumPy/PyArrow pins match the qualified GPU stack. `dev` adds pytest and legacy MATH verifier tests. Use the complete GPU lock for reproducible training rather than treating the extra as a lockfile.
+
+Build both distribution formats in a build environment:
+
+```sh
+python -m pip install build
+python -m build
+```
+
+The default build produces a source distribution and builds the wheel **from that distribution**. Both include the authenticated input registry, 20 recipes and required shell assets. The sdist also carries the GPU lock and repository reproduction utilities. Installation does not need the original build directory afterward.
+
+In a fresh CPU environment, install the CPU torch wheel first, then either `dist/remax_rl-0.1.0-py3-none-any.whl` or `dist/remax_rl-0.1.0.tar.gz` using pip. Run `remax demo`, `remax recipes`, and `remax-run --help` from any writable working directory. An unverified preview also accepts a bundled name:
+
+```sh
+remax-run remax_countdown_05b --data-root ./data --model ./model \
+  --output ./run --render-only
+```
+
+With the exact GPU lock installed and the model/data prepared below, the same **installed** command works outside a Re:Max checkout. Replace the paths with the authenticated local inputs and `--render-only` with `--validate-only` for a preflight or `--execute` to train. `remax environment --training` checks platform, dependency versions, the ModeBench source pin and CUDA runtime; actual GPU availability is checked by the training preflight. The launcher reads its bundled assets and hashes the installed runtime, including those assets, into the effective configuration. It never injects a checkout into Python's import path. Checkpoints remain bound to those source bytes, so older source-based identities require a new run.
+
+The `ops/` audit and frozen-analysis commands below remain repository/sdist maintenance tools. `ops/run_recipe.py` is a compatibility entry point to the installed launcher. These tools require an installation, and their source directory is not a substitute for installing `remax-rl`. Caches default to `$XDG_CACHE_HOME/remax` (or `~/.cache/remax`), not the installation directory.
+
 ## CPU development environment
 
-Follow the [README quick start](../README.md#quick-start-cpu-checks). Install a CPU PyTorch build before the development extra to avoid pulling a GPU stack for tests. Git is needed to fetch the pinned ModeBench source dependency.
+Follow the [README quick start](../README.md#quick-start-installed-cpu-workflow). Install a CPU PyTorch build before the development extra to avoid pulling a GPU stack for tests. Git is needed to fetch the pinned ModeBench source dependency.
 
 After selecting the CPU PyTorch build, you can use the exact tested Linux/Python 3.10 dependencies:
 
 ```sh
-python -m pip install -c constraints-cpu-py310-tested.txt -e '.[dev]'
+python -m pip install -c constraints-cpu-py310-tested.txt '.[dev]'
 ```
 
 The [CPU constraints](../constraints-cpu-py310-tested.txt) are separate from the historical GPU training constraints.

@@ -8,8 +8,8 @@ from pathlib import Path
 import pytest
 import torch
 
-from training_harness import learner_types, make_learner, run_step, snapshot
-from training_oracle import reference_update
+from tests.training_harness import learner_types, make_learner, run_step, snapshot
+from tests.training_oracle import reference_update
 
 FIXTURES = Path(__file__).parent / "fixtures" / "training_v1"
 METHODS = ("drgrpo", "redr", "maxrl", "remax")

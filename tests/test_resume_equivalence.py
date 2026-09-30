@@ -17,7 +17,7 @@ from remax.checkpointing import (
     restore_rng,
     validate_checkpoint,
 )
-from resume_harness import Interrupted, run_case
+from tests.resume_harness import Interrupted, run_case
 
 
 def seed(value):
@@ -133,11 +133,7 @@ def writer(folder):
     os._exit(9)
 commit_checkpoint(root,step=2,identity={'run':'a'},writer=writer,keep=1)
 """
-    # Source package path is explicit for this subprocess fault-injection test.
-    import os
-
-    env = {**os.environ, "PYTHONPATH": str(Path(__file__).parents[1] / "src")}
-    result = subprocess.run([sys.executable, "-c", script, str(tmp_path)], env=env)
+    result = subprocess.run([sys.executable, "-I", "-c", script, str(tmp_path)])
     assert result.returncode == 9
     assert validate_checkpoint(old)["step"] == 1
     assert (tmp_path / "latest").read_text().strip() == old.name

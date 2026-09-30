@@ -5,7 +5,7 @@ import sys
 
 import pytest
 
-import compare_training_runs as comparison
+from tests import compare_training_runs as comparison
 
 
 @pytest.mark.parametrize(

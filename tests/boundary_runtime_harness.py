@@ -5,7 +5,7 @@ import importlib
 import sys
 from types import ModuleType, SimpleNamespace
 
-from training_harness import learner_types
+from tests.training_harness import learner_types
 
 
 @contextmanager

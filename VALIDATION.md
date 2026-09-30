@@ -109,6 +109,15 @@ A separate six-update Re:Max Countdown run, its step-2 continuation, and its ind
 
 [VALIDATED_REPLAY_CORE_RUN.json](VALIDATED_REPLAY_CORE_RUN.json) records runtime source hashes, configuration/checkpoint hashes, all ten training processes, resume and pre-refactor comparisons, and the qualification limits. The Pantry allocation was cancelled only after its automatic audit had succeeded, while an accidentally repeated audit was running; the completed automatic report is retained. These bounded runs qualify the extraction on one GPU, not full-budget scores or historical comparators.
 
+
+## Installed distribution qualification
+
+The default isolated `python -m build` produced an sdist and built the wheel from that sdist. The wheel includes all 20 recipe JSON files, both launcher shell assets and the authenticated input registry. Clean virtual environments with system site packages disabled installed the wheel with **PyTorch 2.6.0+cpu / NumPy 1.26.4** and the sdist with **PyTorch 2.6.0+cpu / NumPy 2.2.6**, on CPython 3.10.19. Both pass `pip check` and the four standalone core-workflow checks using `python -I` outside the checkout, without pytest or any training extra installed. The checks cover console/module commands, all recipe previews, structured verification, bank admission, replay gradients and checkpoint restoration.
+
+After installing development dependencies, the sdist installation passes **694 regression tests** from a temporary directory containing tests, audit helpers and frozen evidence, with **no `src/` directory**. The wheel installation passed the preceding 693-test suite and the final 128-test launcher/package subset after the cache-location regression was added. Numerical reproduction remains **473 records / 95 arms** and all eight pre-change reference/registry files are preserved. Pytest uses importlib mode; neither tests nor verifier children add a checkout to Python's import path.
+
+CI now builds release artifacts once, then independently installs wheel and sdist on **Python 3.10, 3.11 and 3.12**. Wheel jobs select the NumPy floor; sdist jobs select compatible NumPy 2.x. Each job runs the core-only workflow before installing development dependencies and running the full suite outside the checkout. Training dependencies remain separate: their declared extra resolves against the existing qualified GPU lock without dependency changes, and the runtime guard rejects unsupported CUDA versions. See the [support matrix and installed workflow](docs/training.md#package-artifacts-and-supported-environments).
+
 ## What remains untested
 
 Full-budget historical trajectories and scores, other GPU types, multiple learner GPUs, and nontrivial learning in the other four domains remain unqualified. The bounded Countdown run checks free-form sampling and restore continuity but admitted no correct training responses. CPU CI checks the software and frozen numerical contracts; the GPU validation above was a separate manual run. Newer result snapshots remain outside the frozen-core numerical reproduction check.

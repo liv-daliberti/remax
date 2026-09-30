@@ -6,9 +6,9 @@ from pathlib import Path
 
 import pytest
 
-from audit_gpu_smoke import audit_draws, audit_metrics
-from compare_gpu_recipe import REFERENCE, compare
-from gpu_smoke import (
+from ops.audit_gpu_smoke import audit_draws, audit_metrics
+from ops.compare_gpu_recipe import REFERENCE, compare
+from ops.gpu_smoke import (
     METHODS,
     OVERRIDES,
     digest,

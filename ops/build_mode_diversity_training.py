@@ -23,11 +23,10 @@ import statistics
 import sys
 
 ROOT = Path(__file__).resolve().parents[1]
-for path in (ROOT / 'ops', ROOT / 'ops' / 'exp_scaling'):
-    if str(path) not in sys.path:
-        sys.path.insert(0, str(path))
-
-from followup_metrics import atomic_new, file_sha  # noqa: E402
+if __package__:
+    from .followup_metrics import atomic_new, file_sha
+else:
+    from followup_metrics import atomic_new, file_sha
 from modebench.metrics import (  # noqa: E402
     DEFAULT_MIN_DEFINED_PROMPTS, effective_modes, mode_diversity,
 )

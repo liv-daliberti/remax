@@ -389,7 +389,7 @@
     },
     {
       "path": "src/remax/math_grader_process.py",
-      "sha256": "74b38d8abba39e8f53a1425928de75c9ab58f0cda191a04d5a00e0d0113450cc",
+      "sha256": "80e79b7827d2ebaed93ce657f97a1d4cfd87856acd1668aa6453c92768b6e4e3",
       "transformation": "namespace relocation; benchmark imports delegate to modebench",
       "source": "src/oat_drgrpo/math_grader_process.py",
       "source_sha256": "8dcd206b5374e30f89e51787ece157e5ed943069a3602267a16c7e5b806c5ddd",
@@ -487,7 +487,7 @@
     },
     {
       "path": "tests/conftest.py",
-      "sha256": "8f705f40cc7bdfc8eea108fcd6258562e177d13f171dd505705bb8740bb52b39",
+      "sha256": "db7278470110bc2689a8dff31b54c64bd051b984e97b668be89c0839e604e060",
       "transformation": "new release interface",
       "extracted_sha256": "8f705f40cc7bdfc8eea108fcd6258562e177d13f171dd505705bb8740bb52b39"
     },

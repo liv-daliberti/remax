@@ -11,9 +11,10 @@ from types import MethodType, SimpleNamespace
 import numpy as np
 import pytest
 import torch
+import remax
 
 from remax.integrations.oat.selection import EXPERIMENT_SWITCHES, historical_reasons
-from training_harness import learner_types, make_learner, run_step, snapshot
+from tests.training_harness import learner_types, make_learner, run_step, snapshot
 
 ROOT = Path(__file__).parents[1]
 SPEC = json.loads((ROOT / "tests/fixtures/training_v1/inputs.json").read_text())
@@ -154,7 +155,7 @@ def test_legacy_imports_preserve_class_and_function_identity():
 
 
 def test_core_has_no_training_or_comparator_imports():
-    for path in (ROOT / "src/remax/core").glob("*.py"):
+    for path in (Path(remax.__file__).parent / "core").glob("*.py"):
         tree = ast.parse(path.read_text())
         for node in ast.walk(tree):
             if isinstance(node, ast.ImportFrom):

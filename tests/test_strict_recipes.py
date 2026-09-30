@@ -16,7 +16,7 @@ from remax.launch_record import (
     write_json,
 )
 from remax.recipes import Recipe, strict_json
-import run_recipe
+from remax import launcher as run_recipe
 
 ROOT = Path(__file__).resolve().parents[1]
 

@@ -1,6 +1,6 @@
 # Contributing
 
-Use the CPU environment in the [README](README.md#quick-start-cpu-checks), then run:
+Use the CPU environment in the [README](README.md#quick-start-installed-cpu-workflow), then run:
 
 ```sh
 make check
@@ -11,6 +11,14 @@ python examples/replay_loss.py
 ```
 
 These commands test replay objectives, bank admission and scheduling, method/control flags, retained numerical evidence, and shell syntax. GPU training is a separate validation step.
+
+## Installed-package checks
+
+CI builds a wheel from the sdist, then installs wheel and sdist independently on Python 3.10–3.12. The wheel jobs use NumPy 1.26.4; sdist jobs resolve NumPy 2.x. Each clean venv runs the core-only workflow before installing `dev`, then runs the regression suite from a temporary directory containing tests and evidence, with no `src/` tree. No test configuration adds the source directory to `sys.path`.
+
+For a local artifact check, build with `python -m build`, install one artifact into a fresh venv with the CPU PyTorch wheel, copy `tests/installed/smoke.py` to a directory outside the checkout, unset `PYTHONPATH`/`PYTHONHOME`, and run `python -I smoke.py` there. This suite needs no pytest or training extras. It checks real installation provenance, commands, all 20 recipe previews, verification, bank admission, replay gradients and checkpoint restoration. See [pytest's installed-package guidance](https://docs.pytest.org/en/stable/explanation/goodpractices.html).
+
+Use regular installs (`python -m pip install '.[dev]'`) while changing launcher assets: the wheel build copies the canonical `configs/` recipes and `ops/` scripts into package resources. Reinstall after edits. Editable installations are not the release validation path. The build hook is `src/build_support.py`; changing assets must preserve recipe command parity and strict launch identities.
 
 ## Scientific compatibility
 

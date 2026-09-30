@@ -9,7 +9,10 @@ import math
 import os
 from pathlib import Path
 
-from gpu_smoke import METHODS, digest, validate_inputs, write_json
+if __package__:
+    from .gpu_smoke import METHODS, digest, validate_inputs, write_json
+else:
+    from gpu_smoke import METHODS, digest, validate_inputs, write_json
 
 os.environ.setdefault("USE_TF", "0")
 os.environ.setdefault("USE_FLAX", "0")
