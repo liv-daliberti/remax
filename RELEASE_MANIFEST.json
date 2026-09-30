@@ -62,6 +62,11 @@
       "bytes": 19442
     },
     {
+      "path": "VALIDATED_PACKAGE_RUN.json",
+      "sha256": "ff9c9d41e5b26f5fcb0eafc841a6cdc921a62bd2fcdf39ed384ed3f512134540",
+      "bytes": 3285
+    },
+    {
       "path": "VALIDATED_REPLAY_CORE_RUN.json",
       "sha256": "3f430396960bf257b42f2c55b9ab497f0fb61ca76a40f921dc7d739b5188ce51",
       "bytes": 29637
@@ -73,8 +78,8 @@
     },
     {
       "path": "VALIDATION.md",
-      "sha256": "4869707095d7e6ff3a184801b640419b54598e13a2805fc623a522204abb29c8",
-      "bytes": 20303
+      "sha256": "04b8dc35f23ba2f0c5cc4ae3c9bf69f4efce1bb051bd483c37fa8bedd66b5b33",
+      "bytes": 21433
     },
     {
       "path": "configs/drgrpo_countdown_05b.json",
@@ -203,8 +208,8 @@
     },
     {
       "path": "docs/training.md",
-      "sha256": "cb1ae4a945b28b2ae925a9e5dd0ecbba45b7663c063fd18fd3124d2532bfd89a",
-      "bytes": 28624
+      "sha256": "dcf510c942586b50ca7cc02a3df684b0fbf010b466b71ec37fee2f727575bac9",
+      "bytes": 28869
     },
     {
       "path": "evidence/mode_diversity_training.json",

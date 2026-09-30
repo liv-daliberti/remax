@@ -118,6 +118,11 @@ After installing development dependencies, the sdist installation passes **694 r
 
 CI now builds release artifacts once, then independently installs wheel and sdist on **Python 3.10, 3.11 and 3.12**. Wheel jobs select the NumPy floor; sdist jobs select compatible NumPy 2.x. Each job runs the core-only workflow before installing development dependencies and running the full suite outside the checkout. Training dependencies remain separate: their declared extra resolves against the existing qualified GPU lock without dependency changes, and the runtime guard rejects unsupported CUDA versions. See the [support matrix and installed workflow](docs/training.md#package-artifacts-and-supported-environments).
 
+
+All six artifact CI jobs passed on the implementation commit. A wheel installed into the qualified GPU environment also completed a **three-update Re:Max PantryPlan run** on one 48 GB A6000, launched from a temporary working directory with no `PYTHONPATH`. The audit confirms **14 retained verified outcomes**, nonzero applied replay gradients, **768 evaluation responses** with complete scorable diagnostics, a valid step-3 checkpoint and a terminal model export. All **133 installed runtime/asset files** match both the tested wheel and the implementation checkout. The allocation completed successfully in **5 minutes 54 seconds**, including cold imports and initialization.
+
+The first GPU attempt stopped before training because the home cache quota was full; the successful run uses the tested `XDG_CACHE_HOME` override on writable scratch storage. [VALIDATED_PACKAGE_RUN.json](VALIDATED_PACKAGE_RUN.json) records artifact hashes, CI coverage, runtime identities, measurements and scope. This qualifies installed execution on the existing pinned training stack, not additional hardware/CUDA versions or full-budget scores.
+
 ## What remains untested
 
 Full-budget historical trajectories and scores, other GPU types, multiple learner GPUs, and nontrivial learning in the other four domains remain unqualified. The bounded Countdown run checks free-form sampling and restore continuity but admitted no correct training responses. CPU CI checks the software and frozen numerical contracts; the GPU validation above was a separate manual run. Newer result snapshots remain outside the frozen-core numerical reproduction check.

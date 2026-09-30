@@ -1,0 +1,82 @@
+{
+  "attempt_note": "Initial job 31579806 failed before training because the home cache quota was full. The final job uses XDG_CACHE_HOME on writable scratch storage.",
+  "ci": {
+    "artifacts": [
+      "wheel",
+      "sdist"
+    ],
+    "core_workflow_checks_per_job": 4,
+    "jobs": 6,
+    "outside_checkout": true,
+    "python": [
+      "3.10",
+      "3.11",
+      "3.12"
+    ],
+    "result": "success",
+    "tests_per_job": 694,
+    "url": "https://github.com/liv-daliberti/remax/actions/runs/36670289598"
+  },
+  "cpu": {
+    "core_only_before_dev_install": true,
+    "core_smoke_checks": 4,
+    "frozen_arms": 95,
+    "frozen_records": 473,
+    "isolated_python": true,
+    "pip_check": "pass",
+    "preserved_reference_files": 8,
+    "python": "3.10.19",
+    "sdist_numpy": "2.2.6",
+    "sdist_regression_tests": 694,
+    "source_path_overrides": false,
+    "system_site_packages": false,
+    "torch": "2.6.0+cpu",
+    "wheel_numpy": "1.26.4"
+  },
+  "date": "2026-09-30",
+  "gpu": {
+    "allocation_elapsed_seconds": 354,
+    "artifact_sha256": {
+      "TRAINING_COMPLETE.json": "d6c24dfc7fc4d977539735dc59959fed8b6eeefe88fff6050a77b5e766049fc5",
+      "debug_0930T00:47:34/checkpoints/step_00003/resume_manifest.json": "80007cab09668659c54e0a7b4a6cb088d1c557291b7cfe932fcc64451fda25b0",
+      "debug_0930T00:47:34/eval_mode_coverage_draws.jsonl": "ce2d10bd2a151154b96ccf1d3408d100e646d72d77013c47d1399cc00c7886f2",
+      "debug_0930T00:47:34/train_metrics.jsonl": "2a36e0e97f35f14f25e51ebc21f59827bbe2fc826e3369a91cd65d5e72fcae7d",
+      "effective_config.json": "28a346a5e9b8b678aaf010214d4baec16ec19e4bbc8cca4a7dccdd2c89918923"
+    },
+    "cache_directory": "/tmp/remax-installed-gpu-XqyNnd/cache",
+    "checkpoint_step": 3,
+    "cuda": "12.4",
+    "deepspeed": "0.16.8",
+    "domain": "pantry_plan",
+    "evaluation_responses_with_scorable_diagnostics": 768,
+    "evaluation_rows": 128,
+    "exit_code": 0,
+    "hardware": "1 x RTX A6000 48 GiB, 8 CPUs, 64 GiB host RAM",
+    "installed_runtime_files_matching_wheel_and_checkout": 133,
+    "job_id": 31579873,
+    "manifest_validation": "pass",
+    "method": "remax",
+    "node": "node205",
+    "oat": "0.1.3.post1",
+    "optimizer_updates": 3.0,
+    "python": "3.10.19",
+    "replay_applied_score_gradient_l2_max": 0.05000000074505806,
+    "resume_identity_sha256": "730f6cdb628e0aafe3e29ea4899748fe8ac4702752be4279fac578748512bc7e",
+    "saved_bank_outcomes": 14.0,
+    "seed": 43,
+    "source_path_overrides": false,
+    "status": "completed",
+    "terminal_export_step": 4,
+    "torch": "2.6.0+cu124",
+    "training_rows": 3,
+    "vllm": "0.8.4",
+    "working_directory": "temporary directory outside checkout"
+  },
+  "implementation_commit": "9b060dcc1aeca6cc9b4d66967177d08cebb805ee",
+  "local_artifacts": {
+    "remax_rl-0.1.0-py3-none-any.whl": "e69e451005ec1cd80a6f8bcaddb64b321fe1c59daf71ad70951be890869041d6",
+    "remax_rl-0.1.0.tar.gz": "bb0c7742cae06232ddf64fba5e9689bc0e78c00af153a0e796e73b2b35f8111c"
+  },
+  "schema": "remax-installed-package-validation-v1",
+  "scope": "Packaging and a bounded single-GPU installed training workflow; no full-budget, multi-GPU, or newly supported CUDA qualification. CPU CI installs both artifacts; GPU uses the wheel in the previously clean, pinned training environment."
+}
