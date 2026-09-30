@@ -1,4 +1,4 @@
-# Validation — 2026-09-29
+# Validation — 2026-09-30
 
 ## Standalone public repository
 
@@ -86,13 +86,28 @@ A separate six-update Re:Max Countdown pair passes the same state and decision a
 
 ## Maintained replay-core extraction
 
-`make check` passes **681 tests**, without skips, including **54 architecture/parity checks**. The unchanged frozen reproduction still matches **473 seed records / 95 arms**, and the PR-base guard preserves all eight reference/registry files from the previous commit.
+`make check` passes **687 tests**, without skips, including **54 architecture/parity checks** and **six rejection checks for the GPU comparison tool**. The unchanged frozen reproduction still matches **473 seed records / 95 arms**, and the PR-base guard preserves all eight reference/registry files from the previous commit.
 
 The maintained learner now orchestrates admission, scoring, fresh advantages and optimization in **172 lines**, with separate OAT modules for replay backward, telemetry, sampling, data, synchronization, evaluation and checkpoints. Framework-independent bank/admission/scheduling/scoring/objective/checkpoint code lives in `remax.core`; historical comparator objectives and integrations live in `remax.experiments`. Old import paths remain compatibility surfaces. The retained historical GRPO class is syntax-tree identical to its pre-refactor implementation. Forty-four extracted run-loop methods are also syntax-tree identical; two checkpoint/progress methods defer historical type imports until those states are present.
 
 Twelve direct historical/extracted comparisons cover four methods and three microbatch widths, each over the three frozen trajectory groups. Model calls, complete bank/schedule/mask traces, model parameters, gradients, and all non-timing metrics agree **exactly**. Separate dependency tests block OAT/vLLM/DeepSpeed/Transformers and comparator imports from the core, and execute all four maintained update paths with comparator imports forbidden. Experimental switches are routed explicitly; an identity-bound maintained run cannot silently fall back to the historical adapter. All prior verifier-failure and full-run resume tests remain active.
 
 A wheel installed in a separate Python 3.10 environment with PyTorch **2.6.0+cpu**, NumPy **1.26.4**, and the public ModeBench pin passes an isolated `python -I` smoke from `/tmp`: verified-bank admission, deterministic replay selection, causal masks, replay loss/gradients, and exact bank-state restoration. The import guard rejects training frameworks and comparator packages throughout that smoke. `pip check` reports no broken requirements.
+
+
+The extracted implementation also completed all four six-update PantryPlan GPU runs and fresh-process continuations from step 2 on one **48 GB RTX A6000**, using the same authenticated inputs and pinned runtime as the pre-refactor resume qualification. The automatic resume audit passes at steps **4 and 6**. An independent, read-only comparison against the pre-refactor whole runs passes at step **6**: non-source run identities, full response/replay/evaluation traces, banks, RNG, scheduler and progress state agree exactly. Model tensors meet `atol=1e-6, rtol=1e-6`; optimizer tensors meet `atol=1e-8, rtol=1e-5`. No checkpoint was restored across source revisions.
+
+| Method | Accepted fresh responses / 96 | Replay groups selected |
+| --- | ---: | ---: |
+| Dr.GRPO | 32 | 6 |
+| Re:Dr | 30 | 6 |
+| MaxRL | 34 | 6 |
+| Re:Max | 30 | 6 |
+
+
+A separate six-update Re:Max Countdown run, its step-2 continuation, and its independent pre-refactor comparison also pass. This sample admits no correct training answers, so it qualifies free-form sampling and state continuity; Pantry supplies verified banks and replay updates. The Countdown allocation and independent comparison both completed successfully.
+
+[VALIDATED_REPLAY_CORE_RUN.json](VALIDATED_REPLAY_CORE_RUN.json) records runtime source hashes, configuration/checkpoint hashes, all ten training processes, resume and pre-refactor comparisons, and the qualification limits. The Pantry allocation was cancelled only after its automatic audit had succeeded, while an accidentally repeated audit was running; the completed automatic report is retained. These bounded runs qualify the extraction on one GPU, not full-budget scores or historical comparators.
 
 ## What remains untested
 

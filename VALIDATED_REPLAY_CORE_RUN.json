@@ -1,0 +1,534 @@
+{
+  "architecture": {
+    "checkpoint_schema_preserved": true,
+    "core": "src/remax/core",
+    "cross_source_resume_forbidden": true,
+    "historical_grpo_class_ast_identical": true,
+    "historical_implementations": "src/remax/experiments",
+    "maintained_orchestration_lines": 172,
+    "oat_adapter": "src/remax/integrations/oat",
+    "old_imports_retained": true,
+    "run_methods_ast_identical": 44,
+    "run_methods_with_lazy_historical_imports": 2
+  },
+  "ci": {
+    "conclusion": "success",
+    "python_versions": [
+      "3.10",
+      "3.11",
+      "3.12"
+    ],
+    "run_id": 36664462022,
+    "url": "https://github.com/liv-daliberti/remax/actions/runs/36664462022"
+  },
+  "cpu": {
+    "architecture_tests": 54,
+    "differential_tolerance": "exact, all non-timing metrics and parameter/gradient/decision traces",
+    "frozen_arms": 95,
+    "frozen_seed_records": 473,
+    "historical_vs_maintained_cases": 12,
+    "methods": [
+      "drgrpo",
+      "redr",
+      "maxrl",
+      "remax"
+    ],
+    "microbatch_sizes": [
+      1,
+      2,
+      4
+    ],
+    "preserved_reference_files": 8,
+    "refactor_audit_rejection_tests": 6,
+    "skipped": 0,
+    "tests_passed": 687,
+    "updates_per_case": 3
+  },
+  "cross_revision_audit_jobs": {
+    "countdown": 31579217,
+    "pantry_plan": 31578958
+  },
+  "date": "2026-09-30",
+  "date_basis": "UTC",
+  "gpu": {
+    "countdown": {
+      "audit_files_sha256": {
+        "experiment.json": "a109703cfbe8230135d84b809c0dad8e65ef05ebb189501e6b975789f55f95f7",
+        "pre_refactor_comparison.json": "9ee7b8fff1fb86db711740195062e0ca741fef4bdc43d14d5db54425317b3fc2",
+        "report.json": "922c8b82775a5e9aee77ceccf9f877626d8e462dfa529543599ab72e77cba6b7"
+      },
+      "hardware": "1 x NVIDIA RTX A6000, 48 GiB; 8 CPU cores; 64 GiB host memory",
+      "job_id": "31579172",
+      "node": "node207",
+      "pre_refactor_parity": {
+        "compared_step": 6,
+        "methods": {
+          "remax": {
+            "checkpoint_manifest_sha256": [
+              "8fcf93976fd84cecb48af447813ca868c50789e61ce1d023645969ce3a6aa309",
+              "83cb6da45a04112a7e20c7bf7711b7df7fb04802e8ce08317d3fe53cb0d47539"
+            ],
+            "configuration_sha256": [
+              "fd7b7bbf43128837c33c668cffdf509c96a7e71d8286d964bb51d7334dec0b1c",
+              "2f45640ef2bfaab0b9721026471b1b6a3fc5965c88a6c0f402ed4dd9c5258d68"
+            ],
+            "identical_decisions_and_evaluation": true,
+            "identical_non_source_identity": true,
+            "model_and_optimizer_within_tolerance": true,
+            "state_fields_exact": true,
+            "status": "pass"
+          }
+        },
+        "schema": "remax-refactor-parity-v1",
+        "source_identity_policy": "Offline comparison only; source hashes must differ, all other identity fields must match. No cross-source restore.",
+        "tolerances": {
+          "model": {
+            "atol": 1e-06,
+            "rtol": 1e-06
+          },
+          "optimizer": {
+            "atol": 1e-08,
+            "rtol": 1e-05
+          }
+        }
+      },
+      "resume_equivalence": {
+        "methods": {
+          "remax": {
+            "accepted_responses": 0,
+            "artifacts": {
+              "remax-resumed/debug_0930T00:14:56/eval_mode_coverage_draws.jsonl": "f926eb5b4fe28f34fc999e610ca1677b17b890d0ca454745b360c3c075202ef3",
+              "remax-resumed/debug_0930T00:14:56/resume_decisions.jsonl": "f74fec42bbe6fd33371b92065a1567bb746a7e92530e9bc539df0d8e1ea3758f",
+              "remax-whole/debug_0930T00:11:24/eval_mode_coverage_draws.jsonl": "3023bb0f3a122c36ea181389a484c8aa0a4b87e45a18244bce37ecab74091d14",
+              "remax-whole/debug_0930T00:11:24/resume_decisions.jsonl": "ad4e579f8ab64605e6347a9b1ee0bb27d39013893485e42d3bde681246c586a9"
+            },
+            "compared_checkpoint_steps": [
+              4,
+              6
+            ],
+            "fresh_responses": 96,
+            "identical_bank_scheduler_rng": true,
+            "identical_decisions": true,
+            "identical_evaluation": true,
+            "model_optimizer_within_tolerance": true,
+            "replay_groups": 0,
+            "resume_after": 2,
+            "run_identity_sha256": "16238e2897b038d0a2c5ee8aed2e5cb573f93e56833f651bbb95620707f99b9e",
+            "updates": 6
+          }
+        },
+        "schema": "remax-resume-equivalence-v1",
+        "scope": "six updates across two epochs; explicit step-2 restart; single GPU",
+        "tolerances": {
+          "model": {
+            "atol": 1e-06,
+            "rtol": 1e-06
+          },
+          "optimizer": {
+            "atol": 1e-08,
+            "rtol": 1e-05
+          }
+        }
+      },
+      "runs": {
+        "remax-resumed": {
+          "elapsed_seconds": 190.69897270202637,
+          "returncode": 0
+        },
+        "remax-whole": {
+          "elapsed_seconds": 196.10762333869934,
+          "returncode": 0
+        }
+      },
+      "workdir": "outputs/architecture-countdown-31579172"
+    },
+    "pantry_plan": {
+      "audit_files_sha256": {
+        "experiment.json": "d96bf403bf9aa87bdb349332a102f55bc45050d952f1008ce414c5043adafc67",
+        "pre_refactor_comparison.json": "3130082ebba6a935a9a7da438101a27ec760e3ce240879b67aadffb8de15a0ea",
+        "report.json": "4f6ce5f50e2c29c0a62565f57e91ee921f838d8a7ffa0cf18d3106f60cf6eca6"
+      },
+      "hardware": "1 x NVIDIA RTX A6000, 48 GiB; 8 CPU cores; 64 GiB host memory",
+      "job_id": "31578181",
+      "node": "node207",
+      "pre_refactor_parity": {
+        "compared_step": 6,
+        "methods": {
+          "drgrpo": {
+            "checkpoint_manifest_sha256": [
+              "a9d3da77673c58abdb8250e79483dba4907c8fa72c44ca2d680d76496a055cef",
+              "f2e6aca8bea4acca807ed92bb0bc12c913736efc0876c664423ade7ace5c1f54"
+            ],
+            "configuration_sha256": [
+              "e74e45820c28e47a28e6554ea13299d46046e14b3b308f13458e0e0d7d5c0c84",
+              "dda6f4fe02f7f56edf8735fd24e140a79de0e6655bb7342985399a7ec1250235"
+            ],
+            "identical_decisions_and_evaluation": true,
+            "identical_non_source_identity": true,
+            "model_and_optimizer_within_tolerance": true,
+            "state_fields_exact": true,
+            "status": "pass"
+          },
+          "maxrl": {
+            "checkpoint_manifest_sha256": [
+              "1b02283cab7ee2c54d62fe63868280381203eb5746c44e44e81f29da860f3c87",
+              "201eae249581bc729a09487ce1f6a735564b25f33db6fe9d466b05395096dbb4"
+            ],
+            "configuration_sha256": [
+              "f42ddba3b5da2a0c35c27584cd1d3a3b1ddc395bb32eb74f9714b913761e9a6c",
+              "698defbac3129596fa5bff750bc0f3798d3a71719a418e8cb7721ad2dfd279c3"
+            ],
+            "identical_decisions_and_evaluation": true,
+            "identical_non_source_identity": true,
+            "model_and_optimizer_within_tolerance": true,
+            "state_fields_exact": true,
+            "status": "pass"
+          },
+          "redr": {
+            "checkpoint_manifest_sha256": [
+              "d11265c4411fa42472c1f76ae3a5026a0a408d6da81565132c126305b4c1c642",
+              "3bf2eb56950381ecdc9a96fa8b080709d9738b9060490968c96dd9213dae08d7"
+            ],
+            "configuration_sha256": [
+              "a0d31f21b713d7cc6ec8bdf83fd693d4642ea2a6197c435ca08a1d2d10515b40",
+              "90910607f62957eacfb4f18ea4ed1d6991a127595cc695872b00129e0414a4af"
+            ],
+            "identical_decisions_and_evaluation": true,
+            "identical_non_source_identity": true,
+            "model_and_optimizer_within_tolerance": true,
+            "state_fields_exact": true,
+            "status": "pass"
+          },
+          "remax": {
+            "checkpoint_manifest_sha256": [
+              "812cb0d4ef3ab6eca75e8dcd178eb9d8101638b7bc3e7752a81deb4ff9800791",
+              "2ff52d68d47751a88e31b47e4c582cc1a1a27ae9c4c7af0644aa201543e471cc"
+            ],
+            "configuration_sha256": [
+              "19f1b89dc8f6e9add6b22433b97c198836191692beaf988fa4d3a955e921ca18",
+              "befad386a69bd4145070d05a9cf06699026b25bf6a5238323c8743d9a14dbfac"
+            ],
+            "identical_decisions_and_evaluation": true,
+            "identical_non_source_identity": true,
+            "model_and_optimizer_within_tolerance": true,
+            "state_fields_exact": true,
+            "status": "pass"
+          }
+        },
+        "schema": "remax-refactor-parity-v1",
+        "source_identity_policy": "Offline comparison only; source hashes must differ, all other identity fields must match. No cross-source restore.",
+        "tolerances": {
+          "model": {
+            "atol": 1e-06,
+            "rtol": 1e-06
+          },
+          "optimizer": {
+            "atol": 1e-08,
+            "rtol": 1e-05
+          }
+        }
+      },
+      "resume_equivalence": {
+        "methods": {
+          "drgrpo": {
+            "accepted_responses": 32,
+            "artifacts": {
+              "drgrpo-resumed/debug_0929T23:18:54/eval_mode_coverage_draws.jsonl": "860d1af305100a926594aeb0e089f47b25159d4408ff644e0e052872e6bd0c8a",
+              "drgrpo-resumed/debug_0929T23:18:54/resume_decisions.jsonl": "8e0b2be08422ea344ffd69cc8db9ce5926e6b1821ed4810425457d3e55f77074",
+              "drgrpo-whole/debug_0929T23:13:31/eval_mode_coverage_draws.jsonl": "ba4d7da409efe86981ddcf67c6b884faeb3c428b058b304a7b7d45580e504616",
+              "drgrpo-whole/debug_0929T23:13:31/resume_decisions.jsonl": "b8d6da6d7d2dc5e001d5ad546b33f10d5a8d09d22c4b937b2dd8c063b761dcad"
+            },
+            "compared_checkpoint_steps": [
+              4,
+              6
+            ],
+            "fresh_responses": 96,
+            "identical_bank_scheduler_rng": true,
+            "identical_decisions": true,
+            "identical_evaluation": true,
+            "model_optimizer_within_tolerance": true,
+            "replay_groups": 6,
+            "resume_after": 2,
+            "run_identity_sha256": "14535da9c1593fdbdc542068e8147a76a7f97008f3d2aff5f312913eb2af5e1e",
+            "updates": 6
+          },
+          "maxrl": {
+            "accepted_responses": 34,
+            "artifacts": {
+              "maxrl-resumed/debug_0929T23:38:36/eval_mode_coverage_draws.jsonl": "5b007d936c363c8bc17f847b3e333718c533ed12161efb028bc537777c3bafdd",
+              "maxrl-resumed/debug_0929T23:38:36/resume_decisions.jsonl": "17b84e815622b0351891f9b467179baa837a3e3b760471b37cd7947df65cdb8b",
+              "maxrl-whole/debug_0929T23:33:01/eval_mode_coverage_draws.jsonl": "0322b405ae5d65311fe3330b8ee52c866798eed8e5cb5b198632d687017de2e9",
+              "maxrl-whole/debug_0929T23:33:01/resume_decisions.jsonl": "5c9e781bdc17e22cbc13bf0349196c7aa2d120cfd08008d24cdb31a27366a139"
+            },
+            "compared_checkpoint_steps": [
+              4,
+              6
+            ],
+            "fresh_responses": 96,
+            "identical_bank_scheduler_rng": true,
+            "identical_decisions": true,
+            "identical_evaluation": true,
+            "model_optimizer_within_tolerance": true,
+            "replay_groups": 6,
+            "resume_after": 2,
+            "run_identity_sha256": "6ee432dff8273b4dde0063bd08a410a1054d6cefdd943b740fc692e9bb5d85b9",
+            "updates": 6
+          },
+          "redr": {
+            "accepted_responses": 30,
+            "artifacts": {
+              "redr-resumed/debug_0929T23:28:43/eval_mode_coverage_draws.jsonl": "50835f270de1b7636a755aac796b98e6a9660a49c0e23e5cc980aa0451a2e1ad",
+              "redr-resumed/debug_0929T23:28:43/resume_decisions.jsonl": "af13b62c547feb1d25a2886904a4776c88c10875b9ea3a1175956f8abc2471d2",
+              "redr-whole/debug_0929T23:23:08/eval_mode_coverage_draws.jsonl": "775aacfb09b5fd3639f5be33830be0c6ab42c3303719454f79205baaa9a2746c",
+              "redr-whole/debug_0929T23:23:08/resume_decisions.jsonl": "f0df7166dc90aeca2a7aca15c0647f016df5212e867a6ae6aacbb7f216dae8bc"
+            },
+            "compared_checkpoint_steps": [
+              4,
+              6
+            ],
+            "fresh_responses": 96,
+            "identical_bank_scheduler_rng": true,
+            "identical_decisions": true,
+            "identical_evaluation": true,
+            "model_optimizer_within_tolerance": true,
+            "replay_groups": 6,
+            "resume_after": 2,
+            "run_identity_sha256": "a2dffeacf97bf500e2bb8eae9a665adeaec43150f9d6a48a39cccb2d215f0754",
+            "updates": 6
+          },
+          "remax": {
+            "accepted_responses": 30,
+            "artifacts": {
+              "remax-resumed/debug_0929T23:48:13/eval_mode_coverage_draws.jsonl": "59fedcd21833ebb47f5979541bcf0cc9d803348704cad360a26f83b6db11238f",
+              "remax-resumed/debug_0929T23:48:13/resume_decisions.jsonl": "4eaea93c59f3715912a7e77bec289f74f1214426e33b6499af0ca84e3f16a1cf",
+              "remax-whole/debug_0929T23:42:48/eval_mode_coverage_draws.jsonl": "f76c32d5416db699d75ca76c6b01b232701c67a0274fbe770151cd8a5bdb672b",
+              "remax-whole/debug_0929T23:42:48/resume_decisions.jsonl": "c708d44224b3f751d315924e168f86e0972260d7ff21f426847369995b8daece"
+            },
+            "compared_checkpoint_steps": [
+              4,
+              6
+            ],
+            "fresh_responses": 96,
+            "identical_bank_scheduler_rng": true,
+            "identical_decisions": true,
+            "identical_evaluation": true,
+            "model_optimizer_within_tolerance": true,
+            "replay_groups": 6,
+            "resume_after": 2,
+            "run_identity_sha256": "75bd338afc54b069db7b8d261cace7a6e97c0e772ddbd3d45b9a1f400edcbb91",
+            "updates": 6
+          }
+        },
+        "schema": "remax-resume-equivalence-v1",
+        "scope": "six updates across two epochs; explicit step-2 restart; single GPU",
+        "tolerances": {
+          "model": {
+            "atol": 1e-06,
+            "rtol": 1e-06
+          },
+          "optimizer": {
+            "atol": 1e-08,
+            "rtol": 1e-05
+          }
+        }
+      },
+      "runs": {
+        "drgrpo-resumed": {
+          "elapsed_seconds": 268.2671549320221,
+          "returncode": 0
+        },
+        "drgrpo-whole": {
+          "elapsed_seconds": 311.06005215644836,
+          "returncode": 0
+        },
+        "maxrl-resumed": {
+          "elapsed_seconds": 276.2424530982971,
+          "returncode": 0
+        },
+        "maxrl-whole": {
+          "elapsed_seconds": 311.646133184433,
+          "returncode": 0
+        },
+        "redr-resumed": {
+          "elapsed_seconds": 277.7227692604065,
+          "returncode": 0
+        },
+        "redr-whole": {
+          "elapsed_seconds": 317.0489239692688,
+          "returncode": 0
+        },
+        "remax-resumed": {
+          "elapsed_seconds": 275.7903869152069,
+          "returncode": 0
+        },
+        "remax-whole": {
+          "elapsed_seconds": 295.67018389701843,
+          "returncode": 0
+        }
+      },
+      "workdir": "outputs/architecture-pantry-31578181"
+    }
+  },
+  "implementation_commit": "76f005b57ad0bf3656d099c60c7a16f2d866c3e8",
+  "installed_wheel": {
+    "checks": [
+      "bank admission",
+      "schedule",
+      "causal masks",
+      "loss and score gradient",
+      "bank state roundtrip",
+      "no training/comparator imports",
+      "pip check"
+    ],
+    "modebench": "0.4.0",
+    "modebench_commit": "33cfc3fd1732bd500fe13f13555419557aa248e2",
+    "numpy": "1.26.4",
+    "outside_checkout": true,
+    "python": "3.10.19",
+    "python_isolated_mode": true,
+    "system_site_packages": false,
+    "torch": "2.6.0+cpu"
+  },
+  "limits": [
+    "Single RTX A6000, synchronous single learner, six updates over two epochs; not a full-budget paper-score reproduction.",
+    "Historical comparator integration is retained, not newly GPU-qualified.",
+    "Countdown has no accepted fresh training responses; it qualifies free-form generation and continuation, while Pantry exercises verified banks and replay.",
+    "GPU baseline comparison is read-only; no pre-refactor checkpoint is restored into changed source."
+  ],
+  "pre_refactor_base_commit": "62ccf0df6ad6afe7cf9bfe250e2fcf0f32bd82d4",
+  "preliminary_attempts": [
+    {
+      "job_id": "31578084",
+      "outcome": "strict launcher rejected an inherited OMP_NUM_THREADS setting before training; submission corrected"
+    },
+    {
+      "job_id": "31578101",
+      "outcome": "pre-existing process occupied about 44 GiB on assigned GPU; actor initialization ran out of memory; own allocation cancelled and moved to node207 without changing training settings"
+    }
+  ],
+  "runtime_source_sha256": {
+    "ops/audit_gpu_smoke.py": "31a9573f551b84096667ff56e912dfa7a76b4cd851cc86b942b3f9d660540e89",
+    "ops/build_mode_diversity_training.py": "cff97f66e9852414121cd759e508bf9476817e9f6ff6841a82ae571d973cd573",
+    "ops/check_training_reference.py": "057ea4b8cd5d0a9576bb0dea6a8164e967bbedddd9da8903848948238d4c1bc7",
+    "ops/compare_gpu_recipe.py": "2e88e909f374c4e1c1ce0b77b85a58a07763ad0dccb135707b7386a0b7f09b94",
+    "ops/followup_metrics.py": "17b8d70440cdc02f62a82e3afa5db3dcd834d3d8f7d6dbeb6b2d50c4bb4a9782",
+    "ops/gpu_smoke.py": "40b6bbf1456ea599ee9a38381f81c223c4f4c565187fd165e57c83cce5bb1430",
+    "ops/repo_env.sh": "1f8447ea93cf3ebc5aece0f9f81c83c8d912f00162e2c2010c2484f141cc339d",
+    "ops/reproduce_training.py": "90f4394562f85cba560a31720418cc213c3be6e3ed9cc79f3b9bef95a394758c",
+    "ops/resume_gpu.py": "cb2ea2a5799a813264c437a87e0ee4eec46b62092b256871878ecbd6509ec08c",
+    "ops/run_recipe.py": "aa539df59c377066528b644c00aaca23ed0c57b3ed77a55034345bd33a7569c8",
+    "ops/setup_gpu_environment.sh": "096804f394c4b68545953b7f154dcb98c046870603b3aaed39acd5334afa740e",
+    "ops/train.sh": "74b5c77df3c2be50eed34592cc1f9b568fbffdc3d4f0a996f96555b2c4a267e3",
+    "ops/verify_release.py": "53238a2e1add9c2616cc95e3bfb08a2547de15c33792a06052b2502f4529ecf4",
+    "src/remax/__init__.py": "b845e5f5f29bc232d7a0a01228c1d3df111f73861fe461c042ec6af284134cd9",
+    "src/remax/actor.py": "6fea95d8a4cbe22acb815932774b30d4cb11d22b9426c2040b315525081377c4",
+    "src/remax/admission_retention.py": "beeb6b758cea2fb0afe7d5bf37d0f815197ad8d00f2ec1e5143aa238405aea4c",
+    "src/remax/answer_options.py": "0e3c7e82876e33bb8185d213691e8b7784778ba2c609b9783fb099ea896ec167",
+    "src/remax/args.py": "1842cb6fae41434b6840f401a1b1b1b7f25a33f7a97b6ded77d837aef3659c2d",
+    "src/remax/benchmark.py": "d27e1a660534e67653cbef2bf857f1acf2fb6a6a45a82755ad7a24ac980e1d46",
+    "src/remax/canonical_actions.py": "a4954284b425a94813614f340451841030e320f5ab3561060bac0ba48810c82a",
+    "src/remax/canonical_replay.py": "25658d9efd56ba12a8a57456093338ac2b236612e5f72f84062abd9532934904",
+    "src/remax/checkpointing.py": "11d39821cc361928f500a03dda159edca231e74d98e54f8d33a5044b9e8b8591",
+    "src/remax/core/__init__.py": "17b782ead3a3c36436c26b6b1dc48acf5ba13e6ae1dfd3eac9ab7d405d3aabcd",
+    "src/remax/core/admission.py": "dd0c4e635fc670d7abd0fd7dbbc964df6bc0f1c9b874dab5ef60649306cc5057",
+    "src/remax/core/bank.py": "03d4690a894830340a607c857adc7516fcb864cace28c28ecced3f0ffaffe7ea",
+    "src/remax/core/bank_state.py": "564b2ed117b0a021df03cd4c2d2ad8046e85f87889bebdc0bbe029164538069c",
+    "src/remax/core/bank_types.py": "85dd00d817374447459c19aa7d8b683c68a70587199681845dbcb2dfc4f8ae3f",
+    "src/remax/core/checkpoints.py": "254d764f559bf729d07f6f3686f8b0149ee2b255bb717b83dd64117c2ee36369",
+    "src/remax/core/metrics.py": "7b0dc5d9518615ce58b29397f02cb3412f5f24f24536dc61a533d2600b8c59b7",
+    "src/remax/core/objectives.py": "eec77984c1e44bea2f45e6ae312b944950c045fdc52e9baa9ed2a172ea378497",
+    "src/remax/core/replay_types.py": "232f77c4a63da900540819eb2755e043f40e14586d280889f27f607f17b84537",
+    "src/remax/core/scheduling.py": "2a977929c776fe11d455fb5f0e18ae94344576952d95a7ccb7435b314bee00e1",
+    "src/remax/core/scoring.py": "c682cfd8addb0cb271207b40162d1a6681107171d0fe10110e7b5b0dbfb7fd44",
+    "src/remax/dapo.py": "943cb4c99a74e23cb19799bf0394b8ebe461b6b602748fb3acfe5e21e1b37b7b",
+    "src/remax/experiments/__init__.py": "eb7104387404c2b5ede21854525ffac0058ea201656589f0adb004e4d9f00f6c",
+    "src/remax/experiments/dapo.py": "53eea2a5061cd96b2151c02fa7f20ef4875856a03746d8287c4b0fd2a52de3f2",
+    "src/remax/experiments/gapo.py": "9713b1b84afa2ee264cfc894e7a37fc7a1284954fcc66a71b26353f309910eac",
+    "src/remax/experiments/oat/__init__.py": "099dace9deeeaeee3445e8dce71fdd374c7f9abc042fb4d9363e26df002cdeaf",
+    "src/remax/experiments/oat/grpo.py": "12cd6fc3de152c47092fd349865c349645fe4c14998561d23b77983f156252e1",
+    "src/remax/experiments/oat/initialization.py": "845b39adc50c07dc6965a964749f466385cd331f3f8facb17c5f712ec33aa6f2",
+    "src/remax/experiments/oat/run.py": "7a376c541b2b8291a25bee830796836cf1d89c2d1e3e4d500be1f64702418934",
+    "src/remax/experiments/on_policy_maxent.py": "93f7b52fb73a7678336bcd136950639a56f39d7d17e4119af4771e8546cdf926",
+    "src/remax/experiments/outcome_collision.py": "3db2096f73bb2c0bf36269847e06df0daeba7d9b8ecd8e27ce65063b484b9482",
+    "src/remax/experiments/replay_objectives.py": "891cc31b713feb8e7bae5ba36ebfce56232a1a888d0fe88d0df0f33a80dd77d0",
+    "src/remax/experiments/rlep.py": "0ee35952abaff2832b967efdc070d9f0ed4fb58b3964f6cb889d3989ae9b6dbf",
+    "src/remax/experiments/seed_weights.py": "05444f9dff5766b01497827be1c3c79079476ef482e51e9eb6092b95c2f91570",
+    "src/remax/experiments/semantic_shannon.py": "b8a4eba44e8e7445daa1a1233fcb2f9d83534666a21e516c2bc1bb4c1604370a",
+    "src/remax/experiments/setpo.py": "8bcf496cc221268b03f446c178109fb706debcc6613b2dd67f4ee77d4b4c082a",
+    "src/remax/experiments/setpo_embedder.py": "f65442e1efd5c34bdd0082ca48506084c191c995a0e17ee063f4826d482e0495",
+    "src/remax/experiments/ucpo.py": "c52d10df84ab2d5cfcf97420807c7c02d79841714e8d7c56fe59bc1fdffec110",
+    "src/remax/experiments/xdr.py": "36b989cf8c8f1ac79cc7ebe4e7aa2e4426f807861ceb0fea48e0314c31fa2988",
+    "src/remax/fused_adam_shim.py": "aa1d9ce74bc7e868affe6e36488a37262ea90abcbe40c8d363538f374232ce11",
+    "src/remax/gapo.py": "e5b6dde20e66bb305ad63d4545e28818832febe0972ce73ab2b4b7424d09e15d",
+    "src/remax/input_identity.py": "ae1073ac922d258307df5ec2c0f4c957a5b6593a35369d4b200366cfb6c15230",
+    "src/remax/input_registry_v1.json": "a47844bac4d87ae32d46150e8f66317336796bfa720ec64fbeb3498fc9286ce1",
+    "src/remax/integrations/__init__.py": "5a44e249443e0b466701278a05d085443eac172b0cd7c1a5787f1eb5005558ac",
+    "src/remax/integrations/oat/__init__.py": "84de32f1f379861e0fdbf7c226443fc89de074fe421b05384339822929f0037a",
+    "src/remax/integrations/oat/admission.py": "e66ffda237ab13b4fabb7aaef2f78b6e0684ea1b94908bbed01bba324cb832aa",
+    "src/remax/integrations/oat/checkpoints.py": "11f855fe04221bb0c682014c97dfbbb17f6d4fa594daf72521a84e75730e330c",
+    "src/remax/integrations/oat/data.py": "52bfcff77874097554cb2e173d36e49582479b37791c54241a75cb47d6dcb3f7",
+    "src/remax/integrations/oat/dispatch.py": "c526d15aa5418ddd66ab92fbc10191649f5583a8ea8d026bba5e657fce55e994",
+    "src/remax/integrations/oat/evaluation.py": "a050ee1b0c6c7e0ff2075d7e89738537b5b950cff2a9a3a72576ee076c09da32",
+    "src/remax/integrations/oat/grpo.py": "0eae559bd5a346afc666934f1bbb07896a424b762e34f84df534db43a05cce90",
+    "src/remax/integrations/oat/initialization.py": "8eeb2f23201b27b6ed44ea291e5d01f10cc0fcfca11f748a71f7dcb9587c6e5b",
+    "src/remax/integrations/oat/lifecycle.py": "c052b79dbebaf14200fce069bc04f08070c720cd1dc5cc14e45d07df4a762b9b",
+    "src/remax/integrations/oat/policy.py": "07f6968e98f51aec8595829da865218516f57cfac0d150d3db8f7ec6743bdbea",
+    "src/remax/integrations/oat/progress.py": "1538aac4baef7f92f433bdc7d3d32a20e246f9c3521e0b6bcf81d40764d191ef",
+    "src/remax/integrations/oat/replay.py": "a74749fdc0c70ec7c677b1d3c4398a2ef302bba2934739100c4043ef02c062a1",
+    "src/remax/integrations/oat/runner.py": "b79c6d401d440857e9081f4c14e89d4b5dc4ac909c25223c9764cd5d22f304a5",
+    "src/remax/integrations/oat/sampling.py": "0f9945fd3fe11ff208cf5a758f7a16005f82355b24c20ce003c5c64db42cb12a",
+    "src/remax/integrations/oat/scoring.py": "dad6928d37060004c5c0123fe32125cba69e2824b21f49f6021dd124f3324f2d",
+    "src/remax/integrations/oat/selection.py": "5ea98bc57926bd5424d5a21e1790d7911e1dced710fd87e6a75fd121384812e8",
+    "src/remax/integrations/oat/support.py": "128284e39079a5662d2640ccba1933c9b2c74f65846060aee6864198320cd60d",
+    "src/remax/integrations/oat/sync.py": "1d838ec63a80be735faf4f1f7e64619652f27530f9bc59cbf7f9183771252f8b",
+    "src/remax/integrations/oat/telemetry.py": "81a2dd60ca4db693683d3a7319a7db89748999aeb46193d6bf8f0946ff228fd3",
+    "src/remax/integrations/oat/update.py": "f25f5556347c28e534143f9cd85b15afdfebd9045f586c331274cfe0f447722d",
+    "src/remax/launch_record.py": "0133c19897fe9456e7f78f9895c0be148ac3f4c63fd9be49ee05c549569abf81",
+    "src/remax/learner/__init__.py": "d7576dc96be3ab66f3b08e84c28c5e910fe57cc9e5bd735a5c1403e273a7856b",
+    "src/remax/learner/base.py": "d98ec4e3ca09e0936fa895b657abd63ce241460141cf4c9f48bbb78ac72a8ca9",
+    "src/remax/learner/grpo.py": "1d875bd7e5e9b1b89724fb4e0fd9dff21f26d371c4284d574c9d931cd08acc73",
+    "src/remax/learner/init.py": "205447e8c29e15a3e207deeb5aa6843600ffbbfaf76f93327cc23aed76dbb913",
+    "src/remax/learner/run.py": "5ce5ce79130e0cffc26dac23ecf02f5a79afab59a26525f95e83defb1a111e1f",
+    "src/remax/legacy_modebench.py": "b0dd4e3c3658a1a063af42504774dd45104ab338dda5bf1a096a255451072201",
+    "src/remax/logging_utils.py": "ce45a9c868e62d23d51b06318b1c52f81fba27c86a063b619b43c1182dc3ae5b",
+    "src/remax/math_grader.py": "12e051fc5a37bcf79b6cc195e1a32425622cca6e1628add30774356fa78970e9",
+    "src/remax/math_grader_process.py": "74b38d8abba39e8f53a1425928de75c9ab58f0cda191a04d5a00e0d0113450cc",
+    "src/remax/math_grader_worker.py": "b6d98082e9e9770bc681e04892de369a10d238a0aec4e4f72b68160554787cc9",
+    "src/remax/math_route.py": "0c430a9e8f4c215665b673d4fbca8e5e4db3dd050814fe30a2a07ac7750317cc",
+    "src/remax/math_strategy_canonicalizer.py": "1dc83a2cd9da4cb092dbde747a647b416107846f985683104a98cbe9b022282b",
+    "src/remax/math_strategy_menu.py": "95b061310c646c853aa6241b67a3b5b34663f28a7b0e004ed49418d3c7fb1fed",
+    "src/remax/maxent_controllers.py": "153125aa0b251512a2222e9a1020144ebf379a8e257b592f6f3ffd75d10133c1",
+    "src/remax/maxent_length_controller.py": "83aa8729166cf5d5d8c069dd92a175165ea11888673c44fe705c87919f059f89",
+    "src/remax/maxrl.py": "41f309bc544ac933934de7475d19c64c8be37549f029d4c0b119fa5ed612daa0",
+    "src/remax/modebench_guided.py": "b1e744d18e186ab138469059a7557147a436c142eebf354b94138c0f6aa9534c",
+    "src/remax/on_policy_maxent.py": "091a9256ff2bc64c8e158995f6c43235b7aca52cf945f704e15c952cb7108a9d",
+    "src/remax/online_canonical_bank.py": "91fa69644ebef4df1759de43d9349556607a1d6d72dda0f015699dbfc24f7cdc",
+    "src/remax/online_canonical_controller.py": "33163297c201adfe7590dc300fc47c26819cf42b877ef9c3cacee7adae40727b",
+    "src/remax/outcome_collision.py": "c5133e56297f868c62c5aeacfe307bc92dc62c0e87a3c6618a0896ee807bf814",
+    "src/remax/proposal_starvation.py": "2538b9546f779dcb5c624c9deeeebac8bc154ca055c6bd2ac379aa95c4bd3164",
+    "src/remax/recipe_types.py": "7b389f666a0237e2c461523deb08876655edf6f63bdeeee2b2eae5694779435c",
+    "src/remax/recipes.py": "d4b296b570d1871d9fd70a8b1d9e907e3ea79125e3bb70826e43fb9720e30e16",
+    "src/remax/replicated_group.py": "5799ccc587ab6485ed4a2254f18b531adfad5b968d4c033fb5c2101842b253d9",
+    "src/remax/resume_state.py": "4812ed6ada59d5e55a3de2a74e628924b1fa851438c51f165f70189d401c4960",
+    "src/remax/rlep.py": "731b8c1a9269db08ca6cf6d06f871433c51c3f8532c1f71689c1c845772afa68",
+    "src/remax/runtime.py": "d4290ff8f276b6dfa624f5aa5dfb6e0b64fc4395eacf873c3962bb5e83265966",
+    "src/remax/scoring.py": "0889453687194c3aed791dce82a1522d375e4903a2b0509448b02fc20f46e7ab",
+    "src/remax/seed_weights.py": "91f9365468111a8c570bffe9b9647d205c774978b40232b73a09a0bd670309d2",
+    "src/remax/semantic_rms_controller.py": "9c5c162f938d7a1850d7fd205623cc7d641be1f55f2af05c3a949772c9607934",
+    "src/remax/semantic_shannon.py": "1715271fd48f1393532d8eacd05df6bee086f2a5d6ab83db527efb4ef3a405e5",
+    "src/remax/setpo.py": "ae0a1dac800a7bd0e2b2d63d2e43498c65ea879d80c25f07129ff05ed78d356e",
+    "src/remax/setpo_embedder.py": "bf7d5a2d8fc8f34e16c26cd021bffc8365180c46dcbfe96d5a359cce7c8f489d",
+    "src/remax/tensor_utils.py": "491e81046574974fcde2cd29b6a85fb2cab4d77f0598f8f268318edc0d1fddcd",
+    "src/remax/train_zero_math.py": "720a8a865780a5e6e5dcccd5e325437df211e06b4824e911505380e91f101e85",
+    "src/remax/trajectory_dataset.py": "1e89c8ef1b1b7e81cf5c63b7ca6f4de8f2776721484eba4acc940d3527adcbac",
+    "src/remax/ucpo.py": "d91ad180eda21a6b412dcf489a126be40d1ac7cb49ed53a37955a8382d60ddd4",
+    "src/remax/verified_route_library.py": "5efeb899cfbd632df473cdd4446e5589c4fbd0405d3bc68fd9e41b76d2fc74d1",
+    "src/remax/verified_transformations.py": "c31d9208807cb864fef4a4752f0d05ad681c4543f108552afe10415e380534fc",
+    "src/remax/vllm_worker.py": "36d12712ccf42e0bad739392b90a9a4d79e23e30e9defb13b002b4ccba96fa04",
+    "src/remax/xdr.py": "e2f7a3a3a2272fd7e5242ccb9ae16fc9a3028b254f616d7a904708833355bcf7",
+    "src/remax/xdr_sac_dual_controller.py": "82c87d6cba59f3047b7a0cc5c6dc955b58d3cf753cf6c607f2ea819c75787b0f",
+    "src/remax/xdr_tau_controller.py": "3c047cc76a017ae76895048201aa826e66c7061e00d8bdf4f47e320ee6f20d28"
+  },
+  "schema": "remax-core-extraction-validation-v1",
+  "wrapper_note": "Pantry run automatically completed its audit. Allocation 31578181 was then cancelled during an unnecessary explicit second audit; Countdown was launched separately. No failed or incomplete audit is used as evidence."
+}

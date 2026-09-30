@@ -57,14 +57,19 @@
       "bytes": 19442
     },
     {
+      "path": "VALIDATED_REPLAY_CORE_RUN.json",
+      "sha256": "3f430396960bf257b42f2c55b9ab497f0fb61ca76a40f921dc7d739b5188ce51",
+      "bytes": 29637
+    },
+    {
       "path": "VALIDATED_RESUME_RUN.json",
       "sha256": "729bf24b4ef4dad8b27c6d6ee3e890a1b2f8bc5e9f16b91b3d486e425325da32",
       "bytes": 37873
     },
     {
       "path": "VALIDATION.md",
-      "sha256": "bc3f7c166539593a6bafe05ba7ae4515f42a8f9799e68047cbffa9441e878c5c",
-      "bytes": 16570
+      "sha256": "bdf31d5379a6c304c871f50d27c825d4abe49429599d0fbc331ccc3d2acece66",
+      "bytes": 18336
     },
     {
       "path": "configs/drgrpo_countdown_05b.json",
@@ -183,8 +188,8 @@
     },
     {
       "path": "docs/method.md",
-      "sha256": "c3e871c76023f7c56a96b3e1102818de36257f39f753e24a9ff779c052f0ef9d",
-      "bytes": 21790
+      "sha256": "9ce3d9db415a1e45bf41184ae7b53433ff5d2194a203a4df168cd5834a9590c6",
+      "bytes": 22075
     },
     {
       "path": "docs/reproducibility.md",
@@ -193,8 +198,8 @@
     },
     {
       "path": "docs/training.md",
-      "sha256": "791d16aa7f7dcd3fb0728825f39c9504df03ce17467ad107a00f14b5e97466c8",
-      "bytes": 25189
+      "sha256": "5f8a7029e74d8f564f941f095973d1140d99377c20447d6dd1ba72c036d57028",
+      "bytes": 25320
     },
     {
       "path": "evidence/mode_diversity_training.json",
@@ -970,6 +975,11 @@
       "path": "tests/test_online_canonical_bank.py",
       "sha256": "0c507686605bb38ecd23c3b55eceed49231c735093125f557cc56a729396fca4",
       "bytes": 33326
+    },
+    {
+      "path": "tests/test_refactor_audit.py",
+      "sha256": "1395e48e65e8b833d34223af43f0b6491c5bcd251789143b13b16e3389e6bdb8",
+      "bytes": 2652
     },
     {
       "path": "tests/test_release_recipes.py",

@@ -239,8 +239,9 @@ python ops/resume_gpu.py run \
   --workdir outputs/resume-equivalence \
   --data-root outputs/data/pantry_plan \
   --model /path/to/pinned/model/snapshot
-python ops/resume_gpu.py audit --workdir outputs/resume-equivalence
 ```
+
+The `run` command performs the state audit automatically. To check saved artifacts again later without rerunning training, use `python ops/resume_gpu.py audit --workdir outputs/resume-equivalence`.
 
 This runs six updates over the first three training rows and two epochs for each method, then launches a fresh process from its step-2 checkpoint to finish the same six-update horizon. The full 128-row evaluation split is used, with two samples and one coverage draw to bound validation cost. The audit compares model/optimizer states at steps 4 and 6, exact scheduler and RNG state, data and replay decisions, banks, and the complete evaluation suffix. This is a bounded full-run equivalence test, not a reproduction of paper-level training scores.
 

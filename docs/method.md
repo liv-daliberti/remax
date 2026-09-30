@@ -202,4 +202,6 @@ python tests/compare_training_runs.py outputs/before outputs/after
 This requires identical non-source run identities, exact response/replay/evaluation traces, exact bank/RNG/scheduler/progress state, and the declared model/optimizer tensor tolerances at update six. Each checkpoint's own manifest is verified. It is an offline comparison, not permission to bypass source-bound resume checks.
 
 
+The completed [extraction validation](../VALIDATION.md#maintained-replay-core-extraction) and [machine-readable GPU report](../VALIDATED_REPLAY_CORE_RUN.json) cover all four Pantry methods and Re:Max Countdown, including fresh-process resume and independent pre-refactor comparisons.
+
 The package is `remax`, while the distribution name is `remax-rl`. The benchmark is the installed `modebench` package; runtime imports do not reach into a parent or sibling repository.
