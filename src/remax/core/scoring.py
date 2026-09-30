@@ -3,14 +3,25 @@
 from __future__ import annotations
 
 import math
-from typing import Any, Sequence
+from typing import Protocol, Sequence
+
 import torch
 
 from .replay_types import CanonicalReplayBatch
 
 
+class ReplayGroup(Protocol):
+    """Minimal read-only interface accepted by the teacher-forcing materializer."""
+
+    @property
+    def prompt_token_ids(self) -> Sequence[int]: ...
+
+    @property
+    def response_token_ids(self) -> Sequence[Sequence[int]]: ...
+
+
 def materialize_canonical_replay_batch(
-    groups: Sequence[Any],
+    groups: Sequence[ReplayGroup],
     *,
     pad_token_id: int,
     device: torch.device | int | str,

@@ -7,3 +7,5 @@ build/
 dist/
 outputs/
 .cache/
+.ruff_cache/
+.mypy_cache/

@@ -1,6 +1,7 @@
 """Bank state for verified replay; retained state semantics are unchanged."""
 
 from __future__ import annotations
+
 import math
 from typing import Any
 
@@ -209,13 +210,12 @@ class BankStateMixin:
             if self.separate_proposal_objective_support:
                 if state.get("separate_proposal_objective_support") is not True:
                     raise ValueError(
-                        "online canonical replay state lacks separated "
-                        "proposal support"
+                        "online canonical replay state lacks separated proposal support"
                     )
                 raw_proposal_only = state.get("proposal_only_outcomes")
                 if not isinstance(raw_proposal_only, dict):
                     raise ValueError(
-                        "online canonical replay state lacks proposal-only " "support"
+                        "online canonical replay state lacks proposal-only support"
                     )
                 restored_proposal_only: dict[str, set[str]] = {}
                 for prompt_key, outcomes in raw_proposal_only.items():
@@ -405,7 +405,7 @@ class BankStateMixin:
                 )
             ):
                 raise ValueError(
-                    "online canonical replay state has invalid global " "update count"
+                    "online canonical replay state has invalid global update count"
                 )
             self._global_replay_updates = int(raw_updates)
             for field_name, attr_name in (
@@ -428,7 +428,7 @@ class BankStateMixin:
                     or int(raw_value) < 0
                 ):
                     raise ValueError(
-                        "online canonical replay state has invalid " f"{field_name}"
+                        f"online canonical replay state has invalid {field_name}"
                     )
                 setattr(self, attr_name, int(raw_value))
         else:

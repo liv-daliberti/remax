@@ -86,6 +86,14 @@ class InstalledWorkflow(unittest.TestCase):
             or "missing training dependency" in result.stderr
         )
 
+    def test_public_api_walkthrough(self):
+        result = json.loads(command("remax", "walkthrough"))
+        self.assertEqual(result["statuses"], ["correct", "correct", "incorrect"])
+        self.assertEqual(result["retained_modes"], 2)
+        self.assertEqual(result["prompt_tokens_scored"], 0)
+        self.assertTrue(result["parameters_updated"])
+        self.assertTrue(result["bank_restored"])
+
     def test_result_packages_without_checkout(self):
         rows = command("remax", "results", "list").splitlines()
         self.assertEqual(len(rows), 101)

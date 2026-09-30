@@ -1,6 +1,7 @@
 """Shared fresh-group diagnostics."""
 
 from __future__ import annotations
+
 import torch
 
 

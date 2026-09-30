@@ -5,18 +5,19 @@ The maintained method uses entropy_alpha=0 and retains verified exemplars.
 """
 
 from __future__ import annotations
+
 import math
 from typing import Sequence
+
 from remax.admission_retention import (
     AdmissionRetentionTracker,
     RetentionPriorityRequest,
 )
 
-from .bank_types import _prompt_key, VerifiedCanonicalReplayGroup
-
 from .admission import BankAdmissionMixin
-from .scheduling import ReplaySchedulingMixin
 from .bank_state import BankStateMixin
+from .bank_types import VerifiedCanonicalReplayGroup, _prompt_key
+from .scheduling import ReplaySchedulingMixin
 
 
 class OnlineCanonicalBank(BankAdmissionMixin, ReplaySchedulingMixin, BankStateMixin):
@@ -187,7 +188,7 @@ class OnlineCanonicalBank(BankAdmissionMixin, ReplaySchedulingMixin, BankStateMi
             and self.global_replay_groups_per_step == 0
         ):
             raise ValueError(
-                "global replay bootstrap requires positive global groups " "per step"
+                "global replay bootstrap requires positive global groups per step"
             )
         self._counts: dict[str, dict[str, int]] = {}
         self._prompt_token_ids: dict[str, tuple[int, ...]] = {}
@@ -298,8 +299,12 @@ class OnlineCanonicalBank(BankAdmissionMixin, ReplaySchedulingMixin, BankStateMi
             "discovered_modes": sum(len(v) for v in self._counts.values()),
             "ledger_observations": sum(sum(v.values()) for v in self._counts.values()),
             "retained_exemplars": sum(len(v) for v in self._exemplars.values()),
-            "retained_response_tokens": sum(len(tokens) for v in self._exemplars.values() for tokens in v.values()),
-            "retained_prompt_tokens": sum(len(v) for v in self._prompt_token_ids.values()),
+            "retained_response_tokens": sum(
+                len(tokens) for v in self._exemplars.values() for tokens in v.values()
+            ),
+            "retained_prompt_tokens": sum(
+                len(v) for v in self._prompt_token_ids.values()
+            ),
             "capacity_per_prompt": self.replay_capacity,
         }
 

@@ -6,7 +6,7 @@ import os
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-EXCLUDED = {'.git', '__pycache__', '.pytest_cache', '.ruff_cache', 'build', 'dist', '.cache', '.venv', 'outputs'}
+EXCLUDED = {'.git', '__pycache__', '.pytest_cache', '.ruff_cache', '.mypy_cache', 'build', 'dist', '.cache', '.venv', 'outputs'}
 
 
 def digest(path):

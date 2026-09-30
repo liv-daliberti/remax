@@ -15,7 +15,7 @@ The maintained recipe launcher now validates typed configuration and method/doma
 - Falcon, 3B, Level 2, newer tuned-control, RLEP, mechanism, and additional application reproduction chains are not fully exported as runnable recipes. Newer summary snapshots alone are not complete reproduction packages.
 - Each additional headline result still needs a complete binding to source runtime, model, dataset/prompt, evaluation seeds, exclusion policy, and raw evidence.
 - The GPU runtime now has a clean-install dependency set and measured A6000 workflow. Multi-GPU operation, other hardware, and containers remain unqualified; CPU CI does not provide GPU validation.
-- Final scientific citation metadata remain to be added when available.
+- Approved authorship and paper status are in [CITATION.cff](CITATION.cff). Repository ownership and scientific change policy are in [Contributing](CONTRIBUTING.md).
 
 The extraction included working-tree changes and does not claim exact equivalence to every historical experiment. Original source hashes and frozen core evidence are retained to support that audit. The original extraction launched no new GPU runs. The subsequent GPU validation launched small local-model training runs; no hosted model-provider calls were used.
 

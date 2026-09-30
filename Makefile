@@ -25,3 +25,12 @@ resume:
 .PHONY: scaling
 scaling:
 	$(PYTHON) -m pytest -q tests/test_execution_resources.py
+
+.PHONY: quality format
+quality:
+	$(PYTHON) -m ruff check src/remax/core
+	$(PYTHON) -m ruff format --check src/remax/core
+	$(PYTHON) -m mypy
+format:
+	$(PYTHON) -m ruff check --fix src/remax/core
+	$(PYTHON) -m ruff format src/remax/core

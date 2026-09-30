@@ -3,11 +3,11 @@
 from __future__ import annotations
 
 import os
-from pathlib import Path
 import random
 import re
 import shutil
 import tempfile
+from pathlib import Path
 from typing import Callable
 
 from ..input_identity import digest

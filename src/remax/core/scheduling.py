@@ -1,12 +1,13 @@
 """Scheduling for verified replay; retained state semantics are unchanged."""
 
 from __future__ import annotations
+
 from typing import Sequence
 
 from .bank_types import (
-    _prompt_key,
     VerifiedCanonicalReplayGroup,
     _normalized_token_tuple,
+    _prompt_key,
 )
 
 

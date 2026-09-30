@@ -14,6 +14,23 @@ The exported recipes configure one global replay prompt group per optimizer step
 
 ModeBench supplies executable correctness and identity. Canonical keys are prompt-local. Two programs can share a mode if they produce the same verified output; a different string is not automatically a new solution mode.
 
+## Public API walkthrough
+
+Run `remax walkthrough` from an installed core package, or `python examples/api_walkthrough.py` from the checkout. The complete example is [remax.walkthrough](../src/remax/walkthrough.py). It uses a tiny character bigram model so no model download or GPU is required.
+
+| Stage | Supported interface | Contract |
+| --- | --- | --- |
+| Grade a saved response | `remax.benchmark.grade_task(Task, response)` | Explicit level/domain; `EvaluationFailure` stops processing on evaluator faults |
+| Admit discoveries | `remax.core.OnlineCanonicalBank.score_and_update(...)` | Complete fresh candidate groups; reward and canonical key come from grading, not string novelty |
+| Select replay | `bank.scheduled_global_replay_groups(min_modes=1)` | Deterministic traversal; singleton banks participate |
+| Build teacher-forcing inputs | `remax.core.materialize_canonical_replay_batch(...)` | Causal response mask excludes prompt/padding; stored tokens stay unchanged |
+| Compute objective | `remax.core.canonical_replay_uniform_verified_likelihood_loss(...)` | Mean over modes within each bank, then over banks |
+| Restore bank state | `bank.state_dict()` / `load_state_dict(...)` | Bank-only restore; full training resume also needs model, optimizer, RNG, data and schedule state |
+
+For a causal model, obtain token scores from `logits[:, :-1].log_softmax(-1)` and gather labels `input_ids[:, 1:]`. Multiply by `batch.response_masks`, sum, and divide by the number of response tokens in each row. Feed these length-normalized scores and `batch.group_sizes` into the replay loss. The example does this explicitly, takes one optimizer step, and verifies bank restoration. Production training additionally combines fresh RL loss, replay coefficient, compute-only controls, and accumulation scaling; use the OAT adapter for the registered method.
+
+The example returns two correct and one incorrect response, two retained modes, zero prompt tokens scored, changed toy parameters, and an equal restored bank. It is an API illustration, not a benchmark result or a replacement for the [GPU workflow](training.md).
+
 ## Replay objective
 
 Let `s[g, m]` be the current model's length-normalized teacher-forced log score for the retained exemplar of mode m in scheduled prompt bank g. The uniform verified-likelihood primitive minimizes:

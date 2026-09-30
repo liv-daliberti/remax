@@ -34,6 +34,9 @@ def main(argv=None):
     parser.add_argument("--version", action="version", version=__version__)
     commands = parser.add_subparsers(dest="command", required=True)
     commands.add_parser("demo", help="run the CPU replay loss/gradient example")
+    commands.add_parser(
+        "walkthrough", help="grade saved responses and run a CPU replay update"
+    )
     recipes = commands.add_parser(
         "recipes", help="list bundled recipes or print one as JSON"
     )
@@ -59,6 +62,10 @@ def main(argv=None):
     try:
         if args.command == "demo":
             print(json.dumps(demo()))
+        elif args.command == "walkthrough":
+            from .walkthrough import walkthrough
+
+            print(json.dumps(walkthrough()))
         elif args.command == "recipes":
             from .launcher import recipe_names, resolve_recipe
 

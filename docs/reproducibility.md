@@ -71,15 +71,7 @@ The first claim is exercised by this release. The second and third require addit
 
 ## Citing the implementation
 
-Record the repository URL and exact commit in software citations:
-
-```text
-Re:Max / Re:Dr. https://github.com/liv-daliberti/remax
-Software version 0.1.0; Git commit: <the commit used for the experiment>.
-```
-
-Cite the associated scientific work when its final bibliographic metadata are available, and cite ModeBench separately when reporting benchmark results. This repository does not assign an unverified DOI or paper author list.
-
+Use the approved paper citation in the [README](../README.md#citation) or [CITATION.cff](../CITATION.cff), plus the exact Re:Max and ModeBench commits, recipe, model revision, and dataset identities. The paper is accepted at MATH-AI 2026 and under review at ICLR 2027; the citation does not claim ICLR acceptance. No DOI has been assigned here.
 
 ## Result packages and training export audit
 

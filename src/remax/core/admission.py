@@ -1,15 +1,16 @@
 """Admission for verified replay; retained state semantics are unchanged."""
 
 from __future__ import annotations
+
 import math
 from collections import Counter
 from typing import Sequence
 
 from .bank_types import (
-    _prompt_key,
     OnlineCanonicalBankDiagnostics,
     VerifiedProposalAdmissionDiagnostics,
     _normalized_token_tuple,
+    _prompt_key,
 )
 
 
@@ -149,9 +150,9 @@ class BankAdmissionMixin:
                         set(),
                     ).add(outcome_key)
                 if self.proposal_replay_priority_visits > 0:
-                    staged_priority.setdefault(prompt_key, {})[
-                        outcome_key
-                    ] = self.proposal_replay_priority_visits
+                    staged_priority.setdefault(prompt_key, {})[outcome_key] = (
+                        self.proposal_replay_priority_visits
+                    )
                     if prompt_key not in staged_priority_queue:
                         staged_priority_queue.append(prompt_key)
                 if staged_retention is not None:

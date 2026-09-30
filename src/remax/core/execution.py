@@ -1,14 +1,25 @@
 """Execution-layout checks; scientific coefficients do not depend on rank count."""
 
-from dataclasses import asdict
+from __future__ import annotations
+
 import hashlib
 import json
+from dataclasses import asdict
+from typing import Mapping, Sequence
+
 import torch
+
+from .bank_types import VerifiedCanonicalReplayGroup
 
 
 def validate_update_partition(
-    *, local_rows, microbatch, accumulation, global_batch=None, world_size=1
-):
+    *,
+    local_rows: int,
+    microbatch: int,
+    accumulation: int,
+    global_batch: int | None = None,
+    world_size: int = 1,
+) -> None:
     for name, value in (
         ("local_rows", local_rows),
         ("microbatch", microbatch),
@@ -32,7 +43,12 @@ def validate_update_partition(
         )
 
 
-def replay_contract_digest(*, groups, settings, tensors):
+def replay_contract_digest(
+    *,
+    groups: Sequence[VerifiedCanonicalReplayGroup],
+    settings: Mapping[str, object],
+    tensors: Sequence[torch.Tensor],
+) -> str:
     """Hash rank-replicated inputs, including order, without serializing gradients."""
     h = hashlib.sha256(
         json.dumps(

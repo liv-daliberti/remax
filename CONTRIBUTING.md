@@ -1,8 +1,15 @@
 # Contributing
 
-Use the CPU environment in the [README](README.md#quick-start-installed-cpu-workflow), then run:
+## Ownership and review
+
+[Liv G. d'Aliberti](https://github.com/liv-daliberti) is the repository steward and review contact, recorded in [.github/CODEOWNERS](.github/CODEOWNERS). The approved scientific author list is in [CITATION.cff](CITATION.cff); authorship does not assign every author a software-maintenance role. Route method, protocol, and exclusion questions through a GitHub issue so the decision and evidence remain public. ModeBench owns benchmark semantics and dataset licensing; this repository owns replay, training integration, and run evidence.
+
+## Development checks
+
+From the checkout root, activate the CPU environment in the [README](README.md#quick-start-installed-cpu-workflow), install `.[dev]`, then run:
 
 ```sh
+make quality
 make check
 make conformance
 make boundary
@@ -13,6 +20,12 @@ python examples/replay_loss.py
 
 These commands test replay objectives, bank admission and scheduling, method/control flags, retained numerical evidence, and shell syntax. GPU training is a separate validation step.
 
+## Formatting, linting, and typing
+
+Install `.[dev]` for the pinned Ruff 0.12.12 and mypy 1.17.1 tools. `make format` applies Ruff import cleanup and formatting to **all of `src/remax/core`**; `make quality` checks formatting, unused/undefined names, basic Python correctness, import order, and typing. CI runs the same gate. Historical integrations, snapshots and frozen analysis scripts are outside this formatting scope.
+
+Strict mypy initially covers six core modules: `bank_types`, `replay_types`, `objectives`, `scoring`, `metrics`, and `execution`. The materializer accepts a typed `ReplayGroup` protocol; the installed package carries `py.typed`. Bank admission/state/scheduling mixins and checkpoint wire dictionaries are not yet under the strict typing gate. Their runtime contracts remain covered by conformance and resume tests. Expand this explicit list as those boundaries acquire types; do not silence entire new modules or describe the package as fully type-checked.
+
 ## Installed-package checks
 
 CI builds a wheel from the sdist, then installs wheel and sdist independently on Python 3.10–3.12. The wheel jobs use NumPy 1.26.4; sdist jobs resolve NumPy 2.x. Each clean venv runs the core-only workflow before installing `dev`, then runs the regression suite from a temporary directory containing tests and evidence, with no `src/` tree. No test configuration adds the source directory to `sys.path`.
@@ -22,6 +35,16 @@ For a local artifact check, build with `python -m build`, install one artifact i
 Use regular installs (`python -m pip install '.[dev]'`) while changing launcher assets: the wheel build copies the canonical `configs/` recipes and `ops/` scripts into package resources. Reinstall after edits. Editable installations are not the release validation path. The build hook is `src/build_support.py`; changing assets must preserve recipe command parity and strict launch identities.
 
 ## Scientific compatibility
+
+Classify each PR before changing expected behavior:
+
+| Class | Examples | Required record |
+| --- | --- | --- |
+| Software-only fix | Documentation, formatting, performance preserving decisions and reductions | Changelog entry, affected tests, existing frozen references unchanged |
+| Scientific method/protocol change | Admission/keying, score normalization, replay coefficient/schedule, RNG, evaluation draws, exclusions | New explicit method/protocol or recipe identity, preserved old evidence, declared tolerances, conformance comparison, steward's recorded scientific review |
+| Benchmark change | Correctness, canonical identity, dataset contents, prompt or metric semantics | Versioned change in ModeBench first; new authenticated input registry and compatibility fixtures here |
+
+A bug fix that changes rewards, keys, optimization, sampling, or reported scores is also a scientific change. A package version increment alone does not identify a new benchmark or make old and new scores comparable. Current pre-release software stays at 0.1.0; identify it by commit, and describe changes in [CHANGELOG.md](CHANGELOG.md). Never claim a new PyPI/tagged release before publishing one. Even formatting changes source hashes, so strict checkpoint restores require the original installed source; retain that environment for existing runs.
 
 Explain how a change affects fresh-sample advantages, bank admission, exemplar identity, replay weights, schedule/resume state, loss scaling, or compute-matched controls. Add focused behavioral tests for changes to those contracts.
 

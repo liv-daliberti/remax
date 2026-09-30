@@ -1,6 +1,7 @@
 """Verified keys, exemplars and bank diagnostics; no trainer dependencies."""
 
 from __future__ import annotations
+
 import hashlib
 import json
 from dataclasses import dataclass

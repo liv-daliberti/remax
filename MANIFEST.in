@@ -1,5 +1,6 @@
 include src/build_support.py
-include LICENSE README.md Makefile
+include LICENSE README.md Makefile CITATION.cff CHANGELOG.md CONTRIBUTING.md
+recursive-include docs *.md
 include requirements-gpu-py310-cu124.txt constraints-*.txt
 recursive-include configs *.json
 recursive-include ops *.py *.sh

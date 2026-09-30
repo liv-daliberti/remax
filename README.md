@@ -1,102 +1,77 @@
 # Re:Max / Re:Dr
 
-**Retain and rehearse the correct solution modes a policy discovers.** Verified replay keeps a prompt-local bank of verified exemplars and revisits them with a uniform teacher-forced likelihood objective. **Re:Max** combines replay with MaxRL; **Re:Dr** combines it with Dr.GRPO.
+**Retain and rehearse the correct solution modes a policy discovers.** Re:Dr adds verified replay to Dr.GRPO; Re:Max adds it to MaxRL. The bank admits only validator-positive responses generated during training, then revisits retained exemplars with a uniform teacher-forced likelihood objective.
 
-[![Verified replay: verify model outputs, store one exemplar per discovered mode, revisit prompt-local banks recurrently, and replay their exemplars uniformly.](docs/assets/verified-replay.png)](docs/assets/verified-replay.png)
+[![Verified replay: verify responses, retain discovered modes, and rehearse their exemplars.](docs/assets/verified-replay.png)](docs/assets/verified-replay.png)
 
-*The verified-replay mechanism from the paper. Click to view the full-resolution figure.*
-
-This repository contains replay objectives, bank state and scheduling, OAT learner integration, **20 Level 1 training recipes**, and a frozen analysis covering **473 seed records across 95 arms**. [ModeBench](https://github.com/liv-daliberti/modeBench) separately owns the benchmark, datasets, validators, and canonical mode identities.
+**Start here:** [install → train → resume → evaluate → interpret](docs/training.md). The walkthrough uses the qualified one-GPU environment and a short PantryPlan run. [ModeBench](https://github.com/liv-daliberti/modeBench) separately owns datasets, validators, and canonical identities.
 
 ## Quick start: installed CPU workflow
 
-Use Linux x86_64 with CPython 3.10–3.12. This installs a regular package, then runs it outside the source directory:
+On Linux x86_64 with Python 3.10–3.12:
 
 ```sh
 git clone https://github.com/liv-daliberti/remax.git
 cd remax
-python3.10 -m venv .venv
-source .venv/bin/activate
+python3.10 -m venv .venv-cpu
+source .venv-cpu/bin/activate
 python -m pip install --upgrade pip
 python -m pip install 'torch==2.6.0+cpu' --index-url https://download.pytorch.org/whl/cpu
 python -m pip install .
 cd "$(mktemp -d)"
-remax demo
+remax walkthrough
 remax recipes
-remax recipes remax_countdown_05b > recipe.json
-remax-run recipe.json --data-root ./data --model ./model \
-  --output ./run --render-only
+remax results list
 ```
 
-`remax demo` prints `{"maxrl_advantages": [[1.0, -1.0]], "replay_loss": 2.0, "score_gradients": [-0.25, -0.25, -0.5]}`. `remax recipes` lists 20 bundled recipes. The final command previews training arguments and labels them **UNVERIFIED**; it does not download inputs or create a run. `remax environment` reports installed versions. Python module equivalents are `python -m remax` and `python -m remax.launcher`.
+`walkthrough` grades three saved Countdown responses, retains two verified modes, applies a small CPU replay update, and restores bank state. Expect `statuses: ["correct", "correct", "incorrect"]`, `retained_modes: 2`, `prompt_tokens_scored: 0`, and both `parameters_updated` and `bank_restored` to be `true`. It illustrates the [public API](docs/method.md#public-api-walkthrough); it is not a complete RL run. `remax demo` gives an even smaller score-gradient example.
 
-You can instead install a built wheel or source distribution with `python -m pip install /path/to/remax_rl-0.1.0-py3-none-any.whl` or `python -m pip install /path/to/remax_rl-0.1.0.tar.gz`. [CI builds both artifacts](https://github.com/liv-daliberti/remax/actions/workflows/check.yml) and tests them in clean environments outside the checkout. No PyPI release is claimed. The [installation guide](docs/training.md#package-artifacts-and-supported-environments) explains artifact builds and supported dependency combinations.
-
-The core install includes PyTorch, NumPy, and ModeBench 0.4.0 from an immutable Git commit. Git and network access are required during installation; no sibling ModeBench checkout is used at runtime. Core commands make no model calls and require no OAT, vLLM, DeepSpeed, Transformers, or Datasets installation.
-
-For contributor checks, return to the checkout, install the development extra with `python -m pip install '.[dev]'`, and run `make check`. `make conformance`, `make boundary`, and `make resume` select training, verifier-failure, and continuation contracts. Reinstall after source edits so tests exercise the new package. See [contributing](CONTRIBUTING.md).
-
-GPU training uses a separate, qualified Python 3.10 / CUDA 12.4 environment. Follow the [training guide](docs/training.md); the CPU wheel above cannot train on a GPU.
+The core install requires Git/network access for pinned ModeBench, but no model weights or training dependencies. GPU training uses a separate Python 3.10 / CUDA 12.4 environment; follow the [training guide](docs/training.md). [Wheel and sdist CI](https://github.com/liv-daliberti/remax/actions/workflows/check.yml) tests both artifacts outside the checkout. No PyPI release is claimed.
 
 ## Four matched methods
 
-| Recipe prefix | Fresh-sample objective | Applied replay derivative |
+| Recipe prefix | Fresh objective | Applied replay derivative |
 | --- | --- | --- |
-| `drgrpo` | Dr.GRPO | Exactly zero; compute-matched control |
+| `drgrpo` | Dr.GRPO | Exactly zero; replay still executes |
 | `redr` | Dr.GRPO | Uniform verified replay |
-| `maxrl` | Binary MaxRL | Exactly zero; compute-matched control |
+| `maxrl` | Binary MaxRL | Exactly zero; replay still executes |
 | `remax` | Binary MaxRL | Uniform verified replay |
 
-Both controls retain bank bookkeeping, recurrent traversal, and replay computation. The treatment changes the applied replay derivative. These controls are not equivalent to disabling the entire replay path.
+The 20 maintained recipes cover all five Level-1 domains with pinned Qwen2.5-0.5B-Instruct. Controls retain bank bookkeeping, scheduling, and replay computation. See [method and API](docs/method.md) for objective weighting and [recipe inventory](docs/training.md#recipe-inventory) for settings.
 
-The public recipes cover graph coloring, Countdown, Python factors, MathIR, and PantryPlan at Level 1 with Qwen2.5-0.5B-Instruct. They record the model revision, registered seeds, domain interfaces, and launch settings. See the [recipe inventory](docs/training.md#recipe-inventory).
-
-## Reproduce the retained analysis
-
-The installed package includes a result catalog and the frozen analysis inputs:
+## Results and evidence
 
 ```sh
-remax results list
 remax results show level2/qwen05b/countdown/replay_maxrl
 remax results reproduce level2/qwen05b/countdown/replay_maxrl
 remax results verify
 ```
 
-`reproduce` recomputes saved-key results; `verify` checks file identities and bindings only. Each entry distinguishes a runnable analysis from a retained summary and shows its seeds, exclusions, recorded launch settings, model path/revision, dataset paths, prompt condition, evaluation certificates, and runtime gaps. Historical `replay_maxrl` means Re:Max; `replay_drgrpo` means Re:Dr. The repository command `python ops/reproduce_training.py` still checks the full frozen analysis.
+The installed catalog binds 95 arms and all 475 archived cells, including two excluded from the 473-record analysis. `reproduce` recomputes saved-key numerical results; `verify` checks integrity and bindings only. Six retained summaries are explicitly labeled snapshots. Neither command retrains a model. Historical Level-2/3 and larger-model training exports remain unqualified; the [audit](docs/reproducibility.md#result-packages-and-training-export-audit) records the missing or changed evidence.
 
-This checks the unchanged verified-key archive against the frozen summary, including seed records, arm aggregates, support eligibility, and missing-checkpoint decisions. Expected coverage is 473 records and 95 arms, of which 84 are terminal-reportable under the retained rules.
+## Documentation and ownership
 
-This is saved-key numerical reproduction. It does not retrain a policy or regrade every original response. Six summaries under `evidence/snapshots/`, including Level 3, remain explicitly labeled snapshots. The [experiment audit](docs/reproducibility.md#result-packages-and-training-export-audit) explains why Level-2/3 and larger-model historical training recipes have not been promoted: runtime identities are missing or changed, and launch exports do not establish complete effective configurations. See [reproducibility](docs/reproducibility.md).
-
-## Training entry point
-
-After preparing the exact data and model snapshot described in the [training guide](docs/training.md), preview a command:
-
-```sh
-remax-run remax_countdown_05b \
-  --data-root /path/to/materialized/countdown \
-  --model /path/to/pinned/model/snapshot \
-  --output outputs/remax-countdown-s43 \
-  --render-only
-```
-
-The preview is explicitly unverified. Replace `--render-only` with `--execute` to authenticate inputs and train locally, or `--validate-only` to save the complete effective configuration and exit before training. Use a fresh output directory for either; `--seed 44` selects another registered seed. Unknown fields, incompatible settings, wrong input identities, and conflicting inherited settings fail before training. The launcher does not require Slurm. [Explicit resume](docs/training.md#explicit-identity-bound-resume) binds checkpoints to the configuration and input identities; `make resume` checks full-run continuation. A clean installation completed the [four-method GPU walkthrough](docs/training.md#complete-gpu-smoke-workflow) on one 48 GB A6000, including checkpoint reload and identical evaluation records. See [measured results](VALIDATED_GPU_RUN.json) and [release scope](RELEASE_STATUS.md).
-
-## Documentation
-
-| Guide | Contents |
+| Guide | Purpose |
 | --- | --- |
-| [Method and implementation](docs/method.md) | Admission, replay scheduling, objectives, gradient example, module map |
-| [Training](docs/training.md) | Installation, exact data/model preparation, recipes, command rendering, resume behavior |
-| [Reproducibility](docs/reproducibility.md) | Frozen evidence, provenance, environment versions, reporting |
-| [Contributing](CONTRIBUTING.md) | Tests and scientific compatibility expectations |
-| [Release scope](RELEASE_STATUS.md) | Included work and known limitations |
-| [Validation](VALIDATION.md) | Checks actually performed |
+| [Training workflow](docs/training.md) | Install, authenticate inputs, train, resume, evaluate, read outputs |
+| [Method and public API](docs/method.md) | Objectives, executable example, module map, scaling |
+| [Reproducibility](docs/reproducibility.md) | Protocols, provenance, results, exclusions |
+| [Contributing](CONTRIBUTING.md) | Ownership, quality checks, scientific compatibility policy |
+| [Changelog](CHANGELOG.md) | Software and protocol changes |
+| [Release scope](RELEASE_STATUS.md) / [validation](VALIDATION.md) | Supported claims and checks actually run |
 
-The maintained method lives in `remax.core`, with training plumbing in `remax.integrations.oat`. Historical comparator implementations live in `remax.experiments` and load only when selected. Start with the [source map and reading guide](docs/method.md#source-map); the 20 public recipes select the four methods above.
+Repository steward: [Liv G. d'Aliberti](https://github.com/liv-daliberti). Use [issues](https://github.com/liv-daliberti/remax/issues) for software and scientific-contract questions. Code is [Apache-2.0](LICENSE); ModeBench records dataset terms separately.
 
-## License and reference
+## Citation
 
-Code is licensed under [Apache 2.0](LICENSE), with original copyright notices retained. ModeBench documents dataset source terms separately.
+The paper is **accepted at [MATH-AI 2026](https://mathai-2026.github.io/)** and **under review at ICLR 2027**. Please use the approved citation and record your exact Re:Max/ModeBench commits, recipe, model revision, and dataset hashes. Machine-readable metadata is in [CITATION.cff](CITATION.cff).
 
-Cite this repository URL and the exact Git commit used, together with the ModeBench commit, recipe, model revision, and evidence identities. Scientific citation metadata and additional experiment packages remain tracked in [release scope](RELEASE_STATUS.md).
+```bibtex
+@inproceedings{dAliberti:etal:ModeCollapse:2027,
+  author    = {d'Aliberti, Liv G. and Abdulhai, Marwa and Druchyna, Sofiia and Henderson, Peter and Horta Ribeiro, Manoel},
+  title     = {Measuring and Mitigating Solution Mode Collapse in {RLVR}},
+  booktitle = {International Conference on Learning Representations ({ICLR})},
+  year      = {2027},
+  note      = {Under review at {ICLR} 2027},
+}
+```

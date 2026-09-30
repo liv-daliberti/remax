@@ -138,6 +138,14 @@ The result-package change passes the 719-test full regression suite plus the add
 
 The wheel passes all five core-only installed smoke cases from `/tmp`, without source-path overrides. A separately installed sdist runs the documented `remax results reproduce` command outside the checkout using NumPy 2.x; summary-only reproduction returns a nonzero exit status. Both distribution formats include the analysis archive and authenticated result catalog. These checks qualify installed saved-key analysis, not fresh historical training. The audit records six missing runtime snapshot identities and two changed snapshot trees; no additional historical training recipe is presented as verified.
 
+## Public workflow and maintained-core quality
+
+The public cleanup passes **722 tests** and all six installed core-only smoke cases outside the checkout, including the new `remax walkthrough` command. The bounded training recipe generator validates and renders the existing six-update Pantry configuration, enables recovery before launch, retains all three committed checkpoints, and refuses to overwrite a recipe. The report fields in the training walkthrough were checked against retained real GPU output. No new GPU training qualification is claimed by this documentation change.
+
+Ruff 0.12.12 checks and formats all 12 maintained core modules; mypy 1.17.1 runs strict checks on the six explicitly listed numerical/type/scoring/execution modules. The initial typing gate does not cover bank mixins or checkpoint wire dictionaries. Comparing parsed executable function bodies with the previous commit found no changes from formatting or annotations; the new read-only scoring protocol adds declaration-only properties. Frozen numerical reproduction and all ten existing protected reference files remain unchanged. Changed source bytes still require a fresh strict run identity.
+
+`CITATION.cff` validates against the official CFF 1.2.0 schema. Documentation file/anchor links resolve. Experimental protocols, result catalogs, input registries, and archived evidence remain byte-identical. README and the training guide are the user path; CONTRIBUTING owns review and compatibility policy, and CHANGELOG records source/protocol changes without implying a new package release.
+
 ## What remains untested
 
 Full-budget historical trajectories and scores, other GPU types, multiple learner GPUs, and nontrivial learning in the other four domains remain unqualified. The bounded Countdown run checks free-form sampling and restore continuity but admitted no correct training responses. CPU CI checks the software and frozen numerical contracts; the GPU validation above was a separate manual run. Newer result snapshots remain outside the frozen-core numerical reproduction check.
