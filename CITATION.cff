@@ -2,7 +2,7 @@ cff-version: 1.2.0
 message: "Please cite the paper below and record the Re:Max and ModeBench commits, recipe, and input hashes used."
 type: software
 title: "Re:Max / Re:Dr"
-version: 0.1.0
+version: 0.1.1
 repository-code: https://github.com/liv-daliberti/remax
 url: https://github.com/liv-daliberti/remax
 license: Apache-2.0

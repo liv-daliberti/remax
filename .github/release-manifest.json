@@ -8,8 +8,8 @@
     },
     {
       "path": ".github/workflows/check.yml",
-      "sha256": "53e4e7432ea8e9ed06078efa59bbce8af0c9042f111c55cabc09d4256e802f87",
-      "bytes": 3916
+      "sha256": "89acd32021f2e391156907ecb18a3101970931db4f4257a97305c97e60c3da74",
+      "bytes": 3857
     },
     {
       "path": ".github/workflows/publish.yml",
@@ -23,7 +23,7 @@
     },
     {
       "path": "CITATION.cff",
-      "sha256": "443275f671423919759645144b280e1efb8469f4e40314c823bcf032cf142106",
+      "sha256": "80d5775319af60f04cfa048fce0eab3b22b7fac654e178ccf3931aa8f2108087",
       "bytes": 1202
     },
     {
@@ -43,7 +43,7 @@
     },
     {
       "path": "README.md",
-      "sha256": "7c2f93ef60dfb94e9142fc73f31f14f558a86b4abd2a1c64712934e5f8d4d4a4",
+      "sha256": "894a2d947d7ce7b83eb041747231aaf9d1780fb473e58ae3e09e1c2f0f4819b7",
       "bytes": 16964
     },
     {
@@ -318,7 +318,7 @@
     },
     {
       "path": "pyproject.toml",
-      "sha256": "679527284c51c9cedc4f6b990a3ed54d4deb0dcd0ceccca3a2f4f3f2edc80d08",
+      "sha256": "530451e42f9a2641b273a80d6d5b33c8ebd0a9c0da840b1dbacfdcab434d24eb",
       "bytes": 2140
     },
     {
@@ -333,7 +333,7 @@
     },
     {
       "path": "src/remax/__init__.py",
-      "sha256": "b845e5f5f29bc232d7a0a01228c1d3df111f73861fe461c042ec6af284134cd9",
+      "sha256": "8052c936a8c19c8703f7a72615a6a7bf8c0a8a3dae7f9121563beffc9723b03e",
       "bytes": 94
     },
     {

@@ -2,7 +2,7 @@
 
 **Retain and rehearse the correct solution modes a policy discovers.** Re:Dr adds verified replay to Dr.GRPO; Re:Max adds it to MaxRL. A prompt-local bank stores verified exemplars discovered during training and rehearses their modes uniformly.
 
-[![Re:Max combines fresh MaxRL learning with verified-mode replay to retain discovered modes while finding new ones.](https://raw.githubusercontent.com/liv-daliberti/remax/v0.1.0/assets/verified-support-story.png)](https://raw.githubusercontent.com/liv-daliberti/remax/v0.1.0/assets/verified-support-story.png)
+[![Re:Max combines fresh MaxRL learning with verified-mode replay to retain discovered modes while finding new ones.](https://raw.githubusercontent.com/liv-daliberti/remax/v0.1.1/assets/verified-support-story.png)](https://raw.githubusercontent.com/liv-daliberti/remax/v0.1.1/assets/verified-support-story.png)
 
 [Performance](#performance-on-modebench) · [Install](#install) · [Train and resume](#train-and-resume) · [API](#public-api) · [Results](#reproduce-results) · [Contributing](#contributing) · [Citation](#citation)
 
@@ -67,7 +67,7 @@ remax recipes
 
 `remax walkthrough` grades three saved Countdown responses, retains two verified modes, applies a CPU replay update, and restores bank state. Expect two `correct` responses, one `incorrect`, zero prompt tokens scored, and `parameters_updated` / `bank_restored` both `true`. It needs no model weights or GPU. `remax demo` is a smaller score-gradient example.
 
-The core requires PyTorch 2.6.x, NumPy >=1.26.4,<3, and the qualified `modebench==0.4.0` package. Training preflight checks its code and resource hashes, so altered packages fail even when their version matches. The install command also accepts the tested ModeBench GitHub release while PyPI publication is pending. Commands work outside the checkout without `PYTHONPATH`. To build wheel and sdist artifacts, install `build` and run `python -m build`; the release workflow publishes the exact tested artifacts to [GitHub Releases](https://github.com/liv-daliberti/remax/releases) and PyPI. Once version 0.1.0 is published, `python -m pip install remax-rl==0.1.0` installs the core; install the CPU PyTorch wheel first when using the CPU walkthrough.
+The core requires PyTorch 2.6.x, NumPy >=1.26.4,<3, and the qualified `modebench==0.4.0` package. Training preflight checks its code and resource hashes, so altered packages fail even when their version matches. The install command also accepts the tested ModeBench GitHub release while PyPI publication is pending. Commands work outside the checkout without `PYTHONPATH`. To build wheel and sdist artifacts, install `build` and run `python -m build`; the release workflow publishes the exact tested artifacts to [GitHub Releases](https://github.com/liv-daliberti/remax/releases) and PyPI. Once version 0.1.1 is published, `python -m pip install remax-rl==0.1.1` installs the core; install the CPU PyTorch wheel first when using the CPU walkthrough.
 
 ## Train and resume
 
