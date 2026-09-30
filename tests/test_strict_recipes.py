@@ -346,7 +346,9 @@ def launch(raw, tmp_path, monkeypatch):
                 "path": str(model),
                 "sha256": {"model.safetensors": identity.digest(weights)},
             },
-            "data": {"path": str(data), "sha256": {}},
+            "data": {"path": str(data), "sha256": {}, "splits": {}},
+            "prompt": {},
+            "registry_sha256": "trusted",
         },
         "launch_environment": {"OMP_NUM_THREADS": "1"},
         "validate_only": True,
@@ -365,6 +367,12 @@ def launch(raw, tmp_path, monkeypatch):
         "eval_data": str(data / "eval"),
         "save_path": str(tmp_path),
         "unmentioned_default": 17,
+        "gpus": 1,
+        "asynchronous": False,
+        "buffer_clear_every": 1,
+        "dump_all_buffer": False,
+        "resume_dir": None,
+        "resume_tag": None,
     }
     args = make_dataclass("Args", [(k, object) for k in values])(**values)
     return args, tmp_path
@@ -452,3 +460,58 @@ def test_runtime_pin_rejects_dependency_drift(monkeypatch):
     monkeypatch.setattr(records.metadata, "version", lambda _: "different-version")
     with pytest.raises(ValueError, match="incompatible torch"):
         records.validate_runtime()
+
+
+@pytest.mark.parametrize(
+    "change", [None, "identity", "corruption", "selector", "implicit"]
+)
+def test_explicit_resume_is_checked_at_preworker_boundary(launch, change):
+    from remax.checkpointing import commit_checkpoint
+
+    args, path = launch
+    assert finalize_launch(args)
+    effective = path / "effective_config.json"
+    identity_record = strict_json(effective.read_text())["resume_identity"]
+    effective.unlink()
+    if change == "identity":
+        identity_record["arguments"]["num_prompt_epoch"] += 1
+    checkpoint = commit_checkpoint(
+        path / "checkpoints",
+        step=1,
+        identity=identity_record,
+        keep=1,
+        writer=lambda folder: (folder / "state.bin").write_bytes(b"state"),
+    )
+    args.resume_dir = str(checkpoint.parent)
+    args.resume_tag = checkpoint.name
+    p = path / "launch_request.json"
+    request = strict_json(p.read_text())
+    if change != "implicit":
+        request["resume_checkpoint"] = str(checkpoint)
+    request["request_sha256"] = configuration_digest(
+        {k: v for k, v in request.items() if k != "request_sha256"}
+    )
+    write_json(p, request)
+    if change == "corruption":
+        (checkpoint / "state.bin").write_bytes(b"changed")
+    if change == "selector":
+        args.resume_tag = "step_00002"
+    if change is None:
+        assert finalize_launch(args)
+        assert strict_json(effective.read_text())["resume_identity"] == identity_record
+    else:
+        with pytest.raises(ValueError):
+            finalize_launch(args)
+        assert not effective.exists()
+
+
+@pytest.mark.parametrize(
+    "field,value",
+    [("gpus", 2), ("asynchronous", True), ("dump_all_buffer", True)],
+)
+def test_unsupported_resume_layout_fails_before_workers(launch, field, value):
+    args, path = launch
+    setattr(args, field, value)
+    with pytest.raises(ValueError, match="requires"):
+        finalize_launch(args)
+    assert not (path / "effective_config.json").exists()

@@ -175,13 +175,76 @@ The exact environment in each JSON file is authoritative. The fresh-sample objec
 
 ## Outputs and resume
 
-`--output` sets the training save root. OAT may create a run-specific subdirectory beneath it. The configs retain historical resume settings and a terminal model export. **The portable launcher does not implement automatic checkpoint discovery**: `OAT_ZERO_AUTO_RESUME` is retained metadata. Recovery writes require `OAT_ZERO_SAVE_CKPT=1` in a copied recipe. The strict recipe launcher refuses existing outputs and does not accept resume paths: checkpoint identity authentication is not implemented yet. The separate bounded GPU smoke runner uses the low-level shell interface with explicit `OAT_ZERO_RESUME_DIR`/`OAT_ZERO_RESUME_TAG` and retains checkpoints for its reload audit. Direct shell launches and smoke overrides are outside the strict registered-recipe input contract.
+`--output` sets the training save root. OAT may create a run-specific subdirectory beneath it. The configs retain historical resume settings and a terminal model export. **The portable launcher does not implement automatic checkpoint discovery**: `OAT_ZERO_AUTO_RESUME` is retained metadata. Recovery writes require `OAT_ZERO_SAVE_CKPT=1` in a copied recipe. The strict recipe launcher requires a fresh output directory and accepts an explicit, authenticated `--resume` step directory. See the protocol below. The separate bounded GPU smoke runner uses the low-level shell interface with explicit `OAT_ZERO_RESUME_DIR`/`OAT_ZERO_RESUME_TAG` and retains checkpoints for its reload audit. Direct shell launches and smoke overrides are outside the strict registered-recipe input contract.
 
-Use a new output root for every method/domain/seed unless you intend to resume that same run. Preserve config, code, dataset, model, bank state, and schedule identity across a resume. Never infer cohort membership from a directory name alone; match the recorded seed and protocol.
+Use a new output root for every attempt, including resume attempts. Preserve config, code, dataset, model, bank state, and schedule identity across a resume. Never infer cohort membership from a directory name alone; match the recorded seed and protocol.
 
 `launch_request.json` records the original recipe and its hash, typed settings, selected seed, ordered dataset identities, local file hashes, pinned model identity, prompt interface, exact command, controlled launch environment, and source hashes. Immediately before entering the training runtime, source/input bytes and resolved recipe settings are checked again. `effective_config.json` adds **every validated dataclass argument**, including inherited OAT defaults, installed dependency versions, and the runtime environment. Infinite numerical settings use the JSON string `"inf"`; JSON NaN is rejected. Both files are written atomically. A validation failure prevents training; existing records are never overwritten. A record with `status: validated` proves configuration validation, not training completion. Preserve it alongside metrics, checkpoints, and evaluation diagnostics.
 
 The trust anchors are the versioned registry shipped with Re:Max and its pinned ModeBench source, not a user-editable dataset receipt. Model hashes were checked against upstream Git/LFS identities; materialized-row hashes were derived only after verifying frozen Parquet bytes. The PR-base guard rejects rewrites of an existing input registry. This protects against accidental input substitution and configuration drift; it does not isolate a run from someone who can modify installed code or files during execution.
+
+## Explicit, identity-bound resume
+
+Strict launches use the versioned `remax-resume-v1` protocol. They support one collocated learner GPU, synchronous generation, one full candidate group per optimizer boundary, and the four maintained methods. Unsupported layouts fail before training. Historical direct-shell checkpoints lack this contract and cannot be loaded by the strict launcher.
+
+Enable recovery writes in a **copied recipe before the first launch**:
+
+```sh
+python - <<'PY'
+import json
+from pathlib import Path
+source = Path("configs/remax_pantry_plan_05b.json")
+recipe = json.loads(source.read_text())
+recipe["environment"].update({
+    "OAT_ZERO_SAVE_CKPT": "1",
+    "OAT_ZERO_MAX_RESUME_NUM": "2",
+    "OAT_ZERO_PRUNE_RESUME_ON_SUCCESS": "0",
+})
+Path("outputs").mkdir(exist_ok=True)
+Path("outputs/remax-resumable.json").write_text(json.dumps(recipe, indent=2) + "\n")
+PY
+```
+
+Launch that recipe with `--execute` as above. After an interruption, select an explicit committed step and use a fresh output directory:
+
+```sh
+python ops/run_recipe.py outputs/remax-resumable.json \
+  --data-root outputs/data/pantry_plan \
+  --model /path/to/pinned/model/snapshot \
+  --output outputs/remax-s43-restarted \
+  --resume outputs/remax-s43/debug_TIMESTAMP/checkpoints/step_00192 \
+  --execute
+```
+
+Keep the **original total training horizon**, seed, evaluation schedule, optimizer/replay settings, source, dependencies, and hardware. Changing `NUM_PROMPT_EPOCH` to the number of remaining epochs changes the scheduler and is rejected. Input directories may move if their contents still authenticate. The output and explicit checkpoint selector may change. `--validate-only --resume ...` checks restore compatibility before starting workers; old checkpoints, missing manifests, changed files, and incompatible identities fail. There is no automatic latest-checkpoint discovery.
+
+Checkpoints use DeepSpeed’s Python serialization and must come from a trusted run; manifest hashes check integrity, not publisher identity.
+
+Each checkpoint saves model and optimizer state, scheduler state, DeepSpeed microstep position, Python/NumPy/Torch CPU/CUDA random-number states, the retained rollout buffer, data position, bank/exemplars/replay cursor, progress counters, and the last evaluated policy step. Restore skips consumed rows and the already-completed boundary evaluation. DataLoader construction uses an isolated generator so creating a replacement iterator cannot advance the policy RNG.
+
+Free-form actor requests now have seeds derived from the run seed and consumed prompt position. Each strict free-form training request also clears the actor prefix cache: a warm cache after evaluation can change prefill batch shapes and sampled tokens compared with a newly started actor. Canonical learner sampling already has position-bound seeds. This is an explicit sampling-protocol change: strict free-form trajectories should not be equated with historical unseeded actor streams. The method's objective, admission rules, replay coefficients, and frozen numerical conformance cases are unchanged.
+
+Writes go into a `.pending-*` directory. After all state files are flushed, `resume_manifest.json` binds their hashes to the run identity and step; a same-filesystem rename publishes the complete directory. Only then are `latest` and retention updated. Interrupted writes cannot replace the previous committed checkpoint. Ignore abandoned staging directories after a killed process; never rename one into a committed step. If interruption happens after commit but before updating `latest`, the new explicit step is still valid. Training resumes from a completed optimizer boundary, not from the middle of an unfinished backward pass.
+
+`resume_decisions.jsonl` records each prompt position, sampled response tokens/rewards, bank identity, and selected replay groups. When combining attempts, retain the original prefix **through the selected checkpoint** and the resumed suffix after it. Discard any original attempt's later uncommitted metrics or evaluations. A `latest` pointer is a convenience, not an identity check.
+
+## Reproduce resume equivalence
+
+`make resume` executes the production run loop and real GRPO/replay gradients with a tiny CPU actor and a DeepSpeed transport adapter. AdamW and a changing learning-rate schedule are real. Across all four methods, interruption positions cover within-epoch, epoch-boundary, evaluation-boundary, and final-update cases, with both cleared and retained rollout buffers. CPU model/optimizer/scheduler/RNG states and all bank/scheduling/evaluation decisions must match **exactly**. Tests also kill a writer subprocess, simulate a failed latest-pointer publication, corrupt state, and reject incompatible identities.
+
+For actual GPU training, use the pinned environment and full authenticated PantryPlan dataset:
+
+```sh
+python ops/resume_gpu.py run \
+  --workdir outputs/resume-equivalence \
+  --data-root outputs/data/pantry_plan \
+  --model /path/to/pinned/model/snapshot
+python ops/resume_gpu.py audit --workdir outputs/resume-equivalence
+```
+
+This runs six updates over the first three training rows and two epochs for each method, then launches a fresh process from its step-2 checkpoint to finish the same six-update horizon. The full 128-row evaluation split is used, with two samples and one coverage draw to bound validation cost. The audit compares model/optimizer states at steps 4 and 6, exact scheduler and RNG state, data and replay decisions, banks, and the complete evaluation suffix. This is a bounded full-run equivalence test, not a reproduction of paper-level training scores.
+
+GPU tolerances are declared before running: model tensors `atol=1e-6, rtol=1e-6`; optimizer tensors `atol=1e-8, rtol=1e-5`. Bank contents, replay/sample/data decisions, scheduler/RNG state, and evaluation records require exact equality. Differences cannot be hidden by a matching aggregate score. The completed measurements and their limits are recorded in [validation](../VALIDATION.md#full-run-resume-conformance) and [the resume report](../VALIDATED_RESUME_RUN.json). Use `--domain countdown --methods remax` with the matching dataset to exercise free-form generation. Raw logs, manifests, configurations, checkpoints, and the resulting `report.json` remain in the work directory. Allow additional disk space for both trajectories' model/optimizer checkpoints and exports; preserve these until the audit succeeds.
 
 ## Troubleshooting
 
@@ -197,6 +260,6 @@ The trust anchors are the versioned registry shipped with Re:Max and its pinned 
 | Unexpected resume behavior | Inspect the selected save root and retained state; use a new root for a new run. |
 | Frozen numerical reproduction fails | Restore the matching evidence and code revision; do not overwrite expected results to silence a mismatch. |
 
-CPU CI does not exercise GPU sampling or distributed optimization. The separate manual GPU workflow above validates one small PantryPlan run for all four methods and Re:Max checkpoint evaluation; full historical training reproduction remains separate.
+CPU CI does not exercise GPU sampling or distributed optimization. The separate manual GPU workflows validate small PantryPlan runs and resume comparisons for all four methods, plus a free-form Countdown resume comparison. Full historical training reproduction remains separate.
 
 Verifier failures are fatal, with structured diagnostics rather than zero rewards. Inspect `evaluation_failures.jsonl` for failed evaluation steps; do not combine partial draw records from those steps into a completed score. See [the boundary and compatibility policy](method.md#modebench-boundary-and-failures).

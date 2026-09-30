@@ -1,0 +1,619 @@
+{
+  "base_remax_commit": "ec6489e48655126644959bc14ae47b341f881299",
+  "cpu": {
+    "buffer_clear_every": [
+      1,
+      "inf"
+    ],
+    "epochs": 3,
+    "faults": [
+      "write error",
+      "process death during write",
+      "interruption before latest publication",
+      "file corruption/inventory",
+      "incompatible identity",
+      "malformed progress state",
+      "implicit/conflicting selectors",
+      "unsupported layouts"
+    ],
+    "full_run_comparisons": 40,
+    "infrastructure_adapters": [
+      "tiny actor",
+      "DeepSpeed transport",
+      "CUDA and collective interfaces"
+    ],
+    "interruption_positions": [
+      1,
+      2,
+      3,
+      6,
+      9
+    ],
+    "methods": [
+      "drgrpo",
+      "redr",
+      "maxrl",
+      "remax"
+    ],
+    "optimizer": "torch.optim.AdamW",
+    "resume_and_audit_tests": 82,
+    "scheduler": "torch.optim.lr_scheduler.LambdaLR, changing each update",
+    "suite_tests_passed": 627,
+    "tolerance": "exact; tensors require torch.equal",
+    "updates": 9
+  },
+  "date": "2026-09-29",
+  "gpu": {
+    "countdown": {
+      "audit": {
+        "methods": {
+          "remax": {
+            "accepted_responses": 0,
+            "artifacts": {
+              "remax-resumed/debug_0929T22:15:04/eval_mode_coverage_draws.jsonl": "f926eb5b4fe28f34fc999e610ca1677b17b890d0ca454745b360c3c075202ef3",
+              "remax-resumed/debug_0929T22:15:04/resume_decisions.jsonl": "f74fec42bbe6fd33371b92065a1567bb746a7e92530e9bc539df0d8e1ea3758f",
+              "remax-whole/debug_0929T22:11:35/eval_mode_coverage_draws.jsonl": "3023bb0f3a122c36ea181389a484c8aa0a4b87e45a18244bce37ecab74091d14",
+              "remax-whole/debug_0929T22:11:35/resume_decisions.jsonl": "ad4e579f8ab64605e6347a9b1ee0bb27d39013893485e42d3bde681246c586a9"
+            },
+            "compared_checkpoint_steps": [
+              4,
+              6
+            ],
+            "fresh_responses": 96,
+            "identical_bank_scheduler_rng": true,
+            "identical_decisions": true,
+            "identical_evaluation": true,
+            "model_optimizer_within_tolerance": true,
+            "replay_groups": 0,
+            "resume_after": 2,
+            "run_identity_sha256": "3a8579870161e925a745c6b275e91779764a7aa4e3f2c5daa64ace2ede444aa5",
+            "updates": 6
+          }
+        },
+        "schema": "remax-resume-equivalence-v1",
+        "scope": "six updates across two epochs; explicit step-2 restart; single GPU",
+        "tolerances": {
+          "model": {
+            "atol": 1e-06,
+            "rtol": 1e-06
+          },
+          "optimizer": {
+            "atol": 1e-08,
+            "rtol": 1e-05
+          }
+        }
+      },
+      "coverage_draws": 1,
+      "coverage_samples": 2,
+      "dataset": {
+        "eval": {
+          "config_name": "level1_countdown",
+          "data_file": "data/level1/countdown/eval.parquet",
+          "domain": "countdown",
+          "level": 1,
+          "materialized_rows_sha256": "9909c3663c39ab659bdea5ccac69d8fe9bc6b5dbc72d57ad801ecd2210202ab5",
+          "original_datasetdict_split": "multi_answer",
+          "parquet_sha256": "a1da95c1b5997a0c8d804c8bf7b607817b11bb8c7982b3d04bd4c345da7b9c33",
+          "rows": 128,
+          "rows_sha256": "2262c3386fb7145408c2b65e3a54b2ffd95f19805f2310044615e4c954506903",
+          "source_column_order": [
+            "problem",
+            "answer",
+            "modebench_task",
+            "answer_mode_count",
+            "answer_mode_split"
+          ],
+          "split": "eval"
+        },
+        "train": {
+          "config_name": "level1_countdown",
+          "data_file": "data/level1/countdown/train.parquet",
+          "domain": "countdown",
+          "level": 1,
+          "materialized_rows_sha256": "cd63646275794ad37a6fe14de0d7663819006c63ce0aa9e2082c25b969ac1c54",
+          "original_datasetdict_split": "train",
+          "parquet_sha256": "00054c212d28ccb103b982cb56de7c381691b91a8ee3af7d984c5e0d57fe74f1",
+          "rows": 384,
+          "rows_sha256": "75532b08ab6c59fbea35b8a40af5f00cf2b4c0c5e1ac6b0d73c96dd592b38c8a",
+          "source_column_order": [
+            "problem",
+            "answer",
+            "modebench_task",
+            "answer_mode_count",
+            "answer_mode_split"
+          ],
+          "split": "train"
+        }
+      },
+      "epochs": 2,
+      "evaluation_rows": 128,
+      "experiment": {
+        "runs": {
+          "remax-resumed": {
+            "elapsed_seconds": 172.69358015060425,
+            "returncode": 0
+          },
+          "remax-whole": {
+            "elapsed_seconds": 204.5084547996521,
+            "returncode": 0
+          }
+        },
+        "schema": "remax-resume-gpu-v1",
+        "tolerances": {
+          "model": {
+            "atol": 1e-06,
+            "rtol": 1e-06
+          },
+          "optimizer": {
+            "atol": 1e-08,
+            "rtol": 1e-05
+          }
+        }
+      },
+      "hardware": {
+        "cuda": "12.4",
+        "gpu_names": [
+          "NVIDIA RTX A6000"
+        ]
+      },
+      "model": {
+        "id": "Qwen/Qwen2.5-0.5B-Instruct",
+        "revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+        "sha256": {
+          "config.json": "18e18afcaccafade98daf13a54092927904649e1dd4eba8299ab717d5d94ff45",
+          "generation_config.json": "e558847a8b4402616f1273797b015104dc266fe4b520056fca88823ba8f8ebe6",
+          "merges.txt": "599bab54075088774b1733fde865d5bd747cbcc7a547c5bc12610e874e26f5e3",
+          "model.safetensors": "fdf756fa7fcbe7404d5c60e26bff1a0c8b8aa1f72ced49e7dd0210fe288fb7fe",
+          "tokenizer.json": "c0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539",
+          "tokenizer_config.json": "5b5d4f65d0acd3b2d56a35b56d374a36cbc1c8fa5cf3b3febbbfabf22f359583",
+          "vocab.json": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+        }
+      },
+      "records_sha256": {
+        "remax-resumed/debug_0929T22:15:04/checkpoints/step_00004/resume_manifest.json": "f9891a7520d1467bb45bff1c33fbf18ab9d3de426735c5e214d2885fc7196b2c",
+        "remax-resumed/debug_0929T22:15:04/checkpoints/step_00006/resume_manifest.json": "0ef0beeb2598ee6710e9586c5edbce18bef918ca6f635bb12762d59d1a16d066",
+        "remax-resumed/effective_config.json": "3f5b4e6afe584130c57e7ad53037c62c0b91332583868fac0f615661b19bef57",
+        "remax-whole/debug_0929T22:11:35/checkpoints/step_00002/resume_manifest.json": "62ecb1551ddd8c21ac878656c4527a6740b4c9dd9366659b9df217bd3043d43b",
+        "remax-whole/debug_0929T22:11:35/checkpoints/step_00004/resume_manifest.json": "64a6a4eea2ea309861fd10d56e6345f00f57b95cb6896e23ce11231498dbb408",
+        "remax-whole/debug_0929T22:11:35/checkpoints/step_00006/resume_manifest.json": "8fcf93976fd84cecb48af447813ca868c50789e61ce1d023645969ce3a6aa309",
+        "remax-whole/effective_config.json": "fd7b7bbf43128837c33c668cffdf509c96a7e71d8286d964bb51d7334dec0b1c"
+      },
+      "seed": 43,
+      "source_sha256": {
+        "ops/audit_gpu_smoke.py": "31a9573f551b84096667ff56e912dfa7a76b4cd851cc86b942b3f9d660540e89",
+        "ops/build_mode_diversity_training.py": "cff97f66e9852414121cd759e508bf9476817e9f6ff6841a82ae571d973cd573",
+        "ops/check_training_reference.py": "057ea4b8cd5d0a9576bb0dea6a8164e967bbedddd9da8903848948238d4c1bc7",
+        "ops/compare_gpu_recipe.py": "2e88e909f374c4e1c1ce0b77b85a58a07763ad0dccb135707b7386a0b7f09b94",
+        "ops/followup_metrics.py": "17b8d70440cdc02f62a82e3afa5db3dcd834d3d8f7d6dbeb6b2d50c4bb4a9782",
+        "ops/gpu_smoke.py": "40b6bbf1456ea599ee9a38381f81c223c4f4c565187fd165e57c83cce5bb1430",
+        "ops/repo_env.sh": "1f8447ea93cf3ebc5aece0f9f81c83c8d912f00162e2c2010c2484f141cc339d",
+        "ops/reproduce_training.py": "90f4394562f85cba560a31720418cc213c3be6e3ed9cc79f3b9bef95a394758c",
+        "ops/resume_gpu.py": "5fbd7dc32d18358f74d1d81fbff08294c0949257faf291dd4e63f38ed19ce07e",
+        "ops/run_recipe.py": "aa539df59c377066528b644c00aaca23ed0c57b3ed77a55034345bd33a7569c8",
+        "ops/setup_gpu_environment.sh": "096804f394c4b68545953b7f154dcb98c046870603b3aaed39acd5334afa740e",
+        "ops/train.sh": "74b5c77df3c2be50eed34592cc1f9b568fbffdc3d4f0a996f96555b2c4a267e3",
+        "ops/verify_release.py": "53238a2e1add9c2616cc95e3bfb08a2547de15c33792a06052b2502f4529ecf4",
+        "src/remax/__init__.py": "b845e5f5f29bc232d7a0a01228c1d3df111f73861fe461c042ec6af284134cd9",
+        "src/remax/actor.py": "6fea95d8a4cbe22acb815932774b30d4cb11d22b9426c2040b315525081377c4",
+        "src/remax/admission_retention.py": "beeb6b758cea2fb0afe7d5bf37d0f815197ad8d00f2ec1e5143aa238405aea4c",
+        "src/remax/answer_options.py": "0e3c7e82876e33bb8185d213691e8b7784778ba2c609b9783fb099ea896ec167",
+        "src/remax/args.py": "1842cb6fae41434b6840f401a1b1b1b7f25a33f7a97b6ded77d837aef3659c2d",
+        "src/remax/benchmark.py": "d27e1a660534e67653cbef2bf857f1acf2fb6a6a45a82755ad7a24ac980e1d46",
+        "src/remax/canonical_actions.py": "a4954284b425a94813614f340451841030e320f5ab3561060bac0ba48810c82a",
+        "src/remax/canonical_replay.py": "14fea9577d1f5677a5270dc3c6f922ff96d807d80b2f6a32ee4431efda36c2ec",
+        "src/remax/checkpointing.py": "907e05ce7a952fd23dc61c395a2fb8d14b88e645d864dfacc743ccb13a0ac2e6",
+        "src/remax/dapo.py": "53eea2a5061cd96b2151c02fa7f20ef4875856a03746d8287c4b0fd2a52de3f2",
+        "src/remax/fused_adam_shim.py": "aa1d9ce74bc7e868affe6e36488a37262ea90abcbe40c8d363538f374232ce11",
+        "src/remax/gapo.py": "86cf123dd6b2da39ad9d698bad04c03261c23c0d918247c7590616952c414a25",
+        "src/remax/input_identity.py": "ae1073ac922d258307df5ec2c0f4c957a5b6593a35369d4b200366cfb6c15230",
+        "src/remax/input_registry_v1.json": "a47844bac4d87ae32d46150e8f66317336796bfa720ec64fbeb3498fc9286ce1",
+        "src/remax/launch_record.py": "0133c19897fe9456e7f78f9895c0be148ac3f4c63fd9be49ee05c549569abf81",
+        "src/remax/learner/__init__.py": "d7576dc96be3ab66f3b08e84c28c5e910fe57cc9e5bd735a5c1403e273a7856b",
+        "src/remax/learner/base.py": "2cc6f6d6d39208c3287fa7eabf3a5537b1b60081a157a60df170ced8f3fd4192",
+        "src/remax/learner/grpo.py": "0aa16604604b7d79861751a4f240f92cd236355f3a866391a1abc582433be043",
+        "src/remax/learner/init.py": "5ded6bd6ef203c0d8f526b7581b58a065ddd03434851b1432ff72c700bcae523",
+        "src/remax/learner/run.py": "54608d81f627a61cd368c1e5cb183d7dff1eebf64e7462065d82361de2f2f378",
+        "src/remax/legacy_modebench.py": "b0dd4e3c3658a1a063af42504774dd45104ab338dda5bf1a096a255451072201",
+        "src/remax/logging_utils.py": "ce45a9c868e62d23d51b06318b1c52f81fba27c86a063b619b43c1182dc3ae5b",
+        "src/remax/math_grader.py": "12e051fc5a37bcf79b6cc195e1a32425622cca6e1628add30774356fa78970e9",
+        "src/remax/math_grader_process.py": "74b38d8abba39e8f53a1425928de75c9ab58f0cda191a04d5a00e0d0113450cc",
+        "src/remax/math_grader_worker.py": "b6d98082e9e9770bc681e04892de369a10d238a0aec4e4f72b68160554787cc9",
+        "src/remax/math_route.py": "0c430a9e8f4c215665b673d4fbca8e5e4db3dd050814fe30a2a07ac7750317cc",
+        "src/remax/math_strategy_canonicalizer.py": "1dc83a2cd9da4cb092dbde747a647b416107846f985683104a98cbe9b022282b",
+        "src/remax/math_strategy_menu.py": "95b061310c646c853aa6241b67a3b5b34663f28a7b0e004ed49418d3c7fb1fed",
+        "src/remax/maxent_controllers.py": "153125aa0b251512a2222e9a1020144ebf379a8e257b592f6f3ffd75d10133c1",
+        "src/remax/maxent_length_controller.py": "83aa8729166cf5d5d8c069dd92a175165ea11888673c44fe705c87919f059f89",
+        "src/remax/maxrl.py": "9f2cb94c4df2cce93d5d2b5a96954ffd0eaea3ac01a92168cb93ef4ac9287268",
+        "src/remax/modebench_guided.py": "b1e744d18e186ab138469059a7557147a436c142eebf354b94138c0f6aa9534c",
+        "src/remax/on_policy_maxent.py": "93f7b52fb73a7678336bcd136950639a56f39d7d17e4119af4771e8546cdf926",
+        "src/remax/online_canonical_bank.py": "1700459e95cbfd4bd7c2391884e95c8513554e262d68b80205b1ea65e289eef1",
+        "src/remax/online_canonical_controller.py": "33163297c201adfe7590dc300fc47c26819cf42b877ef9c3cacee7adae40727b",
+        "src/remax/outcome_collision.py": "3db2096f73bb2c0bf36269847e06df0daeba7d9b8ecd8e27ce65063b484b9482",
+        "src/remax/proposal_starvation.py": "2538b9546f779dcb5c624c9deeeebac8bc154ca055c6bd2ac379aa95c4bd3164",
+        "src/remax/recipe_types.py": "7b389f666a0237e2c461523deb08876655edf6f63bdeeee2b2eae5694779435c",
+        "src/remax/recipes.py": "d4b296b570d1871d9fd70a8b1d9e907e3ea79125e3bb70826e43fb9720e30e16",
+        "src/remax/replicated_group.py": "5799ccc587ab6485ed4a2254f18b531adfad5b968d4c033fb5c2101842b253d9",
+        "src/remax/resume_state.py": "4812ed6ada59d5e55a3de2a74e628924b1fa851438c51f165f70189d401c4960",
+        "src/remax/rlep.py": "0ee35952abaff2832b967efdc070d9f0ed4fb58b3964f6cb889d3989ae9b6dbf",
+        "src/remax/runtime.py": "d4290ff8f276b6dfa624f5aa5dfb6e0b64fc4395eacf873c3962bb5e83265966",
+        "src/remax/scoring.py": "0889453687194c3aed791dce82a1522d375e4903a2b0509448b02fc20f46e7ab",
+        "src/remax/seed_weights.py": "05444f9dff5766b01497827be1c3c79079476ef482e51e9eb6092b95c2f91570",
+        "src/remax/semantic_rms_controller.py": "9c5c162f938d7a1850d7fd205623cc7d641be1f55f2af05c3a949772c9607934",
+        "src/remax/semantic_shannon.py": "9beb17aaf73f6023e5b2bfbbb847f8ebaf0e65721b83eecd45f1979f3d5d2b6d",
+        "src/remax/setpo.py": "8bcf496cc221268b03f446c178109fb706debcc6613b2dd67f4ee77d4b4c082a",
+        "src/remax/setpo_embedder.py": "f65442e1efd5c34bdd0082ca48506084c191c995a0e17ee063f4826d482e0495",
+        "src/remax/tensor_utils.py": "491e81046574974fcde2cd29b6a85fb2cab4d77f0598f8f268318edc0d1fddcd",
+        "src/remax/train_zero_math.py": "09b4606e69aebbe11c57005cf175a6b4fb9ccb56b6c54e3210aff92a4b22119e",
+        "src/remax/trajectory_dataset.py": "1e89c8ef1b1b7e81cf5c63b7ca6f4de8f2776721484eba4acc940d3527adcbac",
+        "src/remax/ucpo.py": "c52d10df84ab2d5cfcf97420807c7c02d79841714e8d7c56fe59bc1fdffec110",
+        "src/remax/verified_route_library.py": "5efeb899cfbd632df473cdd4446e5589c4fbd0405d3bc68fd9e41b76d2fc74d1",
+        "src/remax/verified_transformations.py": "c31d9208807cb864fef4a4752f0d05ad681c4543f108552afe10415e380534fc",
+        "src/remax/vllm_worker.py": "36d12712ccf42e0bad739392b90a9a4d79e23e30e9defb13b002b4ccba96fa04",
+        "src/remax/xdr.py": "2ba9bde78ed3f28ccc43cb02e4e408721070f715a9361e32d97fb86bf23b1714",
+        "src/remax/xdr_sac_dual_controller.py": "82c87d6cba59f3047b7a0cc5c6dc955b58d3cf753cf6c607f2ea819c75787b0f",
+        "src/remax/xdr_tau_controller.py": "3c047cc76a017ae76895048201aa826e66c7061e00d8bdf4f47e320ee6f20d28"
+      },
+      "training_rows": [
+        0,
+        1,
+        2
+      ],
+      "work_directory": "outputs/resume-candidate-proof-31577030"
+    },
+    "pantry_plan": {
+      "audit": {
+        "methods": {
+          "drgrpo": {
+            "accepted_responses": 32,
+            "artifacts": {
+              "drgrpo-resumed/debug_0929T21:53:24/eval_mode_coverage_draws.jsonl": "860d1af305100a926594aeb0e089f47b25159d4408ff644e0e052872e6bd0c8a",
+              "drgrpo-resumed/debug_0929T21:53:24/resume_decisions.jsonl": "8e0b2be08422ea344ffd69cc8db9ce5926e6b1821ed4810425457d3e55f77074",
+              "drgrpo-whole/debug_0929T21:48:46/eval_mode_coverage_draws.jsonl": "ba4d7da409efe86981ddcf67c6b884faeb3c428b058b304a7b7d45580e504616",
+              "drgrpo-whole/debug_0929T21:48:46/resume_decisions.jsonl": "b8d6da6d7d2dc5e001d5ad546b33f10d5a8d09d22c4b937b2dd8c063b761dcad"
+            },
+            "compared_checkpoint_steps": [
+              4,
+              6
+            ],
+            "fresh_responses": 96,
+            "identical_bank_scheduler_rng": true,
+            "identical_decisions": true,
+            "identical_evaluation": true,
+            "model_optimizer_within_tolerance": true,
+            "replay_groups": 6,
+            "resume_after": 2,
+            "run_identity_sha256": "e6b172c64ccaa6a2f71c857eb6d26198fc7186e08a7a7c36c77f2bf5117e0c8f",
+            "updates": 6
+          },
+          "maxrl": {
+            "accepted_responses": 34,
+            "artifacts": {
+              "maxrl-resumed/debug_0929T22:08:25/eval_mode_coverage_draws.jsonl": "5b007d936c363c8bc17f847b3e333718c533ed12161efb028bc537777c3bafdd",
+              "maxrl-resumed/debug_0929T22:08:25/resume_decisions.jsonl": "17b84e815622b0351891f9b467179baa837a3e3b760471b37cd7947df65cdb8b",
+              "maxrl-whole/debug_0929T22:03:57/eval_mode_coverage_draws.jsonl": "0322b405ae5d65311fe3330b8ee52c866798eed8e5cb5b198632d687017de2e9",
+              "maxrl-whole/debug_0929T22:03:57/resume_decisions.jsonl": "5c9e781bdc17e22cbc13bf0349196c7aa2d120cfd08008d24cdb31a27366a139"
+            },
+            "compared_checkpoint_steps": [
+              4,
+              6
+            ],
+            "fresh_responses": 96,
+            "identical_bank_scheduler_rng": true,
+            "identical_decisions": true,
+            "identical_evaluation": true,
+            "model_optimizer_within_tolerance": true,
+            "replay_groups": 6,
+            "resume_after": 2,
+            "run_identity_sha256": "2fafd1802a64001cbf2d79c848e9d648762245057fa7b16b6f711ebf4d1bbc8f",
+            "updates": 6
+          },
+          "redr": {
+            "accepted_responses": 30,
+            "artifacts": {
+              "redr-resumed/debug_0929T22:00:29/eval_mode_coverage_draws.jsonl": "50835f270de1b7636a755aac796b98e6a9660a49c0e23e5cc980aa0451a2e1ad",
+              "redr-resumed/debug_0929T22:00:29/resume_decisions.jsonl": "af13b62c547feb1d25a2886904a4776c88c10875b9ea3a1175956f8abc2471d2",
+              "redr-whole/debug_0929T21:56:24/eval_mode_coverage_draws.jsonl": "775aacfb09b5fd3639f5be33830be0c6ab42c3303719454f79205baaa9a2746c",
+              "redr-whole/debug_0929T21:56:24/resume_decisions.jsonl": "f0df7166dc90aeca2a7aca15c0647f016df5212e867a6ae6aacbb7f216dae8bc"
+            },
+            "compared_checkpoint_steps": [
+              4,
+              6
+            ],
+            "fresh_responses": 96,
+            "identical_bank_scheduler_rng": true,
+            "identical_decisions": true,
+            "identical_evaluation": true,
+            "model_optimizer_within_tolerance": true,
+            "replay_groups": 6,
+            "resume_after": 2,
+            "run_identity_sha256": "9cabf16f0fadbde82186d42c904c61418a192a504693417681661d4b635dd9ee",
+            "updates": 6
+          },
+          "remax": {
+            "accepted_responses": 30,
+            "artifacts": {
+              "remax-resumed/debug_0929T22:15:50/eval_mode_coverage_draws.jsonl": "59fedcd21833ebb47f5979541bcf0cc9d803348704cad360a26f83b6db11238f",
+              "remax-resumed/debug_0929T22:15:50/resume_decisions.jsonl": "4eaea93c59f3715912a7e77bec289f74f1214426e33b6499af0ca84e3f16a1cf",
+              "remax-whole/debug_0929T22:11:43/eval_mode_coverage_draws.jsonl": "f76c32d5416db699d75ca76c6b01b232701c67a0274fbe770151cd8a5bdb672b",
+              "remax-whole/debug_0929T22:11:43/resume_decisions.jsonl": "c708d44224b3f751d315924e168f86e0972260d7ff21f426847369995b8daece"
+            },
+            "compared_checkpoint_steps": [
+              4,
+              6
+            ],
+            "fresh_responses": 96,
+            "identical_bank_scheduler_rng": true,
+            "identical_decisions": true,
+            "identical_evaluation": true,
+            "model_optimizer_within_tolerance": true,
+            "replay_groups": 6,
+            "resume_after": 2,
+            "run_identity_sha256": "effb49ab89d54a377355b56c9c2800b7c76d0daaef7921381a04855708de8e60",
+            "updates": 6
+          }
+        },
+        "schema": "remax-resume-equivalence-v1",
+        "scope": "six updates across two epochs; explicit step-2 restart; single GPU",
+        "tolerances": {
+          "model": {
+            "atol": 1e-06,
+            "rtol": 1e-06
+          },
+          "optimizer": {
+            "atol": 1e-08,
+            "rtol": 1e-05
+          }
+        }
+      },
+      "coverage_draws": 1,
+      "coverage_samples": 2,
+      "dataset": {
+        "eval": {
+          "config_name": "level1_pantry_plan",
+          "data_file": "data/level1/pantry_plan/eval.parquet",
+          "domain": "pantry_plan",
+          "level": 1,
+          "materialized_rows_sha256": "f51aa748bcce23353c0c92cce16c716334a5fd616a429c173c21fa5462876cb2",
+          "original_datasetdict_split": "multi_answer",
+          "parquet_sha256": "2807515694c01108c5b8a616eded485a6ffded07fd1f9eb5fa0155cfeb7c2c34",
+          "rows": 128,
+          "rows_sha256": "5d81ba8dd00894a1e1ed029b63723ef657089c72c3122307d5255af409505923",
+          "source_column_order": [
+            "problem",
+            "answer",
+            "modebench_task",
+            "answer_mode_family",
+            "answer_mode_count",
+            "answer_mode_split",
+            "instance_fingerprint"
+          ],
+          "split": "eval"
+        },
+        "train": {
+          "config_name": "level1_pantry_plan",
+          "data_file": "data/level1/pantry_plan/train.parquet",
+          "domain": "pantry_plan",
+          "level": 1,
+          "materialized_rows_sha256": "6a533f5b40640fdcd27d40ec5cc27cba7c8d3138936f2959221b03e8248c486d",
+          "original_datasetdict_split": "train",
+          "parquet_sha256": "eced2be5ca3fb8194703e8f9d7cfd5d29a1ee701369be14cd388d2004b80a8a3",
+          "rows": 384,
+          "rows_sha256": "a4883c5e38c0b03e216fbb7f1b85d42541bb2896aa3a7fd7ff05330d266a757f",
+          "source_column_order": [
+            "problem",
+            "answer",
+            "modebench_task",
+            "answer_mode_family",
+            "answer_mode_count",
+            "answer_mode_split",
+            "instance_fingerprint"
+          ],
+          "split": "train"
+        }
+      },
+      "epochs": 2,
+      "evaluation_rows": 128,
+      "experiment": {
+        "runs": {
+          "drgrpo-resumed": {
+            "elapsed_seconds": 193.68046498298645,
+            "returncode": 0
+          },
+          "drgrpo-whole": {
+            "elapsed_seconds": 266.14573431015015,
+            "returncode": 0
+          },
+          "maxrl-resumed": {
+            "elapsed_seconds": 213.1749472618103,
+            "returncode": 0
+          },
+          "maxrl-whole": {
+            "elapsed_seconds": 253.00973391532898,
+            "returncode": 0
+          },
+          "redr-resumed": {
+            "elapsed_seconds": 221.01846742630005,
+            "returncode": 0
+          },
+          "redr-whole": {
+            "elapsed_seconds": 231.19968271255493,
+            "returncode": 0
+          },
+          "remax-resumed": {
+            "elapsed_seconds": 192.42810821533203,
+            "returncode": 0
+          },
+          "remax-whole": {
+            "elapsed_seconds": 233.17086386680603,
+            "returncode": 0
+          }
+        },
+        "schema": "remax-resume-gpu-v1",
+        "tolerances": {
+          "model": {
+            "atol": 1e-06,
+            "rtol": 1e-06
+          },
+          "optimizer": {
+            "atol": 1e-08,
+            "rtol": 1e-05
+          }
+        }
+      },
+      "hardware": {
+        "cuda": "12.4",
+        "gpu_names": [
+          "NVIDIA RTX A6000"
+        ]
+      },
+      "model": {
+        "id": "Qwen/Qwen2.5-0.5B-Instruct",
+        "revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+        "sha256": {
+          "config.json": "18e18afcaccafade98daf13a54092927904649e1dd4eba8299ab717d5d94ff45",
+          "generation_config.json": "e558847a8b4402616f1273797b015104dc266fe4b520056fca88823ba8f8ebe6",
+          "merges.txt": "599bab54075088774b1733fde865d5bd747cbcc7a547c5bc12610e874e26f5e3",
+          "model.safetensors": "fdf756fa7fcbe7404d5c60e26bff1a0c8b8aa1f72ced49e7dd0210fe288fb7fe",
+          "tokenizer.json": "c0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539",
+          "tokenizer_config.json": "5b5d4f65d0acd3b2d56a35b56d374a36cbc1c8fa5cf3b3febbbfabf22f359583",
+          "vocab.json": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+        }
+      },
+      "records_sha256": {
+        "drgrpo-resumed/debug_0929T21:53:24/checkpoints/step_00004/resume_manifest.json": "38030295588f3c08fc2d736749d6960c2df8d40288ce6e7d9e1fe5e88274c87f",
+        "drgrpo-resumed/debug_0929T21:53:24/checkpoints/step_00006/resume_manifest.json": "9d3994e5dcc4fbe83d6ef55479fad0efe9eef8bfda19400e6d93a6178c2563b0",
+        "drgrpo-resumed/effective_config.json": "9cf3505b93f4caa1fe441fae511cee1920a17b7e40300c9ad22daf494e3d1fb5",
+        "drgrpo-whole/debug_0929T21:48:46/checkpoints/step_00002/resume_manifest.json": "f2c3f34ba45346cba1ae755454b1ad88ee61d9cf3e6a1271d776849e24fc120b",
+        "drgrpo-whole/debug_0929T21:48:46/checkpoints/step_00004/resume_manifest.json": "f6ddcf2cc303f378c5d1141ac6a950df15496ec4800700076d0356b991e9afa3",
+        "drgrpo-whole/debug_0929T21:48:46/checkpoints/step_00006/resume_manifest.json": "a9d3da77673c58abdb8250e79483dba4907c8fa72c44ca2d680d76496a055cef",
+        "drgrpo-whole/effective_config.json": "e74e45820c28e47a28e6554ea13299d46046e14b3b308f13458e0e0d7d5c0c84",
+        "maxrl-resumed/debug_0929T22:08:25/checkpoints/step_00004/resume_manifest.json": "66b86517699a0b03af4d1703428abdfacc9f7cc973b2d3871aa361bcbc09e469",
+        "maxrl-resumed/debug_0929T22:08:25/checkpoints/step_00006/resume_manifest.json": "efaf7dbebac22c88fd396afd3fd9c3a5d9420994583cf237e0294cedd96baaa3",
+        "maxrl-resumed/effective_config.json": "38d77b58b4c1ba6c9697ff66359f455429c0e39f706bf6bd959d8ad93ecbf33e",
+        "maxrl-whole/debug_0929T22:03:57/checkpoints/step_00002/resume_manifest.json": "0b090f44e9faca7fa92f547633123423d5a6ea87908a81fd559fbe247df78b3d",
+        "maxrl-whole/debug_0929T22:03:57/checkpoints/step_00004/resume_manifest.json": "59064e0bc89f169a2e80ad542602caddfbd77c51627a8ec7a4b1aede3bcf2315",
+        "maxrl-whole/debug_0929T22:03:57/checkpoints/step_00006/resume_manifest.json": "1b02283cab7ee2c54d62fe63868280381203eb5746c44e44e81f29da860f3c87",
+        "maxrl-whole/effective_config.json": "f42ddba3b5da2a0c35c27584cd1d3a3b1ddc395bb32eb74f9714b913761e9a6c",
+        "redr-resumed/debug_0929T22:00:29/checkpoints/step_00004/resume_manifest.json": "9c0c94ffcbb948ac185ad435f887e9ee96bdd50f3ee321188e9a4f7657aad489",
+        "redr-resumed/debug_0929T22:00:29/checkpoints/step_00006/resume_manifest.json": "01f8708dbf58af87775226f354af867b1c783b7990f7dc5633198da7e200c47d",
+        "redr-resumed/effective_config.json": "e5efdd27ff73997fb2cb90f2c3cf2d74d29b75c85bd19f97a9e79f13eb1b875d",
+        "redr-whole/debug_0929T21:56:24/checkpoints/step_00002/resume_manifest.json": "81f36a7b02bd8c210c56bd5f7b228b27d07c52b3a51ea18722ac0375b59f0819",
+        "redr-whole/debug_0929T21:56:24/checkpoints/step_00004/resume_manifest.json": "6e64f5a6689f26258703618132a0de74cdd55495767617954c5b82ee2f1b9a80",
+        "redr-whole/debug_0929T21:56:24/checkpoints/step_00006/resume_manifest.json": "d11265c4411fa42472c1f76ae3a5026a0a408d6da81565132c126305b4c1c642",
+        "redr-whole/effective_config.json": "a0d31f21b713d7cc6ec8bdf83fd693d4642ea2a6197c435ca08a1d2d10515b40",
+        "remax-resumed/debug_0929T22:15:50/checkpoints/step_00004/resume_manifest.json": "685b54448e5ce4c16f53221af899a4cee631ffb3e61fffd1a31a18f130a3579b",
+        "remax-resumed/debug_0929T22:15:50/checkpoints/step_00006/resume_manifest.json": "0d85456e06cbde6faac730a0905c73f7bfbca69f579e19cdfdd7dd79df833e77",
+        "remax-resumed/effective_config.json": "d0ce942ec81d68708d752cad2480b54095fcf54f0b39ee7040a8a3da36320fbb",
+        "remax-whole/debug_0929T22:11:43/checkpoints/step_00002/resume_manifest.json": "0a42091d1f13e812c0eea1abb4c20e8453575df97bbc06426d42381bf48b4bca",
+        "remax-whole/debug_0929T22:11:43/checkpoints/step_00004/resume_manifest.json": "dc4e3df7bab3a5a0b935e7ce8575767848c5bca9c6cb7bb0292a089ddb729927",
+        "remax-whole/debug_0929T22:11:43/checkpoints/step_00006/resume_manifest.json": "812cb0d4ef3ab6eca75e8dcd178eb9d8101638b7bc3e7752a81deb4ff9800791",
+        "remax-whole/effective_config.json": "19f1b89dc8f6e9add6b22433b97c198836191692beaf988fa4d3a955e921ca18"
+      },
+      "seed": 43,
+      "source_sha256": {
+        "ops/audit_gpu_smoke.py": "31a9573f551b84096667ff56e912dfa7a76b4cd851cc86b942b3f9d660540e89",
+        "ops/build_mode_diversity_training.py": "cff97f66e9852414121cd759e508bf9476817e9f6ff6841a82ae571d973cd573",
+        "ops/check_training_reference.py": "057ea4b8cd5d0a9576bb0dea6a8164e967bbedddd9da8903848948238d4c1bc7",
+        "ops/compare_gpu_recipe.py": "2e88e909f374c4e1c1ce0b77b85a58a07763ad0dccb135707b7386a0b7f09b94",
+        "ops/followup_metrics.py": "17b8d70440cdc02f62a82e3afa5db3dcd834d3d8f7d6dbeb6b2d50c4bb4a9782",
+        "ops/gpu_smoke.py": "40b6bbf1456ea599ee9a38381f81c223c4f4c565187fd165e57c83cce5bb1430",
+        "ops/repo_env.sh": "1f8447ea93cf3ebc5aece0f9f81c83c8d912f00162e2c2010c2484f141cc339d",
+        "ops/reproduce_training.py": "90f4394562f85cba560a31720418cc213c3be6e3ed9cc79f3b9bef95a394758c",
+        "ops/resume_gpu.py": "b84e8d12ccbd986bc12a3d2b8b591cefe6ff802bed14904a8e3fffbb8e0e23e3",
+        "ops/run_recipe.py": "aa539df59c377066528b644c00aaca23ed0c57b3ed77a55034345bd33a7569c8",
+        "ops/setup_gpu_environment.sh": "096804f394c4b68545953b7f154dcb98c046870603b3aaed39acd5334afa740e",
+        "ops/train.sh": "74b5c77df3c2be50eed34592cc1f9b568fbffdc3d4f0a996f96555b2c4a267e3",
+        "ops/verify_release.py": "53238a2e1add9c2616cc95e3bfb08a2547de15c33792a06052b2502f4529ecf4",
+        "src/remax/__init__.py": "b845e5f5f29bc232d7a0a01228c1d3df111f73861fe461c042ec6af284134cd9",
+        "src/remax/actor.py": "6fea95d8a4cbe22acb815932774b30d4cb11d22b9426c2040b315525081377c4",
+        "src/remax/admission_retention.py": "beeb6b758cea2fb0afe7d5bf37d0f815197ad8d00f2ec1e5143aa238405aea4c",
+        "src/remax/answer_options.py": "0e3c7e82876e33bb8185d213691e8b7784778ba2c609b9783fb099ea896ec167",
+        "src/remax/args.py": "1842cb6fae41434b6840f401a1b1b1b7f25a33f7a97b6ded77d837aef3659c2d",
+        "src/remax/benchmark.py": "d27e1a660534e67653cbef2bf857f1acf2fb6a6a45a82755ad7a24ac980e1d46",
+        "src/remax/canonical_actions.py": "a4954284b425a94813614f340451841030e320f5ab3561060bac0ba48810c82a",
+        "src/remax/canonical_replay.py": "14fea9577d1f5677a5270dc3c6f922ff96d807d80b2f6a32ee4431efda36c2ec",
+        "src/remax/checkpointing.py": "907e05ce7a952fd23dc61c395a2fb8d14b88e645d864dfacc743ccb13a0ac2e6",
+        "src/remax/dapo.py": "53eea2a5061cd96b2151c02fa7f20ef4875856a03746d8287c4b0fd2a52de3f2",
+        "src/remax/fused_adam_shim.py": "aa1d9ce74bc7e868affe6e36488a37262ea90abcbe40c8d363538f374232ce11",
+        "src/remax/gapo.py": "86cf123dd6b2da39ad9d698bad04c03261c23c0d918247c7590616952c414a25",
+        "src/remax/input_identity.py": "ae1073ac922d258307df5ec2c0f4c957a5b6593a35369d4b200366cfb6c15230",
+        "src/remax/input_registry_v1.json": "a47844bac4d87ae32d46150e8f66317336796bfa720ec64fbeb3498fc9286ce1",
+        "src/remax/launch_record.py": "0133c19897fe9456e7f78f9895c0be148ac3f4c63fd9be49ee05c549569abf81",
+        "src/remax/learner/__init__.py": "d7576dc96be3ab66f3b08e84c28c5e910fe57cc9e5bd735a5c1403e273a7856b",
+        "src/remax/learner/base.py": "2cc6f6d6d39208c3287fa7eabf3a5537b1b60081a157a60df170ced8f3fd4192",
+        "src/remax/learner/grpo.py": "0aa16604604b7d79861751a4f240f92cd236355f3a866391a1abc582433be043",
+        "src/remax/learner/init.py": "5ded6bd6ef203c0d8f526b7581b58a065ddd03434851b1432ff72c700bcae523",
+        "src/remax/learner/run.py": "e8b2bf7d4540dfda4ef21d718b4ca486ba8f5d2baa398283588b62b6d04c0ac0",
+        "src/remax/legacy_modebench.py": "b0dd4e3c3658a1a063af42504774dd45104ab338dda5bf1a096a255451072201",
+        "src/remax/logging_utils.py": "ce45a9c868e62d23d51b06318b1c52f81fba27c86a063b619b43c1182dc3ae5b",
+        "src/remax/math_grader.py": "12e051fc5a37bcf79b6cc195e1a32425622cca6e1628add30774356fa78970e9",
+        "src/remax/math_grader_process.py": "74b38d8abba39e8f53a1425928de75c9ab58f0cda191a04d5a00e0d0113450cc",
+        "src/remax/math_grader_worker.py": "b6d98082e9e9770bc681e04892de369a10d238a0aec4e4f72b68160554787cc9",
+        "src/remax/math_route.py": "0c430a9e8f4c215665b673d4fbca8e5e4db3dd050814fe30a2a07ac7750317cc",
+        "src/remax/math_strategy_canonicalizer.py": "1dc83a2cd9da4cb092dbde747a647b416107846f985683104a98cbe9b022282b",
+        "src/remax/math_strategy_menu.py": "95b061310c646c853aa6241b67a3b5b34663f28a7b0e004ed49418d3c7fb1fed",
+        "src/remax/maxent_controllers.py": "153125aa0b251512a2222e9a1020144ebf379a8e257b592f6f3ffd75d10133c1",
+        "src/remax/maxent_length_controller.py": "83aa8729166cf5d5d8c069dd92a175165ea11888673c44fe705c87919f059f89",
+        "src/remax/maxrl.py": "9f2cb94c4df2cce93d5d2b5a96954ffd0eaea3ac01a92168cb93ef4ac9287268",
+        "src/remax/modebench_guided.py": "b1e744d18e186ab138469059a7557147a436c142eebf354b94138c0f6aa9534c",
+        "src/remax/on_policy_maxent.py": "93f7b52fb73a7678336bcd136950639a56f39d7d17e4119af4771e8546cdf926",
+        "src/remax/online_canonical_bank.py": "1700459e95cbfd4bd7c2391884e95c8513554e262d68b80205b1ea65e289eef1",
+        "src/remax/online_canonical_controller.py": "33163297c201adfe7590dc300fc47c26819cf42b877ef9c3cacee7adae40727b",
+        "src/remax/outcome_collision.py": "3db2096f73bb2c0bf36269847e06df0daeba7d9b8ecd8e27ce65063b484b9482",
+        "src/remax/proposal_starvation.py": "2538b9546f779dcb5c624c9deeeebac8bc154ca055c6bd2ac379aa95c4bd3164",
+        "src/remax/recipe_types.py": "7b389f666a0237e2c461523deb08876655edf6f63bdeeee2b2eae5694779435c",
+        "src/remax/recipes.py": "d4b296b570d1871d9fd70a8b1d9e907e3ea79125e3bb70826e43fb9720e30e16",
+        "src/remax/replicated_group.py": "5799ccc587ab6485ed4a2254f18b531adfad5b968d4c033fb5c2101842b253d9",
+        "src/remax/resume_state.py": "4812ed6ada59d5e55a3de2a74e628924b1fa851438c51f165f70189d401c4960",
+        "src/remax/rlep.py": "0ee35952abaff2832b967efdc070d9f0ed4fb58b3964f6cb889d3989ae9b6dbf",
+        "src/remax/runtime.py": "d4290ff8f276b6dfa624f5aa5dfb6e0b64fc4395eacf873c3962bb5e83265966",
+        "src/remax/scoring.py": "0889453687194c3aed791dce82a1522d375e4903a2b0509448b02fc20f46e7ab",
+        "src/remax/seed_weights.py": "05444f9dff5766b01497827be1c3c79079476ef482e51e9eb6092b95c2f91570",
+        "src/remax/semantic_rms_controller.py": "9c5c162f938d7a1850d7fd205623cc7d641be1f55f2af05c3a949772c9607934",
+        "src/remax/semantic_shannon.py": "9beb17aaf73f6023e5b2bfbbb847f8ebaf0e65721b83eecd45f1979f3d5d2b6d",
+        "src/remax/setpo.py": "8bcf496cc221268b03f446c178109fb706debcc6613b2dd67f4ee77d4b4c082a",
+        "src/remax/setpo_embedder.py": "f65442e1efd5c34bdd0082ca48506084c191c995a0e17ee063f4826d482e0495",
+        "src/remax/tensor_utils.py": "491e81046574974fcde2cd29b6a85fb2cab4d77f0598f8f268318edc0d1fddcd",
+        "src/remax/train_zero_math.py": "09b4606e69aebbe11c57005cf175a6b4fb9ccb56b6c54e3210aff92a4b22119e",
+        "src/remax/trajectory_dataset.py": "1e89c8ef1b1b7e81cf5c63b7ca6f4de8f2776721484eba4acc940d3527adcbac",
+        "src/remax/ucpo.py": "c52d10df84ab2d5cfcf97420807c7c02d79841714e8d7c56fe59bc1fdffec110",
+        "src/remax/verified_route_library.py": "5efeb899cfbd632df473cdd4446e5589c4fbd0405d3bc68fd9e41b76d2fc74d1",
+        "src/remax/verified_transformations.py": "c31d9208807cb864fef4a4752f0d05ad681c4543f108552afe10415e380534fc",
+        "src/remax/vllm_worker.py": "36d12712ccf42e0bad739392b90a9a4d79e23e30e9defb13b002b4ccba96fa04",
+        "src/remax/xdr.py": "2ba9bde78ed3f28ccc43cb02e4e408721070f715a9361e32d97fb86bf23b1714",
+        "src/remax/xdr_sac_dual_controller.py": "82c87d6cba59f3047b7a0cc5c6dc955b58d3cf753cf6c607f2ea819c75787b0f",
+        "src/remax/xdr_tau_controller.py": "3c047cc76a017ae76895048201aa826e66c7061e00d8bdf4f47e320ee6f20d28"
+      },
+      "training_rows": [
+        0,
+        1,
+        2
+      ],
+      "work_directory": "outputs/resume-proof-31576622"
+    }
+  },
+  "limits": [
+    "GPU continuations launch fresh processes from the uninterrupted run's committed step-2 checkpoint; forced interruption of a writer is tested separately on CPU.",
+    "Bounded full-run equivalence, not full-budget paper-score or historical-trajectory reproduction.",
+    "Single synchronous collocated learner GPU, completed optimizer boundaries; no asynchronous, multi-rank, or mid-backward claim.",
+    "Countdown admitted zero correct training answers in this small sample; it checks free-form sampling/state continuity. Pantry exercises accepted answers and replay in all four methods.",
+    "Other GPU models and nontrivial learning in the other four domains remain unqualified.",
+    "Large raw checkpoint artifacts remain in ignored local output directories; this report records their validated identities and reproducible commands are in docs/training.md."
+  ],
+  "protocol": "remax-resume-v1",
+  "schema": "remax-validated-resume-v1",
+  "source_qualification": [
+    "Pantry training used the recorded source hashes before the free-form cache reset. Its canonical sampling path is unaffected by that reset.",
+    "The corrected Countdown pair qualifies the free-form cache reset. Final learner source has the same AST as that qualified source; later formatting does not change it.",
+    "The final audit compares serialized DeepSpeed loss-scaler state and rejects incomplete experiments. Numerical tolerances were declared before the original training runs and were never relaxed."
+  ],
+  "validation_environment": {
+    "cpu_cores_per_training_run": 8,
+    "host_ram_gib_per_training_run": 64,
+    "installed_wheel_smoke": "checkpoint commit and identity validation outside checkout, python -I, no source-path override",
+    "pip_check": "No broken requirements found.",
+    "python": "3.10.19",
+    "requirements": "requirements-gpu-py310-cu124.txt",
+    "requirements_sha256": "0f6821092ffcd3a5a9846c17474042b9d4fd8eed494ac11851c775a7191a139d"
+  }
+}

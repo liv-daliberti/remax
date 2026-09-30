@@ -176,6 +176,11 @@ def main(argv=None):
     )
     p.add_argument("--output", type=Path, required=True)
     p.add_argument("--seed", type=int)
+    p.add_argument(
+        "--resume",
+        type=Path,
+        help="explicit committed checkpoint step directory; total recipe horizon must stay unchanged",
+    )
     mode = p.add_mutually_exclusive_group()
     mode.add_argument("--execute", action="store_true")
     mode.add_argument(
@@ -208,6 +213,20 @@ def main(argv=None):
         inputs = (
             None if args.render_only else authenticate_inputs(data_root, model, recipe)
         )
+        selected_checkpoint = None
+        if args.resume:
+            if args.render_only:
+                raise ValueError("resume cannot be combined with an unverified preview")
+            from remax.checkpointing import validate_checkpoint
+
+            if args.resume.is_symlink():
+                raise ValueError(
+                    "resume requires an explicit checkpoint directory, not a symlink"
+                )
+            selected_checkpoint = args.resume.resolve()
+            validate_checkpoint(selected_checkpoint)
+            env["OAT_ZERO_RESUME_DIR"] = str(selected_checkpoint.parent)
+            env["OAT_ZERO_RESUME_TAG"] = selected_checkpoint.name
         command, rendered = render(env)
         if args.render_only:
             print(
@@ -240,6 +259,9 @@ def main(argv=None):
             "source_root": str(ROOT),
             "source_sha256": source_hashes,
             "validate_only": args.validate_only,
+            "resume_checkpoint": (
+                str(selected_checkpoint) if selected_checkpoint else None
+            ),
             "historical_metadata": {
                 "auto_resume_requested": recipe.settings.auto_resume,
                 "auto_resume_implemented": False,

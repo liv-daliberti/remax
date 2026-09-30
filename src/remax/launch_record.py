@@ -151,6 +151,38 @@ def finalize_launch(args) -> bool:
             or k.startswith(("VLLM_", "OAT_ZERO_"))
         },
     }
+    from .checkpointing import (
+        run_identity,
+        validate_checkpoint,
+        validate_resume_contract,
+    )
+
+    validate_resume_contract(args)
+    import torch
+
+    record["hardware"] = {
+        "cuda": torch.version.cuda,
+        "gpu_names": [
+            torch.cuda.get_device_name(i) for i in range(torch.cuda.device_count())
+        ],
+    }
+    identity = run_identity(record)
+    selected = request.get("resume_checkpoint")
+    if selected:
+        validate_checkpoint(Path(selected), identity)
+        if (
+            args.resume_dir != str(Path(selected).parent)
+            or args.resume_tag != Path(selected).name
+        ):
+            raise ValueError(
+                "resolved resume selector differs from authenticated checkpoint"
+            )
+    elif args.resume_dir or args.resume_tag:
+        raise ValueError("resume requires an explicit authenticated checkpoint")
+    record["resume_identity"] = identity
+    # OAT passes this dataclass object to its worker processes. These private
+    # operational attributes are not CLI-overridable scientific settings.
+    args._remax_resume_identity = identity
     destination = path.parent / "effective_config.json"
     if destination.exists():
         raise ValueError("refusing to overwrite effective_config.json")

@@ -3346,6 +3346,12 @@ class ZeroMathGrpoMixin:
                         min_modes=replay_min_modes,
                         consume_priority=True,
                     )
+            if getattr(args, "_remax_resume_identity", None) is not None:
+                from dataclasses import asdict
+
+                self._resume_replay_decisions = [
+                    asdict(group) for group in canonical_replay_groups
+                ]
             online_canonical_infos = {
                 f"online_canonical_{name}": torch.tensor(
                     getattr(bank_diagnostics, name),

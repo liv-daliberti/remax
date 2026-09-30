@@ -69,7 +69,7 @@ python ops/run_recipe.py configs/remax_countdown_05b.json \
   --render-only
 ```
 
-The preview is explicitly unverified. Replace `--render-only` with `--execute` to authenticate inputs and train locally, or `--validate-only` to save the complete effective configuration and exit before training. Use a fresh output directory for either; `--seed 44` selects another registered seed. Unknown fields, incompatible settings, wrong input identities, and conflicting inherited settings fail before training. The launcher does not require Slurm. A clean installation completed the [four-method GPU walkthrough](docs/training.md#complete-gpu-smoke-workflow) on one 48 GB A6000, including checkpoint reload and identical evaluation records. See [measured results](VALIDATED_GPU_RUN.json) and [release scope](RELEASE_STATUS.md).
+The preview is explicitly unverified. Replace `--render-only` with `--execute` to authenticate inputs and train locally, or `--validate-only` to save the complete effective configuration and exit before training. Use a fresh output directory for either; `--seed 44` selects another registered seed. Unknown fields, incompatible settings, wrong input identities, and conflicting inherited settings fail before training. The launcher does not require Slurm. [Explicit resume](docs/training.md#explicit-identity-bound-resume) binds checkpoints to the configuration and input identities; `make resume` checks full-run continuation. A clean installation completed the [four-method GPU walkthrough](docs/training.md#complete-gpu-smoke-workflow) on one 48 GB A6000, including checkpoint reload and identical evaluation records. See [measured results](VALIDATED_GPU_RUN.json) and [release scope](RELEASE_STATUS.md).
 
 ## Documentation
 

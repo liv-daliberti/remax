@@ -8,9 +8,9 @@ The maintained recipe launcher now validates typed configuration and method/doma
 
 ## Known gaps and follow-up work
 
-- A clean one-GPU PantryPlan workflow now covers all four methods through checkpoint reload and evaluation. Full-budget historical score/trajectory reproduction and GPU qualification of the other domains remain open.
+- A clean one-GPU PantryPlan workflow covers all four methods through training, resume equivalence, and evaluation. A bounded Countdown comparison additionally checks free-form generation continuity. Full-budget historical score/trajectory reproduction and nontrivial learning qualification in the other domains remain open.
 - The selected pantry recipe matches 85 recorded settings. Its historical wrapper actually evaluated every 96 steps, versus the public recipe's explicit 192; the checked comparison records this difference and the portable launcher's opt-in recovery writes. Automatic recovery discovery is not implemented by the portable launcher. A complete audit across all historical wrappers remains open.
-- Strict-launch checkpoint identity authentication and resume are not implemented; the launcher requires a fresh output directory. The bounded GPU smoke retains its separate explicit reload audit.
+- Strict resume is explicit and identity-bound, with atomic commits and full learner state. The supported contract is one synchronous collocated learner GPU at completed optimizer boundaries; asynchronous, multi-rank, and mid-backward recovery are not qualified. Historical direct-shell checkpoints cannot claim this contract.
 - Comparator and historical branches remain in the learner's integration graph. Removing them requires numerical equivalence checks.
 - Falcon, 3B, Level 2, newer tuned-control, RLEP, mechanism, and additional application reproduction chains are not fully exported as runnable recipes. Newer summary snapshots alone are not complete reproduction packages.
 - Each additional headline result still needs a complete binding to source runtime, model, dataset/prompt, evaluation seeds, exclusion policy, and raw evidence.

@@ -13,8 +13,8 @@
     },
     {
       "path": "CONTRIBUTING.md",
-      "sha256": "6231b82c25833b57a43f089a1954f935dfec02599c5222e99211216416056527",
-      "bytes": 3564
+      "sha256": "dc4c98842f3acced666696c343c790d5ff9ccbfcbe9334f5da29423f6188fa2e",
+      "bytes": 4023
     },
     {
       "path": "LICENSE",
@@ -23,23 +23,23 @@
     },
     {
       "path": "Makefile",
-      "sha256": "4a3ac0a6a39f0e792613c702910d5aea7203125215e3011feddda235b99ab892",
-      "bytes": 632
+      "sha256": "e5cba8128f635fcaf9868ad883fa2aab31c87c8fd5617b52c5191bb15497b7ec",
+      "bytes": 740
     },
     {
       "path": "PROVENANCE.json",
-      "sha256": "ad3184733ef205c7e833be2cadc54fce8842f0f356a6be4bcddba4e6072cb5d5",
+      "sha256": "c49302a40d0749d07487b392b0244261618ec3eae7a8dff550407bca46c6c748",
       "bytes": 28669
     },
     {
       "path": "README.md",
-      "sha256": "8a456edf160682fbb4f4eab681c49520a68283b061ff8f6b30228c996d3d246e",
-      "bytes": 6890
+      "sha256": "797819afe689735d4f0f60bebfaf3e794b2186ef51d2d0b518140ca9e59ebc64",
+      "bytes": 7062
     },
     {
       "path": "RELEASE_STATUS.md",
-      "sha256": "ad284323d54af8fe1fcf898655fe72b1ec0c9a71c9701fb924406e0056319b06",
-      "bytes": 2943
+      "sha256": "59e4d2625c2a76dedb2e0ab5d930ef2ce93e5d71c773750c16d74c75518e5dff",
+      "bytes": 3181
     },
     {
       "path": "VALIDATED_CPU_ENVIRONMENT.json",
@@ -57,9 +57,14 @@
       "bytes": 19442
     },
     {
+      "path": "VALIDATED_RESUME_RUN.json",
+      "sha256": "729bf24b4ef4dad8b27c6d6ee3e890a1b2f8bc5e9f16b91b3d486e425325da32",
+      "bytes": 37873
+    },
+    {
       "path": "VALIDATION.md",
-      "sha256": "68bbd0e774a48485274215c6355720f496a99fa2630c0070127679fd151444c9",
-      "bytes": 10393
+      "sha256": "0eb041806a865abd0f406154295cd1cebcf5400bb99f2e91b0e5a2b60d464c35",
+      "bytes": 14446
     },
     {
       "path": "configs/drgrpo_countdown_05b.json",
@@ -188,8 +193,8 @@
     },
     {
       "path": "docs/training.md",
-      "sha256": "f269d36b9a5a1bd31efe3dc65b9af96272fb427e3aadd6dff51dd91952033937",
-      "bytes": 18724
+      "sha256": "791d16aa7f7dcd3fb0728825f39c9504df03ce17467ad107a00f14b5e97466c8",
+      "bytes": 25189
     },
     {
       "path": "evidence/mode_diversity_training.json",
@@ -272,9 +277,14 @@
       "bytes": 784
     },
     {
+      "path": "ops/resume_gpu.py",
+      "sha256": "cb2ea2a5799a813264c437a87e0ee4eec46b62092b256871878ecbd6509ec08c",
+      "bytes": 12884
+    },
+    {
       "path": "ops/run_recipe.py",
-      "sha256": "e982c376690de71305b270e951ce0b7488865b81b845156e1789faceb0f7c594",
-      "bytes": 8774
+      "sha256": "aa539df59c377066528b644c00aaca23ed0c57b3ed77a55034345bd33a7569c8",
+      "bytes": 9739
     },
     {
       "path": "ops/setup_gpu_environment.sh",
@@ -362,6 +372,11 @@
       "bytes": 23357
     },
     {
+      "path": "src/remax/checkpointing.py",
+      "sha256": "907e05ce7a952fd23dc61c395a2fb8d14b88e645d864dfacc743ccb13a0ac2e6",
+      "bytes": 11121
+    },
+    {
       "path": "src/remax/dapo.py",
       "sha256": "53eea2a5061cd96b2151c02fa7f20ef4875856a03746d8287c4b0fd2a52de3f2",
       "bytes": 6823
@@ -388,8 +403,8 @@
     },
     {
       "path": "src/remax/launch_record.py",
-      "sha256": "5394acb1eb291e4edc66159e903b9c2498745ab41bca7b5634e83563b12101e2",
-      "bytes": 7782
+      "sha256": "0133c19897fe9456e7f78f9895c0be148ac3f4c63fd9be49ee05c549569abf81",
+      "bytes": 8925
     },
     {
       "path": "src/remax/learner/__init__.py",
@@ -403,8 +418,8 @@
     },
     {
       "path": "src/remax/learner/grpo.py",
-      "sha256": "775501ec53e6a0f96fd0f7116e6ecbe95bd0cfbc88298a873d6d535e257da14f",
-      "bytes": 214578
+      "sha256": "0aa16604604b7d79861751a4f240f92cd236355f3a866391a1abc582433be043",
+      "bytes": 214839
     },
     {
       "path": "src/remax/learner/init.py",
@@ -413,8 +428,8 @@
     },
     {
       "path": "src/remax/learner/run.py",
-      "sha256": "e28111f1a329195b4914db8e4df9f2faa5afd0f7d29fe60782c59b516a351dd9",
-      "bytes": 209807
+      "sha256": "64deefdc4128e8f7bc6c8f7709fcd0f0ab5269f96973538e19714b8fa3038e1e",
+      "bytes": 217242
     },
     {
       "path": "src/remax/legacy_modebench.py",
@@ -657,6 +672,11 @@
       "bytes": 533
     },
     {
+      "path": "tests/resume_harness.py",
+      "sha256": "39bbd4dbbc0ab299409d4a0c9267a99df76f42c8aa201bf48e613a3b86eda716",
+      "bytes": 10189
+    },
+    {
       "path": "tests/test_admission_retention.py",
       "sha256": "5817d4627f4f0d81e70d85eca5061a9709c66e87ffbc6aed4c848ad126c94465",
       "bytes": 5300
@@ -712,14 +732,24 @@
       "bytes": 2898
     },
     {
+      "path": "tests/test_resume_audit.py",
+      "sha256": "1b6a98bac3e9bcc905fb474df9ea15c61a76e607f87ac451f6147f64aac5fcef",
+      "bytes": 3390
+    },
+    {
+      "path": "tests/test_resume_equivalence.py",
+      "sha256": "4245a84b4b064526c3750ccc3428e8c7758c51b907b7f10b4fa8408cd2ddaabf",
+      "bytes": 11749
+    },
+    {
       "path": "tests/test_seed_weights.py",
       "sha256": "af4e241ab41c4a81af4119709cbc4f5b19a82394c5798454c1c32e8f81574b3a",
       "bytes": 2982
     },
     {
       "path": "tests/test_strict_recipes.py",
-      "sha256": "a132d576609a602361377d1dac5f358bf77b354eca6ecadb31fe1a0c0837b124",
-      "bytes": 15200
+      "sha256": "c7e11f44e41293c1966a95228ecd89c6449a71aae2c57890a743786ea1d00345",
+      "bytes": 17417
     },
     {
       "path": "tests/test_training_conformance.py",

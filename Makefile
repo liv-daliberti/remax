@@ -17,3 +17,7 @@ conformance:
 boundary:
 	$(PYTHON) ops/check_training_reference.py
 	$(PYTHON) -m pytest -q tests/test_benchmark_boundary.py tests/test_verifier_workers.py tests/test_evaluation_failure_boundary.py
+
+.PHONY: resume
+resume:
+	$(PYTHON) -m pytest -q tests/test_resume_equivalence.py tests/test_resume_audit.py

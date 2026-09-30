@@ -63,6 +63,27 @@ Separate real CLI invocations rejected a wrong-domain dataset, an incorrect mode
 
 A wheel built and installed successfully. An isolated `python -I` smoke from outside the checkout loaded the installed recipe API and packaged registry (ten dataset splits and seven model files). `pip check`, the historical recipe comparison, CPU example, shell syntax, local documentation links, formatting, and the PR-base reference guard passed. Existing GPU training/reload measurements above remain scoped to the earlier Pantry smoke; historical direct shell launches are outside the strict recipe launch contract.
 
+## Full-run resume conformance
+
+`make check` passes **627 tests**, without skips; `make resume` selects **82** resume and audit checks. The new production-loop CPU suite covers **40 uninterrupted/interrupted comparisons**: four methods, five interruption positions (1, 2, 3, 6, and 9 of nine updates across three shuffled epochs), and two rollout-buffer policies. Each continuation starts after different random initialization. Real AdamW, a changing LambdaLR schedule, GRPO/replay autograd, banks, and production checkpoint/progress code are used; the actor and DeepSpeed transport are CPU adapters. Model, optimizer, scheduler, RNG state, data/sample/replay decisions, banks, evaluation cadence, and accumulation position agree **exactly**. Every baseline performs nine real optimizer updates and executes replay.
+
+Fault tests cover process death inside a staged write, write failure, interruption after commit but before updating `latest`, retention, corrupted/missing/extra state, invalid cursors, incompatible identities, and explicit-selector validation before workers. The GPU audit has regression tests for tensor tolerances, NaNs, loss-scaler state, exact discrete state, and incomplete experiment records. A wheel installation outside the checkout successfully executed the checkpoint transaction and identity-validation API without a source-path override.
+
+The strict protocol commits after evaluation/logging and captures retained rollout buffers as well as Python/NumPy/Torch CPU/CUDA RNG state. Free-form request seeds are bound to prompt position; the actor prefix cache is cleared before each such training request. These sampling changes are explicit and are not a claim of historical unseeded-stream equivalence. The frozen training fixtures and 473-record/95-arm numerical reproduction remain unchanged.
+
+On the pinned Python 3.10 / CUDA 12.4 runtime and one **48 GB RTX A6000**, all four methods completed six updates across two epochs of the first three authenticated PantryPlan training rows. Each then continued in a fresh process from the whole run's committed step-2 checkpoint. Evaluation used all **128** frozen rows, with two samples and one coverage draw. At steps **4 and 6**, model tensors meet `atol=1e-6, rtol=1e-6` and optimizer tensors meet `atol=1e-8, rtol=1e-5`; those tolerances were declared before execution. Banks, replay/sample/data decisions, scheduler/RNG state, progress counters, and evaluation records match exactly.
+
+| Method | Accepted fresh responses / 96 | Replay groups selected | Whole / resumed time |
+| --- | ---: | ---: | ---: |
+| Dr.GRPO | 32 | 6 | 266 / 194 s |
+| Re:Dr | 30 | 6 | 231 / 221 s |
+| MaxRL | 34 | 6 | 253 / 213 s |
+| Re:Max | 30 | 6 | 233 / 192 s |
+
+A separate six-update Re:Max Countdown pair passes the same state and decision audit (205 / 173 seconds). The initial free-form comparison exposed different sampled tokens after restart despite fixed request seeds. Clearing the prefix cache before each training request removed that discrepancy; the corrected learner is also exercised by the CPU cache regression. This tiny Countdown sample had **zero accepted training answers**, so it qualifies free-form sampling/state continuity rather than learning from successful answers. Pantry supplies the nonempty banks and replay updates.
+
+[VALIDATED_RESUME_RUN.json](VALIDATED_RESUME_RUN.json) records input/source identities, configuration and checkpoint-manifest hashes, timings, audit outcomes, and limits. The GPU comparison forks a saved checkpoint into a fresh process; CPU tests separately exercise actual writer process death. These are complete bounded runs, not full-budget paper-score reproductions. Historical direct-shell checkpoints, other GPU types, asynchronous execution, multiple learner ranks, and mid-backward recovery are outside this qualification. The [training guide](docs/training.md#reproduce-resume-equivalence) gives commands to reproduce the comparisons.
+
 ## What remains untested
 
-Full-budget historical trajectories and scores, other GPU types, multiple learner GPUs, and training in the other four domains remain unqualified by this small pantry workflow. CPU CI checks the software and frozen numerical contracts; the GPU validation above was a separate manual run. Newer result snapshots remain outside the frozen-core numerical reproduction check.
+Full-budget historical trajectories and scores, other GPU types, multiple learner GPUs, and nontrivial learning in the other four domains remain unqualified. The bounded Countdown run checks free-form sampling and restore continuity but admitted no correct training responses. CPU CI checks the software and frozen numerical contracts; the GPU validation above was a separate manual run. Newer result snapshots remain outside the frozen-core numerical reproduction check.

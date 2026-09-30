@@ -37,7 +37,7 @@
     },
     {
       "path": "src/remax/learner/grpo.py",
-      "sha256": "775501ec53e6a0f96fd0f7116e6ecbe95bd0cfbc88298a873d6d535e257da14f",
+      "sha256": "0aa16604604b7d79861751a4f240f92cd236355f3a866391a1abc582433be043",
       "transformation": "namespace relocation; benchmark imports delegate to modebench",
       "source": "src/oat_drgrpo/learner/grpo.py",
       "source_sha256": "4647f2fd3d89aaa949cd1cb4d4cfa17b95ddb0174fb473b0479440c8bf0387f2",
@@ -237,7 +237,7 @@
     },
     {
       "path": "src/remax/learner/run.py",
-      "sha256": "e28111f1a329195b4914db8e4df9f2faa5afd0f7d29fe60782c59b516a351dd9",
+      "sha256": "64deefdc4128e8f7bc6c8f7709fcd0f0ab5269f96973538e19714b8fa3038e1e",
       "transformation": "namespace relocation; benchmark imports delegate to modebench",
       "source": "src/oat_drgrpo/learner/run.py",
       "source_sha256": "cea253487d9558f269581ca28b0dff85f0a3e8c9735f4d6f9cf50394c7cacc94",

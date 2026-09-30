@@ -29,6 +29,16 @@ from oat.utils.distributed import (
 from torch.utils.data import DataLoader, DistributedSampler
 from tqdm import tqdm
 
+from ..checkpointing import (
+    PROTOCOL as RESUME_PROTOCOL,
+    capture_rng,
+    restore_rng,
+    prepare_prompt_iterator,
+    validate_checkpoint,
+    validate_client_state,
+    commit_checkpoint,
+)
+from ..launch_record import configuration_digest
 from ..answer_options import conditional_answer_repr, crossfit_option_answer_mi
 from ..benchmark import EvaluationFailure, failure, validate_reward_batch
 from ..args import resolve_canonical_action_task
@@ -3446,6 +3456,24 @@ class ZeroMathRunMixin:
             client_state["wandb_run_id"] = self._wandb_run_id
         if self._wandb_run_name:
             client_state["wandb_run_name"] = self._wandb_run_name
+        identity = getattr(self.args, "_remax_resume_identity", None)
+        if identity is not None:
+            client_state.update(
+                {
+                    "resume_protocol": RESUME_PROTOCOL,
+                    "resume_identity_sha256": configuration_digest(identity),
+                    "rng_state": capture_rng(),
+                    "engine_micro_steps": int(self.model.model.micro_steps),
+                    "rollout_buffer": list(self.pi_buffer),
+                    "last_evaluated_global_step": getattr(
+                        self, "_last_evaluated_global_step", None
+                    ),
+                    # Saving follows a consumed batch, before the outer loop can
+                    # advance the epoch counter. Store the logical next position.
+                    "prompt_epoch": int(self._prompt_batches_consumed_total)
+                    // len(self.prompts_dataloader),
+                }
+            )
         return client_state
 
     def _infer_resume_step(self, resume_states: dict[str, Any] | None) -> int:
@@ -3587,13 +3615,34 @@ class ZeroMathRunMixin:
         start_prompt_epoch = 0
         start_batch_offset = 0
         resume_states: dict[str, Any] | None = None
+        identity = getattr(self.args, "_remax_resume_identity", None)
         if self.args.resume_dir:
+            if identity is not None:
+                checkpoint = Path(self.args.resume_dir) / self.args.resume_tag
+                committed = validate_checkpoint(checkpoint, identity)
             _, resume_states = self.strategy.load_ckpt(
                 self.model.model,
                 self.args.resume_dir,
                 self.args.resume_tag,
             )
             resume_step = self._infer_resume_step(resume_states)
+            if identity is not None:
+                validate_client_state(
+                    resume_states,
+                    identity=identity,
+                    step=committed["step"],
+                    batches_per_epoch=len(self.prompts_dataloader),
+                    epochs=int(self.args.num_prompt_epoch),
+                )
+                self._last_evaluated_global_step = resume_states[
+                    "last_evaluated_global_step"
+                ]
+                self.model.model.micro_steps = resume_states["engine_micro_steps"]
+                if len(resume_states["rollout_buffer"]) > self.pi_buffer.maxlen:
+                    raise ValueError(
+                        "checkpoint rollout buffer exceeds configured capacity"
+                    )
+                self.pi_buffer.extend(resume_states["rollout_buffer"])
             next_step, start_prompt_epoch, start_batch_offset = (
                 self._restore_prompt_progress(resume_states, resume_step)
             )
@@ -3637,7 +3686,9 @@ class ZeroMathRunMixin:
                 lp.stop()
             return
 
-        if not self.strategy.args.debug:
+        if not self.strategy.args.debug and not (
+            identity is not None and self.args.resume_dir
+        ):
             # The checkpoint already exists at a resumed boundary. Rewriting
             # the same multi-gigabyte model/optimizer state before the initial
             # evaluation creates avoidable I/O contention across a recovery
@@ -3649,6 +3700,10 @@ class ZeroMathRunMixin:
                 allow_scheduled_save=not bool(self.args.resume_dir),
             )
 
+        # Construction, model loading, actor synchronization and logging may
+        # consume RNG. Restore only after all startup work, before next sampling.
+        if identity is not None and resume_states is not None:
+            restore_rng(resume_states["rng_state"])
         self.steps = next_step
         self.gradient_update_st = time.time()
         for p_ep in range(start_prompt_epoch, self.args.num_prompt_epoch):
@@ -3668,8 +3723,15 @@ class ZeroMathRunMixin:
                 initial=batch_offset,
             )
 
+            prompt_iterator = (
+                prepare_prompt_iterator(
+                    self.prompts_dataloader, seed=self.args.seed, epoch=p_ep
+                )
+                if identity is not None
+                else iter(self.prompts_dataloader)
+            )
             for batch_idx, (processed_prompts, raw_prompts, refs) in enumerate(
-                self.prompts_dataloader
+                prompt_iterator
             ):
                 if batch_idx < batch_offset:
                     continue
@@ -3741,6 +3803,30 @@ class ZeroMathRunMixin:
                             refs,
                         )
                     )
+                elif identity is not None:
+                    # Bind each vLLM request to its data position; engine-global
+                    # sampling RNG/request counters cannot be restored reliably.
+                    request_seed = _derive_freeform_request_seed(
+                        base_seed=int(self.args.seed),
+                        prompt_batch_index=int(self._prompt_batches_consumed_total),
+                        stream="neutral",
+                    )
+                    # Cache hits change vLLM prefill batch shapes. A new actor
+                    # has no cache, so every position-bound request starts cold.
+                    if self.args.enable_prefix_caching:
+                        self.actors[0].reset_prefix_cache()
+                    started = time.time()
+                    handle = self.actors[0].step(
+                        raw_prompts, processed_prompts, refs, sampling_seed=request_seed
+                    )
+                    feedback_data = self.collector.ipc_client.deserialize_ipc(handle)
+                    if len(feedback_data) != int(self.args.num_samples):
+                        raise RuntimeError(
+                            "resume-bound actor returned an incomplete sample group"
+                        )
+                    self.actor_info = self.collector.get_metrics(
+                        time.time() - started, feedback_data
+                    )
                 else:
                     feedback_data, self.actor_info = self.collector.collect_feedback(
                         raw_prompts,
@@ -3810,6 +3896,8 @@ class ZeroMathRunMixin:
                     ) % self.args.buffer_clear_every == 0:
                         self.pi_buffer.clear()
 
+                    if identity is not None:
+                        self._append_resume_decision(feedback_data, raw_prompts)
                     logging.info("eval/log start step=%s", self.steps)
                     self.eval_and_log(train_info)
                     logging.info("eval/log done step=%s", self.steps)
@@ -3860,6 +3948,45 @@ class ZeroMathRunMixin:
         checkpoint_root = Path(self.save_path) / "checkpoints"
         tag = "step_{:05d}".format(self.steps)
         keep = int(self.args.max_resume_num)
+        identity = getattr(self.args, "_remax_resume_identity", None)
+        if identity is not None:
+            if dist.get_world_size() != 1 or int(self.update_interval) != 1:
+                raise RuntimeError(
+                    "resume checkpoint requires a single-rank completed update"
+                )
+            state = self._checkpoint_client_state()
+            validate_client_state(
+                state,
+                identity=identity,
+                step=int(self.steps),
+                batches_per_epoch=len(self.prompts_dataloader),
+                epochs=int(self.args.num_prompt_epoch),
+            )
+
+            def write(staging):
+                # Bypass OAT's pre-write rotation: the previous commit must
+                # survive even a process kill halfway through this write.
+                result = self.model.model.save_checkpoint(
+                    str(staging.parent),
+                    tag=staging.name,
+                    client_state=state,
+                    save_latest=False,
+                )
+                if result is False:
+                    raise RuntimeError("DeepSpeed checkpoint writer failed")
+
+            try:
+                committed = commit_checkpoint(
+                    checkpoint_root,
+                    step=int(self.steps),
+                    identity=identity,
+                    writer=write,
+                    keep=keep,
+                )
+            finally:
+                restore_rng(state["rng_state"])
+            logging.info("Committed full-run checkpoint %s", committed)
+            return
 
         # OAT rotates before writing.  Giving it one temporary extra slot keeps
         # the previous valid checkpoint alive until the new distributed write
@@ -4049,11 +4176,14 @@ class ZeroMathRunMixin:
 
         if should_resume and should_eval and self.strategy.is_rank_0():
             logging.info(
-                "Recovery boundary at step %s: saving checkpoint before evaluation.",
+                "Recovery and evaluation boundary at step %s.",
                 self.steps,
             )
 
-        if should_resume:
+        strict_checkpoint = (
+            getattr(self.args, "_remax_resume_identity", None) is not None
+        )
+        if should_resume and not strict_checkpoint:
             self._save_resume_checkpoint()
 
         if should_export:
@@ -4107,6 +4237,36 @@ class ZeroMathRunMixin:
                         filter_wandb_logs(logs_dict),
                         step=int(self.steps),
                     )
+
+        if should_resume and strict_checkpoint:
+            # Commit after evaluation and progress logging so a restored boundary
+            # neither repeats evaluation nor changes logging's RNG consumption.
+            self._save_resume_checkpoint()
+
+    def _append_resume_decision(self, feedback_data, raw_prompts):
+        """Exact discrete audit trail; no wall-clock or approximate loss fields."""
+
+        def tokens(value):
+            return [int(x) for x in value]
+
+        record = {
+            "step": int(self.steps),
+            "data_position": int(self._prompt_batches_consumed_total),
+            "prompt_sha256": configuration_digest(list(raw_prompts)),
+            "responses": [
+                {
+                    "tokens": tokens(row.response_ids),
+                    "rewards": [float(x) for x in row.rewards],
+                }
+                for row in feedback_data
+            ],
+            "bank_sha256": configuration_digest(
+                self._online_canonical_bank.state_dict()
+            ),
+            "replay": getattr(self, "_resume_replay_decisions", []),
+        }
+        with (Path(self.save_path) / "resume_decisions.jsonl").open("a") as stream:
+            stream.write(json.dumps(record, sort_keys=True) + "\n")
 
     def _append_train_metrics_jsonl(self, logs_dict: dict[str, Any]) -> None:
         """Persist per-step scalar training metrics to train_metrics.jsonl.

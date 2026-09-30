@@ -6,6 +6,7 @@ Use the CPU environment in the [README](README.md#quick-start-cpu-checks), then 
 make check
 make conformance
 make boundary
+make resume
 python examples/replay_loss.py
 ```
 
@@ -26,6 +27,8 @@ The strict recipe contract is in `src/remax/recipes.py` and `recipe_types.py`. R
 Keep frozen evidence immutable. New analyses, recipes, exclusions, or protocol revisions need their own identities. Do not update expected result files simply to make a numerical check pass. Preserve original copyright notices and source attribution.
 
 The public package should support CPU objective testing without installing OAT, vLLM, or DeepSpeed. Keep GPU integration dependencies in the `train` extra. Treat removed historical learner branches as scientific refactors requiring equivalence checks, not automatic cleanup.
+
+Resume changes must preserve model/optimizer/scheduler state, RNG streams, data and replay cursors, and evaluation cadence. Run `make resume`; changes to supported GPU recovery additionally need the real-runtime comparison in `ops/resume_gpu.py`. Declare tolerances before running, and keep decision/bank comparisons exact. Changing sampling protocol, identity normalization, or checkpoint boundaries needs an explicit compatibility explanation.
 
 ## Changes and issues
 
