@@ -11,7 +11,6 @@ import torch
 
 from remax import launcher
 from remax import launch_record
-from remax.input_identity import registry
 
 
 def test_bundled_assets_match_release_sources():
@@ -76,13 +75,6 @@ def test_training_runtime_requires_qualified_cuda(monkeypatch, cuda):
     monkeypatch.setattr(platform, "python_implementation", lambda: "CPython")
     monkeypatch.setattr(metadata, "version", versions.__getitem__)
 
-    class Distribution:
-        def read_text(self, name):
-            return json.dumps(
-                {"vcs_info": {"commit_id": registry()["modebench_commit"]}}
-            )
-
-    monkeypatch.setattr(metadata, "distribution", lambda _: Distribution())
     monkeypatch.setattr(torch.version, "cuda", cuda)
     if cuda == "12.4":
         assert launch_record.validate_runtime() == versions

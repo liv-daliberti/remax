@@ -197,7 +197,6 @@ def finalize_launch(args) -> bool:
 def validate_runtime() -> dict[str, str]:
     """The maintained training runtime is intentionally narrower than the core API."""
     import platform
-    from .input_identity import registry
 
     if (
         sys.version_info[:2] != (3, 10)
@@ -231,13 +230,9 @@ def validate_runtime() -> dict[str, str]:
             raise ValueError(
                 f"incompatible {name}: expected {version}, installed {actual[name]}"
             )
-    direct = json.loads(
-        metadata.distribution("modebench").read_text("direct_url.json") or "{}"
-    )
-    if direct.get("vcs_info", {}).get("commit_id") != registry()["modebench_commit"]:
-        raise ValueError(
-            "ModeBench must be installed from the immutable commit in pyproject.toml"
-        )
+    from .benchmark_identity import validate_modebench_release
+
+    validate_modebench_release()
     import torch
 
     if torch.version.cuda != "12.4":

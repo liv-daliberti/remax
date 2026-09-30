@@ -8,8 +8,13 @@
     },
     {
       "path": ".github/workflows/check.yml",
-      "sha256": "be48c4171b4699107cec176fc4721d969b86b6faff3775a15429050548746f95",
-      "bytes": 3571
+      "sha256": "53e4e7432ea8e9ed06078efa59bbce8af0c9042f111c55cabc09d4256e802f87",
+      "bytes": 3916
+    },
+    {
+      "path": ".github/workflows/publish.yml",
+      "sha256": "5218dd97f98cd0009661d60f485dc1c6fd0e4fed0a1eda1311a4b84c3f30eb62",
+      "bytes": 5492
     },
     {
       "path": ".gitignore",
@@ -33,13 +38,13 @@
     },
     {
       "path": "Makefile",
-      "sha256": "85f313a4a4bb610d9820c6814b8af5226b723e96e36d5ee46763c401ef89fb47",
-      "bytes": 1060
+      "sha256": "7f614311343dee29abb9b68e6850d4c14c026b969e69ad3e877233386ac030da",
+      "bytes": 1108
     },
     {
       "path": "README.md",
-      "sha256": "130f832d1050daf49cf72ad7627e3a9f59678c05e137e7b44124254612c2273c",
-      "bytes": 11824
+      "sha256": "7c2f93ef60dfb94e9142fc73f31f14f558a86b4abd2a1c64712934e5f8d4d4a4",
+      "bytes": 16964
     },
     {
       "path": "assets/verified-support-story.png",
@@ -243,8 +248,8 @@
     },
     {
       "path": "ops/check_training_reference.py",
-      "sha256": "ff7384b049c9261eaebfa878ad7a006e3844184a9bfd86caca179d6f2be9391e",
-      "bytes": 3904
+      "sha256": "0cb4329244222f1cc52ab1e98f3f693f8a737f6ebebcbfc4d6232ea0889fd39e",
+      "bytes": 3939
     },
     {
       "path": "ops/compare_gpu_recipe.py",
@@ -293,8 +298,13 @@
     },
     {
       "path": "ops/setup_gpu_environment.sh",
-      "sha256": "096804f394c4b68545953b7f154dcb98c046870603b3aaed39acd5334afa740e",
-      "bytes": 1066
+      "sha256": "0719969644e36ad5f618275eb11a49a9a586157d5b39863c1eb75ec75d02795c",
+      "bytes": 1251
+    },
+    {
+      "path": "ops/summarize_performance.py",
+      "sha256": "bf6031cf0f089683c8a8b7556f06122eda4e4f67bd3e45158572542b5c80864d",
+      "bytes": 1286
     },
     {
       "path": "ops/train.sh",
@@ -308,13 +318,13 @@
     },
     {
       "path": "pyproject.toml",
-      "sha256": "9a819a7c98fc87167f17e8bb6a2e92d5103389786babc754a9aa8319e66473da",
-      "bytes": 2198
+      "sha256": "679527284c51c9cedc4f6b990a3ed54d4deb0dcd0ceccca3a2f4f3f2edc80d08",
+      "bytes": 2140
     },
     {
       "path": "requirements-gpu-py310-cu124.txt",
-      "sha256": "0f6821092ffcd3a5a9846c17474042b9d4fd8eed494ac11851c775a7191a139d",
-      "bytes": 5182
+      "sha256": "fe187d43de2f84f3917ad2d540272b14ce44855e633e30d4ea948735e9a5884a",
+      "bytes": 5095
     },
     {
       "path": "src/build_support.py",
@@ -357,6 +367,11 @@
       "bytes": 7277
     },
     {
+      "path": "src/remax/benchmark_identity.py",
+      "sha256": "567470a1ed458498db6dcd334494bbac841a50056730b0681542692c4bb4e3e9",
+      "bytes": 1240
+    },
+    {
       "path": "src/remax/canonical_actions.py",
       "sha256": "a4954284b425a94813614f340451841030e320f5ab3561060bac0ba48810c82a",
       "bytes": 38328
@@ -373,8 +388,8 @@
     },
     {
       "path": "src/remax/cli.py",
-      "sha256": "b32eaddc2bcd1206f64a9d72cd6cf586c5f966b5bf242e6a74f02a956ad8a08e",
-      "bytes": 4405
+      "sha256": "aa26bf18a16eae2943bcb8ed4ceab59efb3023804c684f802242b4f440e4a45d",
+      "bytes": 5707
     },
     {
       "path": "src/remax/core/__init__.py",
@@ -653,8 +668,8 @@
     },
     {
       "path": "src/remax/launch_record.py",
-      "sha256": "633581d20a86e73af4b1eb6c7226e8d36384929cc88b53a1ecdc72c2e743dd83",
-      "bytes": 9122
+      "sha256": "d5539150b0388985d3c0041a1e010aa4a7bce8b19a7400cf21ad7f5fa09e7a27",
+      "bytes": 8859
     },
     {
       "path": "src/remax/launcher.py",
@@ -747,6 +762,11 @@
       "bytes": 3146
     },
     {
+      "path": "src/remax/modebench_release_v1.json",
+      "sha256": "8ab3ef2dfaf393dccde3b4cb367ccc8bef0394d015f49dd35ef6e7159fe941e2",
+      "bytes": 4783
+    },
+    {
       "path": "src/remax/on_policy_maxent.py",
       "sha256": "091a9256ff2bc64c8e158995f6c43235b7aca52cf945f704e15c952cb7108a9d",
       "bytes": 190
@@ -793,8 +813,8 @@
     },
     {
       "path": "src/remax/results.py",
-      "sha256": "bba9581572ee8eccc508344434fa5e0195fd1e3742e74a37b3b5fc8492f34255",
-      "bytes": 7672
+      "sha256": "a115d468000beb1a46a688efc19c13481949347aae60112fc0e5757a534a7ac1",
+      "bytes": 11338
     },
     {
       "path": "src/remax/resume_state.py",
@@ -958,8 +978,8 @@
     },
     {
       "path": "tests/installed/smoke.py",
-      "sha256": "f615130f47ee538f3d12ed69967cae1339f2ea285e893547d4774db76a49cbe6",
-      "bytes": 8230
+      "sha256": "f0fd146fa3d5aedfae98a0c61d5b5ce6ec9fc93237a908cfa624a6d66c592e6c",
+      "bytes": 8765
     },
     {
       "path": "tests/resume_harness.py",
@@ -985,6 +1005,11 @@
       "path": "tests/test_canonical_replay.py",
       "sha256": "90cc7ba3df8542761c6442d99bef8a24a62c4a808e107391a7c38d4547073947",
       "bytes": 11037
+    },
+    {
+      "path": "tests/test_comparisons.py",
+      "sha256": "37cd88f4b1d3891dd875cf15f7b0848387e2410f32011431f15bbe3e80d3eea7",
+      "bytes": 1783
     },
     {
       "path": "tests/test_evaluation_failure_boundary.py",
@@ -1018,13 +1043,18 @@
     },
     {
       "path": "tests/test_package_contract.py",
-      "sha256": "e0c9890af441fe6840de54dc0b75a524c12f0854c9ae47185e69d5ae518981ac",
-      "bytes": 3434
+      "sha256": "2d01946b2391f3deccbd1d2978466a38629a31cf2417321d864ff28a7fb1369e",
+      "bytes": 3135
     },
     {
       "path": "tests/test_public_walkthrough.py",
       "sha256": "50b402e607d66a3e970e8a70ddfab8be6450888a5c519a01cc6f0c345add4335",
       "bytes": 1783
+    },
+    {
+      "path": "tests/test_published_boundary.py",
+      "sha256": "cf88b87abf56991eee1179b4f10bb43558df30c424e6c5fcd5df78062d6d2f6c",
+      "bytes": 1377
     },
     {
       "path": "tests/test_refactor_audit.py",

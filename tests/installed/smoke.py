@@ -55,6 +55,14 @@ class InstalledWorkflow(unittest.TestCase):
                 metadata.version(name)
         self.assertEqual(len(registry()["splits"]), 10)
 
+    def test_published_benchmark_identity_and_comparison(self):
+        from remax.benchmark_identity import validate_modebench_release
+        self.assertEqual(validate_modebench_release()["version"], "0.4.0")
+        report = json.loads(command("remax", "results", "compare", "--level", "level2", "--domain", "pantry_plan", "--json"))
+        row = next(r for r in report["rows"] if r["method"] == "replay_maxrl")
+        self.assertEqual(row["terminal_seeds"], [43, 44, 45, 47])
+        self.assertNotIn("grpo", report["methods"])
+
     def test_documented_commands(self):
         expected = {
             "maxrl_advantages": [[1.0, -1.0]],

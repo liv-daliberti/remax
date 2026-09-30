@@ -13,6 +13,7 @@ mkdir -p "$root/outputs/install-tmp"
 export TMPDIR="${TMPDIR:-$root/outputs/install-tmp}"
 "$bootstrap_python" -m venv "$env_dir"
 "$env_dir/bin/python" -m pip install --no-cache-dir pip==25.2 setuptools==75.8.0 wheel==0.45.1
+"$env_dir/bin/python" -m pip install --no-cache-dir --find-links https://github.com/liv-daliberti/modeBench/releases/download/v0.4.0/modebench-0.4.0-py3-none-any.whl "modebench==0.4.0"
 "$env_dir/bin/python" -m pip install --no-cache-dir -r "$root/requirements-gpu-py310-cu124.txt"
 "$env_dir/bin/python" -m pip install --no-cache-dir --no-deps "$root"
 "$env_dir/bin/python" -m pip check

@@ -58,6 +58,20 @@ def main(argv=None):
     for action in ("show", "reproduce"):
         sub = actions.add_parser(action)
         sub.add_argument("identifier")
+    comparison = actions.add_parser(
+        "compare", help="compare retained terminal scores across methods"
+    )
+    comparison.add_argument("--level", default="level1")
+    comparison.add_argument("--scale", default="qwen05b")
+    comparison.add_argument("--domain")
+    comparison.add_argument(
+        "--reproduce",
+        action="store_true",
+        help="first recompute the entire saved-key archive",
+    )
+    comparison.add_argument(
+        "--json", action="store_true", help="include exact scores and seed identities"
+    )
     args = parser.parse_args(argv)
     try:
         if args.command == "demo":
@@ -76,7 +90,22 @@ def main(argv=None):
         elif args.command == "results":
             from . import results as result_api
 
-            if args.action in ("list", "verify"):
+            if args.action == "compare":
+                report = result_api.compare(
+                    args.level, args.scale, args.domain, recompute=args.reproduce
+                )
+                if args.json:
+                    print(json.dumps(report, indent=2))
+                else:
+                    print(
+                        f"{args.level} / {args.scale}: pass@8 / PCMD [eligible PCMD seeds]"
+                    )
+                    print(result_api.comparison_markdown(report))
+                    print(report["scope"])
+                    print(
+                        f"Saved-key recomputation: {report['numerical_reproduction_performed']}; minimum eligible prompts per seed: {report['min_defined_prompts']}"
+                    )
+            elif args.action in ("list", "verify"):
                 catalog = result_api.load_catalog()
                 if args.action == "list":
                     for package in catalog["packages"]:

@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import hashlib
-import json
 from pathlib import Path
 
 from .recipes import strict_json
@@ -184,3 +183,106 @@ def reproduce(identifier: str, root: Path = ASSETS) -> dict:
         "whole_archive_coverage_checked": actual["coverage"],
         "scope": "Recomputed saved canonical keys. No training, sampling or response regrading.",
     }
+
+
+METHOD_NAMES = {
+    "grpo": "GRPO",
+    "drgrpo": "Dr.GRPO",
+    "replay_drgrpo": "Re:Dr",
+    "maxrl": "MaxRL",
+    "replay_maxrl": "Re:Max",
+}
+DOMAIN_NAMES = {
+    "graph_coloring": "Graph",
+    "countdown": "Countdown",
+    "python_factors": "Python",
+    "mathir": "MathIR",
+    "pantry_plan": "PantryPlan",
+}
+
+
+def compare(
+    level="level1", scale="qwen05b", domain=None, *, recompute=False, root=ASSETS
+):
+    """Compare terminal outcomes with explicit per-metric seed populations."""
+    from statistics import mean
+
+    catalog = load_catalog(root)
+    selected = [
+        p
+        for p in catalog["packages"]
+        if p["status"] == "saved_key_reproducible"
+        and p["id"].split("/")[:2] == [level, scale]
+        and (domain is None or p["id"].split("/")[2] == domain)
+    ]
+    if not selected:
+        raise ValueError(
+            "no saved-key comparison for that level/model/domain; use results list for summary snapshots"
+        )
+    if recompute:
+        # reproduce verifies the entire retained archive in one pass.
+        reproduce(selected[0]["id"], root)
+    methods = [
+        m for m in METHOD_NAMES if any(p["id"].endswith("/" + m) for p in selected)
+    ]
+    domains = [
+        d for d in DOMAIN_NAMES if any(p["id"].split("/")[2] == d for p in selected)
+    ]
+    seeds = read(root, EXPECTED)["seeds"]
+    rows = []
+    for d in domains:
+        for m in methods:
+            cells = [
+                s
+                for s in seeds
+                if (s["level"], s["scale"], s["domain"], s["method"])
+                == (level, scale, d, m)
+            ]
+            terminal = [s for s in cells if s.get("after") is not None]
+            eligible = [s for s in terminal if s["after"]["reportable"]]
+            rows.append(
+                {
+                    "domain": d,
+                    "method": m,
+                    "pass8": mean(s["after"]["pass8"] for s in terminal)
+                    if terminal
+                    else None,
+                    "pcmd": mean(s["after"]["pmd"] for s in eligible)
+                    if eligible
+                    else None,
+                    "terminal_seeds": [s["seed"] for s in terminal],
+                    "pcmd_seeds": [s["seed"] for s in eligible],
+                }
+            )
+    return {
+        "level": level,
+        "scale": scale,
+        "methods": methods,
+        "domains": domains,
+        "rows": rows,
+        "min_defined_prompts": catalog["evaluation_protocol"]["min_defined_prompts"],
+        "numerical_reproduction_performed": recompute,
+        "scope": "Terminal means from included saved-key records; PCMD uses eligible terminal seeds. Missing cells are not imputed. This does not retrain models or regrade responses.",
+    }
+
+
+def comparison_markdown(report):
+    """Render a comparison without hiding missing data or PCMD support."""
+    methods = report["methods"]
+    lines = [
+        "| Domain | " + " | ".join(METHOD_NAMES[m] for m in methods) + " |",
+        "| --- | " + " | ".join("---" for _ in methods) + " |",
+    ]
+    for domain in report["domains"]:
+        entries = []
+        for method in methods:
+            row = next(
+                r
+                for r in report["rows"]
+                if r["domain"] == domain and r["method"] == method
+            )
+            accuracy = "—" if row["pass8"] is None else f"{row['pass8']:.3f}"
+            diversity = "—" if row["pcmd"] is None else f"{row['pcmd']:.3f}"
+            entries.append(f"{accuracy} / {diversity} [{len(row['pcmd_seeds'])}]")
+        lines.append("| " + DOMAIN_NAMES[domain] + " | " + " | ".join(entries) + " |")
+    return "\n".join(lines)

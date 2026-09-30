@@ -76,7 +76,7 @@ def check(root=ROOT, base_ref=None):
         for relative in paths:
             parts = Path(relative).parts
             input_registry = relative.startswith(
-                "src/remax/input_registry_v"
+                ("src/remax/input_registry_v", "src/remax/modebench_release_v")
             ) and relative.endswith(".json")
             result_catalog = relative.startswith("evidence/experiments/catalog_v")
             if (

@@ -2,11 +2,50 @@
 
 **Retain and rehearse the correct solution modes a policy discovers.** Re:Dr adds verified replay to Dr.GRPO; Re:Max adds it to MaxRL. A prompt-local bank stores verified exemplars discovered during training and rehearses their modes uniformly.
 
-[![Re:Max combines fresh MaxRL learning with verified-mode replay to retain discovered modes while finding new ones.](assets/verified-support-story.png)](assets/verified-support-story.png)
+[![Re:Max combines fresh MaxRL learning with verified-mode replay to retain discovered modes while finding new ones.](https://raw.githubusercontent.com/liv-daliberti/remax/v0.1.0/assets/verified-support-story.png)](https://raw.githubusercontent.com/liv-daliberti/remax/v0.1.0/assets/verified-support-story.png)
 
-[Install](#install) · [Train and resume](#train-and-resume) · [API](#public-api) · [Results](#reproduce-results) · [Contributing](#contributing) · [Citation](#citation)
+[Performance](#performance-on-modebench) · [Install](#install) · [Train and resume](#train-and-resume) · [API](#public-api) · [Results](#reproduce-results) · [Contributing](#contributing) · [Citation](#citation)
 
 [ModeBench](https://github.com/liv-daliberti/modeBench) separately supplies datasets, validators, and canonical mode identities. This repository provides the replay method, training integration, 20 Level-1 recipes, and reproducible saved-key analyses.
+
+## Performance on ModeBench
+
+**Qwen2.5-0.5B-Instruct, Level 1**, final recorded step 3072, seeds 43–47, 128 held-out prompts per domain and four groups of eight responses. Each entry is **pass@8 / PCMD [eligible PCMD seeds]**. Larger values mean more tasks solved / more diversity among correct responses.
+
+<!-- remax-performance:start -->
+| Domain | GRPO | Dr.GRPO | Re:Dr | MaxRL | Re:Max |
+| --- | --- | --- | --- | --- | --- |
+| Graph | 0.361 / 0.009 [5] | 0.323 / 0.001 [5] | 0.969 / 0.560 [5] | 0.537 / 0.087 [5] | 0.945 / 0.526 [5] |
+| Countdown | 0.639 / 0.008 [5] | 0.480 / 0.007 [5] | 0.672 / 0.487 [5] | 0.582 / 0.022 [5] | 0.666 / 0.511 [5] |
+| Python | 0.172 / — [0] | 0.172 / — [0] | 0.528 / 0.000 [2] | 0.172 / — [0] | 0.681 / 0.312 [4] |
+| MathIR | 0.460 / 0.002 [5] | 0.512 / 0.001 [5] | 0.796 / 0.018 [5] | 0.445 / 0.000 [5] | 0.789 / 0.006 [5] |
+| PantryPlan | 0.545 / 0.000 [5] | 0.522 / 0.000 [5] | 0.729 / 0.334 [5] | 0.531 / 0.000 [5] | 0.721 / 0.317 [5] |
+<!-- remax-performance:end -->
+
+This preview covers all five domains, with five terminal seeds per method. PCMD includes only seeds with at least 30 eligible prompts; it pools the 32 responses within each prompt, then averages eligible prompts and seeds. Seed populations can differ, so these are descriptive endpoints, not paired treatment-effect estimates. A dash means insufficient support, not zero diversity. The JSON comparison output lists the exact seeds used for each metric. GRPO is a retained historical comparator; the maintained training recipes cover Dr.GRPO, Re:Dr, MaxRL and Re:Max.
+
+```sh
+# Print all five domains, including missing results and PCMD support.
+remax results compare --level level1 --scale qwen05b --reproduce
+# Other retained comparisons; --json includes exact values and seed identities.
+remax results compare --level level1 --scale falcon1b --reproduce
+remax results compare --level level1 --scale qwen3b --reproduce
+remax results compare --level level2 --scale qwen05b --reproduce --json
+```
+
+These commands recompute the saved-key analysis on CPU. They do not regenerate responses or retrain models. [ModeBench's level tables](https://github.com/liv-daliberti/modeBench#levels-and-results) also include untrained models and retained Level-3 summaries, with their different evaluation protocols stated explicitly.
+
+| Comparison | How to run or inspect it | Available scope |
+| --- | --- | --- |
+| Dr.GRPO / Re:Dr / MaxRL / Re:Max | Follow [Train and resume](#train-and-resume), selecting the corresponding bundled recipe | Maintained Level-1 Qwen-0.5B training; historical score equivalence is not established |
+| GRPO; Falcon-1B; Qwen-3B; Level-2 Qwen-0.5B | `remax results compare` above; `remax results show ID` for bindings | Saved-key numerical reproduction |
+| Matched Re:Dr | `remax results show snapshot/matched_redr_20260924` | Summary only |
+| Online RLEP | `remax results show snapshot/online_rlep_20260927` | Summary only |
+| Tuned controls | `remax results show snapshot/tuned_control_stage2_20260927` and `snapshot/tuned_control_sweep_20260927` | Summary only |
+| Replay mechanism ablations | `remax results show snapshot/replay_mechanism_ladder_20260924` | Summary only |
+| Level 3 | `remax results show snapshot/level3_comparison_20260917` | Summary only |
+
+`remax results list` gives all exact IDs. Summary snapshots expose their gaps; `reproduce` refuses them. The repository does not provide verified end-to-end launch recipes for these summary-only comparisons. To check the preview table from a checkout, run `python ops/summarize_performance.py --check`.
 
 ## Install
 
@@ -19,6 +58,8 @@ python3.10 -m venv .venv-cpu
 source .venv-cpu/bin/activate
 python -m pip install --upgrade pip
 python -m pip install 'torch==2.6.0+cpu' --index-url https://download.pytorch.org/whl/cpu
+python -m pip install 'modebench==0.4.0' --find-links \
+  https://github.com/liv-daliberti/modeBench/releases/download/v0.4.0/modebench-0.4.0-py3-none-any.whl
 python -m pip install .
 remax walkthrough
 remax recipes
@@ -26,7 +67,7 @@ remax recipes
 
 `remax walkthrough` grades three saved Countdown responses, retains two verified modes, applies a CPU replay update, and restores bank state. Expect two `correct` responses, one `incorrect`, zero prompt tokens scored, and `parameters_updated` / `bank_restored` both `true`. It needs no model weights or GPU. `remax demo` is a smaller score-gradient example.
 
-The core requires PyTorch 2.6.x, NumPy >=1.26.4,<3, and ModeBench pinned to commit `33cfc3fd1732bd500fe13f13555419557aa248e2`. Git and network access are needed during installation. Commands work outside the checkout without `PYTHONPATH`. To build wheel and sdist artifacts, install `build` and run `python -m build`; no PyPI release is implied.
+The core requires PyTorch 2.6.x, NumPy >=1.26.4,<3, and the qualified `modebench==0.4.0` package. Training preflight checks its code and resource hashes, so altered packages fail even when their version matches. The install command also accepts the tested ModeBench GitHub release while PyPI publication is pending. Commands work outside the checkout without `PYTHONPATH`. To build wheel and sdist artifacts, install `build` and run `python -m build`; the release workflow publishes the exact tested artifacts to [GitHub Releases](https://github.com/liv-daliberti/remax/releases) and PyPI. Once version 0.1.0 is published, `python -m pip install remax-rl==0.1.0` installs the core; install the CPU PyTorch wheel first when using the CPU walkthrough.
 
 ## Train and resume
 
@@ -75,6 +116,19 @@ remax-run outputs/walkthrough.json --data-root outputs/data/pantry_plan \
 ```
 
 Preflight resolves the complete configuration before creating models or workers. Use a fresh output directory for each attempt. `--render-only` offers an explicitly unverified preview on CPU. Wrong inputs, incompatible settings, unknown recipe fields and conflicting inherited environment variables fail before training. Put changes in the recipe JSON.
+
+### Run the four maintained methods
+
+After preparing the same Pantry inputs above, this runs **full-budget** recipes sequentially on the allocated GPU. It is substantially longer than the six-update walkthrough. All four use the same seed, inputs and evaluation settings, and each gets a fresh output directory:
+
+```sh
+for method in drgrpo redr maxrl remax; do
+  remax-run "${method}_pantry_plan_05b" --data-root outputs/data/pantry_plan \
+    --model "$model_path" --seed 43 --output "outputs/comparison/${method}-s43" --execute
+done
+```
+
+Repeat with seeds 44–47 for five runs per method. Other domains use their corresponding materialized data directory and recipe name, listed by `remax recipes`. These are new runs of the maintained methods; the historical endpoints above remain separately identified.
 
 ### Resume explicitly
 
