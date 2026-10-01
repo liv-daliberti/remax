@@ -52,22 +52,18 @@ These commands recompute the saved-key analysis on CPU. They do not regenerate r
 For the core API on Linux x86_64 with Python 3.10–3.12:
 
 ```sh
-git clone https://github.com/liv-daliberti/remax.git
-cd remax
 python3.10 -m venv .venv-cpu
 source .venv-cpu/bin/activate
 python -m pip install --upgrade pip
 python -m pip install 'torch==2.6.0+cpu' --index-url https://download.pytorch.org/whl/cpu
-python -m pip install 'modebench==0.4.0' --find-links \
-  https://github.com/liv-daliberti/modeBench/releases/download/v0.4.0/modebench-0.4.0-py3-none-any.whl
-python -m pip install .
+python -m pip install remax-rl==0.1.1
 remax walkthrough
 remax recipes
 ```
 
 `remax walkthrough` grades three saved Countdown responses, retains two verified modes, applies a CPU replay update, and restores bank state. Expect two `correct` responses, one `incorrect`, zero prompt tokens scored, and `parameters_updated` / `bank_restored` both `true`. It needs no model weights or GPU. `remax demo` is a smaller score-gradient example.
 
-The core requires PyTorch 2.6.x, NumPy >=1.26.4,<3, and the qualified `modebench==0.4.0` package. Training preflight checks its code and resource hashes, so altered packages fail even when their version matches. The install command also accepts the tested ModeBench GitHub release while PyPI publication is pending. Commands work outside the checkout without `PYTHONPATH`. To build wheel and sdist artifacts, install `build` and run `python -m build`; the release workflow publishes the exact tested artifacts to [GitHub Releases](https://github.com/liv-daliberti/remax/releases) and PyPI. Once version 0.1.1 is published, `python -m pip install remax-rl==0.1.1` installs the core; install the CPU PyTorch wheel first when using the CPU walkthrough.
+The core requires PyTorch 2.6.x, NumPy >=1.26.4,<3, and the qualified `modebench==0.4.0` package. Training preflight checks its code and resource hashes, so altered packages fail even when their version matches. Commands work outside the checkout without `PYTHONPATH`. To build wheel and sdist artifacts, install `build` and run `python -m build`; the release workflow publishes the exact tested artifacts to [GitHub Releases](https://github.com/liv-daliberti/remax/releases) and PyPI. The released [ReMax 0.1.1 package](https://pypi.org/project/remax-rl/0.1.1/) installs with `python -m pip install remax-rl==0.1.1`, without Git or a source checkout; install the CPU PyTorch wheel first when using the CPU walkthrough.
 
 ## Train and resume
 
@@ -76,6 +72,8 @@ Use a **separate training environment**. The qualified configuration is Linux x8
 ### Prepare the environment and inputs
 
 ```sh
+git clone https://github.com/liv-daliberti/remax.git
+cd remax
 PYTHON=python3.10 bash ops/setup_gpu_environment.sh .venv-train
 source .venv-train/bin/activate
 remax environment --training
