@@ -35,3 +35,9 @@ quality:
 format:
 	$(PYTHON) -m ruff check --fix src/remax/core
 	$(PYTHON) -m ruff format src/remax/core
+
+.PHONY: docs
+docs:
+	$(PYTHON) -m sphinx -W --keep-going -b doctest docs outputs/docs-doctest
+	$(PYTHON) -m sphinx -n -W --keep-going -b html docs outputs/docs
+	$(PYTHON) ops/check_docs.py outputs/docs

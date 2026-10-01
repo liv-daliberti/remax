@@ -10,3 +10,5 @@ recursive-include evidence *.json *.gz *.sha256
 prune outputs
 prune build
 prune dist
+
+recursive-include docs *.rst *.py *.css *.txt

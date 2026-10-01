@@ -1,5 +1,7 @@
 # Re:Max / Re:Dr
 
+**[Read the user guide](https://liv-daliberti.github.io/remax/)** — installation, walkthroughs, API reference, and reproducibility.
+
 **Retain and rehearse the correct solution modes a policy discovers.** Re:Dr adds verified replay to Dr.GRPO; Re:Max adds it to MaxRL. A prompt-local bank stores verified exemplars discovered during training and rehearses their modes uniformly.
 
 [![Re:Max combines fresh MaxRL learning with verified-mode replay to retain discovered modes while finding new ones.](https://raw.githubusercontent.com/liv-daliberti/remax/v0.1.1/assets/verified-support-story.png)](https://raw.githubusercontent.com/liv-daliberti/remax/v0.1.1/assets/verified-support-story.png)
